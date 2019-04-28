@@ -14,7 +14,19 @@
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/tags/</loc>
+    <lastmod>2019-04-28T01:09:09-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/</loc>
+    <lastmod>2019-04-28T01:09:09-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/tags/vim/</loc>
     <lastmod>2019-04-28T01:09:09-04:00</lastmod>
     <priority>0</priority>
   </url>
@@ -89,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/tags/</loc>
+    <loc>https://wncbb.github.io/series/</loc>
     <priority>0</priority>
   </url>
   
