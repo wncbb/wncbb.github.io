@@ -1,1 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.56.0-DEV" />
 
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>WNCBB&#39;s blog</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="https://wncbb.github.io/index.xml" rel="alternate" type="application/rss+xml" title="WNCBB's blog" />
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="posts">
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/git/cheatsheet/">Cheatsheet</a>
+  </h1>
+  <time datetime="2019-04-28T01:09:09-0400" class="post-date">2019-04-28 01:09:09</time>
+  http://ndpsoftware.com/git-cheatsheet.html
+https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/git/githug/">Githug</a>
+  </h1>
+  <time datetime="2019-04-28T01:06:32-0400" class="post-date">2019-04-28 01:06:32</time>
+  一个练习git的闯关小游戏
+https://github.com/Gazler/githug
+gem install githug
+执行命令 githug
+githug play
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/vim/cmd/">Cmd</a>
+  </h1>
+  <time datetime="2019-04-28T00:52:51-0400" class="post-date">2019-04-28 00:52:51</time>
+  VIM Cmd
+主要依据 spf13/vim
+缓冲区 查看缓冲区 :ls
+删除缓冲区 :bd buffer delete
+跳到指定缓冲区 :b&lt;number&gt;
+跳到指定缓冲区 :b&lt;大概文件名&gt;
+下一个缓冲区 :bn
+上一个缓冲区 :bp
+分屏 水平分屏 :split
+垂直分屏 :vsplit
+分屏切换 &lt;Ctrl&gt;w方向键
+tab tab向后切换 gt
+tab向前切换 gT
+tab按照索引切换 &lt;0-9&gt;gt
+ctrlp 快速检索文件 &lt;Ctrl&gt;p
+在检索文件中上下移动 &lt;Ctrl&gt;j &lt;Ctrl&gt;k
+退出检索 &lt;Esc&gt;
+在新的tab中打开选中文件 &lt;Ctrl&gt;t
+在当前tab中垂直split &lt;Ctrl&gt;v
+在当前tab中水平split&lt;Ctrl&gt;x
+ctrlp翻看历史&lt;Ctrl&gt;p | &lt;Ctrl&gt;n
+关闭tab :q
+快速搜索 鼠标在某个单词上, 同时按下shift与*按键shift*
+tagbar tagbar toggle &lt;leader&gt;tt
+NERDTree 代开/关闭 &lt;Ctrl&gt;e
+easyMotion 快速移动 &lt;leader&gt;&lt;leader&gt;w
+Fugitive git相关操作 查看blame &lt;leader&gt;gb git blame
+  
+  <div class="read-more-link">
+    <a href="/vim/cmd/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/git/merge_commit/">merge commit</a>
+  </h1>
+  <time datetime="2019-02-20T11:20:54&#43;0800" class="post-date">2019-02-20 11:20:54</time>
+  cmd&gt; git log --oneline # output: fe758f9 (HEAD -&gt; master) add C 0aff9e3 add B 99c7474 add A  想要把B与C合并为一个commit:
+cmd&gt; git rebase -i 99c7474 # output pick 0aff9e3 add B pick fe758f9 add C # 修改为: pick 0aff9e3 add B squash fe758f9 add C # 修改提交log为: add B, C cmd&gt; git log # 现在的输出结果 commit b4fa4bc8e49cf8f529b078a94024bb55d99242ab (HEAD -&gt; master) Author: zhanghaining.todd &lt;zhanghaining.todd@bytedance.com&gt; Date: Wed Feb 20 11:23:57 2019 +0800 add B,C commit 99c74744f72559b2f1cffcf250902df497bc8459 Author: zhanghaining.
+  
+  <div class="read-more-link">
+    <a href="/git/merge_commit/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/golang/stand/">Stand</a>
+  </h1>
+  <time datetime="2019-02-15T17:02:12&#43;0800" class="post-date">2019-02-15 17:02:12</time>
+  https://github.com/golang/go/wiki/CodeReviewComments#contexts https://gocn.io/article/1 https://sheepbao.github.io/post/golang_code_specification/ http://colobu.com/2017/02/07/write-idiomatic-golang-codes/
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/flutter/first_app/">First_app</a>
+  </h1>
+  <time datetime="2019-01-25T18:12:39&#43;0800" class="post-date">2019-01-25 18:12:39</time>
+  0x01 Install Dart 参考: https://stackoverflow.com/questions/49286161/how-do-i-install-dart-v2
+brew tap dart-lang/dart brew install dart --devel  0x02 Install Flutter 参考: https://flutter.io/docs/get-started/install/macos
+cd ~/development unzip ~/Downloads/flutter_macos_v1.0.0-stable.zip # add to path export PATH=&quot;$PATH:`pwd`/flutter/bin&quot; # follow those tips flutter doctor  0x03 IDEA 参考: https://flutter.io/docs/get-started/editor?tab=androidstudio
+ Start Android Studio. Open plugin preferences (Preferences &gt; Plugins on macOS, File &gt; Settings &gt; Plugins on Windows &amp; Linux). Select Browse repositories, select the Flutter plugin and click Install.
+  
+  <div class="read-more-link">
+    <a href="/flutter/first_app/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/golang/interface_1/">Golang Interface</a>
+  </h1>
+  <time datetime="2019-01-10T20:54:46&#43;0800" class="post-date">2019-01-10 20:54:46</time>
+  Russ Cox&rsquo;s blog ablout golang interface
+如上图所示。interface分为两部分:
+ itable: 第一部分为原始数据的type信息，第二部分为data符合该interface的函数列表(b的其他方法不会出现)。
+ data: 指向原始的数据。
+  只有这两部分都是nil的时候，才算做nil
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42  package main  type A interface{} type B interface { 	Func() } type SB struct { } func (SB) Func() {} func main() { // a is nil 	var a A if a == nil { println(&#34;a is nil&#34;) } else { println(&#34;a is not nil&#34;) } // b is nil 	var b B if b == nil { println(&#34;b is nil&#34;) } else { println(&#34;b is not nil&#34;) } // b is not nil, 因为b装载的data是nil  // 但是itable却不是nil(sb是有类型的，为SB)，  // 因此不是nil  // go2.
+  
+  <div class="read-more-link">
+    <a href="/golang/interface_1/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/comment_policy/">Comment_policy</a>
+  </h1>
+  <time datetime="2019-01-02T23:15:54&#43;0800" class="post-date">2019-01-02 23:15:54</time>
+  This is a comment poliy.
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/first/">hugo, github.io 搭建个人blog</a>
+  </h1>
+  <time datetime="2018-12-31T15:27:11&#43;0800" class="post-date">2018-12-31 15:27:11</time>
+   0x00 利用hugo, github.io, 搭建个人blog
+0x01 在github上创建仓库: &lt;git user name&gt;.github.io
+0x02 brew install hugo # or go get -u https://github.com/gohugoio/hugo hugo new site &lt;site name&gt; cd &lt;site name&gt; git submodule add &lt;git of the theme you want&gt; themes/&lt;theme name&gt; # 生成静态文件，在public里。然后把public里的文件推到&lt;git user name&gt;.github.io仓库中 hugo  
+  
+</article>
+</div>
+    </main>
+
+    
+  </body>
+</html>
