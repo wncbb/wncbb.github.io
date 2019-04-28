@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flutters on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/flutter/</link>
+    <description>Recent content in Flutters on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 25 Jan 2019 18:12:39 +0800</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/flutter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First_app</title>
+      <link>https://wncbb.github.io/flutter/first_app/</link>
+      <pubDate>Fri, 25 Jan 2019 18:12:39 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/flutter/first_app/</guid>
+      <description>0x01 Install Dart 参考: https://stackoverflow.com/questions/49286161/how-do-i-install-dart-v2
+brew tap dart-lang/dart brew install dart --devel  0x02 Install Flutter 参考: https://flutter.io/docs/get-started/install/macos
+cd ~/development unzip ~/Downloads/flutter_macos_v1.0.0-stable.zip # add to path export PATH=&amp;quot;$PATH:`pwd`/flutter/bin&amp;quot; # follow those tips flutter doctor  0x03 IDEA 参考: https://flutter.io/docs/get-started/editor?tab=androidstudio
+ Start Android Studio. Open plugin preferences (Preferences &amp;gt; Plugins on macOS, File &amp;gt; Settings &amp;gt; Plugins on Windows &amp;amp; Linux). Select Browse repositories, select the Flutter plugin and click Install.</description>
+    </item>
+    
+  </channel>
+</rss>

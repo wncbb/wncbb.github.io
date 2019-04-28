@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gits on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/git/</link>
+    <description>Recent content in Gits on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Apr 2019 01:09:09 -0400</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Cheatsheet</title>
+      <link>https://wncbb.github.io/git/cheatsheet/</link>
+      <pubDate>Sun, 28 Apr 2019 01:09:09 -0400</pubDate>
+      
+      <guid>https://wncbb.github.io/git/cheatsheet/</guid>
+      <description>http://ndpsoftware.com/git-cheatsheet.html
+https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf</description>
+    </item>
+    
+    <item>
+      <title>Githug</title>
+      <link>https://wncbb.github.io/git/githug/</link>
+      <pubDate>Sun, 28 Apr 2019 01:06:32 -0400</pubDate>
+      
+      <guid>https://wncbb.github.io/git/githug/</guid>
+      <description>一个练习git的闯关小游戏
+https://github.com/Gazler/githug
+gem install githug
+执行命令 githug
+githug play</description>
+    </item>
+    
+    <item>
+      <title>merge commit</title>
+      <link>https://wncbb.github.io/git/merge_commit/</link>
+      <pubDate>Wed, 20 Feb 2019 11:20:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/git/merge_commit/</guid>
+      <description>cmd&amp;gt; git log --oneline # output: fe758f9 (HEAD -&amp;gt; master) add C 0aff9e3 add B 99c7474 add A  想要把B与C合并为一个commit:
+cmd&amp;gt; git rebase -i 99c7474 # output pick 0aff9e3 add B pick fe758f9 add C # 修改为: pick 0aff9e3 add B squash fe758f9 add C # 修改提交log为: add B, C cmd&amp;gt; git log # 现在的输出结果 commit b4fa4bc8e49cf8f529b078a94024bb55d99242ab (HEAD -&amp;gt; master) Author: zhanghaining.todd &amp;lt;zhanghaining.todd@bytedance.com&amp;gt; Date: Wed Feb 20 11:23:57 2019 +0800 add B,C commit 99c74744f72559b2f1cffcf250902df497bc8459 Author: zhanghaining.</description>
+    </item>
+    
+  </channel>
+</rss>

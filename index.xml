@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/</link>
+    <description>Recent content on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Apr 2019 01:09:09 -0400</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Cheatsheet</title>
+      <link>https://wncbb.github.io/git/cheatsheet/</link>
+      <pubDate>Sun, 28 Apr 2019 01:09:09 -0400</pubDate>
+      
+      <guid>https://wncbb.github.io/git/cheatsheet/</guid>
+      <description>http://ndpsoftware.com/git-cheatsheet.html
+https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf</description>
+    </item>
+    
+    <item>
+      <title>Githug</title>
+      <link>https://wncbb.github.io/git/githug/</link>
+      <pubDate>Sun, 28 Apr 2019 01:06:32 -0400</pubDate>
+      
+      <guid>https://wncbb.github.io/git/githug/</guid>
+      <description>一个练习git的闯关小游戏
+https://github.com/Gazler/githug
+gem install githug
+执行命令 githug
+githug play</description>
+    </item>
+    
+    <item>
+      <title>Cmd</title>
+      <link>https://wncbb.github.io/vim/cmd/</link>
+      <pubDate>Sun, 28 Apr 2019 00:52:51 -0400</pubDate>
+      
+      <guid>https://wncbb.github.io/vim/cmd/</guid>
+      <description>VIM Cmd
+主要依据 spf13/vim
+缓冲区 查看缓冲区 :ls
+删除缓冲区 :bd buffer delete
+跳到指定缓冲区 :b&amp;lt;number&amp;gt;
+跳到指定缓冲区 :b&amp;lt;大概文件名&amp;gt;
+下一个缓冲区 :bn
+上一个缓冲区 :bp
+分屏 水平分屏 :split
+垂直分屏 :vsplit
+分屏切换 &amp;lt;Ctrl&amp;gt;w方向键
+tab tab向后切换 gt
+tab向前切换 gT
+tab按照索引切换 &amp;lt;0-9&amp;gt;gt
+ctrlp 快速检索文件 &amp;lt;Ctrl&amp;gt;p
+在检索文件中上下移动 &amp;lt;Ctrl&amp;gt;j &amp;lt;Ctrl&amp;gt;k
+退出检索 &amp;lt;Esc&amp;gt;
+在新的tab中打开选中文件 &amp;lt;Ctrl&amp;gt;t
+在当前tab中垂直split &amp;lt;Ctrl&amp;gt;v
+在当前tab中水平split&amp;lt;Ctrl&amp;gt;x
+ctrlp翻看历史&amp;lt;Ctrl&amp;gt;p | &amp;lt;Ctrl&amp;gt;n
+关闭tab :q
+快速搜索 鼠标在某个单词上, 同时按下shift与*按键shift*
+tagbar tagbar toggle &amp;lt;leader&amp;gt;tt
+NERDTree 代开/关闭 &amp;lt;Ctrl&amp;gt;e
+easyMotion 快速移动 &amp;lt;leader&amp;gt;&amp;lt;leader&amp;gt;w
+Fugitive git相关操作 查看blame &amp;lt;leader&amp;gt;gb git blame</description>
+    </item>
+    
+    <item>
+      <title>merge commit</title>
+      <link>https://wncbb.github.io/git/merge_commit/</link>
+      <pubDate>Wed, 20 Feb 2019 11:20:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/git/merge_commit/</guid>
+      <description>cmd&amp;gt; git log --oneline # output: fe758f9 (HEAD -&amp;gt; master) add C 0aff9e3 add B 99c7474 add A  想要把B与C合并为一个commit:
+cmd&amp;gt; git rebase -i 99c7474 # output pick 0aff9e3 add B pick fe758f9 add C # 修改为: pick 0aff9e3 add B squash fe758f9 add C # 修改提交log为: add B, C cmd&amp;gt; git log # 现在的输出结果 commit b4fa4bc8e49cf8f529b078a94024bb55d99242ab (HEAD -&amp;gt; master) Author: zhanghaining.todd &amp;lt;zhanghaining.todd@bytedance.com&amp;gt; Date: Wed Feb 20 11:23:57 2019 +0800 add B,C commit 99c74744f72559b2f1cffcf250902df497bc8459 Author: zhanghaining.</description>
+    </item>
+    
+    <item>
+      <title>Stand</title>
+      <link>https://wncbb.github.io/golang/stand/</link>
+      <pubDate>Fri, 15 Feb 2019 17:02:12 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/golang/stand/</guid>
+      <description>https://github.com/golang/go/wiki/CodeReviewComments#contexts https://gocn.io/article/1 https://sheepbao.github.io/post/golang_code_specification/ http://colobu.com/2017/02/07/write-idiomatic-golang-codes/</description>
+    </item>
+    
+    <item>
+      <title>First_app</title>
+      <link>https://wncbb.github.io/flutter/first_app/</link>
+      <pubDate>Fri, 25 Jan 2019 18:12:39 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/flutter/first_app/</guid>
+      <description>0x01 Install Dart 参考: https://stackoverflow.com/questions/49286161/how-do-i-install-dart-v2
+brew tap dart-lang/dart brew install dart --devel  0x02 Install Flutter 参考: https://flutter.io/docs/get-started/install/macos
+cd ~/development unzip ~/Downloads/flutter_macos_v1.0.0-stable.zip # add to path export PATH=&amp;quot;$PATH:`pwd`/flutter/bin&amp;quot; # follow those tips flutter doctor  0x03 IDEA 参考: https://flutter.io/docs/get-started/editor?tab=androidstudio
+ Start Android Studio. Open plugin preferences (Preferences &amp;gt; Plugins on macOS, File &amp;gt; Settings &amp;gt; Plugins on Windows &amp;amp; Linux). Select Browse repositories, select the Flutter plugin and click Install.</description>
+    </item>
+    
+    <item>
+      <title>Golang Interface</title>
+      <link>https://wncbb.github.io/golang/interface_1/</link>
+      <pubDate>Thu, 10 Jan 2019 20:54:46 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/golang/interface_1/</guid>
+      <description>Russ Cox&amp;rsquo;s blog ablout golang interface
+如上图所示。interface分为两部分:
+ itable: 第一部分为原始数据的type信息，第二部分为data符合该interface的函数列表(b的其他方法不会出现)。
+ data: 指向原始的数据。
+  只有这两部分都是nil的时候，才算做nil
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42  package main  type A interface{} type B interface { 	Func() } type SB struct { } func (SB) Func() {} func main() { // a is nil 	var a A if a == nil { println(&amp;#34;a is nil&amp;#34;) } else { println(&amp;#34;a is not nil&amp;#34;) } // b is nil 	var b B if b == nil { println(&amp;#34;b is nil&amp;#34;) } else { println(&amp;#34;b is not nil&amp;#34;) } // b is not nil, 因为b装载的data是nil  // 但是itable却不是nil(sb是有类型的，为SB)，  // 因此不是nil  // go2.</description>
+    </item>
+    
+    <item>
+      <title>Comment_policy</title>
+      <link>https://wncbb.github.io/posts/comment_policy/</link>
+      <pubDate>Wed, 02 Jan 2019 23:15:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/comment_policy/</guid>
+      <description>This is a comment poliy.</description>
+    </item>
+    
+    <item>
+      <title>hugo, github.io 搭建个人blog</title>
+      <link>https://wncbb.github.io/posts/first/</link>
+      <pubDate>Mon, 31 Dec 2018 15:27:11 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/first/</guid>
+      <description> 0x00 利用hugo, github.io, 搭建个人blog
+0x01 在github上创建仓库: &amp;lt;git user name&amp;gt;.github.io
+0x02 brew install hugo # or go get -u https://github.com/gohugoio/hugo hugo new site &amp;lt;site name&amp;gt; cd &amp;lt;site name&amp;gt; git submodule add &amp;lt;git of the theme you want&amp;gt; themes/&amp;lt;theme name&amp;gt; # 生成静态文件，在public里。然后把public里的文件推到&amp;lt;git user name&amp;gt;.github.io仓库中 hugo  </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vims on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/vim/</link>
+    <description>Recent content in Vims on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Apr 2019 00:52:51 -0400</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Cmd</title>
+      <link>https://wncbb.github.io/vim/cmd/</link>
+      <pubDate>Sun, 28 Apr 2019 00:52:51 -0400</pubDate>
+      
+      <guid>https://wncbb.github.io/vim/cmd/</guid>
+      <description>VIM Cmd
+主要依据 spf13/vim
+缓冲区 查看缓冲区 :ls
+删除缓冲区 :bd buffer delete
+跳到指定缓冲区 :b&amp;lt;number&amp;gt;
+跳到指定缓冲区 :b&amp;lt;大概文件名&amp;gt;
+下一个缓冲区 :bn
+上一个缓冲区 :bp
+分屏 水平分屏 :split
+垂直分屏 :vsplit
+分屏切换 &amp;lt;Ctrl&amp;gt;w方向键
+tab tab向后切换 gt
+tab向前切换 gT
+tab按照索引切换 &amp;lt;0-9&amp;gt;gt
+ctrlp 快速检索文件 &amp;lt;Ctrl&amp;gt;p
+在检索文件中上下移动 &amp;lt;Ctrl&amp;gt;j &amp;lt;Ctrl&amp;gt;k
+退出检索 &amp;lt;Esc&amp;gt;
+在新的tab中打开选中文件 &amp;lt;Ctrl&amp;gt;t
+在当前tab中垂直split &amp;lt;Ctrl&amp;gt;v
+在当前tab中水平split&amp;lt;Ctrl&amp;gt;x
+ctrlp翻看历史&amp;lt;Ctrl&amp;gt;p | &amp;lt;Ctrl&amp;gt;n
+关闭tab :q
+快速搜索 鼠标在某个单词上, 同时按下shift与*按键shift*
+tagbar tagbar toggle &amp;lt;leader&amp;gt;tt
+NERDTree 代开/关闭 &amp;lt;Ctrl&amp;gt;e
+easyMotion 快速移动 &amp;lt;leader&amp;gt;&amp;lt;leader&amp;gt;w
+Fugitive git相关操作 查看blame &amp;lt;leader&amp;gt;gb git blame</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/posts/</link>
+    <description>Recent content in Posts on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Jan 2019 23:15:54 +0800</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Comment_policy</title>
+      <link>https://wncbb.github.io/posts/comment_policy/</link>
+      <pubDate>Wed, 02 Jan 2019 23:15:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/comment_policy/</guid>
+      <description>This is a comment poliy.</description>
+    </item>
+    
+    <item>
+      <title>hugo, github.io 搭建个人blog</title>
+      <link>https://wncbb.github.io/posts/first/</link>
+      <pubDate>Mon, 31 Dec 2018 15:27:11 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/first/</guid>
+      <description> 0x00 利用hugo, github.io, 搭建个人blog
+0x01 在github上创建仓库: &amp;lt;git user name&amp;gt;.github.io
+0x02 brew install hugo # or go get -u https://github.com/gohugoio/hugo hugo new site &amp;lt;site name&amp;gt; cd &amp;lt;site name&amp;gt; git submodule add &amp;lt;git of the theme you want&amp;gt; themes/&amp;lt;theme name&amp;gt; # 生成静态文件，在public里。然后把public里的文件推到&amp;lt;git user name&amp;gt;.github.io仓库中 hugo  </description>
+    </item>
+    
+  </channel>
+</rss>
