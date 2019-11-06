@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo Web Dev on WNCBB&#39;s blog</title>
+    <link>http://wncbb.github.io/series/hugo-web-dev/</link>
+    <description>Recent content in Hugo Web Dev on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 06 Nov 2019 18:52:24 +0800</lastBuildDate>
+    
+	<atom:link href="http://wncbb.github.io/series/hugo-web-dev/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to create hugo site</title>
+      <link>http://wncbb.github.io/posts/how_to_create/</link>
+      <pubDate>Wed, 06 Nov 2019 18:52:24 +0800</pubDate>
+      
+      <guid>http://wncbb.github.io/posts/how_to_create/</guid>
+      <description>0x00 basic commands 1go get -u -v github.com/spf13/hugo 2hugo new site &amp;lt;directory&amp;gt; 3git init 4git submodule add https://github.com/spf13/hyde.git themes/hyde 5hugo new posts/how-to-create.md 0x01 config.toml 1baseURL = &amp;#34;http://wncbb.github.io/&amp;#34; 2languageCode = &amp;#34;en-us&amp;#34; 3title = &amp;#34;WNCBB&amp;#39;s blog&amp;#34; 4theme = &amp;#34;hyde&amp;#34; 5 6[Menus] 7 main = [ 8 {Name = &amp;#34;Github&amp;#34;, URL = &amp;#34;https://github.com/wncbb/&amp;#34;}, 9 ] 10[params] 11 description = &amp;#34;A man is only as good as what he loves&amp;#34; 12 themeColor = &amp;#34;theme-base-0c&amp;#34; 13 layoutReverse = true 0x02 codes highlight https://gohugo.</description>
+    </item>
+    
+  </channel>
+</rss>
