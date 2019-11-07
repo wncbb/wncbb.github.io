@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/go/</link>
+    <description>Recent content in go on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 Nov 2019 22:06:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Slice</title>
+      <link>https://wncbb.github.io/golang/slice/</link>
+      <pubDate>Thu, 07 Nov 2019 22:06:32 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/golang/slice/</guid>
+      <description>The struct of slice in go: 1type slice struct { 2	array unsafe.Pointer 3	len int 4	cap int 5}
+1package main 2 3import &amp;#34;fmt&amp;#34; 4 5func main() { 6	a := make([]int, 10, 20) 7	for i := 0; i &amp;lt; 10; i = i + 1 { 8	a[i] = i 9	} 10 11	// means the length of b is 6-3=3, the capicity is 9-3=6 12	b := a[3:6:9] 13	// len(b)=3 14	fmt.</description>
+    </item>
+    
+  </channel>
+</rss>

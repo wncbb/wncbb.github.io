@@ -3,6 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wncbb.github.io/categories/</loc>
+    <lastmod>2019-11-07T22:06:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/golang/</loc>
     <lastmod>2019-11-07T22:06:32+08:00</lastmod>
     <priority>0</priority>
@@ -15,6 +21,12 @@
   
   <url>
     <loc>https://wncbb.github.io/</loc>
+    <lastmod>2019-11-07T22:06:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/categories/go/</loc>
     <lastmod>2019-11-07T22:06:32+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -39,11 +51,6 @@
   <url>
     <loc>https://wncbb.github.io/series/</loc>
     <lastmod>2018-10-06T18:52:24+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
