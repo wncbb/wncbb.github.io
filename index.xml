@@ -23,6 +23,16 @@ doc: https://www.tensorflow.org/tfx/serving/docker</description>
     </item>
     
     <item>
+      <title>Slice_1</title>
+      <link>http://wncbb.github.io/posts/golang/slice_1/</link>
+      <pubDate>Thu, 07 Nov 2019 22:06:32 +0800</pubDate>
+      
+      <guid>http://wncbb.github.io/posts/golang/slice_1/</guid>
+      <description>The struct of slice in go: 1type slice struct { 2	array unsafe.Pointer 3	len int 4	cap int 5}
+1package main 2 3import &amp;#34;fmt&amp;#34; 4 5func main() { 6	a := make([]int, 10, 20) 7	for i := 0; i &amp;lt; 10; i = i + 1 { 8	a[i] = i 9	} 10 11	// means the length of b is 6-3=3, the capicity is 9-3=6 12	b := a[3:6:9] 13	// len(b)=3 14	fmt.</description>
+    </item>
+    
+    <item>
       <title>How to create hugo site</title>
       <link>http://wncbb.github.io/posts/how_to_create/</link>
       <pubDate>Sat, 06 Oct 2018 18:52:24 +0800</pubDate>

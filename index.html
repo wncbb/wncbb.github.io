@@ -62,6 +62,18 @@ doc: https://www.tensorflow.org/tfx/serving/docker
   
 </article><article class="post">
   <h1 class="post-title">
+    <a href="http://wncbb.github.io/posts/golang/slice_1/">Slice_1</a>
+  </h1>
+  <time datetime="2019-11-07T22:06:32&#43;0800" class="post-date">2019-11-07 22:06:32</time>
+  The struct of slice in go: 1type slice struct { 2	array unsafe.Pointer 3	len int 4	cap int 5}
+1package main 2 3import &#34;fmt&#34; 4 5func main() { 6	a := make([]int, 10, 20) 7	for i := 0; i &lt; 10; i = i + 1 { 8	a[i] = i 9	} 10 11	// means the length of b is 6-3=3, the capicity is 9-3=6 12	b := a[3:6:9] 13	// len(b)=3 14	fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/golang/slice_1/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="http://wncbb.github.io/posts/how_to_create/">How to create hugo site</a>
   </h1>
   <time datetime="2018-10-06T18:52:24&#43;0800" class="post-date">2018-10-06 18:52:24</time>

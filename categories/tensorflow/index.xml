@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tensorflow on WNCBB&#39;s blog</title>
+    <link>http://wncbb.github.io/categories/tensorflow/</link>
+    <description>Recent content in tensorflow on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Nov 2019 14:34:39 +0800</lastBuildDate>
+    
+	<atom:link href="http://wncbb.github.io/categories/tensorflow/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Serving_1</title>
+      <link>http://wncbb.github.io/posts/tensorflow/serving_1/</link>
+      <pubDate>Fri, 15 Nov 2019 14:34:39 +0800</pubDate>
+      
+      <guid>http://wncbb.github.io/posts/tensorflow/serving_1/</guid>
+      <description>Install tensorflow https://docs.python.org/3/library/venv.html
+python3 -m venv &amp;lt;path&amp;gt; source &amp;lt;path&amp;gt;/bin/activate pip install tensorflow==&amp;lt;version&amp;gt;  Use tensorflow/serving git: https://github.com/tensorflow/serving
+doc: https://www.tensorflow.org/tfx/serving/docker</description>
+    </item>
+    
+  </channel>
+</rss>
