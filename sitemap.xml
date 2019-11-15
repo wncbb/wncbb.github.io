@@ -3,59 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2019-11-07T22:06:32+08:00</lastmod>
+    <loc>http://wncbb.github.io/posts/</loc>
+    <lastmod>2019-11-15T14:34:39+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/golang/</loc>
-    <lastmod>2019-11-07T22:06:32+08:00</lastmod>
+    <loc>http://wncbb.github.io/posts/tensorflow/serving_1/</loc>
+    <lastmod>2019-11-15T14:34:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://wncbb.github.io/</loc>
+    <lastmod>2019-11-15T14:34:39+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/golang/slice/</loc>
-    <lastmod>2019-11-07T22:06:32+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/</loc>
-    <lastmod>2019-11-07T22:06:32+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/categories/go/</loc>
-    <lastmod>2019-11-07T22:06:32+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/posts/how_to_create/</loc>
+    <loc>http://wncbb.github.io/posts/how_to_create/</loc>
     <lastmod>2018-10-06T18:52:24+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/series/hugo-web-dev/</loc>
+    <loc>http://wncbb.github.io/series/hugo-web-dev/</loc>
     <lastmod>2018-10-06T18:52:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/posts/</loc>
+    <loc>http://wncbb.github.io/series/</loc>
     <lastmod>2018-10-06T18:52:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2018-10-06T18:52:24+08:00</lastmod>
+    <loc>http://wncbb.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/tags/</loc>
+    <loc>http://wncbb.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   

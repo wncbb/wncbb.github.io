@@ -2,23 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on WNCBB&#39;s blog</title>
-    <link>https://wncbb.github.io/categories/</link>
+    <link>http://wncbb.github.io/categories/</link>
     <description>Recent content in Categories on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Nov 2019 22:06:32 +0800</lastBuildDate>
     
-	<atom:link href="https://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>go</title>
-      <link>https://wncbb.github.io/categories/go/</link>
-      <pubDate>Thu, 07 Nov 2019 22:06:32 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/categories/go/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

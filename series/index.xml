@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on WNCBB&#39;s blog</title>
-    <link>https://wncbb.github.io/series/</link>
+    <link>http://wncbb.github.io/series/</link>
     <description>Recent content in Series on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Oct 2018 18:52:24 +0800</lastBuildDate>
     
-	<atom:link href="https://wncbb.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://wncbb.github.io/series/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hugo Web Dev</title>
-      <link>https://wncbb.github.io/series/hugo-web-dev/</link>
+      <link>http://wncbb.github.io/series/hugo-web-dev/</link>
       <pubDate>Sat, 06 Oct 2018 18:52:24 +0800</pubDate>
       
-      <guid>https://wncbb.github.io/series/hugo-web-dev/</guid>
+      <guid>http://wncbb.github.io/series/hugo-web-dev/</guid>
       <description></description>
     </item>
     
