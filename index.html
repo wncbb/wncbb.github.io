@@ -53,12 +53,28 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="http://wncbb.github.io/posts/docker/common/">Common</a>
+  </h1>
+  <time datetime="2019-11-15T15:48:28&#43;0800" class="post-date">2019-11-15 15:48:28</time>
+  docker ps docker ps -a docker container ls docker container ls -a docker container prune docker run -p 8501:8501 \ --mount type=bind,\ source=/tmp/tfserving/serving/tensorflow_serving/servables/tensorflow/testdata/saved_model_half_plus_two_cpu,\ target=/models/half_plus_two \ -e MODEL_NAME=half_plus_two -t tensorflow/serving &amp;  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="http://wncbb.github.io/posts/docker/volume/">Volume</a>
+  </h1>
+  <time datetime="2019-11-15T15:41:03&#43;0800" class="post-date">2019-11-15 15:41:03</time>
+  docker volume create &lt;volume name&gt; docker volume ls docker volume inspect &lt;volume name&gt;  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="http://wncbb.github.io/posts/tensorflow/serving_1/">Serving_1</a>
   </h1>
   <time datetime="2019-11-15T14:34:39&#43;0800" class="post-date">2019-11-15 14:34:39</time>
-  Install tensorflow https://docs.python.org/3/library/venv.html
+   Install tensorflow https://docs.python.org/3/library/venv.html
 python3 -m venv &lt;path&gt; source &lt;path&gt;/bin/activate pip install tensorflow==&lt;version&gt;  Use tensorflow/serving git: https://github.com/tensorflow/serving
 doc: https://www.tensorflow.org/tfx/serving/docker
+Multi Version(hot reload), Multi Model(cold reload) docker run -t --rm -p 8501:8501 \ -v &quot;$TESTDATA:/models&quot; -d \ -t tensorflow/serving --model_config_file=/models/models.config  models.config
+model_config_list:{ config:{ name:&quot;hello-world&quot;, base_path:&quot;/models/hello-world&quot;, model_platform:&quot;tensorflow&quot;, model_version_policy:{ all:{} } }, config:{ name:&quot;modelA&quot;, base_path:&quot;/models/modelA&quot;, model_platform:&quot;tensorflow&quot;, model_version_policy:{ all:{} } } }  
   
 </article><article class="post">
   <h1 class="post-title">

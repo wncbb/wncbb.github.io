@@ -17,9 +17,11 @@
       <pubDate>Fri, 15 Nov 2019 14:34:39 +0800</pubDate>
       
       <guid>http://wncbb.github.io/posts/tensorflow/serving_1/</guid>
-      <description>Install tensorflow https://docs.python.org/3/library/venv.html
+      <description> Install tensorflow https://docs.python.org/3/library/venv.html
 python3 -m venv &amp;lt;path&amp;gt; source &amp;lt;path&amp;gt;/bin/activate pip install tensorflow==&amp;lt;version&amp;gt;  Use tensorflow/serving git: https://github.com/tensorflow/serving
-doc: https://www.tensorflow.org/tfx/serving/docker</description>
+doc: https://www.tensorflow.org/tfx/serving/docker
+Multi Version(hot reload), Multi Model(cold reload) docker run -t --rm -p 8501:8501 \ -v &amp;quot;$TESTDATA:/models&amp;quot; -d \ -t tensorflow/serving --model_config_file=/models/models.config  models.config
+model_config_list:{ config:{ name:&amp;quot;hello-world&amp;quot;, base_path:&amp;quot;/models/hello-world&amp;quot;, model_platform:&amp;quot;tensorflow&amp;quot;, model_version_policy:{ all:{} } }, config:{ name:&amp;quot;modelA&amp;quot;, base_path:&amp;quot;/models/modelA&amp;quot;, model_platform:&amp;quot;tensorflow&amp;quot;, model_version_policy:{ all:{} } } }  </description>
     </item>
     
   </channel>
