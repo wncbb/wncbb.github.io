@@ -6,10 +6,29 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Jan 2020 15:45:10 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jan 2020 17:53:40 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DFS</title>
+      <link>https://wncbb.github.io/posts/algo/dfs/</link>
+      <pubDate>Sun, 19 Jan 2020 17:53:40 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/dfs/</guid>
+      <description>DFS(G) for each u in G.V u.color=WHITE u.parent=nil time=0 for each u in G.V if u.color==WHITE DFS-Visit(G, u) DFS-Visit(G, u) time=time+1 u.displayTime=time u.color=GRAY for each v in G.Adj[u] if v.color==WHITE v.parent=u DFS-Visit(G, v) u.color=BLACK time=time+1 u.finishTime=time  </description>
+    </item>
+    
+    <item>
+      <title>BFS</title>
+      <link>https://wncbb.github.io/posts/algo/bfs/</link>
+      <pubDate>Sun, 19 Jan 2020 17:41:20 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/bfs/</guid>
+      <description>WHITE: before join the queue GRAY: in the queue BLACK: pop from queue, and after visit all the children
+BFS(G, s) for each u in (G.V-{s}) u.color=WHITE u.d=inf u.parent=nil s.color=GRAY s.d=0 s.parent=nil ENQUEUE(Q, s) while Q is not empty: u=DEQUEUE(Q) for each v in G.Adj(u) if v.color=WHITE v.color=GRAY v.d=u.d+1 v.parent=u ENQUEUE(Q, v) u.color=BLACK  </description>
+    </item>
     
     <item>
       <title>Bellman Ford</title>
