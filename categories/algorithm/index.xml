@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>algorithm on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/algorithm/</link>
+    <description>Recent content in algorithm on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Jan 2020 15:05:01 +0800</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>dijkstra</title>
+      <link>https://wncbb.github.io/posts/algo/dijkstra/</link>
+      <pubDate>Sun, 19 Jan 2020 15:05:01 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/dijkstra/</guid>
+      <description>1from collections import defaultdict 2from heapq import * 3 4def dijkstra(edges, fromV, toV): 5 g=defaultdict(list) 6 for src, dst, cost in edges: 7 g[src].append((cost, dst)) 8 9 q, seen, mins=[(0, fromV, [])], set(), {fromV: 0} 10 while q: 11 (cost, src, path)=heappop(q) 12 if src not in seen: 13 seen.add(src) 14 path.append(src) 15 if src==toV: 16 return (cost, path) 17 for w, dst in g.get(src, []): 18 if dst in seen: 19 continue 20 oldCostForDst=mins.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -12,10 +12,10 @@
   <meta name="description" content="A man is only as good as what he loves" />
 
   
-  <link type="text/css" rel="stylesheet" href="http://wncbb.github.io/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="http://wncbb.github.io/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="http://wncbb.github.io/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="http://wncbb.github.io/css/hyde.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
@@ -24,7 +24,7 @@
   <link rel="shortcut icon" href="/favicon.png">
 
   
-  <link href="http://wncbb.github.io/index.xml" rel="alternate" type="application/rss+xml" title="WNCBB's blog" />
+  <link href="https://wncbb.github.io/index.xml" rel="alternate" type="application/rss+xml" title="WNCBB's blog" />
   
 </head>
 
@@ -32,7 +32,7 @@
   <aside class="sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
-      <a href="http://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
       <p class="lead">
        A man is only as good as what he loves 
       </p>
@@ -40,12 +40,12 @@
 
     <nav>
       <ul class="sidebar-nav">
-        <li><a href="http://wncbb.github.io/">Home</a> </li>
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
         <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li>
       </ul>
     </nav>
 
-    <p>&copy; 2019. All rights reserved. </p>
+    <p>&copy; 2020. All rights reserved. </p>
   </div>
 </aside>
 
@@ -53,21 +53,32 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
-    <a href="http://wncbb.github.io/posts/docker/common/">Common</a>
+    <a href="https://wncbb.github.io/posts/algo/dijkstra/">dijkstra</a>
+  </h1>
+  <time datetime="2020-01-19T15:05:01&#43;0800" class="post-date">2020-01-19 15:05:01</time>
+  1from collections import defaultdict 2from heapq import * 3 4def dijkstra(edges, fromV, toV): 5 g=defaultdict(list) 6 for src, dst, cost in edges: 7 g[src].append((cost, dst)) 8 9 q, seen, mins=[(0, fromV, [])], set(), {fromV: 0} 10 while q: 11 (cost, src, path)=heappop(q) 12 if src not in seen: 13 seen.add(src) 14 path.append(src) 15 if src==toV: 16 return (cost, path) 17 for w, dst in g.get(src, []): 18 if dst in seen: 19 continue 20 oldCostForDst=mins.
+  
+  <div class="read-more-link">
+    <a href="/posts/algo/dijkstra/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/docker/common/">Common</a>
   </h1>
   <time datetime="2019-11-15T15:48:28&#43;0800" class="post-date">2019-11-15 15:48:28</time>
   docker ps docker ps -a docker container ls docker container ls -a docker container prune docker run -p 8501:8501 \ --mount type=bind,\ source=/tmp/tfserving/serving/tensorflow_serving/servables/tensorflow/testdata/saved_model_half_plus_two_cpu,\ target=/models/half_plus_two \ -e MODEL_NAME=half_plus_two -t tensorflow/serving &amp;  
   
 </article><article class="post">
   <h1 class="post-title">
-    <a href="http://wncbb.github.io/posts/docker/volume/">Volume</a>
+    <a href="https://wncbb.github.io/posts/docker/volume/">Volume</a>
   </h1>
   <time datetime="2019-11-15T15:41:03&#43;0800" class="post-date">2019-11-15 15:41:03</time>
   docker volume create &lt;volume name&gt; docker volume ls docker volume inspect &lt;volume name&gt;  
   
 </article><article class="post">
   <h1 class="post-title">
-    <a href="http://wncbb.github.io/posts/tensorflow/serving_1/">Serving_1</a>
+    <a href="https://wncbb.github.io/posts/tensorflow/serving_1/">Serving_1</a>
   </h1>
   <time datetime="2019-11-15T14:34:39&#43;0800" class="post-date">2019-11-15 14:34:39</time>
    Install tensorflow https://docs.python.org/3/library/venv.html
@@ -78,7 +89,7 @@ model_config_list:{ config:{ name:&quot;hello-world&quot;, base_path:&quot;/mode
   
 </article><article class="post">
   <h1 class="post-title">
-    <a href="http://wncbb.github.io/posts/golang/slice_1/">Slice_1</a>
+    <a href="https://wncbb.github.io/posts/golang/slice_1/">Slice_1</a>
   </h1>
   <time datetime="2019-11-07T22:06:32&#43;0800" class="post-date">2019-11-07 22:06:32</time>
   The struct of slice in go: 1type slice struct { 2	array unsafe.Pointer 3	len int 4	cap int 5}
@@ -90,7 +101,7 @@ model_config_list:{ config:{ name:&quot;hello-world&quot;, base_path:&quot;/mode
   
 </article><article class="post">
   <h1 class="post-title">
-    <a href="http://wncbb.github.io/posts/how_to_create/">How to create hugo site</a>
+    <a href="https://wncbb.github.io/posts/how_to_create/">How to create hugo site</a>
   </h1>
   <time datetime="2018-10-06T18:52:24&#43;0800" class="post-date">2018-10-06 18:52:24</time>
   0x00 basic commands 1go get -u -v github.com/spf13/hugo 2hugo new site &lt;directory&gt; 3git init 4git submodule add https://github.com/spf13/hyde.git themes/hyde 5hugo new posts/how-to-create.md 0x01 config.toml 1baseURL = &#34;http://wncbb.github.io/&#34; 2languageCode = &#34;en-us&#34; 3title = &#34;WNCBB&#39;s blog&#34; 4theme = &#34;hyde&#34; 5 6[Menus] 7 main = [ 8 {Name = &#34;Github&#34;, URL = &#34;https://github.com/wncbb/&#34;}, 9 ] 10[params] 11 description = &#34;A man is only as good as what he loves&#34; 12 themeColor = &#34;theme-base-0c&#34; 13 layoutReverse = true 0x02 codes highlight https://gohugo.

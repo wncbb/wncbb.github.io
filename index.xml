@@ -2,39 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>WNCBB&#39;s blog</title>
-    <link>http://wncbb.github.io/</link>
+    <link>https://wncbb.github.io/</link>
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 Nov 2019 15:48:28 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jan 2020 15:05:01 +0800</lastBuildDate>
     
-	<atom:link href="http://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>dijkstra</title>
+      <link>https://wncbb.github.io/posts/algo/dijkstra/</link>
+      <pubDate>Sun, 19 Jan 2020 15:05:01 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/dijkstra/</guid>
+      <description>1from collections import defaultdict 2from heapq import * 3 4def dijkstra(edges, fromV, toV): 5 g=defaultdict(list) 6 for src, dst, cost in edges: 7 g[src].append((cost, dst)) 8 9 q, seen, mins=[(0, fromV, [])], set(), {fromV: 0} 10 while q: 11 (cost, src, path)=heappop(q) 12 if src not in seen: 13 seen.add(src) 14 path.append(src) 15 if src==toV: 16 return (cost, path) 17 for w, dst in g.get(src, []): 18 if dst in seen: 19 continue 20 oldCostForDst=mins.</description>
+    </item>
+    
+    <item>
       <title>Common</title>
-      <link>http://wncbb.github.io/posts/docker/common/</link>
+      <link>https://wncbb.github.io/posts/docker/common/</link>
       <pubDate>Fri, 15 Nov 2019 15:48:28 +0800</pubDate>
       
-      <guid>http://wncbb.github.io/posts/docker/common/</guid>
+      <guid>https://wncbb.github.io/posts/docker/common/</guid>
       <description>docker ps docker ps -a docker container ls docker container ls -a docker container prune docker run -p 8501:8501 \ --mount type=bind,\ source=/tmp/tfserving/serving/tensorflow_serving/servables/tensorflow/testdata/saved_model_half_plus_two_cpu,\ target=/models/half_plus_two \ -e MODEL_NAME=half_plus_two -t tensorflow/serving &amp;amp;  </description>
     </item>
     
     <item>
       <title>Volume</title>
-      <link>http://wncbb.github.io/posts/docker/volume/</link>
+      <link>https://wncbb.github.io/posts/docker/volume/</link>
       <pubDate>Fri, 15 Nov 2019 15:41:03 +0800</pubDate>
       
-      <guid>http://wncbb.github.io/posts/docker/volume/</guid>
+      <guid>https://wncbb.github.io/posts/docker/volume/</guid>
       <description>docker volume create &amp;lt;volume name&amp;gt; docker volume ls docker volume inspect &amp;lt;volume name&amp;gt;  </description>
     </item>
     
     <item>
       <title>Serving_1</title>
-      <link>http://wncbb.github.io/posts/tensorflow/serving_1/</link>
+      <link>https://wncbb.github.io/posts/tensorflow/serving_1/</link>
       <pubDate>Fri, 15 Nov 2019 14:34:39 +0800</pubDate>
       
-      <guid>http://wncbb.github.io/posts/tensorflow/serving_1/</guid>
+      <guid>https://wncbb.github.io/posts/tensorflow/serving_1/</guid>
       <description> Install tensorflow https://docs.python.org/3/library/venv.html
 python3 -m venv &amp;lt;path&amp;gt; source &amp;lt;path&amp;gt;/bin/activate pip install tensorflow==&amp;lt;version&amp;gt;  Use tensorflow/serving git: https://github.com/tensorflow/serving
 doc: https://www.tensorflow.org/tfx/serving/docker
@@ -44,20 +53,20 @@ model_config_list:{ config:{ name:&amp;quot;hello-world&amp;quot;, base_path:&am
     
     <item>
       <title>Slice_1</title>
-      <link>http://wncbb.github.io/posts/golang/slice_1/</link>
+      <link>https://wncbb.github.io/posts/golang/slice_1/</link>
       <pubDate>Thu, 07 Nov 2019 22:06:32 +0800</pubDate>
       
-      <guid>http://wncbb.github.io/posts/golang/slice_1/</guid>
+      <guid>https://wncbb.github.io/posts/golang/slice_1/</guid>
       <description>The struct of slice in go: 1type slice struct { 2	array unsafe.Pointer 3	len int 4	cap int 5}
 1package main 2 3import &amp;#34;fmt&amp;#34; 4 5func main() { 6	a := make([]int, 10, 20) 7	for i := 0; i &amp;lt; 10; i = i + 1 { 8	a[i] = i 9	} 10 11	// means the length of b is 6-3=3, the capicity is 9-3=6 12	b := a[3:6:9] 13	// len(b)=3 14	fmt.</description>
     </item>
     
     <item>
       <title>How to create hugo site</title>
-      <link>http://wncbb.github.io/posts/how_to_create/</link>
+      <link>https://wncbb.github.io/posts/how_to_create/</link>
       <pubDate>Sat, 06 Oct 2018 18:52:24 +0800</pubDate>
       
-      <guid>http://wncbb.github.io/posts/how_to_create/</guid>
+      <guid>https://wncbb.github.io/posts/how_to_create/</guid>
       <description>0x00 basic commands 1go get -u -v github.com/spf13/hugo 2hugo new site &amp;lt;directory&amp;gt; 3git init 4git submodule add https://github.com/spf13/hyde.git themes/hyde 5hugo new posts/how-to-create.md 0x01 config.toml 1baseURL = &amp;#34;http://wncbb.github.io/&amp;#34; 2languageCode = &amp;#34;en-us&amp;#34; 3title = &amp;#34;WNCBB&amp;#39;s blog&amp;#34; 4theme = &amp;#34;hyde&amp;#34; 5 6[Menus] 7 main = [ 8 {Name = &amp;#34;Github&amp;#34;, URL = &amp;#34;https://github.com/wncbb/&amp;#34;}, 9 ] 10[params] 11 description = &amp;#34;A man is only as good as what he loves&amp;#34; 12 themeColor = &amp;#34;theme-base-0c&amp;#34; 13 layoutReverse = true 0x02 codes highlight https://gohugo.</description>
     </item>
     
