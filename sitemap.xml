@@ -4,31 +4,41 @@
   
   <url>
     <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2020-01-19T18:16:32+08:00</lastmod>
+    <lastmod>2020-04-22T20:16:37+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/algo/merge_sort/</loc>
+    <lastmod>2020-04-22T20:16:37+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/posts/</loc>
-    <lastmod>2020-01-19T18:16:32+08:00</lastmod>
+    <lastmod>2020-04-22T20:16:37+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/posts/algo/quick_sort/</loc>
-    <lastmod>2020-01-19T18:16:32+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://wncbb.github.io/</loc>
-    <lastmod>2020-01-19T18:16:32+08:00</lastmod>
+    <lastmod>2020-04-22T20:16:37+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/categories/algorithm/</loc>
-    <lastmod>2020-01-19T18:16:32+08:00</lastmod>
+    <lastmod>2020-04-22T20:16:37+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/golang/dlv/</loc>
+    <lastmod>2020-01-20T19:44:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/algo/quick_sort/</loc>
+    <lastmod>2020-01-19T18:16:32+08:00</lastmod>
   </url>
   
   <url>

@@ -53,6 +53,24 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/merge_sort/">Merge Sort</a>
+  </h1>
+  <time datetime="2020-04-22T20:16:37&#43;0800" class="post-date">2020-04-22 20:16:37</time>
+  1package main 2 3import( 4	&#34;fmt&#34; 5) 6 7func merge(a, b []int)[]int{ 8	rst:=make([]int, 0, len(a)+len(b)) 9	i:=0 10	j:=0 11	for i&lt;len(a) &amp;&amp; j&lt;len(b){ 12	if a[i]&lt;b[j]{ 13	rst=append(rst, a[i]) 14	i++ 15	}else{ 16	rst=append(rst, b[j]) 17	j++ 18	} 19	} 20	rst=append(rst, a[i:]...) 21	rst=append(rst, b[j:]...) 22	return rst 23} 24 25func mergeSort(s []int)[]int{ 26	if len(s)&lt;=1{ 27	return s 28	} 29 30	middleIdx:=len(s)/2 31	left:=mergeSort(s[:middleIdx]) 32	right:=mergeSort(s[middleIdx:]) 33	return merge(left, right) 34} 35 36func main(){ 37	a:=[]int{3, 1, 0, 2, 9, 7, 6, 8, 5, 4} 38	b:=mergeSort(a) 39	fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/algo/merge_sort/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/golang/dlv/">Dlv</a>
+  </h1>
+  <time datetime="2020-01-20T19:44:06&#43;0800" class="post-date">2020-01-20 19:44:06</time>
+  dlv debug main.go list: list current codes s(step): step in stepout: step out n(next): move to next line(step over) args: break a/b/c.go:213 break pkg.GetName bp(breakpoints): list all break points c(continue): continue to next break point or the end  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/algo/quick_sort/">Quick Sort</a>
   </h1>
   <time datetime="2020-01-19T18:16:32&#43;0800" class="post-date">2020-01-19 18:16:32</time>
