@@ -53,6 +53,24 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/heap/">Heap</a>
+  </h1>
+  <time datetime="2020-04-24T22:56:43&#43;0800" class="post-date">2020-04-24 22:56:43</time>
+  1package main 2 3import ( 4	&#34;fmt&#34; 5) 6 7func parent(i int) int { 8	return (i - 1) / 2 9} 10 11func left(i int) int { 12	return i*2 + 1 13} 14 15func right(i int) int { 16	return i*2 + 2 17} 18 19func maxHeapify(a []int, i int) { 20	l := left(i) 21	r := right(i) 22	largestIdx := i 23	if l &lt; len(a) &amp;&amp; a[l] &gt; a[i] { 24	largestIdx = l 25	} 26	if r &lt; len(a) &amp;&amp; a[r] &gt; a[largestIdx] { 27	largestIdx = r 28	} 29 30	if largestIdx !
+  
+  <div class="read-more-link">
+    <a href="/posts/algo/heap/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/trie/">Trie</a>
+  </h1>
+  <time datetime="2020-04-24T22:54:49&#43;0800" class="post-date">2020-04-24 22:54:49</time>
+  1import collections 2import json 3 4class TrieNode(object): 5 def __init__(self, value=0): 6 self.value = value 7 self.isWord = False 8 self.children = collections.OrderedDict() 9 10 @classmethod 11 def insert(cls, root, word): 12 p = root 13 for c in word: 14 child = p.children.get(c) 15 if not child: 16 child = TrieNode(c) 17 p.children[c] = child 18 p = child 19 20 p.isWord = True 
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/algo/merge_sort/">Merge Sort</a>
   </h1>
   <time datetime="2020-04-22T20:16:37&#43;0800" class="post-date">2020-04-22 20:16:37</time>
