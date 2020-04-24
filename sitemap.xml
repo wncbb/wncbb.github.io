@@ -3,6 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wncbb.github.io/categories/</loc>
+    <lastmod>2020-04-24T22:56:43+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/posts/algo/heap/</loc>
     <lastmod>2020-04-24T22:56:43+08:00</lastmod>
   </url>
@@ -20,25 +26,19 @@
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/categories/algorithm/</loc>
+    <lastmod>2020-04-24T22:56:43+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/posts/algo/trie/</loc>
     <lastmod>2020-04-24T22:54:49+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2020-04-22T20:16:37+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://wncbb.github.io/posts/algo/merge_sort/</loc>
     <lastmod>2020-04-22T20:16:37+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/categories/algorithm/</loc>
-    <lastmod>2020-04-22T20:16:37+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
