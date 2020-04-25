@@ -53,6 +53,24 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/reservoir_sampling/">Reservoir_sampling</a>
+  </h1>
+  <time datetime="2020-04-25T14:59:29&#43;0800" class="post-date">2020-04-25 14:59:29</time>
+  array result for i=0; i&lt;n; i++{ if i&lt;k{ result&lt;-array[i] }else{ r=random(0, i) if r&gt;=k{ continue } array[r]=array[i] } }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/union_find/">Union find</a>
+  </h1>
+  <time datetime="2020-04-25T14:40:38&#43;0800" class="post-date">2020-04-25 14:40:38</time>
+  1class UnionFindSet: 2 def __init__(self, n): 3 self.parents=[] 4 self.ranks=[] 5 for i in range(n): 6 self.parents.append(i) 7 self.ranks.append(0) 8 def connected(self, a, b): 9 return self.find(a)==self.find(b) 10 11 def find(self, x): 12 if x!=self.parents[x]: 13 self.parents[x]=self.find(self.parents[x]) 14 return self.parents[x] 15 16 def union(self, x, y): 17 px=self.find(x) 18 py=self.find(y) 19 if self.ranks[px]&gt;self.ranks[py]: 20 self.parents[py]=px 21 if self.ranks[px]&lt;self.ranks[py]: 22 self.parents[px]=py 23 if self.ranks[px]==self.ranks[py]: 24 self.parents[py]=px 25 self.ranks[px]+=1 26 27 28t=UnionFindSet(5) 29print t.
+  
+  <div class="read-more-link">
+    <a href="/posts/algo/union_find/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/algo/heap/">Heap</a>
   </h1>
   <time datetime="2020-04-24T22:56:43&#43;0800" class="post-date">2020-04-24 22:56:43</time>
