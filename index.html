@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/alien_dictionary/">Alien_dictionary</a>
+  </h1>
+  <time datetime="2020-04-26T11:56:22&#43;0800" class="post-date">2020-04-26 11:56:22</time>
+  1# -*- encoding: utf-8 -*- 2 3from heapq import heappush, heappop, heapify 4 5class Solution: 6 &#34;&#34;&#34; 7@param board: A list of lists of character 8@param words: A list of string 9@return: A list of string 10&#34;&#34;&#34; 11 def alienOrder(self, words): 12 # write your code here 13 # TODO: check params 14 graph=self.buildGraph(words) 15 print graph 16 17 # print graph 18 19 inDegree=self.buildInDegree(words, graph) 20 21 # print inDegree 22 23 q=[] 24 for i in inDegree: 25 if inDegree[i]==0: 26 q.
+  
+  <div class="read-more-link">
+    <a href="/posts/algo/alien_dictionary/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/algo/reservoir_sampling/">Reservoir_sampling</a>
   </h1>
   <time datetime="2020-04-25T14:59:29&#43;0800" class="post-date">2020-04-25 14:59:29</time>

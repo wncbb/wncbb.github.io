@@ -3,13 +3,24 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2020-04-25T14:59:29+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://wncbb.github.io/posts/algo/alien_dictionary/</loc>
+    <lastmod>2020-04-26T11:56:22+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/posts/</loc>
+    <lastmod>2020-04-26T11:56:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/</loc>
+    <lastmod>2020-04-26T11:56:22+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/categories/</loc>
     <lastmod>2020-04-25T14:59:29+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -17,12 +28,6 @@
   <url>
     <loc>https://wncbb.github.io/posts/algo/reservoir_sampling/</loc>
     <lastmod>2020-04-25T14:59:29+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/</loc>
-    <lastmod>2020-04-25T14:59:29+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

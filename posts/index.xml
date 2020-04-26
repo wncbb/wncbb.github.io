@@ -6,10 +6,19 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Apr 2020 14:59:29 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Apr 2020 11:56:22 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Alien_dictionary</title>
+      <link>https://wncbb.github.io/posts/algo/alien_dictionary/</link>
+      <pubDate>Sun, 26 Apr 2020 11:56:22 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/alien_dictionary/</guid>
+      <description>1# -*- encoding: utf-8 -*- 2 3from heapq import heappush, heappop, heapify 4 5class Solution: 6 &amp;#34;&amp;#34;&amp;#34; 7@param board: A list of lists of character 8@param words: A list of string 9@return: A list of string 10&amp;#34;&amp;#34;&amp;#34; 11 def alienOrder(self, words): 12 # write your code here 13 # TODO: check params 14 graph=self.buildGraph(words) 15 print graph 16 17 # print graph 18 19 inDegree=self.buildInDegree(words, graph) 20 21 # print inDegree 22 23 q=[] 24 for i in inDegree: 25 if inDegree[i]==0: 26 q.</description>
+    </item>
     
     <item>
       <title>Reservoir_sampling</title>
