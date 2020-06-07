@@ -3,20 +3,35 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://wncbb.github.io/posts/algo/alien_dictionary/</loc>
-    <lastmod>2020-04-26T11:56:22+08:00</lastmod>
+    <loc>https://wncbb.github.io/posts/</loc>
+    <lastmod>2020-06-07T18:34:55+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/posts/</loc>
-    <lastmod>2020-04-26T11:56:22+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://wncbb.github.io/posts/algo/reverse_list/</loc>
+    <lastmod>2020-06-07T18:34:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/</loc>
-    <lastmod>2020-04-26T11:56:22+08:00</lastmod>
+    <lastmod>2020-06-07T18:34:55+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/leetcode/1/</loc>
+    <lastmod>2020-05-03T21:07:02+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/algo/backtrack/</loc>
+    <lastmod>2020-05-03T21:04:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/algo/alien_dictionary/</loc>
+    <lastmod>2020-04-26T11:56:22+08:00</lastmod>
   </url>
   
   <url>
