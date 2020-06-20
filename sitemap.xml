@@ -3,20 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://wncbb.github.io/posts/wrk2/intro/</loc>
-    <lastmod>2020-06-15T21:10:28+08:00</lastmod>
+    <loc>https://wncbb.github.io/posts/golang/mem/</loc>
+    <lastmod>2020-06-19T17:19:20+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/posts/</loc>
-    <lastmod>2020-06-15T21:10:28+08:00</lastmod>
+    <lastmod>2020-06-19T17:19:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/</loc>
-    <lastmod>2020-06-15T21:10:28+08:00</lastmod>
+    <lastmod>2020-06-19T17:19:20+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/golang/tool/</loc>
+    <lastmod>2020-06-19T14:48:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/wrk2/intro/</loc>
+    <lastmod>2020-06-15T21:10:28+08:00</lastmod>
   </url>
   
   <url>
