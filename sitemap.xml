@@ -3,20 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wncbb.github.io/posts/leetcode/84/</loc>
+    <lastmod>2020-08-23T18:14:56+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/posts/</loc>
-    <lastmod>2020-07-23T11:05:24+08:00</lastmod>
+    <lastmod>2020-08-23T18:14:56+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/</loc>
+    <lastmod>2020-08-23T18:14:56+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/leetcode/84/</loc>
+    <lastmod>2020-08-23T18:14:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/leetcode/</loc>
+    <lastmod>2020-08-23T18:14:40+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/posts/algo/sliding_window/</loc>
     <lastmod>2020-07-23T11:05:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/</loc>
-    <lastmod>2020-07-23T11:05:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
