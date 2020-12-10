@@ -53,6 +53,13 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0042.trapping-rain-water/">0042.rapping-rain-water</a>
+  </h1>
+  <time datetime="2020-12-10T19:03:01&#43;0800" class="post-date">2020-12-10 19:03:01</time>
+  1func trap(height []int) int { 2	rst := 0 3	stack := make([]int, 0) 4	for i := 0; i &lt; len(height); i++ { 5	for !stackIsEmpty(stack) &amp;&amp; height[stackPeek(stack)] &lt; height[i] { 6	// height = [3, 2, 1, 0] 7	// stack= index(value) 0(3) 1(2) 2(1) 3(0) height[i]=4 8	// 这个时候，处理对象是stack里的3(0)，3(0)的左边比他高的最近的是2，3(0)的右边比他高的最近的是i(4) 9	var curIdx int 10	stack, curIdx = stackPop(stack) 11	if !stackIsEmpty(stack) { 12	rst = rst + (i-stackPeek(stack)-1)*(getMin(height[stackPeek(stack)], height[i])-height[curIdx]) 13	} 14	} 15	// 当前元素无论如何会入栈 16	stack = stackPush(stack, i) 17	} 18	return rst 19} 20func stackPush(stack []int, v int) []int { 21	stack = append(stack, v) 22	return stack 23} 24 25func stackIsEmpty(stack []int) bool { 26	return len(stack) == 0 27} 28 29func stackPeek(stack []int) int { 30	if stackIsEmpty(stack) { 31	return 0 32	} 33	return stack[len(stack)-1] 34} 35 36func stackPop(stack []int) ([]int, int) { 37	if stackIsEmpty(stack) { 38	return stack, 0 39	} 40	rst := stack[len(stack)-1] 41	stack = stack[:len(stack)-1] 42	return stack, rst 43} 44 45func getMin(a, b int) int { 46	if a &lt; b { 47	return a 48	} 49	return b 50} 
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0053.maximum-subarra/">0053.maximum-subarra</a>
   </h1>
   <time datetime="2020-12-10T16:33:51&#43;0800" class="post-date">2020-12-10 16:33:51</time>
