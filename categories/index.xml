@@ -6,10 +6,19 @@
     <description>Recent content in Categories on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Dec 2020 13:31:12 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 10 Dec 2020 13:44:21 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>sort</title>
+      <link>https://wncbb.github.io/categories/sort/</link>
+      <pubDate>Thu, 10 Dec 2020 13:44:21 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/categories/sort/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>backtrack</title>

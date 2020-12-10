@@ -8,7 +8,19 @@
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/categories/</loc>
+    <lastmod>2020-12-10T13:44:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/posts/</loc>
+    <lastmod>2020-12-10T13:44:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/series/</loc>
     <lastmod>2020-12-10T13:44:21+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -20,30 +32,24 @@
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/series/leetcode/</loc>
+    <lastmod>2020-12-10T13:44:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/categories/sort/</loc>
+    <lastmod>2020-12-10T13:44:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/posts/leetcode/0047.permutations-ii/</loc>
     <lastmod>2020-12-10T13:31:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2020-12-10T13:31:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2020-12-10T13:31:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://wncbb.github.io/categories/backtrack/</loc>
-    <lastmod>2020-12-10T13:31:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/series/leetcode/</loc>
     <lastmod>2020-12-10T13:31:12+08:00</lastmod>
     <priority>0</priority>
   </url>
