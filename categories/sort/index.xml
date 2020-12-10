@@ -20,5 +20,16 @@
       <description>1func merge(intervals [][]int) [][]int { 2	if len(intervals) == 0 { 3	return [][]int{} 4	} 5	if len(intervals) == 1 { 6	return intervals 7	} 8	// need to sort by the start value 9	sort.Slice(intervals, func(i, j int) bool { 10	return intervals[i][0] &amp;lt; intervals[j][0] 11	}) 12	rst := make([][]int, 0) 13	cur := intervals[0] 14	for i := 1; i &amp;lt; len(intervals); i++ { 15	if intervals[i][0] &amp;lt;= cur[1] { 16	// cur = [1, 3] intervals[i]=[2, 5] 17	// 对于这种，需要合并，合并后开始还是cur[0], cur[1]=两个结束值的最大值 18	cur[1] = getMaxInt(cur[1], intervals[i][1]) 19	} else { 20	// cur = [1, 3] intervals[i]=[4, 5] 21	rst = append(rst, cur) 22	cur = intervals[i] 23	} 24	} 25 26	rst = append(rst, cur) 27	return rst 28 29} 30 31func getMaxInt(a, b int) int { 32	if a &amp;gt; b { 33	return a 34	} 35	return b 36} </description>
     </item>
     
+    <item>
+      <title>0084.largest-rectangle-in-histogram</title>
+      <link>https://wncbb.github.io/posts/leetcode/0084.largest-rectangle-in-histogram/</link>
+      <pubDate>Sun, 23 Aug 2020 18:14:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0084.largest-rectangle-in-histogram/</guid>
+      <description>https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+单调栈
+1func largestRectangleArea(heights []int) int { 2	h:=make([]int, 0, len(heights)+2) 3	h=append(h, 0) 4	h=append(h, heights...) 5	h=append(h, 0) 6	// stack里存储的是单调递增的索引 7	stack:=make([]int, 0) 8	res:=0 9 10 // 遍历的是h，not heights 11	for i, v:=range h{ 12	for len(stack)!=0 &amp;amp;&amp;amp; h[stack[len(stack)-1]]&amp;gt;v{ 13	// 如果当前的值小于栈顶位置的元素，说明可以计算栈顶位置元素的矩形面积 14	t:=stack[len(stack)-1] 15	stack=stack[:len(stack)-1] 16	// 出栈之后，栈顶位置的元素为小于t位置的索引 17	left:=stack[len(stack)-1] 18	right:=i 19	// left是小于t的最左侧，right是小于t的最右侧, 1xxx5, 比如计算xxx的长度,5-1=4,需要再减一个1 20	res=getMaxInt(res, (right-left-1)*h[t]) 21	} 22	stack=append(stack, i) 23	} 24 25	return res 26} 27 28func getMaxInt(a, b int)int{ 29	if a&amp;gt;b{ 30	return a 31	} 32	return b 33} </description>
+    </item>
+    
   </channel>
 </rss>
