@@ -6,10 +6,19 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Dec 2020 16:17:11 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 10 Dec 2020 16:33:51 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0053.maximum-subarra</title>
+      <link>https://wncbb.github.io/posts/leetcode/0053.maximum-subarra/</link>
+      <pubDate>Thu, 10 Dec 2020 16:33:51 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0053.maximum-subarra/</guid>
+      <description>1func maxSubArray(nums []int) int { 2	if len(nums) == 0 { 3	return 0 4	} 5	// dp[i]表示以i结尾的和 6	dp := make([]int, len(nums), len(nums)) 7	dp[0] = nums[0] 8	rst := nums[0] 9	for i := 1; i &amp;lt; len(nums); i++ { 10	// 对于以i结尾的连续数组，要么就他自己，要么他自己加上以i-1为结尾的最大值 11	dp[i] = max(nums[i], nums[i]+dp[i-1]) 12	if dp[i] &amp;gt; rst { 13	rst = dp[i] 14	} 15	} 16 17	return rst 18} 19 20func max(a, b int) int { 21	if a &amp;gt; b { 22	return a 23	} 24	return b 25} </description>
+    </item>
     
     <item>
       <title>0041.first-missing-positive</title>
