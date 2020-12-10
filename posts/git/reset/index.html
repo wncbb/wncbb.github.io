@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Categories &middot; WNCBB&#39;s blog</title>
+  <title>Reset &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -24,7 +24,6 @@
   <link rel="shortcut icon" href="/favicon.png">
 
   
-  <link href="https://wncbb.github.io/categories/index.xml" rel="alternate" type="application/rss+xml" title="WNCBB's blog" />
   
 </head>
 
@@ -50,23 +49,44 @@
 </aside>
 
     <main class="content container">
-    <ul class="posts">
-<li>
-    <span><a href="https://wncbb.github.io/categories/git/">git</a> <time class="pull-right post-list" datetime="2020-12-10T14:05:18&#43;0800">Thu, Dec 10, 2020</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/categories/sort/">sort</a> <time class="pull-right post-list" datetime="2020-12-10T13:44:21&#43;0800">Thu, Dec 10, 2020</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/categories/backtrack/">backtrack</a> <time class="pull-right post-list" datetime="2020-12-10T13:31:12&#43;0800">Thu, Dec 10, 2020</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/categories/algorithm/">algorithm</a> <time class="pull-right post-list" datetime="2020-04-25T14:59:29&#43;0800">Sat, Apr 25, 2020</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/categories/docker/">docker</a> <time class="pull-right post-list" datetime="2019-11-15T15:41:03&#43;0800">Fri, Nov 15, 2019</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/categories/tensorflow/">tensorflow</a> <time class="pull-right post-list" datetime="2019-11-15T14:34:39&#43;0800">Fri, Nov 15, 2019</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/categories/go/">go</a> <time class="pull-right post-list" datetime="2019-11-07T22:06:32&#43;0800">Thu, Nov 7, 2019</time></span>
-  </li>
-</ul>
+    <div class="post">
+  <h1>Reset</h1>
+  <time datetime=2020-12-10T14:05:18&#43;0800 class="post-date">2020-12-10 14:05:18</time>
+  <pre><code>// 取消上一次提交，且代码不要了
+git reset --hard HEAD^1
+
+// 取消上一次提交，代码在add状态
+git reset --soft HEAD^1
+
+// 取消add状态
+git reset
+git reset &lt;file&gt;
+
+</code></pre>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </main>
 
     
