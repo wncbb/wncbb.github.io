@@ -8,6 +8,12 @@
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/categories/</loc>
+    <lastmod>2020-12-10T13:31:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/posts/</loc>
     <lastmod>2020-12-10T13:31:12+08:00</lastmod>
     <priority>0</priority>
@@ -26,7 +32,7 @@
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/series/backtrack/</loc>
+    <loc>https://wncbb.github.io/categories/backtrack/</loc>
     <lastmod>2020-12-10T13:31:12+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -85,12 +91,6 @@
   <url>
     <loc>https://wncbb.github.io/posts/algo/alien_dictionary/</loc>
     <lastmod>2020-04-26T11:56:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2020-04-25T14:59:29+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
