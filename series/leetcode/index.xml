@@ -6,10 +6,19 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Dec 2020 13:21:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 10 Dec 2020 13:31:12 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>47_permutations Ii</title>
+      <link>https://wncbb.github.io/posts/leetcode/47_permutations-ii/</link>
+      <pubDate>Thu, 10 Dec 2020 13:31:12 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/47_permutations-ii/</guid>
+      <description>1func permuteUnique(s []int) [][]int { 2 // need to sort the s first, so it&amp;#39;s easy for us to skip the duplicated value 3	sort.Ints(s) 4	rst := make([][]int, 0) 5	visited := make([]bool, len(s), len(s)) 6 7	var bs func(idx int, cur []int) 8 9	bs = func(idx int, cur []int) { 10	if idx == len(s) { 11	curRst := make([]int, len(cur), len(cur)) 12	copy(curRst, cur) 13	rst = append(rst, curRst) 14	return 15	} 16 17	for i := 0; i &amp;lt; len(s); i++ { 18	if visited[i] { 19	continue 20	} 21	// s[i]==s[i-1] means the value with last idx equals current value 22	// 23	// i-1 is in front of i 24	// so i-1 must have been handled before i 25	// and visited[i-1]==false means the result of this value has been added to rst 26	// then deleting i-1 from current result and hanlde i 27	if i &amp;gt; 0 &amp;amp;&amp;amp; s[i] == s[i-1] &amp;amp;&amp;amp; !</description>
+    </item>
     
     <item>
       <title>46_permutations</title>
