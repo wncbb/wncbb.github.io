@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Dec 2020 14:05:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 10 Dec 2020 15:34:43 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0051</title>
+      <link>https://wncbb.github.io/posts/leetcode/0051.n-queens/</link>
+      <pubDate>Thu, 10 Dec 2020 15:34:43 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0051.n-queens/</guid>
+      <description>1func solveNQueens(n int) [][]string { 2	rst := make([][]string, 0) 3	4	// initialize chess 5	chess := make([][]byte, 0, n) 6	for i := 0; i &amp;lt; n; i++ { 7	chess = append(chess, getLine(n)) 8	} 9 10	var bs func(row int) 11	bs = func(row int) { 12	if row == n { 13	rst = append(rst, getRst(chess)) 14	return 15	} 16	for col := 0; col &amp;lt; n; col++ { 17	// if location with row and col can not add a Q 18	// then just continue 19	if !</description>
+    </item>
     
     <item>
       <title>Reset</title>
@@ -17,7 +26,8 @@
       <pubDate>Thu, 10 Dec 2020 14:05:18 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/git/reset/</guid>
-      <description>// 取消上一次提交，且代码不要了 git reset --hard HEAD^1 // 取消上一次提交，代码在add状态 git reset --soft HEAD^1 // 取消add状态 git reset git reset &amp;lt;file&amp;gt;  </description>
+      <description>https://ndpsoftware.com/git-cheatsheet.html
+// 取消上一次提交，且代码不要了 git reset --hard HEAD^1 // 取消上一次提交，代码在add状态 git reset --soft HEAD^1 // 取消add状态 git reset git reset &amp;lt;file&amp;gt;  </description>
     </item>
     
     <item>

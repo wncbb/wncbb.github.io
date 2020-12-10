@@ -17,7 +17,8 @@
       <pubDate>Thu, 10 Dec 2020 14:05:18 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/git/reset/</guid>
-      <description>// 取消上一次提交，且代码不要了 git reset --hard HEAD^1 // 取消上一次提交，代码在add状态 git reset --soft HEAD^1 // 取消add状态 git reset git reset &amp;lt;file&amp;gt;  </description>
+      <description>https://ndpsoftware.com/git-cheatsheet.html
+// 取消上一次提交，且代码不要了 git reset --hard HEAD^1 // 取消上一次提交，代码在add状态 git reset --soft HEAD^1 // 取消add状态 git reset git reset &amp;lt;file&amp;gt;  </description>
     </item>
     
   </channel>
