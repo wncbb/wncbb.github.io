@@ -53,7 +53,7 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
-    <a href="https://wncbb.github.io/posts/leetcode/47_permutations-ii/">47_permutations Ii</a>
+    <a href="https://wncbb.github.io/posts/leetcode/47_permutations-ii/">0047.permutations_II</a>
   </h1>
   <time datetime="2020-12-10T13:31:12&#43;0800" class="post-date">2020-12-10 13:31:12</time>
   1func permuteUnique(s []int) [][]int { 2 // need to sort the s first, so it&#39;s easy for us to skip the duplicated value 3	sort.Ints(s) 4	rst := make([][]int, 0) 5	visited := make([]bool, len(s), len(s)) 6 7	var bs func(idx int, cur []int) 8 9	bs = func(idx int, cur []int) { 10	if idx == len(s) { 11	curRst := make([]int, len(cur), len(cur)) 12	copy(curRst, cur) 13	rst = append(rst, curRst) 14	return 15	} 16 17	for i := 0; i &lt; len(s); i++ { 18	if visited[i] { 19	continue 20	} 21	// s[i]==s[i-1] means the value with last idx equals current value 22	// 23	// i-1 is in front of i 24	// so i-1 must have been handled before i 25	// and visited[i-1]==false means the result of this value has been added to rst 26	// then deleting i-1 from current result and hanlde i 27	if i &gt; 0 &amp;&amp; s[i] == s[i-1] &amp;&amp; !
@@ -64,7 +64,7 @@
   
 </article><article class="post">
   <h1 class="post-title">
-    <a href="https://wncbb.github.io/posts/leetcode/46_permutations/">46_permutations</a>
+    <a href="https://wncbb.github.io/posts/leetcode/46_permutations/">0046.permutations</a>
   </h1>
   <time datetime="2020-12-10T13:21:18&#43;0800" class="post-date">2020-12-10 13:21:18</time>
   1func permute(s []int) [][]int { 2	rst := make([][]int, 0) 3	// to judge if the value of this index has been visited 4	visited := make([]bool, len(s), len(s)) 5 6	var bs func(idx int, cur []int) 7 8	bs = func(idx int, cur []int) { 9	// satisfied 10	if idx == len(s) { 11	curRst := make([]int, len(cur), len(cur)) 12	copy(curRst, cur) 13	rst = append(rst, curRst) 14	return 15	} 16 17	for i := 0; i &lt; len(s); i++ { 18	if visited[i] { 19	continue 20	} 21 22 // visit the value with index i 23	visited[i] = true 24	cur = append(cur, s[i]) 25	26	bs(idx+1, cur) 27	28	// restore the context 29	visited[i] = false 30	cur = cur[:len(cur)-1] 31	} 32	} 33	34	// initialize the state 35	bs(0, make([]int, 0, len(s))) 36	return rst 37} 
