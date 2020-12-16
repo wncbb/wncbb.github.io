@@ -52,11 +52,13 @@
     <div class="post">
   <h1>0076.minimum-window-substring</h1>
   <time datetime=2020-12-14T16:47:32&#43;0800 class="post-date">2020-12-14 16:47:32</time>
-  <p>滑动窗口逻辑：
+  <pre><code>滑动窗口逻辑：
 声明俩变量left right初始化为0
 1. 右边界往右遍历，符合条件后，
 2. 左边界往右遍历，直到不符合条件，再跳到1
-期间符合条件时，更新下当前的最优解</p>
+期间符合条件时，更新下当前的最优解
+
+</code></pre>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">minWindow</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">t</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>	<span style="color:#a6e22e">retLeft</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
