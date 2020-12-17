@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0010.regular-expression-matching/">10.regular-expression-matching</a>
+  </h1>
+  <time datetime="2020-12-17T17:22:10&#43;0800" class="post-date">2020-12-17 17:22:10</time>
+  1func isMatch(s string, p string) bool { 2 // sBytes := []byte(s) 3 // pBytes := []byte(p) 4 // dp[i][j]表示s[:i+1] p[:j+1]是否匹配 5 dp := make([][]bool, 0, len(s)+1) 6 for i := 0; i &lt; len(s)+1; i++ { 7 dp = append(dp, make([]bool, len(p)+1)) 8 } 9 // s跟p都是空字符，肯定匹配的上 10 dp[0][0] = true 11 for i := 1; i &lt; len(p); i++ { 12 // 如果当前p[i]是*，那么*可以把前面的字符搞没 13 // 比如 &#34;b*a*&#34; 跟 &#34;&#34;比较，a*可以去掉，那么就变成&#34;b*&#34;跟&#34;&#34;比较 14 if p[i] == &#39;*&#39; { 15 dp[0][i+1] = dp[0][i-1] 16 } 17 } 18 19	for i, sByte := range s { 20	for j, pByte := range p { 21	switch { 22	case sByte == pByte: 23 // 最简单的case，俩字符一样，那么前面的如果匹配，这个一定匹配 24	dp[i+1][j+1] = dp[i+1][j+1] || dp[i][j] 25	case pByte == &#39;.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0010.regular-expression-matching/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0076.minimum-window-substring/">0076.minimum-window-substring</a>
   </h1>
   <time datetime="2020-12-14T16:47:32&#43;0800" class="post-date">2020-12-14 16:47:32</time>

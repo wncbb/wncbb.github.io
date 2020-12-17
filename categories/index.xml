@@ -6,10 +6,19 @@
     <description>Recent content in Categories on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Dec 2020 16:47:32 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 17 Dec 2020 17:22:10 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>dynamicProgramming</title>
+      <link>https://wncbb.github.io/categories/dynamicprogramming/</link>
+      <pubDate>Thu, 17 Dec 2020 17:22:10 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/categories/dynamicprogramming/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>slidingWindow</title>
@@ -26,15 +35,6 @@
       <pubDate>Thu, 10 Dec 2020 19:03:01 +0800</pubDate>
       
       <guid>https://wncbb.github.io/categories/%E5%8D%95%E8%B0%83%E6%A0%88/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dynamicProgramming</title>
-      <link>https://wncbb.github.io/categories/dynamicprogramming/</link>
-      <pubDate>Thu, 10 Dec 2020 16:33:51 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/categories/dynamicprogramming/</guid>
       <description></description>
     </item>
     

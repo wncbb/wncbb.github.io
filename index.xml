@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Dec 2020 16:47:32 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 17 Dec 2020 17:22:10 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>10.regular-expression-matching</title>
+      <link>https://wncbb.github.io/posts/leetcode/0010.regular-expression-matching/</link>
+      <pubDate>Thu, 17 Dec 2020 17:22:10 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0010.regular-expression-matching/</guid>
+      <description>1func isMatch(s string, p string) bool { 2 // sBytes := []byte(s) 3 // pBytes := []byte(p) 4 // dp[i][j]表示s[:i+1] p[:j+1]是否匹配 5 dp := make([][]bool, 0, len(s)+1) 6 for i := 0; i &amp;lt; len(s)+1; i++ { 7 dp = append(dp, make([]bool, len(p)+1)) 8 } 9 // s跟p都是空字符，肯定匹配的上 10 dp[0][0] = true 11 for i := 1; i &amp;lt; len(p); i++ { 12 // 如果当前p[i]是*，那么*可以把前面的字符搞没 13 // 比如 &amp;#34;b*a*&amp;#34; 跟 &amp;#34;&amp;#34;比较，a*可以去掉，那么就变成&amp;#34;b*&amp;#34;跟&amp;#34;&amp;#34;比较 14 if p[i] == &amp;#39;*&amp;#39; { 15 dp[0][i+1] = dp[0][i-1] 16 } 17 } 18 19	for i, sByte := range s { 20	for j, pByte := range p { 21	switch { 22	case sByte == pByte: 23 // 最简单的case，俩字符一样，那么前面的如果匹配，这个一定匹配 24	dp[i+1][j+1] = dp[i+1][j+1] || dp[i][j] 25	case pByte == &amp;#39;.</description>
+    </item>
     
     <item>
       <title>0076.minimum-window-substring</title>
