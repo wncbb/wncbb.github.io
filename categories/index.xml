@@ -6,10 +6,19 @@
     <description>Recent content in Categories on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Dec 2020 19:36:38 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Dec 2020 19:56:59 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>slidingWindow</title>
+      <link>https://wncbb.github.io/categories/slidingwindow/</link>
+      <pubDate>Fri, 18 Dec 2020 19:56:59 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/categories/slidingwindow/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>hashmap</title>
@@ -26,15 +35,6 @@
       <pubDate>Thu, 17 Dec 2020 17:22:10 +0800</pubDate>
       
       <guid>https://wncbb.github.io/categories/dynamicprogramming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>slidingWindow</title>
-      <link>https://wncbb.github.io/categories/slidingwindow/</link>
-      <pubDate>Mon, 14 Dec 2020 16:47:32 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/categories/slidingwindow/</guid>
       <description></description>
     </item>
     

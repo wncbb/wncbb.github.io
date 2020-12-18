@@ -6,10 +6,19 @@
     <description>Recent content in slidingWindow on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Dec 2020 16:47:32 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Dec 2020 19:56:59 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/slidingwindow/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0030</title>
+      <link>https://wncbb.github.io/posts/leetcode/0030.substring-with-concatenation-of-all-words/</link>
+      <pubDate>Fri, 18 Dec 2020 19:56:59 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0030.substring-with-concatenation-of-all-words/</guid>
+      <description>有点暴力的解法，就是遍历所有可能的窗口  1func findSubstring(s string, words []string) []int { 2	//生命返回值 3	var result []int 4 5	//判断 6	if len(s) == 0 || len(words) == 0 { 7	return result 8	} 9 10 11	//获取单词长度 12	l := len(words[0]) 13 14	//获取滑动窗口总长度 15	length := l * len(words) 16 17	//判断 18	if length &amp;gt; len(s) { 19	return result 20	} 21 22	//构造map 23	mp := make(map[string]int) 24 25	//统计 26	for _,v := range words { 27	mp[v] += 1 28	} 29 30	//开始遍历 31	for i := 0; i &amp;lt;= (len(s) - length);i++ { 32	//判断i开始length位置 33	tmpMap := map[string]int{} 34 35	//定义标志 36	fg := true 37 38	for j := i; j &amp;lt; i + length; j += l { 39	str := string(s[j: j + l]) 40	if mp[str] &amp;lt;= 0 { 41 // 这里还没减少，也就是说，必须当前的单词str是需要的，且mp里个数还充足 42	fg = false 43	break 44	} else { 45	mp[str] -- 46	tmpMap[str] ++ 47	} 48 49	} 50 51	//判断标志 52	if fg == true{ 53	result = append(result,i) 54	} 55	56	//回复mp 57	for k,v := range tmpMap { 58	mp[k] += v 59	} 60 61	} 62	//返回 63	return result 64 65} </description>
+    </item>
     
     <item>
       <title>0076.minimum-window-substring</title>
