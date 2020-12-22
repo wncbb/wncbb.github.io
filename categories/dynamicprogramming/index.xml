@@ -6,10 +6,19 @@
     <description>Recent content in dynamicProgramming on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Dec 2020 17:22:10 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 Dec 2020 16:27:41 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/dynamicprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0032.longest-valid-parentheses</title>
+      <link>https://wncbb.github.io/posts/leetcode/0032.longest-valid-parentheses/</link>
+      <pubDate>Tue, 22 Dec 2020 16:27:41 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0032.longest-valid-parentheses/</guid>
+      <description>1func longestValidParentheses(s string) int { 2	rst := 0 3 // dp[i] 表示以s[i]字符结尾的最长的合法的括号长度 4	dp := make([]int, len(s), len(s)) 5	for i := 1; i &amp;lt; len(s); i++ { 6	curByte := s[i] 7 // 如果s[i]是左括号，那么以左括号为结尾的字符串，一定不是合法的，长度就是0 8	if curByte == &amp;#39;(&amp;#39; { 9	continue 10	} 11 // 如果s[i]是右括号，比如这种 ?()) 12 // 就需要看一下，s[i-1]结尾的合法字符串的前一个是不是左括号， 13 // 如果是，需要加2（一个是当前的右括号，一个是dp[i-1]之前的左括号) 14	leftIdx := i - dp[i-1] - 1 15	if leftIdx &amp;gt;= 0 &amp;amp;&amp;amp; s[leftIdx] == &amp;#39;(&amp;#39; { 16	dp[i] = dp[i-1] + 2 17	leftLeftIdx := i - dp[i-1] - 2 18 // 这里还需要加上dp[i-1]之前的合法字符串的长度 19 // 对应这种情况: ()(()) 20 // 这里只需要看一次就行，因为如果前面还有的话，一定包含在dp[i-dp[i-1]-2]里了 21	if leftLeftIdx &amp;gt;= 0 { 22	dp[i] += dp[leftLeftIdx] 23	} 24	} 25	if rst &amp;lt; dp[i] { 26	rst = dp[i] 27	} 28 29	} 30	return rst 31} </description>
+    </item>
     
     <item>
       <title>0010.regular-expression-matching</title>
