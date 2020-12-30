@@ -53,6 +53,13 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0003.longest-substring-without-repeating-characters/">0003.longest-substring-without-repeating-characters</a>
+  </h1>
+  <time datetime="2020-12-30T20:48:41&#43;0800" class="post-date">2020-12-30 20:48:41</time>
+  1func getMax(a, b int)int{ 2 if a&gt;b{ 3 return a 4 } 5 return b 6} 7func getMin(a, b int)int{ 8 if a&gt;b{ 9 return b 10 } 11 return a 12} 13 14func lengthOfLongestSubstring(s string) int { 15 lookup := make(map[rune]int) 16	curLeft := 0 17	maxLen := 0 18	for k, v := range s { 19	if lastIdx, ok := lookup[v]; ok { 20 curLeft=getMax(lastIdx+1, curLeft) 21	} 22 maxLen=getMax(maxLen, k-curLeft+1) 23 lookup[v]=k 24	} 25	return maxLen 26} 
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0004.median-of-two-sorted-arrays/">0004.median-of-two-sorted-arrays</a>
   </h1>
   <time datetime="2020-12-30T20:04:23&#43;0800" class="post-date">2020-12-30 20:04:23</time>
