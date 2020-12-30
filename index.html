@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0208.mplement-trie-prefix-tree/">0208.mplement-trie-prefix-tree</a>
+  </h1>
+  <time datetime="2020-12-30T19:12:02&#43;0800" class="post-date">2020-12-30 19:12:02</time>
+  1type Node struct { 2	IsEnd bool 3	Val rune 4	Next map[rune]*Node 5} 6 7type Trie struct { 8	root *Node 9} 10 11/** Initialize your data structure here. */ 12func Constructor() Trie { 13	return Trie{ 14	root: &amp;Node{ 15	Next: make(map[rune]*Node), 16	}, 17	} 18} 19 20/** Inserts a word into the trie. */ 21func (this *Trie) Insert(word string) { 22	cur := this.root 23	for _, v := range word { 24	if nextNode, ok := cur.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0208.mplement-trie-prefix-tree/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/1035.uncrossed-lines/">1035.uncrossed-lines</a>
   </h1>
   <time datetime="2020-12-30T18:40:16&#43;0800" class="post-date">2020-12-30 18:40:16</time>

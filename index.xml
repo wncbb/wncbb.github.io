@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2020 18:40:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2020 19:12:02 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0208.mplement-trie-prefix-tree</title>
+      <link>https://wncbb.github.io/posts/leetcode/0208.mplement-trie-prefix-tree/</link>
+      <pubDate>Wed, 30 Dec 2020 19:12:02 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0208.mplement-trie-prefix-tree/</guid>
+      <description>1type Node struct { 2	IsEnd bool 3	Val rune 4	Next map[rune]*Node 5} 6 7type Trie struct { 8	root *Node 9} 10 11/** Initialize your data structure here. */ 12func Constructor() Trie { 13	return Trie{ 14	root: &amp;amp;Node{ 15	Next: make(map[rune]*Node), 16	}, 17	} 18} 19 20/** Inserts a word into the trie. */ 21func (this *Trie) Insert(word string) { 22	cur := this.root 23	for _, v := range word { 24	if nextNode, ok := cur.</description>
+    </item>
     
     <item>
       <title>1035.uncrossed-lines</title>
