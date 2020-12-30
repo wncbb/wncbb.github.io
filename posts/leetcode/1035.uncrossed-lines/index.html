@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>1143.longest-common-subsequence &middot; WNCBB&#39;s blog</title>
+  <title>1035.uncrossed-lines &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,23 +50,23 @@
 
     <main class="content container">
     <div class="post">
-  <h1>1143.longest-common-subsequence</h1>
-  <time datetime=2020-12-30T18:32:29&#43;0800 class="post-date">2020-12-30 18:32:29</time>
-  <pre><code>两个数组的 最长公共子序列
-子序列：不一定连续  1143
-子数组：一定连续  718
-换汤不换药  1035
+  <h1>1035.uncrossed-lines</h1>
+  <time datetime=2020-12-30T18:40:16&#43;0800 class="post-date">2020-12-30 18:40:16</time>
+  <pre><code>给定 1 4 2
+    1 2 4
+上下相同的数连接画一条线，最多只能画两条线
+类似： 1143 本质是最长公共子序列
 </code></pre>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longestCommonSubsequence</span>(<span style="color:#a6e22e">text1</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">text2</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>	<span style="color:#a6e22e">dp</span> <span style="color:#f92672">:=</span> make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">text1</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">text1</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span>		<span style="color:#a6e22e">dp</span> = append(<span style="color:#a6e22e">dp</span>, make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">text2</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, len(<span style="color:#a6e22e">text2</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxUncrossedLines</span>(<span style="color:#a6e22e">A</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">B</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>	<span style="color:#a6e22e">dp</span> <span style="color:#f92672">:=</span> make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">A</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">A</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span>		<span style="color:#a6e22e">dp</span> = append(<span style="color:#a6e22e">dp</span>, make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">B</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, len(<span style="color:#a6e22e">B</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span>	}
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">ch1</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">text1</span> {
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">ch2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">text2</span> {
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ch1</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ch2</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v1</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">A</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">v2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">B</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v1</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">v2</span> {
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span>				<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span>			} <span style="color:#66d9ef">else</span> {
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span>				<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">getMaxInt</span>(<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
@@ -74,7 +74,7 @@
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span>		}
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span>	}
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dp</span>[len(<span style="color:#a6e22e">text1</span>)][len(<span style="color:#a6e22e">text2</span>)]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dp</span>[len(<span style="color:#a6e22e">A</span>)][len(<span style="color:#a6e22e">B</span>)]
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span>}
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span>
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMaxInt</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
