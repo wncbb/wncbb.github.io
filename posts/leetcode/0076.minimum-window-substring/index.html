@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2020. All rights reserved. </p>
+    <p>&copy; 2021. All rights reserved. </p>
   </div>
 </aside>
 
@@ -57,6 +57,15 @@
 1. 右边界往右遍历，符合条件后，
 2. 左边界往右遍历，直到不符合条件，再跳到1
 期间符合条件时，更新下当前的最优解
+
+for right&lt;number{
+	handle value[right]
+	right++
+	if left&lt;=right and satisfy the condition {
+		current left and right are good result, update final result
+		left++
+	}
+}
 
 </code></pre>
 

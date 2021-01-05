@@ -45,7 +45,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2020. All rights reserved. </p>
+    <p>&copy; 2021. All rights reserved. </p>
   </div>
 </aside>
 
@@ -60,7 +60,7 @@
 示例 1 :
 输入:nums = [1,1,1], k = 2 输出: 2 , [1,1] 与 [1,1] 为两种不同的情况。 说明 :
 数组的长度为 [1, 20,000]。 数组中元素的范围是 [-1000, 1000] ，且整数 k 的范围是 [-1e7, 1e7]。
-解 解1 1/* 2比如 ABCDEFG 3如果当前所有的和是Sum(A...G) 4如果存在Sum(A...X), 使得 Sum(A...X)+k=Sum(A...G)， 5也就是说，Sum(A...G)-k这个数存在， 6那么，(X...G]就是满足条件的 7*/ 8 9class Solution { 10 public int subarraySum(int[] nums, int k) { 11 // 扫描一遍数组, 使用map记录出现同样的和的次数, 对每个i计算累计和sum并判断map内是否有sum-k 12 Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); 13 map.
+解 解1 1/* 2比如 ABCDEFG... 3如果当前所有的和是Sum(A...G) 4如果存在Sum(A...X), 使得 Sum(A...X)+k=Sum(A...G)， 5也就是说，Sum(A...G)-k这个数存在， 6那么，(X...G]就是满足条件的 7*/ 8 9class Solution { 10 public int subarraySum(int[] nums, int k) { 11 // 扫描一遍数组, 使用map记录出现同样的和的次数, 对每个i计算累计和sum并判断map内是否有sum-k 12 Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); 13 map.
   
   <div class="read-more-link">
     <a href="/posts/leetcode/0560.subarray-sum-equals-k/">Read More…</a>
@@ -146,7 +146,11 @@
     <a href="https://wncbb.github.io/posts/leetcode/0030.substring-with-concatenation-of-all-words/">0030.substring-with-concatenation-of-all-words</a>
   </h1>
   <time datetime="2020-12-18T19:56:59&#43;0800" class="post-date">2020-12-18 19:56:59</time>
-  有点暴力的解法，就是遍历所有可能的窗口  1func findSubstring(s string, words []string) []int { 2	//生命返回值 3	var result []int 4 5	//判断 6	if len(s) == 0 || len(words) == 0 { 7	return result 8	} 9 10 11	//获取单词长度 12	l := len(words[0]) 13 14	//获取滑动窗口总长度 15	length := l * len(words) 16 17	//判断 18	if length &gt; len(s) { 19	return result 20	} 21 22	//构造map 23	mp := make(map[string]int) 24 25	//统计 26	for _,v := range words { 27	mp[v] += 1 28	} 29 30	//开始遍历 31	for i := 0; i &lt;= (len(s) - length);i++ { 32	//判断i开始length位置 33	tmpMap := map[string]int{} 34 35	//定义标志 36	fg := true 37 38	for j := i; j &lt; i + length; j += l { 39	str := string(s[j: j + l]) 40	if mp[str] &lt;= 0 { 41 // 这里还没减少，也就是说，必须当前的单词str是需要的，且mp里个数还充足 42	fg = false 43	break 44	} else { 45	mp[str] -- 46	tmpMap[str] ++ 47	} 48 49	} 50 51	//判断标志 52	if fg == true{ 53	result = append(result,i) 54	} 55	56	//回复mp 57	for k,v := range tmpMap { 58	mp[k] += v 59	} 60 61	} 62	//返回 63	return result 64 65} 
+  有点暴力的解法，就是遍历所有可能的窗口  1func findSubstring(s string, words []string) []int { 2	//生命返回值 3	var result []int 4 5	//判断 6	if len(s) == 0 || len(words) == 0 { 7	return result 8	} 9 10 11	//获取单词长度 12	l := len(words[0]) 13 14	//获取滑动窗口总长度 15	length := l * len(words) 16 17	//判断 18	if length &gt; len(s) { 19	return result 20	} 21 22	//构造map 23	mp := make(map[string]int) 24 25	//统计 26	for _,v := range words { 27	mp[v] += 1 28	} 29 30	//开始遍历 31	for i := 0; i &lt;= (len(s) - length);i++ { 32	//判断i开始length位置 33	tmpMap := map[string]int{} 34 35	//定义标志 36	//默认是true 37	fg := true 38 39	// 这里的逻辑是，如果当前的单词是需要的，且个数还没凑够，那就对应的数减一 40	// 如果遇到不需要的单词，一定就不合法了.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0030.substring-with-concatenation-of-all-words/">Read More…</a>
+  </div>
   
 </article><article class="post">
   <h1 class="post-title">
@@ -175,14 +179,18 @@
     <a href="https://wncbb.github.io/posts/leetcode/0076.minimum-window-substring/">0076.minimum-window-substring</a>
   </h1>
   <time datetime="2020-12-14T16:47:32&#43;0800" class="post-date">2020-12-14 16:47:32</time>
-  滑动窗口逻辑： 声明俩变量left right初始化为0 1. 右边界往右遍历，符合条件后， 2. 左边界往右遍历，直到不符合条件，再跳到1 期间符合条件时，更新下当前的最优解  1func minWindow(s string, t string) string { 2	retLeft := 0 3	retRight := len(s) + 100 4	left := 0 5	right := 0 6	// 记录t中，byte到个数的map 7	visited := make(map[byte]int) 8	// 实时记录，当前left到right之间的t中字符，byte到个数的映射 9	curVisited := make(map[byte]int) 10	curFitNum := 0 11	tBytes := []byte(t) 12	for _, v := range tBytes { 13	visited[v] += 1 14	} 15	for _, v := range tBytes { 16	curVisited[v] = 0 17	} 18	// t中unique的字符个数 19	fitNum := len(visited) 20	for right &lt; len(s) { 21	// 遍历右边，并处理curVisited, curFitNum等中间记录当前状态的变量 22	curRightByte := s[right] 23	if _, ok := curVisited[curRightByte]; ok { 24	curVisited[curRightByte]++ 25	if curVisited[curRightByte] == visited[curRightByte] { 26	curFitNum++ 27	} 28	} 29	right++ 30 31	for left &lt;= right &amp;&amp; curFitNum == fitNum { 32	// 当left在合法范围内，且当前符合条件时 33	// 检查下是否更新返回值 34	if right-left &lt; retRight-retLeft { 35	retRight = right 36	retLeft = left 37	} 38 39 // 去掉left的字符后，处理curVisited, curFitNum等中间记录当前状态的变量 40	curLeftByte := s[left] 41	if v, ok := curVisited[curLeftByte]; ok { 42	if v == visited[curLeftByte] { 43	curFitNum-- 44	} 45	curVisited[curLeftByte]-- 46 47	} 48	left++ 49	} 50	} 51	if retRight &gt; len(s) { 52	return &#34;&#34; 53	} 54	return s[retLeft:retRight] 55} 
+  滑动窗口逻辑： 声明俩变量left right初始化为0 1. 右边界往右遍历，符合条件后， 2. 左边界往右遍历，直到不符合条件，再跳到1 期间符合条件时，更新下当前的最优解 for right&lt;number{ handle value[right] right++ if left&lt;=right and satisfy the condition { current left and right are good result, update final result left++ } }  1func minWindow(s string, t string) string { 2	retLeft := 0 3	retRight := len(s) + 100 4	left := 0 5	right := 0 6	// 记录t中，byte到个数的map 7	visited := make(map[byte]int) 8	// 实时记录，当前left到right之间的t中字符，byte到个数的映射 9	curVisited := make(map[byte]int) 10	curFitNum := 0 11	tBytes := []byte(t) 12	for _, v := range tBytes { 13	visited[v] += 1 14	} 15	for _, v := range tBytes { 16	curVisited[v] = 0 17	} 18	// t中unique的字符个数 19	fitNum := len(visited) 20	for right &lt; len(s) { 21	// 遍历右边，并处理curVisited, curFitNum等中间记录当前状态的变量 22	curRightByte := s[right] 23	if _, ok := curVisited[curRightByte]; ok { 24	curVisited[curRightByte]++ 25	if curVisited[curRightByte] == visited[curRightByte] { 26	curFitNum++ 27	} 28	} 29	right++ 30 31	for left &lt;= right &amp;&amp; curFitNum == fitNum { 32	// 当left在合法范围内，且当前符合条件时 33	// 检查下是否更新返回值 34	if right-left &lt; retRight-retLeft { 35	retRight = right 36	retLeft = left 37	} 38 39 // 去掉left的字符后，处理curVisited, curFitNum等中间记录当前状态的变量 40	curLeftByte := s[left] 41	if v, ok := curVisited[curLeftByte]; ok { 42	if v == visited[curLeftByte] { 43	curFitNum-- 44	} 45	curVisited[curLeftByte]-- 46 47	} 48	left++ 49	} 50	} 51	if retRight &gt; len(s) { 52	return &#34;&#34; 53	} 54	return s[retLeft:retRight] 55} 
   
 </article><article class="post">
   <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0042.trapping-rain-water/">0042.rapping-rain-water</a>
   </h1>
   <time datetime="2020-12-10T19:03:01&#43;0800" class="post-date">2020-12-10 19:03:01</time>
-  1func trap(height []int) int { 2	rst := 0 3	stack := make([]int, 0) 4	for i := 0; i &lt; len(height); i++ { 5	for !stackIsEmpty(stack) &amp;&amp; height[stackPeek(stack)] &lt; height[i] { 6	// height = [3, 2, 1, 0] 7	// stack= index(value) 0(3) 1(2) 2(1) 3(0) height[i]=4 8	// 这个时候，处理对象是stack里的3(0)，3(0)的左边比他高的最近的是2，3(0)的右边比他高的最近的是i(4) 9	var curIdx int 10	stack, curIdx = stackPop(stack) 11	if !stackIsEmpty(stack) { 12	rst = rst + (i-stackPeek(stack)-1)*(getMin(height[stackPeek(stack)], height[i])-height[curIdx]) 13	} 14	} 15	// 当前元素无论如何会入栈 16	stack = stackPush(stack, i) 17	} 18	return rst 19} 20func stackPush(stack []int, v int) []int { 21	stack = append(stack, v) 22	return stack 23} 24 25func stackIsEmpty(stack []int) bool { 26	return len(stack) == 0 27} 28 29func stackPeek(stack []int) int { 30	if stackIsEmpty(stack) { 31	return 0 32	} 33	return stack[len(stack)-1] 34} 35 36func stackPop(stack []int) ([]int, int) { 37	if stackIsEmpty(stack) { 38	return stack, 0 39	} 40	rst := stack[len(stack)-1] 41	stack = stack[:len(stack)-1] 42	return stack, rst 43} 44 45func getMin(a, b int) int { 46	if a &lt; b { 47	return a 48	} 49	return b 50} 
+  | |*.*.*.*| | |*.*.*| | | |*.*| 0 1 2 3 4 先算最下层的* 再加倒数第二层  1func trap(height []int) int { 2	rst := 0 3	stack := make([]int, 0) 4	for i := 0; i &lt; len(height); i++ { 5	for !stackIsEmpty(stack) &amp;&amp; height[stackPeek(stack)] &lt; height[i] { 6	// height = [3, 2, 1, 0] 7	// stack= index(value) 0(3) 1(2) 2(1) 3(0) height[i]=4 8	// 这个时候，处理对象是stack里的3(0)，3(0)的左边比他高的最近的是2，3(0)的右边比他高的最近的是i(4) 9	var curIdx int 10	stack, curIdx = stackPop(stack) 11	if !
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0042.trapping-rain-water/">Read More…</a>
+  </div>
   
 </article><article class="post">
   <h1 class="post-title">
@@ -196,7 +204,7 @@
     <a href="https://wncbb.github.io/posts/leetcode/0041.first-missing-positive/">0041.first-missing-positive</a>
   </h1>
   <time datetime="2020-12-10T16:17:11&#43;0800" class="post-date">2020-12-10 16:17:11</time>
-  1func firstMissingPositive(nums []int) int { 2	for i, _ := range nums { 3	if nums[i] &lt;= 0 { 4	nums[i] = len(nums) + 1 5	} 6	} 7	8	for i, _ := range nums { 9	// abs(nums[i]) 10	// is for 3, 4, -1, 1 11	// otherwise 12	// after checking negative, would be 3, 4, 5, 1 13	// after this lookp, would be 3, 4, -5, -1 14	// then 1 would be returned 15	// the reason is that the last value 1 is set to negative 16	// so we need to ignore negative, just use abs value 17	cur := abs(nums[i]) 18	// nums[cur-1] &gt; 0 19	// is for 1, 1 20	// otherwise 21	// after checking ne4tative, would be 1, 1 22	// after this lookup, would be -1, 1, then 1, 1 23	// the zero index was set two times, and -1*-1=1 24	// so for one index, we only need to set one time 25	if cur &gt; 0 &amp;&amp; cur &lt; len(nums)+1 &amp;&amp; nums[cur-1] &gt; 0 { 26	nums[cur-1] *= -1 27	} 28	} 29 30	for i, _ := range nums { 31	if nums[i] &gt; 0 { 32	return i + 1 33	} 34	} 35 36	return len(nums) + 1 37} 38 39func abs(a int) int { 40	if a &lt; 0 { 41	a *= -1 42	} 43	return a 44} 
+  比如2， 3，-1， 6 遍历一遍，负数变成默认值: 数组长度 原因是需要拿负号做标记，所以先把原来的负数干掉 先变成 2， 3， 5， 6 然后，遇到2，如果2在len里面，且对应位置的数是整数，就改成负数 2, -3, -5, 6 这样，遍历一遍，第一个正数对应的位置，就是第一个缺失的正整数  1func firstMissingPositive(nums []int) int { 2	for i, _ := range nums { 3	if nums[i] &lt;= 0 { 4	nums[i] = len(nums) + 1 5	} 6	} 7	8	for i, _ := range nums { 9	// abs(nums[i]) 10	// is for 3, 4, -1, 1 11	// otherwise 12	// after checking negative, would be 3, 4, 5, 1 13	// after this lookp, would be 3, 4, -5, -1 14	// then 1 would be returned 15	// the reason is that the last value 1 is set to negative 16	// so we need to ignore negative, just use abs value 17	cur := abs(nums[i]) 18	// nums[cur-1] &gt; 0 19	// is for 1, 1 20	// otherwise 21	// after checking ne4tative, would be 1, 1 22	// after this lookup, would be -1, 1, then 1, 1 23	// the zero index was set two times, and -1*-1=1 24	// so for one index, we only need to set one time 25	if cur &gt; 0 &amp;&amp; cur &lt; len(nums)+1 &amp;&amp; nums[cur-1] &gt; 0 { 26	nums[cur-1] *= -1 27	} 28	} 29 30	for i, _ := range nums { 31	if nums[i] &gt; 0 { 32	return i + 1 33	} 34	} 35 36	return len(nums) + 1 37} 38 39func abs(a int) int { 40	if a &lt; 0 { 41	a *= -1 42	} 43	return a 44} 
   
 </article><article class="post">
   <h1 class="post-title">
