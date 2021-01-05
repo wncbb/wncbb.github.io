@@ -360,7 +360,7 @@ wrk -t2 -c100 -d30s -R2000 http://127.0.0.1:8080/index.html # This runs a benchm
     <a href="https://wncbb.github.io/posts/algo/heap/">Heap</a>
   </h1>
   <time datetime="2020-04-24T22:56:43&#43;0800" class="post-date">2020-04-24 22:56:43</time>
-  1package main 2 3import ( 4	&#34;fmt&#34; 5) 6 7func parent(i int) int { 8	return (i - 1) / 2 9} 10 11func left(i int) int { 12	return i*2 + 1 13} 14 15func right(i int) int { 16	return i*2 + 2 17} 18 19func maxHeapify(a []int, i int) { 20	l := left(i) 21	r := right(i) 22	largestIdx := i 23	if l &lt; len(a) &amp;&amp; a[l] &gt; a[i] { 24	largestIdx = l 25	} 26	if r &lt; len(a) &amp;&amp; a[r] &gt; a[largestIdx] { 27	largestIdx = r 28	} 29 30	if largestIdx !
+  1package main 2 3import ( 4	&#34;fmt&#34; 5) 6 7func parent(i int) int { 8	return (i - 1) / 2 9} 10 11func left(i int) int { 12	return i*2 + 1 13} 14 15func right(i int) int { 16	return i*2 + 2 17} 18 19func maxHeapify(a []int, i int) { 20	l := left(i) 21	r := right(i) 22	largestIdx := i 23	if l &lt; len(a) &amp;&amp; a[largestIdx] &lt; a[l] { 24	largestIdx = l 25	} 26	if r &lt; len(a) &amp;&amp; a[largestIdx] &lt; a[r] { 27	largestIdx = r 28	} 29 30	if largestIdx !
   
   <div class="read-more-link">
     <a href="/posts/algo/heap/">Read More…</a>
