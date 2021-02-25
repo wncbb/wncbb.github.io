@@ -53,6 +53,46 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0025.reverse-nodes-in-k-group/">0025.reverse-nodes-in-k-group</a>
+  </h1>
+  <time datetime="2021-02-25T15:58:28&#43;0800" class="post-date">2021-02-25 15:58:28</time>
+  1func reverseKGroup(head *ListNode, k int) *ListNode { 2	var innerReverseKGroup func(h *ListNode) *ListNode 3	innerReverseKGroup = func(h *ListNode) *ListNode { 4	cur := h 5	i := 0 6	var prev *ListNode 7	for i = 0; i &lt; k &amp;&amp; cur != nil; i++ { 8	prev = cur 9	cur = cur.Next 10	} 11	if i &lt; k { 12	return h 13	} 14 // prev是上一个链的末尾 15	prev.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0025.reverse-nodes-in-k-group/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/golang/pointer_struct/">Pointer_struct</a>
+  </h1>
+  <time datetime="2021-02-20T17:58:58&#43;0800" class="post-date">2021-02-20 17:58:58</time>
+  package main import ( &quot;fmt&quot; ) type A struct { PointerValue string StructValue string } func (a *A) PointerSet(v string) { a.PointerValue = v } func (a A) StructSet(v string) { a.StructValue = v } func main() { s := A{PointerValue: &quot;beforeChange&quot;, StructValue: &quot;beforeChange&quot;} p := &amp;A{PointerValue: &quot;beforeChange&quot;, StructValue: &quot;beforeChange&quot;} fmt.Printf(&quot;s: %+v\n&quot;, s) // s: {PointerValue:beforeChange StructValue:beforeChange} // changed s.PointerSet(&quot;afterChange&quot;) // not changed s.StructSet(&quot;afterChange&quot;) fmt.Printf(&quot;s: %+v\n&quot;, s) // s: {PointerValue:afterChange StructValue:beforeChange} fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/golang/pointer_struct/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/golang/interface_pointer_struct/">Interface_pointer_struct</a>
+  </h1>
+  <time datetime="2021-02-20T17:56:54&#43;0800" class="post-date">2021-02-20 17:56:54</time>
+  package main import &quot;fmt&quot; type Inter interface { SetName(name string) } type A struct { Name string } func (a A) SetName(name string) { a.Name = name } type B struct { Name string } func (b *B) SetName(name string) { b.Name = name } func main() { var a Inter = A{Name: &quot;todd&quot;} a.SetName(&quot;alice&quot;) fmt.Printf(&quot;a: %+v\n&quot;, a) // ?相当于 SetName((复制ap然后解引用(*copy_ap)), &quot;alice&quot;) // ?修改的不是同一个值 // 修改失败 var ap Inter = &amp;A{Name: &quot;todd&quot;} ap.
+  
+  <div class="read-more-link">
+    <a href="/posts/golang/interface_pointer_struct/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/golang/interface/">Interface</a>
+  </h1>
+  <time datetime="2021-02-19T11:05:14&#43;0800" class="post-date">2021-02-19 11:05:14</time>
+  https://cmc.gitbook.io/go-internals/chapter-ii-interfaces
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0560.subarray-sum-equals-k/">0560.subarray-sum-equals-k</a>
   </h1>
   <time datetime="2020-12-31T17:01:26&#43;0800" class="post-date">2020-12-31 17:01:26</time>
@@ -146,7 +186,7 @@
     <a href="https://wncbb.github.io/posts/leetcode/0030.substring-with-concatenation-of-all-words/">0030.substring-with-concatenation-of-all-words</a>
   </h1>
   <time datetime="2020-12-18T19:56:59&#43;0800" class="post-date">2020-12-18 19:56:59</time>
-  有点暴力的解法，就是遍历所有可能的窗口  1func findSubstring(s string, words []string) []int { 2	//生命返回值 3	var result []int 4 5	//判断 6	if len(s) == 0 || len(words) == 0 { 7	return result 8	} 9 10 11	//获取单词长度 12	l := len(words[0]) 13 14	//获取滑动窗口总长度 15	length := l * len(words) 16 17	//判断 18	if length &gt; len(s) { 19	return result 20	} 21 22	//构造map 23	mp := make(map[string]int) 24 25	//统计 26	for _,v := range words { 27	mp[v] += 1 28	} 29 30	//开始遍历 31	for i := 0; i &lt;= (len(s) - length);i++ { 32	//判断i开始length位置 33	tmpMap := map[string]int{} 34 35	//定义标志 36	//默认是true 37	fg := true 38 39	// 这里的逻辑是，如果当前的单词是需要的，且个数还没凑够，那就对应的数减一 40	// 如果遇到不需要的单词，一定就不合法了.
+  有点暴力的解法，就是遍历所有可能的窗口  1func findSubstring(s string, words []string) []int { 2	//声明返回值 3	var result []int 4 5	//判断 6	if len(s) == 0 || len(words) == 0 { 7	return result 8	} 9 10 11	//获取单词长度 12	l := len(words[0]) 13 14	//获取滑动窗口总长度 15	length := l * len(words) 16 17	//判断 18	if length &gt; len(s) { 19	return result 20	} 21 22	//构造map 23	mp := make(map[string]int) 24 25	//统计 26	for _,v := range words { 27	mp[v] += 1 28	} 29 30	//开始遍历 31	for i := 0; i &lt;= (len(s) - length);i++ { 32	//判断i开始length位置 33	tmpMap := map[string]int{} 34 35	//定义标志 36	//默认是true 37	fg := true 38 39	// 这里的逻辑是，如果当前的单词是需要的，且个数还没凑够，那就对应的数减一 40	// 如果遇到不需要的单词，一定就不合法了.
   
   <div class="read-more-link">
     <a href="/posts/leetcode/0030.substring-with-concatenation-of-all-words/">Read More…</a>
@@ -306,7 +346,7 @@ wrk -t2 -c100 -d30s -R2000 http://127.0.0.1:8080/index.html # This runs a benchm
     <a href="https://wncbb.github.io/posts/algo/reverse_list/">Reverse_list</a>
   </h1>
   <time datetime="2020-06-07T18:34:55&#43;0800" class="post-date">2020-06-07 18:34:55</time>
-  1package main 2 3import ( 4	&#34;fmt&#34; 5) 6 7type ListNode struct { 8	Val int 9	Next *ListNode 10} 11 12func main() { 13	l := getList([]int{1, 2, 3, 4, 5, 6}) 14	printList(l) 15	l = reverseList(l) 16	printList(l) 17} 18 19func reverseList(l *ListNode) *ListNode { 20	var head *ListNode 21	var next *ListNode 22	cur := l 23	for cur != nil { 24	// 保存下一个节点 25	next = cur.
+  1package main 2 3import ( 4	&#34;fmt&#34; 5) 6 7type ListNode struct { 8	Val int 9	Next *ListNode 10} 11 12func main() { 13	l := getList([]int{1, 2, 3, 4, 5, 6}) 14	printList(l) 15	l = reverseList(l) 16	printList(l) 17} 18 19func reverseList(l *ListNode) *ListNode { 20	var head *ListNode 21	var next *ListNode 22	cur := l 23	for cur != nil { 24	/* 25好记忆: 26A=B 27B=C 28C=D 29D=A 30*/ 31	// 保存下一个节点 32	next = cur.
   
   <div class="read-more-link">
     <a href="/posts/algo/reverse_list/">Read More…</a>
@@ -342,14 +382,14 @@ wrk -t2 -c100 -d30s -R2000 http://127.0.0.1:8080/index.html # This runs a benchm
     <a href="https://wncbb.github.io/posts/algo/reservoir_sampling/">Reservoir_sampling</a>
   </h1>
   <time datetime="2020-04-25T14:59:29&#43;0800" class="post-date">2020-04-25 14:59:29</time>
-  array result for i=0; i&lt;n; i++{ if i&lt;k{ result&lt;-array[i] }else{ r=random(0, i) if r&gt;=k{ continue } array[r]=array[i] } }  
+  array result for i=0; i&lt;n; i++{ if i&lt;k{ result[i]=array[i] }else{ r=random(0, i) if r&gt;=k{ continue } result[r]=array[i] } }  
   
 </article><article class="post">
   <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/algo/union_find/">Union find</a>
   </h1>
   <time datetime="2020-04-25T14:40:38&#43;0800" class="post-date">2020-04-25 14:40:38</time>
-  1class UnionFindSet: 2 def __init__(self, n): 3 self.parents=[] 4 self.ranks=[] 5 for i in range(n): 6 self.parents.append(i) 7 self.ranks.append(0) 8 def connected(self, a, b): 9 return self.find(a)==self.find(b) 10 11 def find(self, x): 12 if x!=self.parents[x]: 13 self.parents[x]=self.find(self.parents[x]) 14 return self.parents[x] 15 16 def union(self, x, y): 17 px=self.find(x) 18 py=self.find(y) 19 if self.ranks[px]&gt;self.ranks[py]: 20 self.parents[py]=px 21 if self.ranks[px]&lt;self.ranks[py]: 22 self.parents[px]=py 23 if self.ranks[px]==self.ranks[py]: 24 self.parents[py]=px 25 self.ranks[px]+=1 26 27 28t=UnionFindSet(5) 29print t.
+  1class UnionFindSet: 2 def __init__(self, n): 3 self.parents=[] 4 self.ranks=[] 5 for i in range(n): 6 self.parents.append(i) 7 self.ranks.append(0) 8 def connected(self, a, b): 9 return self.find(a)==self.find(b) 10 11 def find(self, x): 12 if x!=self.parents[x]: 13 self.parents[x]=self.find(self.parents[x]) 14 return self.parents[x] 15 16 def union(self, x, y): 17 px=self.find(x) 18 py=self.find(y) 19 # 谁大谁是爹 20 if self.ranks[px]&gt;self.ranks[py]: 21 self.parents[py]=px 22 if self.ranks[px]&lt;self.ranks[py]: 23 self.parents[px]=py 24 if self.ranks[px]==self.ranks[py]: 25 self.parents[py]=px 26 self.ranks[px]+=1 27 28 29t=UnionFindSet(5) 30print t.
   
   <div class="read-more-link">
     <a href="/posts/algo/union_find/">Read More…</a>
@@ -419,9 +459,10 @@ BFS(G, s) for each u in (G.V-{s}) u.color=WHITE u.d=inf u.parent=nil s.color=GRA
   </h1>
   <time datetime="2020-01-19T15:45:10&#43;0800" class="post-date">2020-01-19 15:45:10</time>
   References:
- https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/  Example: k-flight
+ https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
+从A出发是否存在到达各个节点的路径(有计算出值当然就可以到达)； 从A出发到达各个节点最短路径(时间最少、或者路径最少等) 图中是否存在负环路（权重之和为负数）   Example: k-flight
 time: O(|V|*|E|)
-1package main 2 3import ( 4	&#34;fmt&#34; 5	&#34;math&#34; 6) 7 8// Edge means the edge in graph 9type Edge struct { 10	src string 11	dst string 12	weight int 13} 14 15func bf(edges []Edge, fromV string) map[string]int { 16 // key为点，value为目前位置到达key点的距离，刚开始全是无限大 17	distMap := make(map[string]int, 0) 18	for _, v := range edges { 19	distMap[v.src] = math.MaxInt32 20	distMap[v.dst] = math.
+1package main 2 3import ( 4	&#34;fmt&#34; 5	&#34;math&#34; 6) 7 8// Edge means the edge in graph 9type Edge struct { 10	src string 11	dst string 12	weight int 13} 14 15func bf(edges []Edge, fromV string) map[string]int { 16 // key为点，value为目前位置到达key点的距离，刚开始全是无限大 17	distMap := make(map[string]int, 0) 18	for _, v := range edges { 19	distMap[v.src] = math.
   
   <div class="read-more-link">
     <a href="/posts/algo/bellman_ford/">Read More…</a>

@@ -17,7 +17,7 @@
       <pubDate>Fri, 18 Dec 2020 19:56:59 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0030.substring-with-concatenation-of-all-words/</guid>
-      <description>有点暴力的解法，就是遍历所有可能的窗口  1func findSubstring(s string, words []string) []int { 2	//生命返回值 3	var result []int 4 5	//判断 6	if len(s) == 0 || len(words) == 0 { 7	return result 8	} 9 10 11	//获取单词长度 12	l := len(words[0]) 13 14	//获取滑动窗口总长度 15	length := l * len(words) 16 17	//判断 18	if length &amp;gt; len(s) { 19	return result 20	} 21 22	//构造map 23	mp := make(map[string]int) 24 25	//统计 26	for _,v := range words { 27	mp[v] += 1 28	} 29 30	//开始遍历 31	for i := 0; i &amp;lt;= (len(s) - length);i++ { 32	//判断i开始length位置 33	tmpMap := map[string]int{} 34 35	//定义标志 36	//默认是true 37	fg := true 38 39	// 这里的逻辑是，如果当前的单词是需要的，且个数还没凑够，那就对应的数减一 40	// 如果遇到不需要的单词，一定就不合法了.</description>
+      <description>有点暴力的解法，就是遍历所有可能的窗口  1func findSubstring(s string, words []string) []int { 2	//声明返回值 3	var result []int 4 5	//判断 6	if len(s) == 0 || len(words) == 0 { 7	return result 8	} 9 10 11	//获取单词长度 12	l := len(words[0]) 13 14	//获取滑动窗口总长度 15	length := l * len(words) 16 17	//判断 18	if length &amp;gt; len(s) { 19	return result 20	} 21 22	//构造map 23	mp := make(map[string]int) 24 25	//统计 26	for _,v := range words { 27	mp[v] += 1 28	} 29 30	//开始遍历 31	for i := 0; i &amp;lt;= (len(s) - length);i++ { 32	//判断i开始length位置 33	tmpMap := map[string]int{} 34 35	//定义标志 36	//默认是true 37	fg := true 38 39	// 这里的逻辑是，如果当前的单词是需要的，且个数还没凑够，那就对应的数减一 40	// 如果遇到不需要的单词，一定就不合法了.</description>
     </item>
     
     <item>

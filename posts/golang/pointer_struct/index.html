@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Reservoir_sampling &middot; WNCBB&#39;s blog</title>
+  <title>Pointer_struct &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,22 +50,58 @@
 
     <main class="content container">
     <div class="post">
-  <h1>Reservoir_sampling</h1>
-  <time datetime=2020-04-25T14:59:29&#43;0800 class="post-date">2020-04-25 14:59:29</time>
-  <pre><code>array
-result
-for i=0; i&lt;n; i++{
-    if i&lt;k{
-        result[i]=array[i]
-    }else{
-        r=random(0, i)
-        if r&gt;=k{
-            continue
-        }
-        result[r]=array[i]
-    }
+  <h1>Pointer_struct</h1>
+  <time datetime=2021-02-20T17:58:58&#43;0800 class="post-date">2021-02-20 17:58:58</time>
+  <pre><code>package main
+
+import (
+	&quot;fmt&quot;
+)
+
+type A struct {
+	PointerValue string
+	StructValue  string
 }
 
+func (a *A) PointerSet(v string) {
+	a.PointerValue = v
+}
+
+func (a A) StructSet(v string) {
+	a.StructValue = v
+}
+
+func main() {
+	s := A{PointerValue: &quot;beforeChange&quot;, StructValue: &quot;beforeChange&quot;}
+	p := &amp;A{PointerValue: &quot;beforeChange&quot;, StructValue: &quot;beforeChange&quot;}
+
+	fmt.Printf(&quot;s: %+v\n&quot;, s)
+	// s: {PointerValue:beforeChange StructValue:beforeChange}
+	// changed
+	s.PointerSet(&quot;afterChange&quot;)
+	// not changed
+	s.StructSet(&quot;afterChange&quot;)
+	fmt.Printf(&quot;s: %+v\n&quot;, s)
+	// s: {PointerValue:afterChange StructValue:beforeChange}
+
+	fmt.Printf(&quot;p: %+v\n&quot;, p)
+	// p: &amp;{PointerValue:beforeChange StructValue:beforeChange}
+	// changed
+	p.PointerSet(&quot;afterChange&quot;)
+	// not changed
+	p.StructSet(&quot;afterChange&quot;)
+	fmt.Printf(&quot;p: %+v\n&quot;, p)
+	// p: &amp;{PointerValue:afterChange StructValue:beforeChange}
+
+}
+</code></pre>
+
+<p>output:</p>
+
+<pre><code>s: {PointerValue:beforeChange StructValue:beforeChange}
+s: {PointerValue:afterChange StructValue:beforeChange}
+p: &amp;{PointerValue:beforeChange StructValue:beforeChange}
+p: &amp;{PointerValue:afterChange StructValue:beforeChange}
 </code></pre>
 
 </div>

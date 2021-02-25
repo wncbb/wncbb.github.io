@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>list on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/list/</link>
+    <description>Recent content in list on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Feb 2021 15:58:28 +0800</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/categories/list/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>0025.reverse-nodes-in-k-group</title>
+      <link>https://wncbb.github.io/posts/leetcode/0025.reverse-nodes-in-k-group/</link>
+      <pubDate>Thu, 25 Feb 2021 15:58:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0025.reverse-nodes-in-k-group/</guid>
+      <description>1func reverseKGroup(head *ListNode, k int) *ListNode { 2	var innerReverseKGroup func(h *ListNode) *ListNode 3	innerReverseKGroup = func(h *ListNode) *ListNode { 4	cur := h 5	i := 0 6	var prev *ListNode 7	for i = 0; i &amp;lt; k &amp;amp;&amp;amp; cur != nil; i++ { 8	prev = cur 9	cur = cur.Next 10	} 11	if i &amp;lt; k { 12	return h 13	} 14 // prev是上一个链的末尾 15	prev.</description>
+    </item>
+    
+  </channel>
+</rss>

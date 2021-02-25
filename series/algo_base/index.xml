@@ -26,7 +26,7 @@
       <pubDate>Sun, 07 Jun 2020 18:34:55 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/reverse_list/</guid>
-      <description>1package main 2 3import ( 4	&amp;#34;fmt&amp;#34; 5) 6 7type ListNode struct { 8	Val int 9	Next *ListNode 10} 11 12func main() { 13	l := getList([]int{1, 2, 3, 4, 5, 6}) 14	printList(l) 15	l = reverseList(l) 16	printList(l) 17} 18 19func reverseList(l *ListNode) *ListNode { 20	var head *ListNode 21	var next *ListNode 22	cur := l 23	for cur != nil { 24	// 保存下一个节点 25	next = cur.</description>
+      <description>1package main 2 3import ( 4	&amp;#34;fmt&amp;#34; 5) 6 7type ListNode struct { 8	Val int 9	Next *ListNode 10} 11 12func main() { 13	l := getList([]int{1, 2, 3, 4, 5, 6}) 14	printList(l) 15	l = reverseList(l) 16	printList(l) 17} 18 19func reverseList(l *ListNode) *ListNode { 20	var head *ListNode 21	var next *ListNode 22	cur := l 23	for cur != nil { 24	/* 25好记忆: 26A=B 27B=C 28C=D 29D=A 30*/ 31	// 保存下一个节点 32	next = cur.</description>
     </item>
     
     <item>
@@ -53,7 +53,7 @@
       <pubDate>Sat, 25 Apr 2020 14:59:29 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/reservoir_sampling/</guid>
-      <description>array result for i=0; i&amp;lt;n; i++{ if i&amp;lt;k{ result&amp;lt;-array[i] }else{ r=random(0, i) if r&amp;gt;=k{ continue } array[r]=array[i] } }  </description>
+      <description>array result for i=0; i&amp;lt;n; i++{ if i&amp;lt;k{ result[i]=array[i] }else{ r=random(0, i) if r&amp;gt;=k{ continue } result[r]=array[i] } }  </description>
     </item>
     
     <item>
@@ -62,7 +62,7 @@
       <pubDate>Sat, 25 Apr 2020 14:40:38 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/union_find/</guid>
-      <description>1class UnionFindSet: 2 def __init__(self, n): 3 self.parents=[] 4 self.ranks=[] 5 for i in range(n): 6 self.parents.append(i) 7 self.ranks.append(0) 8 def connected(self, a, b): 9 return self.find(a)==self.find(b) 10 11 def find(self, x): 12 if x!=self.parents[x]: 13 self.parents[x]=self.find(self.parents[x]) 14 return self.parents[x] 15 16 def union(self, x, y): 17 px=self.find(x) 18 py=self.find(y) 19 if self.ranks[px]&amp;gt;self.ranks[py]: 20 self.parents[py]=px 21 if self.ranks[px]&amp;lt;self.ranks[py]: 22 self.parents[px]=py 23 if self.ranks[px]==self.ranks[py]: 24 self.parents[py]=px 25 self.ranks[px]+=1 26 27 28t=UnionFindSet(5) 29print t.</description>
+      <description>1class UnionFindSet: 2 def __init__(self, n): 3 self.parents=[] 4 self.ranks=[] 5 for i in range(n): 6 self.parents.append(i) 7 self.ranks.append(0) 8 def connected(self, a, b): 9 return self.find(a)==self.find(b) 10 11 def find(self, x): 12 if x!=self.parents[x]: 13 self.parents[x]=self.find(self.parents[x]) 14 return self.parents[x] 15 16 def union(self, x, y): 17 px=self.find(x) 18 py=self.find(y) 19 # 谁大谁是爹 20 if self.ranks[px]&amp;gt;self.ranks[py]: 21 self.parents[py]=px 22 if self.ranks[px]&amp;lt;self.ranks[py]: 23 self.parents[px]=py 24 if self.ranks[px]==self.ranks[py]: 25 self.parents[py]=px 26 self.ranks[px]+=1 27 28 29t=UnionFindSet(5) 30print t.</description>
     </item>
     
     <item>
@@ -127,9 +127,10 @@ BFS(G, s) for each u in (G.V-{s}) u.color=WHITE u.d=inf u.parent=nil s.color=GRA
       
       <guid>https://wncbb.github.io/posts/algo/bellman_ford/</guid>
       <description>References:
- https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/  Example: k-flight
+ https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
+从A出发是否存在到达各个节点的路径(有计算出值当然就可以到达)； 从A出发到达各个节点最短路径(时间最少、或者路径最少等) 图中是否存在负环路（权重之和为负数）   Example: k-flight
 time: O(|V|*|E|)
-1package main 2 3import ( 4	&amp;#34;fmt&amp;#34; 5	&amp;#34;math&amp;#34; 6) 7 8// Edge means the edge in graph 9type Edge struct { 10	src string 11	dst string 12	weight int 13} 14 15func bf(edges []Edge, fromV string) map[string]int { 16 // key为点，value为目前位置到达key点的距离，刚开始全是无限大 17	distMap := make(map[string]int, 0) 18	for _, v := range edges { 19	distMap[v.src] = math.MaxInt32 20	distMap[v.dst] = math.</description>
+1package main 2 3import ( 4	&amp;#34;fmt&amp;#34; 5	&amp;#34;math&amp;#34; 6) 7 8// Edge means the edge in graph 9type Edge struct { 10	src string 11	dst string 12	weight int 13} 14 15func bf(edges []Edge, fromV string) map[string]int { 16 // key为点，value为目前位置到达key点的距离，刚开始全是无限大 17	distMap := make(map[string]int, 0) 18	for _, v := range edges { 19	distMap[v.src] = math.</description>
     </item>
     
     <item>

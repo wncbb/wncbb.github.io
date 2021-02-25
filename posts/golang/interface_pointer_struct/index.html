@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Reservoir_sampling &middot; WNCBB&#39;s blog</title>
+  <title>Interface_pointer_struct &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,22 +50,67 @@
 
     <main class="content container">
     <div class="post">
-  <h1>Reservoir_sampling</h1>
-  <time datetime=2020-04-25T14:59:29&#43;0800 class="post-date">2020-04-25 14:59:29</time>
-  <pre><code>array
-result
-for i=0; i&lt;n; i++{
-    if i&lt;k{
-        result[i]=array[i]
-    }else{
-        r=random(0, i)
-        if r&gt;=k{
-            continue
-        }
-        result[r]=array[i]
-    }
+  <h1>Interface_pointer_struct</h1>
+  <time datetime=2021-02-20T17:56:54&#43;0800 class="post-date">2021-02-20 17:56:54</time>
+  <pre><code class="language-bigquery">
+package main
+
+import &quot;fmt&quot;
+
+type Inter interface {
+	SetName(name string)
 }
 
+type A struct {
+	Name string
+}
+
+func (a A) SetName(name string) {
+	a.Name = name
+}
+
+type B struct {
+	Name string
+}
+
+func (b *B) SetName(name string) {
+	b.Name = name
+}
+
+func main() {
+	var a Inter = A{Name: &quot;todd&quot;}
+	a.SetName(&quot;alice&quot;)
+	fmt.Printf(&quot;a: %+v\n&quot;, a)
+
+	// ?相当于  SetName((复制ap然后解引用(*copy_ap)), &quot;alice&quot;)
+	// ?修改的不是同一个值
+    // 修改失败
+	var ap Inter = &amp;A{Name: &quot;todd&quot;}
+	ap.SetName(&quot;alice&quot;)
+	fmt.Printf(&quot;ap: %+v\n&quot;, ap)
+
+	// ?B结构体里的SetName函数的接收者是指针，
+	// ?就是想改变变量
+	// ?相当于 SetName((复制b,然后取指针(&amp;copy_b)), &quot;alice&quot;)
+	// ?这没法修改原始的B，所以直接违法
+    // 报错
+	/*
+		var b Inter = B{Name: &quot;todd&quot;}
+		b.SetName(&quot;alice&quot;)
+		fmt.Printf(&quot;b: %+v\n&quot;, b)
+	*/
+
+	var bp Inter = &amp;B{Name: &quot;todd&quot;}
+	bp.SetName(&quot;alice&quot;)
+	fmt.Printf(&quot;bp: %+v\n&quot;, bp)
+
+}
+
+</code></pre>
+
+<pre><code>a: {Name:todd}
+ap: &amp;{Name:todd}
+bp: &amp;{Name:alice}
 </code></pre>
 
 </div>
