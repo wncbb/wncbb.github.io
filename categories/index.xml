@@ -6,10 +6,19 @@
     <description>Recent content in Categories on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Feb 2021 15:58:28 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Feb 2021 15:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>tree</title>
+      <link>https://wncbb.github.io/categories/tree/</link>
+      <pubDate>Fri, 26 Feb 2021 15:37:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/categories/tree/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>list</title>
