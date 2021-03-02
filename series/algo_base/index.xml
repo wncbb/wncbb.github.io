@@ -6,10 +6,19 @@
     <description>Recent content in algo_base on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Mar 2021 13:53:38 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Mar 2021 15:14:44 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/algo_base/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Segment Tree</title>
+      <link>https://wncbb.github.io/posts/algo/segment-tree/</link>
+      <pubDate>Tue, 02 Mar 2021 15:14:44 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/segment-tree/</guid>
+      <description>n(i) represents the node number of binary tree having i child/s sum = n(0)+n(1)+n(2) 另一个角度，所有节点分两类： 孩子节点， 非孩子节点(有且只有一个，就是root节点) n(1)*1就是有一个孩子节点的所有节点的孩子总数 n(2)*2就是有两个孩子节点的所有节点的孩子总数 sum = sum(孩子节点) + sum(非孩子节点) =n(1)+2*n(2) + 1 因此n(0)+n(1)+n(2)=n(1)+2*n(2)+1 =&amp;gt; n(0)=n(2)+1 对于线段树，n(1)=0 然后对于输入的原始数组，长度为N，也就是n(0)=N， n(2)=n(0)-1=N-1 最好情况，满二叉树： sum = n(0)+n(2)=N+N-1=2N-1 最坏情况: x / \ a x // 倒数第二层 / \ a a // 倒数第一层 倒数第二层的a类型的节点个数:(N-2) 倒数第二层以及上面的节点个数: sum(倒数第二层以及以上) = 2(N-2)+1=2N-4+1=2N-3 sum(倒数第二层节点个数, 虽有只有两个，但是因为是数组，前面全部填空) = (N-2)*2=2N-4 所以sum=2N-3+2N-4=4N-7 所以4N个肯定够用了  package main import ( &amp;quot;fmt&amp;quot; ) func main() { // 0 1 2 3 4 5 6 7 8 9 s := []int{1, 4, 8, 5, 7, 6, 9, 2, 3, 0} st := NewSegmentTree(s, func(v1, v2 int) int { // return v1 + v2 if v1 &amp;lt; v2 { return v1 } return v2 }) var rst int rst = st.</description>
+    </item>
     
     <item>
       <title>Binary Index Tree</title>

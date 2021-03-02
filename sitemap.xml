@@ -3,38 +3,49 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://wncbb.github.io/posts/algo/binary-index-tree/</loc>
-    <lastmod>2021-03-02T13:53:38+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2021-03-02T13:53:38+08:00</lastmod>
+    <lastmod>2021-03-02T15:14:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/posts/</loc>
-    <lastmod>2021-03-02T13:53:38+08:00</lastmod>
+    <lastmod>2021-03-02T15:14:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/posts/algo/segment-tree/</loc>
+    <lastmod>2021-03-02T15:14:44+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2021-03-02T13:53:38+08:00</lastmod>
+    <lastmod>2021-03-02T15:14:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/</loc>
-    <lastmod>2021-03-02T13:53:38+08:00</lastmod>
+    <lastmod>2021-03-02T15:14:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/series/algo_base/</loc>
-    <lastmod>2021-03-02T13:53:38+08:00</lastmod>
+    <lastmod>2021-03-02T15:14:44+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/categories/segment-tree/</loc>
+    <lastmod>2021-03-02T15:14:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/algo/binary-index-tree/</loc>
+    <lastmod>2021-03-02T13:53:38+08:00</lastmod>
   </url>
   
   <url>

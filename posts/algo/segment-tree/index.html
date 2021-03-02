@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.56.0-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Segment Tree &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Segment Tree</h1>
+  <time datetime=2021-03-02T15:14:44&#43;0800 class="post-date">2021-03-02 15:14:44</time>
+  <pre><code>n(i) represents the node number of binary tree having i child/s
+sum = n(0)+n(1)+n(2)
+
+另一个角度，所有节点分两类： 孩子节点， 非孩子节点(有且只有一个，就是root节点)
+n(1)*1就是有一个孩子节点的所有节点的孩子总数
+n(2)*2就是有两个孩子节点的所有节点的孩子总数
+sum = sum(孩子节点) + sum(非孩子节点) 
+    =n(1)+2*n(2)   + 1
+因此n(0)+n(1)+n(2)=n(1)+2*n(2)+1 =&gt; n(0)=n(2)+1
+对于线段树，n(1)=0
+然后对于输入的原始数组，长度为N，也就是n(0)=N， n(2)=n(0)-1=N-1
+
+最好情况，满二叉树： sum = n(0)+n(2)=N+N-1=2N-1
+
+最坏情况:
+   x
+  / \
+ a   x    // 倒数第二层
+    / \
+    a  a  // 倒数第一层
+倒数第二层的a类型的节点个数:(N-2)
+倒数第二层以及上面的节点个数: sum(倒数第二层以及以上) = 2(N-2)+1=2N-4+1=2N-3
+sum(倒数第二层节点个数, 虽有只有两个，但是因为是数组，前面全部填空) = (N-2)*2=2N-4
+所以sum=2N-3+2N-4=4N-7
+所以4N个肯定够用了
+
+</code></pre>
+
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	//         0  1  2  3  4  5  6  7  8  9
+	s := []int{1, 4, 8, 5, 7, 6, 9, 2, 3, 0}
+	st := NewSegmentTree(s, func(v1, v2 int) int {
+		// return v1 + v2
+		if v1 &lt; v2 {
+			return v1
+		}
+		return v2
+	})
+
+	var rst int
+	rst = st.Query(0, 9)
+	fmt.Printf(&quot;rst: %d\n&quot;, rst)
+	st.Update(3, -100)
+	rst = st.Query(0, 9)
+	fmt.Printf(&quot;rst: %d\n&quot;, rst)
+}
+
+type SegmentTree struct {
+	tree   []int
+	data   []int
+	merger func(v1, v2 int) int
+}
+
+// Build在s.tree[idx]的位置，创建包含s.data[left:right+1]的根节点
+// 返回s.tree[idx]的值
+func (s *SegmentTree) Build(idx, left, right int) int {
+	if left == right {
+		s.tree[idx] = s.data[left]
+		return s.tree[idx]
+	}
+	treeLeftIdx := leftChildIdx(idx)
+	treeRightIdx := treeLeftIdx + 1
+	mid := left + (right-left)/2
+	leftResp := s.Build(treeLeftIdx, left, mid)
+	rightResp := s.Build(treeRightIdx, mid+1, right)
+	s.tree[idx] = s.merger(leftResp, rightResp)
+	return s.tree[idx]
+}
+
+func (s *SegmentTree) Query(queryLeft, queryRight int) int {
+	return s.queryRange(0, 0, len(s.data)-1, queryLeft, queryRight)
+}
+
+func (s *SegmentTree) Update(k, v int) {
+	if k &lt; 0 || k &gt;= len(s.data) {
+		return
+	}
+	s.set(0, 0, len(s.data)-1, k, v)
+}
+
+func (s *SegmentTree) set(treeIdx, dataLeft, dataRight, targetIdx, targetValue int) {
+	fmt.Println(&quot;line60&quot;)
+	if dataLeft == dataRight {
+		fmt.Println(&quot;line62&quot;)
+		s.tree[treeIdx] = targetValue
+		return
+	}
+	fmt.Println(&quot;line65&quot;)
+
+	leftIdx := leftChildIdx(treeIdx)
+	rightIdx := leftIdx + 1
+	dataMid := dataLeft + (dataRight-dataLeft)/2
+	if targetIdx &gt; dataMid {
+		s.set(rightIdx, dataMid+1, dataRight, targetIdx, targetValue)
+	} else {
+		s.set(leftIdx, dataLeft, dataMid, targetIdx, targetValue)
+	}
+
+	s.tree[treeIdx] = s.merger(s.tree[leftIdx], s.tree[rightIdx])
+}
+
+func (s *SegmentTree) queryRange(rootIdx, dataLeft, dataRight, queryLeft, queryRight int) int {
+	if dataLeft == queryLeft &amp;&amp; dataRight == queryRight {
+		return s.tree[rootIdx]
+	}
+
+	leftIdx := leftChildIdx(rootIdx)
+	rightIdx := leftIdx + 1
+	// rootIdx/leftIdx/rightIdx是跟data绑定的，根据data的范围0, len(s)来产生的
+	dataMid := dataLeft + (dataRight-dataLeft)/2
+
+	if queryRight &lt;= dataMid {
+		return s.queryRange(leftIdx, dataLeft, dataMid, queryLeft, queryRight)
+	}
+	if queryLeft &gt; dataMid {
+		return s.queryRange(rightIdx, dataMid+1, dataRight, queryLeft, queryRight)
+	}
+	leftRst := s.queryRange(leftIdx, dataLeft, dataMid, queryLeft, dataMid)
+	rightRst := s.queryRange(rightIdx, dataMid+1, dataRight, dataMid+1, queryRight)
+	return s.merger(leftRst, rightRst)
+}
+
+func leftChildIdx(i int) int {
+	return i*2 + 1
+}
+
+func NewSegmentTree(s []int, merger func(v1, v2 int) int) *SegmentTree {
+	ret := &amp;SegmentTree{
+		tree:   make([]int, len(s)*4, len(s)*4),
+		data:   s,
+		merger: merger,
+	}
+	ret.Build(0, 0, len(ret.data)-1)
+	return ret
+}
+
+</code></pre>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>
