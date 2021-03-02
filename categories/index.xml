@@ -6,10 +6,19 @@
     <description>Recent content in Categories on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Mar 2021 13:44:15 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Mar 2021 13:53:38 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>binary index tree</title>
+      <link>https://wncbb.github.io/categories/binary-index-tree/</link>
+      <pubDate>Tue, 02 Mar 2021 13:53:38 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/categories/binary-index-tree/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>memory</title>

@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/binary-index-tree/">Binary Index Tree</a>
+  </h1>
+  <time datetime="2021-03-02T13:53:38&#43;0800" class="post-date">2021-03-02 13:53:38</time>
+  package main import &quot;fmt&quot; type BinaryIndexTree struct { raw []int } // lowbit的作用： // x的二进制表示： xxxx...10...0 // 返回 10...0 // 换句话说，返回二进制表示形式中，最低位1所组成的数字 func lowbit(x int) int { return x &amp; (-1 * x) } func (b *BinaryIndexTree) Build(s []int) { b.raw = make([]int, len(s)+1, len(s)+1) for idx, v := range s { b.raw[idx+1] = v } for i := 1; i &lt; len(b.raw); i++ { j := i + lowbit(i) if j &lt; len(b.
+  
+  <div class="read-more-link">
+    <a href="/posts/algo/binary-index-tree/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0304.range-sum-query-2d-immutable/">0304.range-sum-query-2d-immutable</a>
   </h1>
   <time datetime="2021-03-02T13:44:15&#43;0800" class="post-date">2021-03-02 13:44:15</time>
