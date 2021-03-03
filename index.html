@@ -53,6 +53,24 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/mysql/type/">Type</a>
+  </h1>
+  <time datetime="2021-03-03T14:50:40&#43;0800" class="post-date">2021-03-03 14:50:40</time>
+  varchar不定长度 存储: 实际字符串，加上1/2/3字节的字符串长度 &quot; a &quot; 取出来也是&quot; a &quot;, 长度是3 对于未指定varchar字段not null的表，会有1个字节专门表示该字段是否为null char定长 存储: 实际字符串 &quot; a &quot; 取出来也是&quot; a&quot;, 长度是2 因为定长，默认就是空格，a后面的空格，分不清是用户指定输入的，还是默认值 mysql&gt; create table test_string ( -&gt; char_value char(5), -&gt; varchar_value varchar(5), -&gt; text_value text default &quot;&quot;) engine=innodb charset=utf8; ERROR 1101 (42000): BLOB, TEXT, GEOMETRY or JSON column 'text_value' can't have a default value mysql&gt; varchar和text两种数据类型，使用建议是能用varchar就用varchar而不用text（存储效率高），varchar(M)的M有长度限制，之前说过，如果大于限制，可以使用mediumtext（16M）或者longtext（4G）。 至于text和blob，简单过一下就是text存储的是字符串而blob存储的是二进制字符串，简单说blob是用于存储例如图片、音视频这种文件的二进制数据的。  mysql&gt; create table td(a decimal(10,5)); Query OK, 0 rows affected (0.02 sec) mysql&gt; insert into td(a) values(1.
+  
+  <div class="read-more-link">
+    <a href="/posts/mysql/type/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/mysql/base/">Base</a>
+  </h1>
+  <time datetime="2021-03-03T14:12:14&#43;0800" class="post-date">2021-03-03 14:12:14</time>
+    
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/algo/segment-tree/">Segment Tree</a>
   </h1>
   <time datetime="2021-03-02T15:14:44&#43;0800" class="post-date">2021-03-02 15:14:44</time>

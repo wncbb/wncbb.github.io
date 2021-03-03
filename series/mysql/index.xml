@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/series/mysql/</link>
+    <description>Recent content in mysql on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Mar 2021 14:12:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/series/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Base</title>
+      <link>https://wncbb.github.io/posts/mysql/base/</link>
+      <pubDate>Wed, 03 Mar 2021 14:12:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/mysql/base/</guid>
+      <description>  </description>
+    </item>
+    
+  </channel>
+</rss>
