@@ -6,10 +6,37 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Mar 2021 14:50:40 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 04 Mar 2021 11:26:13 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kmp</title>
+      <link>https://wncbb.github.io/posts/algo/kmp/</link>
+      <pubDate>Thu, 04 Mar 2021 11:26:13 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/kmp/</guid>
+      <description>package main import ( &amp;quot;fmt&amp;quot; ) func main() { s := &amp;quot;atoddasdfasdtodd&amp;quot; p := &amp;quot;abab&amp;quot; rst := match(s, p) fmt.Printf(&amp;quot;rst: %+v\n&amp;quot;, rst) } func match(s, p string) []int { nxt := build(p) ret := make([]int, 0) for i, j := 0, 0; i &amp;lt; len(s); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; s[i] != p[j] { j = nxt[j] } if s[i] == p[j] { j++ } if j == len(p) { ret = append(ret, i-len(p)+1) j = nxt[j] } } return ret } // build would build the next array // a b a b // 0 0 0 1 2 // nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度 // 比如nxt[3], p[:3]=&amp;quot;aba&amp;quot;, 前缀a，跟后缀a // 比如nxt[4], p[:4]=&amp;quot;abab&amp;quot;, 前缀ab，跟后缀ab func build(p string) []int { ret := make([]int, 0, len(p)) ret = append(ret, 0) ret = append(ret, 0) for i, j := 1, 0; i &amp;lt; len(p); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; p[i] !</description>
+    </item>
+    
+    <item>
+      <title>Eviction</title>
+      <link>https://wncbb.github.io/posts/redis/eviction/</link>
+      <pubDate>Wed, 03 Mar 2021 17:42:48 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/redis/eviction/</guid>
+      <description>volatile: 易变的;无定性的;无常性的;可能急剧波动的;不稳定的;易恶化的;易挥发的;易发散的 lru: Least Recently Used 默认策略是 volatile-lru，即超过最大内存后，在过期键中使用 lru 算法进行 key 的剔除，保证不过期数据不被删除，但是可能会出现 OOM 问题。 allkeys-lru：根据 LRU 算法删除键，不管数据有没有设置超时属性，直到腾出足够空间为止。 allkeys-random：随机删除所有键，直到腾出足够空间为止。 volatile-random:随机删除过期键，直到腾出足够空间为止。 volatile-ttl：根据键值对象的 ttl 属性，删除最近将要过期数据。如果没有，回退到 noeviction 策略。 noeviction：不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息&amp;quot;(error) OOM command not allowed when used memory&amp;quot;，此时 Redis 只响应读操作。  </description>
+    </item>
+    
+    <item>
+      <title>Command</title>
+      <link>https://wncbb.github.io/posts/redis/command/</link>
+      <pubDate>Wed, 03 Mar 2021 15:37:35 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/redis/command/</guid>
+      <description>Available since 1.0.0. Time complexity: O(1) Set key to hold the string value. If key already holds a value, it is overwritten, regardless of its type. Any previous time to live associated with the key is discarded on successful SET operation. Options The SET command supports a set of options that modify its behavior: EX seconds -- Set the specified expire time, in seconds. PX milliseconds -- Set the specified expire time, in milliseconds.</description>
+    </item>
     
     <item>
       <title>Type</title>
