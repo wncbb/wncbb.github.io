@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>heap on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/heap/</link>
+    <description>Recent content in heap on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Mar 2021 11:41:45 +0800</lastBuildDate>
+    
+	<atom:link href="https://wncbb.github.io/categories/heap/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>480.sliding-window-median</title>
+      <link>https://wncbb.github.io/posts/leetcode/480/</link>
+      <pubDate>Thu, 04 Mar 2021 11:41:45 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/480/</guid>
+      <description>package main import ( &amp;quot;container/heap&amp;quot; &amp;quot;fmt&amp;quot; ) func top(h *MyHeap) int { elem := heap.Pop(h).(int) heap.Push(h, elem) return elem } func getMid(firstHeap, secondHeap *MyHeap, k int) float64 { firstElem := top(firstHeap) if k%2 == 1 { return float64(firstElem) } secondElem := top(secondHeap) return float64(secondElem+firstElem) / 2 } func medianSlidingWindow(nums []int, k int) []float64 { /* if k == 0 { return nil } if k == 1 { numsFloat64 := make([]float64, 0, len(nums)) for _, v := range nums { numsFloat64 = append(numsFloat64, float64(v)) } return numsFloat64 } if len(nums) &amp;lt; k { return nil } */ firstHeap := NewHeap(make([]int, 0), func(a, b int) bool { return a &amp;gt; b }) secondHeap := NewHeap(make([]int, 0), func(a, b int) bool { return a &amp;lt; b }) for i := 0; i &amp;lt; k; i++ { heap.</description>
+    </item>
+    
+    <item>
+      <title>Heap</title>
+      <link>https://wncbb.github.io/posts/golang/heap/</link>
+      <pubDate>Thu, 04 Mar 2021 11:34:19 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/golang/heap/</guid>
+      <description>package main import ( &amp;quot;container/heap&amp;quot; &amp;quot;fmt&amp;quot; ) // An IntHeap is a min-heap of ints. type IntHeap []int func (h IntHeap) Len() int { return len(h) } func (h IntHeap) Less(i, j int) bool { return h[i] &amp;lt; h[j] } func (h IntHeap) Swap(i, j int) { h[i], h[j] = h[j], h[i] } func (h *IntHeap) Push(x interface{}) { // Push and Pop use pointer receivers because they modify the slice&#39;s length, // not just its contents.</description>
+    </item>
+    
+  </channel>
+</rss>

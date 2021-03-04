@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.56.0-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>480.sliding-window-median &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>480.sliding-window-median</h1>
+  <time datetime=2021-03-04T11:41:45&#43;0800 class="post-date">2021-03-04 11:41:45</time>
+  <pre><code class="language-go">package main
+
+import (
+	&quot;container/heap&quot;
+	&quot;fmt&quot;
+)
+
+func top(h *MyHeap) int {
+	elem := heap.Pop(h).(int)
+	heap.Push(h, elem)
+	return elem
+}
+
+func getMid(firstHeap, secondHeap *MyHeap, k int) float64 {
+	firstElem := top(firstHeap)
+	if k%2 == 1 {
+		return float64(firstElem)
+	}
+	secondElem := top(secondHeap)
+	return float64(secondElem+firstElem) / 2
+}
+
+func medianSlidingWindow(nums []int, k int) []float64 {
+	/*
+		if k == 0 {
+			return nil
+		}
+		if k == 1 {
+			numsFloat64 := make([]float64, 0, len(nums))
+			for _, v := range nums {
+				numsFloat64 = append(numsFloat64, float64(v))
+			}
+			return numsFloat64
+		}
+		if len(nums) &lt; k {
+			return nil
+		}
+	*/
+
+	firstHeap := NewHeap(make([]int, 0), func(a, b int) bool {
+		return a &gt; b
+	})
+	secondHeap := NewHeap(make([]int, 0), func(a, b int) bool {
+		return a &lt; b
+	})
+
+	for i := 0; i &lt; k; i++ {
+		heap.Push(firstHeap, nums[i])
+	}
+
+	halfK := k / 2
+	for i := 0; i &lt; halfK; i++ {
+		heap.Push(secondHeap, heap.Pop(firstHeap))
+	}
+
+	// fmt.Printf(&quot;line53 firstHeap:%+v, secondHeap:%+v\n&quot;, firstHeap, secondHeap)
+
+	ret := make([]float64, 0)
+	ret = append(ret, getMid(firstHeap, secondHeap, k))
+	// fmt.Printf(&quot;line58 ret: %+v\n&quot;, ret)
+
+	delElemMap := make(map[int]int)
+
+	for i := k; i &lt; len(nums); i++ {
+		delElem := nums[i-k]
+		delElemMap[delElem]++
+		balance := 0
+
+		if firstHeap.Len() &gt; 0 &amp;&amp; delElem &lt;= top(firstHeap) {
+			// if delElem &lt;= top(firstHeap) {
+			balance--
+		} else {
+			balance++
+		}
+
+		curElem := nums[i]
+		if firstHeap.Len() &gt; 0 &amp;&amp; curElem &lt;= top(firstHeap) {
+			// if curElem &lt;= top(firstHeap) {
+			heap.Push(firstHeap, curElem)
+			balance++
+		} else {
+			heap.Push(secondHeap, curElem)
+			balance--
+		}
+
+		if balance &gt; 0 {
+			heap.Push(secondHeap, heap.Pop(firstHeap))
+		}
+		// 这里如果用else,就没有考虑等于0的情况
+		if balance &lt; 0 {
+			heap.Push(firstHeap, heap.Pop(secondHeap))
+		}
+
+		for firstHeap.Len() &gt; 0 &amp;&amp; delElemMap[top(firstHeap)] &gt; 0 {
+			// for delElemMap[top(firstHeap)] &gt; 0 {
+			// 这里的顺序必须是这样
+			// 反过来的话，top(firstHeap)就会出错
+			delElemMap[top(firstHeap)]--
+			heap.Pop(firstHeap)
+		}
+		for secondHeap.Len() &gt; 0 &amp;&amp; delElemMap[top(secondHeap)] &gt; 0 {
+			// for delElemMap[top(secondHeap)] &gt; 0 {
+			// 这里的顺序必须是这样
+			delElemMap[top(secondHeap)]--
+			heap.Pop(secondHeap)
+		}
+		// fmt.Printf(&quot;line101 first:%+v, second:%+v\n&quot;, firstHeap, secondHeap)
+		ret = append(ret, getMid(firstHeap, secondHeap, k))
+	}
+
+	return ret
+}
+
+type MyHeap struct {
+	data []int
+	less func(i, j int) bool
+}
+
+func (m *MyHeap) Len() int {
+	return len(m.data)
+}
+
+func (m *MyHeap) Less(i, j int) bool {
+	return m.less(m.data[i], m.data[j])
+
+}
+
+func (m *MyHeap) Swap(i, j int) {
+	m.data[i], m.data[j] = m.data[j], m.data[i]
+}
+
+func (m *MyHeap) Push(v interface{}) {
+	m.data = append(m.data, v.(int))
+}
+
+func (m *MyHeap) Pop() interface{} {
+	ret := m.data[len(m.data)-1]
+	m.data = m.data[:len(m.data)-1]
+	return ret
+}
+
+func NewHeap(data []int, less func(a, b int) bool) *MyHeap {
+	ret := &amp;MyHeap{
+		data: data,
+		less: less,
+	}
+	heap.Init(ret)
+	/*
+		for ret.Len() &gt; 0 {
+			fmt.Printf(&quot;line142 %+v\n&quot;, heap.Pop(ret))
+		}
+	*/
+	return ret
+}
+
+func main() {
+	//s := []int{1, 0, 9, 3, 5, 7, 4, 8, 6, 2}
+	s := []int{1, 3, -1, -3, 5, 3, 6, 7}
+	k := 3
+	/*
+		tmpHeap := NewHeap(s, func(a, b int) bool {
+			return a &lt; b
+		})
+		for tmpHeap.Len() &gt; 0 {
+			fmt.Printf(&quot;line158: %+v\n&quot;, heap.Pop(tmpHeap))
+		}
+		return
+	*/
+	rst := medianSlidingWindow(s, k)
+	fmt.Printf(&quot;rst: %+v\n&quot;, rst)
+}
+
+// [1.00000,-1.00000,-1.00000,3.00000,5.00000,6.00000]
+</code></pre>
+
+<pre><code class="language-java">class Solution {
+public:
+    priority_queue&lt;int&gt; small;
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; big;
+    unordered_map&lt;int, int&gt; mp;
+    double get(int&amp; k){
+        if(k%2) return small.top();
+        else return ((long long)small.top()+big.top())*0.5;
+    }
+    vector&lt;double&gt; medianSlidingWindow(vector&lt;int&gt;&amp; nums, int k) {
+        for(int i = 0; i &lt; k; i++){small.push(nums[i]);};
+        for(int i = 0; i &lt; k / 2; i++){big.push(small.top()); small.pop();}
+        vector&lt;double&gt; ans{get(k)};
+        for(int i = k; i &lt; nums.size(); i++){
+            int balance = 0;
+            int l = nums[i-k];
+            mp[l]++;
+            if(!small.empty() &amp;&amp; l&lt;=small.top()){balance--;}
+            else {balance++;}
+            if(!small.empty() &amp;&amp; nums[i] &lt;= small.top()){
+                small.push(nums[i]);
+                balance++;
+            }
+            else{
+                big.push(nums[i]);
+                balance--;
+            }
+            if(balance&gt;0){
+                big.push(small.top());
+                small.pop();
+            }
+            if(balance&lt;0){
+                small.push(big.top());
+                big.pop();
+            }
+            while(!small.empty() &amp;&amp; mp[small.top()]&gt;0){
+                mp[small.top()]--;
+                small.pop();
+            }
+            while(!big.empty() &amp;&amp; mp[big.top()]&gt;0){
+                mp[big.top()]--;
+                big.pop();
+            }
+            ans.push_back(get(k));
+            
+        }
+        return ans;
+    }
+};
+
+</code></pre>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

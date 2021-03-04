@@ -52,7 +52,12 @@
     <div class="post">
   <h1>dijkstra</h1>
   <time datetime=2020-01-19T15:05:01&#43;0800 class="post-date">2020-01-19 15:05:01</time>
-  <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
+  <pre><code>可以处理有环
+无法处理包含有负数权值的边的图 (dijkastra是中间可以确定一部分点的最短距离，后面如果可以加上一个负数，那前面的确定的就不对了)
+
+</code></pre>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span style="color:#f92672">from</span> heapq <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span>
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dijkstra</span>(edges, fromV, toV):
