@@ -53,6 +53,25 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0092/">0092</a>
+  </h1>
+  <time datetime="2021-03-05T15:11:12&#43;0800" class="post-date">2021-03-05 15:11:12</time>
+  // reverse m~n
+package main import &quot;fmt&quot; // Definition for singly-linked list. type ListNode struct { Val int Next *ListNode } func reverseBetween(head *ListNode, m, n int)*ListNode{ newHead, _:=innerReverseBetween(head, m, n) return newHead } func innerReverseBetween(head *ListNode, m, n int)(*ListNode, *ListNode){ dummy:=&amp;ListNode{} dummy.Next=head prev:=dummy for i:=0; i&lt;m-1; i++{ prev=prev.Next } cur:=prev.Next var nxt *ListNode for i:=0; i&lt;n-m; i++{ nxt=cur.Next cur.Next=nxt.Next nxt.Next=prev.Next prev.Next=nxt } return dummy.Next, nxt } func printList(name string, h *ListNode){ fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0092/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/content/leetcode/0092/">0092</a>
+  </h1>
+  <time datetime="2021-03-05T15:10:18&#43;0800" class="post-date">2021-03-05 15:10:18</time>
+  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/480/">480.sliding-window-median</a>
   </h1>
   <time datetime="2021-03-04T11:41:45&#43;0800" class="post-date">2021-03-04 11:41:45</time>
@@ -222,7 +241,7 @@ helper(root) return ret  }
     <a href="https://wncbb.github.io/posts/leetcode/0025.reverse-nodes-in-k-group/">0025.reverse-nodes-in-k-group</a>
   </h1>
   <time datetime="2021-02-25T15:58:28&#43;0800" class="post-date">2021-02-25 15:58:28</time>
-  1func reverseKGroup(head *ListNode, k int) *ListNode { 2	var innerReverseKGroup func(h *ListNode) *ListNode 3	innerReverseKGroup = func(h *ListNode) *ListNode { 4	cur := h 5	i := 0 6	var prev *ListNode 7	for i = 0; i &lt; k &amp;&amp; cur != nil; i++ { 8	prev = cur 9	cur = cur.Next 10	} 11	if i &lt; k { 12	return h 13	} 14 // prev是上一个链的末尾 15	prev.
+  1package main 2 3import &#34;fmt&#34; 4 5// Definition for singly-linked list. 6type ListNode struct { 7	Val int 8	Next *ListNode 9} 10 11func reverseKGroup(head *ListNode, k int) *ListNode { 12	if head==nil || head.Next==nil{ 13	return head 14	} 15	if k&lt;=1{ 16	return head 17	} 18 19	lastNode:=head 20	for i:=0; i &lt; k-1; i++ { 21	lastNode = lastNode.Next 22	if lastNode==nil{ 23	return head 24	} 25	} 26 27	// nextPartHead是下一段的开始节点 28	nextPartHead := lastNode.
   
   <div class="read-more-link">
     <a href="/posts/leetcode/0025.reverse-nodes-in-k-group/">Read More…</a>

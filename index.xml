@@ -6,10 +6,29 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Mar 2021 11:41:45 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 05 Mar 2021 15:11:12 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0092</title>
+      <link>https://wncbb.github.io/posts/leetcode/0092/</link>
+      <pubDate>Fri, 05 Mar 2021 15:11:12 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0092/</guid>
+      <description>// reverse m~n
+package main import &amp;quot;fmt&amp;quot; // Definition for singly-linked list. type ListNode struct { Val int Next *ListNode } func reverseBetween(head *ListNode, m, n int)*ListNode{ newHead, _:=innerReverseBetween(head, m, n) return newHead } func innerReverseBetween(head *ListNode, m, n int)(*ListNode, *ListNode){ dummy:=&amp;amp;ListNode{} dummy.Next=head prev:=dummy for i:=0; i&amp;lt;m-1; i++{ prev=prev.Next } cur:=prev.Next var nxt *ListNode for i:=0; i&amp;lt;n-m; i++{ nxt=cur.Next cur.Next=nxt.Next nxt.Next=prev.Next prev.Next=nxt } return dummy.Next, nxt } func printList(name string, h *ListNode){ fmt.</description>
+    </item>
+    
+    <item>
+      <title>0092</title>
+      <link>https://wncbb.github.io/posts/content/leetcode/0092/</link>
+      <pubDate>Fri, 05 Mar 2021 15:10:18 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/content/leetcode/0092/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>480.sliding-window-median</title>
@@ -183,7 +202,7 @@ helper(root) return ret  }
       <pubDate>Thu, 25 Feb 2021 15:58:28 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0025.reverse-nodes-in-k-group/</guid>
-      <description>1func reverseKGroup(head *ListNode, k int) *ListNode { 2	var innerReverseKGroup func(h *ListNode) *ListNode 3	innerReverseKGroup = func(h *ListNode) *ListNode { 4	cur := h 5	i := 0 6	var prev *ListNode 7	for i = 0; i &amp;lt; k &amp;amp;&amp;amp; cur != nil; i++ { 8	prev = cur 9	cur = cur.Next 10	} 11	if i &amp;lt; k { 12	return h 13	} 14 // prev是上一个链的末尾 15	prev.</description>
+      <description>1package main 2 3import &amp;#34;fmt&amp;#34; 4 5// Definition for singly-linked list. 6type ListNode struct { 7	Val int 8	Next *ListNode 9} 10 11func reverseKGroup(head *ListNode, k int) *ListNode { 12	if head==nil || head.Next==nil{ 13	return head 14	} 15	if k&amp;lt;=1{ 16	return head 17	} 18 19	lastNode:=head 20	for i:=0; i &amp;lt; k-1; i++ { 21	lastNode = lastNode.Next 22	if lastNode==nil{ 23	return head 24	} 25	} 26 27	// nextPartHead是下一段的开始节点 28	nextPartHead := lastNode.</description>
     </item>
     
     <item>
