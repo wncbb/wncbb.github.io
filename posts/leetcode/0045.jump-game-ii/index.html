@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>0092 &middot; WNCBB&#39;s blog</title>
+  <title>0045 &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,33 +50,30 @@
 
     <main class="content container">
     <div class="post">
-  <h1>0092</h1>
-  <time datetime=2021-03-05T15:11:12&#43;0800 class="post-date">2021-03-05 15:11:12</time>
-  <p>// reverse m~n</p>
+  <h1>0045</h1>
+  <time datetime=2021-03-06T13:43:02&#43;0800 class="post-date">2021-03-06 13:43:02</time>
+  <pre><code class="language-go">func jump(nums []int) int {
+    end:=0
+    steps:=0
+    maxPosition:=0
 
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int)*ListNode{
-	dummy:=&amp;ListNode{}
-	dummy.Next=head
-	prev:=dummy
-	// 如果m==1,那么prev就是dummy
-	for i:=0; i&lt;m-1; i++{
-		prev=prev.Next
-	}
+    for i:=0; i&lt;len(nums)-1; i++{
+        maxPosition=getMax(maxPosition, i+nums[i])
+        if i==end{
+            end=maxPosition
+            steps++
+        }
+    }
 
-	cur:=prev.Next
-	var nxt *ListNode
-	for i:=0; i&lt;n-m; i++{
-		nxt=cur.Next
-		cur.Next=nxt.Next
-		nxt.Next=prev.Next
-		prev.Next=nxt
-	}
-
-	return dummy.Next
+    return steps
 }
 
-
-
+func getMax(a, b int)int{
+    if a&gt;b{
+        return a
+    }
+    return b
+}
 </code></pre>
 
 </div>

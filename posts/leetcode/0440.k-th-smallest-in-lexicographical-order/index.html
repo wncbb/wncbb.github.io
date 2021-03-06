@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>0092 &middot; WNCBB&#39;s blog</title>
+  <title>0440.k-th-smallest-lexicographical-order &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,33 +50,58 @@
 
     <main class="content container">
     <div class="post">
-  <h1>0092</h1>
-  <time datetime=2021-03-05T15:11:12&#43;0800 class="post-date">2021-03-05 15:11:12</time>
-  <p>// reverse m~n</p>
-
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int)*ListNode{
-	dummy:=&amp;ListNode{}
-	dummy.Next=head
-	prev:=dummy
-	// 如果m==1,那么prev就是dummy
-	for i:=0; i&lt;m-1; i++{
-		prev=prev.Next
+  <h1>0440.k-th-smallest-lexicographical-order</h1>
+  <time datetime=2021-03-06T18:47:29&#43;0800 class="post-date">2021-03-06 18:47:29</time>
+  <pre><code class="language-go">func findKthNumber(n int, k int) int {
+	cur:=1
+	k--
+	for k&gt;0{
+		nodes:=countNodes(n, cur)
+		if k&lt;nodes{
+            // ...k...nodes...
+            // 第k个元素在cur的孩子节点中，因此下降到自己的孩子节点，k-1表示刨去cur节点(root节点)
+			k--
+			cur*=10
+		}else{
+            // ...nodes...k...
+            // cur的子节点的个数小于k，说明第k个节点不在自己的孩子节点内部，cur++表示转向自己的兄弟节点
+			k-=nodes
+			cur++
+		}
 	}
-
-	cur:=prev.Next
-	var nxt *ListNode
-	for i:=0; i&lt;n-m; i++{
-		nxt=cur.Next
-		cur.Next=nxt.Next
-		nxt.Next=prev.Next
-		prev.Next=nxt
+	return cur
+}
+// 以cur为根节点，且最大值为n的十叉树中，有多少个元素
+// 比如下面，以x为root的树(咱们记作tree(x))的所有节点个数, 就等于各个层(从第0层到第N层)的节点的个数的和
+// x+1为root的树是x的右边的第一棵树, 记作tree(x+1)
+// 有意思的是： 对于第i层， 且i&lt;N， tree(x)的第i层的节点的个数等于= tree(x+1)的第i层的第一个节点 - tree(x)的第i层的第一个节点
+// 对于第N层，节点个数= n - tree(x)的第N层的第一个节点 + 1  因为从0开始计数，所以要加1
+// 上面合起来就是： 取 MIN( tree(x+1).level(i).firstNode - tree(x).level(i).firstNode , N - tree(x).level(i).firstNode + 1 )
+// *10表示去往下一层第一个节点
+// tree(x)                                         tree(x+1)
+// 0层 x                                            x+1
+// 1层 10x 10x+1 10x+2 ... 10x+9                    10(x+1) 10(x+1)+1 ...10(x+2)+9
+// ...
+// N层 (10^?)*x ()10^?)*x+1 ... n ... ()10^?)*x+9
+func countNodes(n, cur int)int{
+	total:=0
+    // cur节点的右边兄弟节点
+	next:=cur+1
+	for cur&lt;=n{
+		total+=getMin(n-cur+1, next-cur)
+        // *10表示下降到自己的第一个孩子节点
+		cur*=10
+		next*=10
 	}
-
-	return dummy.Next
+	return total
 }
 
-
-
+func getMin(a, b int)int{
+	if a&lt;b{
+		return a
+	}
+	return b
+}
 </code></pre>
 
 </div>

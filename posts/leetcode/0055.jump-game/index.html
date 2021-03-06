@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>0092 &middot; WNCBB&#39;s blog</title>
+  <title>0055 &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,33 +50,29 @@
 
     <main class="content container">
     <div class="post">
-  <h1>0092</h1>
-  <time datetime=2021-03-05T15:11:12&#43;0800 class="post-date">2021-03-05 15:11:12</time>
-  <p>// reverse m~n</p>
-
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int)*ListNode{
-	dummy:=&amp;ListNode{}
-	dummy.Next=head
-	prev:=dummy
-	// 如果m==1,那么prev就是dummy
-	for i:=0; i&lt;m-1; i++{
-		prev=prev.Next
-	}
-
-	cur:=prev.Next
-	var nxt *ListNode
-	for i:=0; i&lt;n-m; i++{
-		nxt=cur.Next
-		cur.Next=nxt.Next
-		nxt.Next=prev.Next
-		prev.Next=nxt
-	}
-
-	return dummy.Next
+  <h1>0055</h1>
+  <time datetime=2021-03-06T14:23:40&#43;0800 class="post-date">2021-03-06 14:23:40</time>
+  <pre><code class="language-go">func canJump(nums []int) bool {
+    // 记录当前位置之前能够到达的最远索引
+    maxPosition:=0
+    for i:=0; i&lt;len(nums); i++{
+        // 如果i大于当前能够到达的最远索引，说明没法到达了
+        // 因为游戏继续进行下去的前提是能够到达i，
+        // i&gt;maxPosition 表示当前的跳远最远距离都到达不了索引i了
+        if i&gt;maxPosition{
+            return false
+        }
+        maxPosition=getMax(maxPosition, i+nums[i])
+    }
+    return true
 }
 
-
-
+func getMax(a, b int)int{
+    if a&gt;b{
+        return a
+    }
+    return b
+}
 </code></pre>
 
 </div>

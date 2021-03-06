@@ -53,15 +53,92 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0440.k-th-smallest-in-lexicographical-order/">0440.k-th-smallest-lexicographical-order</a>
+  </h1>
+  <time datetime="2021-03-06T18:47:29&#43;0800" class="post-date">2021-03-06 18:47:29</time>
+  func findKthNumber(n int, k int) int { cur:=1 k-- for k&gt;0{ nodes:=countNodes(n, cur) if k&lt;nodes{ // ...k...nodes... // 第k个元素在cur的孩子节点中，因此下降到自己的孩子节点，k-1表示刨去cur节点(root节点) k-- cur*=10 }else{ // ...nodes...k... // cur的子节点的个数小于k，说明第k个节点不在自己的孩子节点内部，cur++表示转向自己的兄弟节点 k-=nodes cur++ } } return cur } // 以cur为根节点，且最大值为n的十叉树中，有多少个元素 // 比如下面，以x为root的树(咱们记作tree(x))的所有节点个数, 就等于各个层(从第0层到第N层)的节点的个数的和 // x+1为root的树是x的右边的第一棵树, 记作tree(x+1) // 有意思的是： 对于第i层， 且i&lt;N， tree(x)的第i层的节点的个数等于= tree(x+1)的第i层的第一个节点 - tree(x)的第i层的第一个节点 // 对于第N层，节点个数= n - tree(x)的第N层的第一个节点 + 1 因为从0开始计数，所以要加1 // 上面合起来就是： 取 MIN( tree(x+1).level(i).firstNode - tree(x).level(i).firstNode , N - tree(x).level(i).firstNode + 1 ) // *10表示去往下一层第一个节点 // tree(x) tree(x+1) // 0层 x x+1 // 1层 10x 10x+1 10x+2 .
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0440.k-th-smallest-in-lexicographical-order/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0206.reverse-linked-list/">0206</a>
+  </h1>
+  <time datetime="2021-03-06T18:33:10&#43;0800" class="post-date">2021-03-06 18:33:10</time>
+  func reverseList(head *ListNode) *ListNode { var newHead *ListNode cur:=head for cur!=nil{ next:=cur.Next cur.Next=newHead newHead=cur cur=next } return newHead }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0002.add-two-numbers/">0002</a>
+  </h1>
+  <time datetime="2021-03-06T16:50:28&#43;0800" class="post-date">2021-03-06 16:50:28</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode { dummy:=&amp;ListNode{} tail:=dummy carry:=0 for l1!=nil || l2!=nil{ n1:=0 n2:=0 if l1!=nil{ n1=l1.Val l1=l1.Next } if l2!=nil{ n2=l2.Val l2=l2.Next } curRst:=n1+n2+carry tail.Next=&amp;ListNode{ Val: curRst%10, } tail=tail.Next carry=curRst/10 } // 千万别忘了，最后可能还有进位 if carry!=0{ tail.Next=&amp;ListNode{ Val: carry, } } return dummy.Next }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0316.remove-duplicate-letters/">0316</a>
+  </h1>
+  <time datetime="2021-03-06T15:57:34&#43;0800" class="post-date">2021-03-06 15:57:34</time>
+  as same as 1081
+func removeDuplicateLetters(s string) string { if len(s)&lt;=1{ return s } sBytes:=[]byte(s) // 判断字符是否在栈中 inStack:=make([]bool, 256) // 判断当前剩下的字符中，每个字符还剩多少个 bytesNum:=make([]int, 256) for _, v:=range sBytes{ bytesNum[v]++ } // 变量名不要跟参数重复 stack:=&amp;Stack{ raw: make([]byte, 0), } for _, v:=range sBytes{ // 只要遍历到，剩下的v的个数就要-- bytesNum[v]-- // 已经在栈中了，就不管了 if inStack[v]{ continue } // 如果栈顶元素t比当前v大，且后面还有栈顶元素t，那与其tv, 还不如vt, 后者字典序更小，因此直接pop出t for stack.Len()&gt;0 &amp;&amp; stack.Top()&gt;v &amp;&amp; bytesNum[stack.Top()]&gt;0{ //fmt.Printf(&quot;pop: %c\n&quot;, stack.Top()) inStack[stack.Pop()]=false } stack.Push(v) // fmt.Printf(&quot;stack: %s\n&quot;, string(stack.raw)) inStack[v]=true } return string(stack.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0316.remove-duplicate-letters/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0407.trapping-rain-water-ii/">0407</a>
+  </h1>
+  <time datetime="2021-03-06T15:11:56&#43;0800" class="post-date">2021-03-06 15:11:56</time>
+  有youtue视频，讲解的很好 https://happygirlzt.com/code/407.html
+a b c d e f g h i j k l 对于a, b,  import( &quot;container/heap&quot; ) /* a b c d e f g h i j k l 对于矩阵， a b c d e i h l i j k l 等边界位置，不可能存住水 我们把边界的情况压入优先队列，那么pop出的第一个元素，一定是height最小的，记作curCell 因为一个位置的存水量，取决于四周最矮的高度 因此可以算curCell四个方向的结果，遍历4次，每次的target记作tRow, tCol, tVal target的值为 max(0, curCell.Val-tVal) 然后将target存到优先队列里，因为这个位置的水已经存上去了，高度就变成 max(curVal, tVal) 如果担心某个target位置的存水量会变化，比如 4 4 4 4 4 4 3 3 3 4 4 3 2 3 4 4 3 3 3 4 4 4 4 4 4 担心2第一次存水量算作1，因为周围是3，但是最外层是4，所以应该是2 但是实际上，2不会比3先弹出来， 因为优先队列里存的都是边界，从边界开始向内计算，会先算3的存水量，然后更新成4， 所以2的存水量是正确的 */ */ type Cell struct{ row int col int val int } type PQ struct{ cells []Cell } func(p *PQ)Len()int{ return len(p.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0407.trapping-rain-water-ii/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0055.jump-game/">0055</a>
+  </h1>
+  <time datetime="2021-03-06T14:23:40&#43;0800" class="post-date">2021-03-06 14:23:40</time>
+  func canJump(nums []int) bool { // 记录当前位置之前能够到达的最远索引 maxPosition:=0 for i:=0; i&lt;len(nums); i++{ // 如果i大于当前能够到达的最远索引，说明没法到达了 // 因为游戏继续进行下去的前提是能够到达i， // i&gt;maxPosition 表示当前的跳远最远距离都到达不了索引i了 if i&gt;maxPosition{ return false } maxPosition=getMax(maxPosition, i+nums[i]) } return true } func getMax(a, b int)int{ if a&gt;b{ return a } return b }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0045.jump-game-ii/">0045</a>
+  </h1>
+  <time datetime="2021-03-06T13:43:02&#43;0800" class="post-date">2021-03-06 13:43:02</time>
+  func jump(nums []int) int { end:=0 steps:=0 maxPosition:=0 for i:=0; i&lt;len(nums)-1; i++{ maxPosition=getMax(maxPosition, i+nums[i]) if i==end{ end=maxPosition steps++ } } return steps } func getMax(a, b int)int{ if a&gt;b{ return a } return b }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0005/">0005</a>
+  </h1>
+  <time datetime="2021-03-05T18:52:38&#43;0800" class="post-date">2021-03-05 18:52:38</time>
+  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/403/">403</a>
+  </h1>
+  <time datetime="2021-03-05T17:13:02&#43;0800" class="post-date">2021-03-05 17:13:02</time>
+  package main import &quot;fmt&quot; func canCross(stones []int) bool { // stone2Prevs 表示石头，到上一次跳到这块石头上的步数的集合 stone2Prevs:=make(map[int]map[int]struct{}, len(stones)) for _, v:=range stones{ stone2Prevs[v]=make(map[int]struct{}) } stone2Prevs[stones[0]][0]= struct{}{} for i:=0; i&lt;len(stones); i++{ // 跳到这一块石头的上一次的步数的集合 prevs:=stone2Prevs[stones[i]] for prev, _:=range prevs{ for curStep:=prev-1; curStep&lt;=prev+1; curStep++{ // 向左跳或者不动是非法的 if curStep&lt;=0{ continue } // 下一跳的位置 nextStone:=stones[i]+curStep // 如果这个位置没有石头，就continue if _, ok:=stone2Prevs[nextStone]; !ok{ continue } stone2Prevs[nextStone][curStep]= struct{}{} } } } return len(stone2Prevs[stones[len(stones)-1]])&gt;0 } func main(){ var stones []int stones=[]int{0,1,3,5,6,8,12,17} stones=[]int{0,1,2,3,4,5,6,12} stones=[]int{0,2} fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/403/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0092/">0092</a>
   </h1>
   <time datetime="2021-03-05T15:11:12&#43;0800" class="post-date">2021-03-05 15:11:12</time>
   // reverse m~n
-package main import &quot;fmt&quot; // Definition for singly-linked list. type ListNode struct { Val int Next *ListNode } func reverseBetween(head *ListNode, m, n int)*ListNode{ newHead, _:=innerReverseBetween(head, m, n) return newHead } func innerReverseBetween(head *ListNode, m, n int)(*ListNode, *ListNode){ dummy:=&amp;ListNode{} dummy.Next=head prev:=dummy for i:=0; i&lt;m-1; i++{ prev=prev.Next } cur:=prev.Next var nxt *ListNode for i:=0; i&lt;n-m; i++{ nxt=cur.Next cur.Next=nxt.Next nxt.Next=prev.Next prev.Next=nxt } return dummy.Next, nxt } func printList(name string, h *ListNode){ fmt.
-  
-  <div class="read-more-link">
-    <a href="/posts/leetcode/0092/">Read More…</a>
-  </div>
+func reverseBetween(head *ListNode, m, n int)*ListNode{ dummy:=&amp;ListNode{} dummy.Next=head prev:=dummy // 如果m==1,那么prev就是dummy for i:=0; i&lt;m-1; i++{ prev=prev.Next } cur:=prev.Next var nxt *ListNode for i:=0; i&lt;n-m; i++{ nxt=cur.Next cur.Next=nxt.Next nxt.Next=prev.Next prev.Next=nxt } return dummy.Next }  
   
 </article><article class="post">
   <h1 class="post-title">
@@ -411,7 +488,7 @@ helper(root) return ret  }
     <a href="https://wncbb.github.io/posts/leetcode/0042.trapping-rain-water/">0042.rapping-rain-water</a>
   </h1>
   <time datetime="2020-12-10T19:03:01&#43;0800" class="post-date">2020-12-10 19:03:01</time>
-  | |*.*.*.*| | |*.*.*| | | |*.*| 0 1 2 3 4 先算最下层的* 再加倒数第二层  1func trap(height []int) int { 2	rst := 0 3	stack := make([]int, 0) 4	for i := 0; i &lt; len(height); i++ { 5	for !stackIsEmpty(stack) &amp;&amp; height[stackPeek(stack)] &lt; height[i] { 6	// height = [3, 2, 1, 0] 7	// stack= index(value) 0(3) 1(2) 2(1) 3(0) height[i]=4 8	// 这个时候，处理对象是stack里的3(0)，3(0)的左边比他高的最近的是2，3(0)的右边比他高的最近的是i(4) 9	var curIdx int 10	stack, curIdx = stackPop(stack) 11	if !
+  单调栈解法 1func trap(height []int) int { 2 if len(height)&lt;=2{ 3 return 0 4 } 5 6 s:=&amp;Stack{ 7 raw: make([]int, 0), 8 } 9 s.Push(0) 10 rst:=0 11 for i:=1; i&lt;len(height); i++{ 12 v:=height[i] 13 for s.Len()&gt;0 &amp;&amp; v&gt;height[s.Top()]{ 14	// 其实要算的是targetIdx位置的雨水 15 targetIdx:=s.Pop() 16 if s.Len()&gt;0{ 17	// 栈顶元素是左边界 18 leftIdx:=s.Top() 19	// i是右边界 20 rightIdx:=i 21	// 存储水量取决于左右边界的最低值，然后减去target的高度，就是存水量的高, 再乘以宽度，就是水量 22	// 宽度是 rightIdx-leftIdx-1， 比如 3， 4， 5， 6， 7 23	// 如果leftIdx=3, rightIdx=7， 那么要取4， 5， 6的宽度3， 7-3=4， 需要再减去1 24 rst+= (getMin(height[leftIdx], height[rightIdx])-height[targetIdx])*(rightIdx-leftIdx-1) 25 } 26 } 27 s.
   
   <div class="read-more-link">
     <a href="/posts/leetcode/0042.trapping-rain-water/">Read More…</a>

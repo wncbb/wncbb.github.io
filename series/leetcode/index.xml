@@ -6,10 +6,56 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Mar 2021 13:44:15 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Mar 2021 18:47:29 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0440.k-th-smallest-lexicographical-order</title>
+      <link>https://wncbb.github.io/posts/leetcode/0440.k-th-smallest-in-lexicographical-order/</link>
+      <pubDate>Sat, 06 Mar 2021 18:47:29 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0440.k-th-smallest-in-lexicographical-order/</guid>
+      <description>func findKthNumber(n int, k int) int { cur:=1 k-- for k&amp;gt;0{ nodes:=countNodes(n, cur) if k&amp;lt;nodes{ // ...k...nodes... // 第k个元素在cur的孩子节点中，因此下降到自己的孩子节点，k-1表示刨去cur节点(root节点) k-- cur*=10 }else{ // ...nodes...k... // cur的子节点的个数小于k，说明第k个节点不在自己的孩子节点内部，cur++表示转向自己的兄弟节点 k-=nodes cur++ } } return cur } // 以cur为根节点，且最大值为n的十叉树中，有多少个元素 // 比如下面，以x为root的树(咱们记作tree(x))的所有节点个数, 就等于各个层(从第0层到第N层)的节点的个数的和 // x+1为root的树是x的右边的第一棵树, 记作tree(x+1) // 有意思的是： 对于第i层， 且i&amp;lt;N， tree(x)的第i层的节点的个数等于= tree(x+1)的第i层的第一个节点 - tree(x)的第i层的第一个节点 // 对于第N层，节点个数= n - tree(x)的第N层的第一个节点 + 1 因为从0开始计数，所以要加1 // 上面合起来就是： 取 MIN( tree(x+1).level(i).firstNode - tree(x).level(i).firstNode , N - tree(x).level(i).firstNode + 1 ) // *10表示去往下一层第一个节点 // tree(x) tree(x+1) // 0层 x x+1 // 1层 10x 10x+1 10x+2 .</description>
+    </item>
+    
+    <item>
+      <title>0206</title>
+      <link>https://wncbb.github.io/posts/leetcode/0206.reverse-linked-list/</link>
+      <pubDate>Sat, 06 Mar 2021 18:33:10 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0206.reverse-linked-list/</guid>
+      <description>func reverseList(head *ListNode) *ListNode { var newHead *ListNode cur:=head for cur!=nil{ next:=cur.Next cur.Next=newHead newHead=cur cur=next } return newHead }  </description>
+    </item>
+    
+    <item>
+      <title>0316</title>
+      <link>https://wncbb.github.io/posts/leetcode/0316.remove-duplicate-letters/</link>
+      <pubDate>Sat, 06 Mar 2021 15:57:34 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0316.remove-duplicate-letters/</guid>
+      <description>as same as 1081
+func removeDuplicateLetters(s string) string { if len(s)&amp;lt;=1{ return s } sBytes:=[]byte(s) // 判断字符是否在栈中 inStack:=make([]bool, 256) // 判断当前剩下的字符中，每个字符还剩多少个 bytesNum:=make([]int, 256) for _, v:=range sBytes{ bytesNum[v]++ } // 变量名不要跟参数重复 stack:=&amp;amp;Stack{ raw: make([]byte, 0), } for _, v:=range sBytes{ // 只要遍历到，剩下的v的个数就要-- bytesNum[v]-- // 已经在栈中了，就不管了 if inStack[v]{ continue } // 如果栈顶元素t比当前v大，且后面还有栈顶元素t，那与其tv, 还不如vt, 后者字典序更小，因此直接pop出t for stack.Len()&amp;gt;0 &amp;amp;&amp;amp; stack.Top()&amp;gt;v &amp;amp;&amp;amp; bytesNum[stack.Top()]&amp;gt;0{ //fmt.Printf(&amp;quot;pop: %c\n&amp;quot;, stack.Top()) inStack[stack.Pop()]=false } stack.Push(v) // fmt.Printf(&amp;quot;stack: %s\n&amp;quot;, string(stack.raw)) inStack[v]=true } return string(stack.</description>
+    </item>
+    
+    <item>
+      <title>0055</title>
+      <link>https://wncbb.github.io/posts/leetcode/0055.jump-game/</link>
+      <pubDate>Sat, 06 Mar 2021 14:23:40 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0055.jump-game/</guid>
+      <description>func canJump(nums []int) bool { // 记录当前位置之前能够到达的最远索引 maxPosition:=0 for i:=0; i&amp;lt;len(nums); i++{ // 如果i大于当前能够到达的最远索引，说明没法到达了 // 因为游戏继续进行下去的前提是能够到达i， // i&amp;gt;maxPosition 表示当前的跳远最远距离都到达不了索引i了 if i&amp;gt;maxPosition{ return false } maxPosition=getMax(maxPosition, i+nums[i]) } return true } func getMax(a, b int)int{ if a&amp;gt;b{ return a } return b }  </description>
+    </item>
+    
+    <item>
+      <title>0045</title>
+      <link>https://wncbb.github.io/posts/leetcode/0045.jump-game-ii/</link>
+      <pubDate>Sat, 06 Mar 2021 13:43:02 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0045.jump-game-ii/</guid>
+      <description>func jump(nums []int) int { end:=0 steps:=0 maxPosition:=0 for i:=0; i&amp;lt;len(nums)-1; i++{ maxPosition=getMax(maxPosition, i+nums[i]) if i==end{ end=maxPosition steps++ } } return steps } func getMax(a, b int)int{ if a&amp;gt;b{ return a } return b }  </description>
+    </item>
     
     <item>
       <title>0304.range-sum-query-2d-immutable</title>
@@ -241,7 +287,7 @@ helper(root) return ret  }
       <pubDate>Thu, 10 Dec 2020 19:03:01 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0042.trapping-rain-water/</guid>
-      <description>| |*.*.*.*| | |*.*.*| | | |*.*| 0 1 2 3 4 先算最下层的* 再加倒数第二层  1func trap(height []int) int { 2	rst := 0 3	stack := make([]int, 0) 4	for i := 0; i &amp;lt; len(height); i++ { 5	for !stackIsEmpty(stack) &amp;amp;&amp;amp; height[stackPeek(stack)] &amp;lt; height[i] { 6	// height = [3, 2, 1, 0] 7	// stack= index(value) 0(3) 1(2) 2(1) 3(0) height[i]=4 8	// 这个时候，处理对象是stack里的3(0)，3(0)的左边比他高的最近的是2，3(0)的右边比他高的最近的是i(4) 9	var curIdx int 10	stack, curIdx = stackPop(stack) 11	if !</description>
+      <description>单调栈解法 1func trap(height []int) int { 2 if len(height)&amp;lt;=2{ 3 return 0 4 } 5 6 s:=&amp;amp;Stack{ 7 raw: make([]int, 0), 8 } 9 s.Push(0) 10 rst:=0 11 for i:=1; i&amp;lt;len(height); i++{ 12 v:=height[i] 13 for s.Len()&amp;gt;0 &amp;amp;&amp;amp; v&amp;gt;height[s.Top()]{ 14	// 其实要算的是targetIdx位置的雨水 15 targetIdx:=s.Pop() 16 if s.Len()&amp;gt;0{ 17	// 栈顶元素是左边界 18 leftIdx:=s.Top() 19	// i是右边界 20 rightIdx:=i 21	// 存储水量取决于左右边界的最低值，然后减去target的高度，就是存水量的高, 再乘以宽度，就是水量 22	// 宽度是 rightIdx-leftIdx-1， 比如 3， 4， 5， 6， 7 23	// 如果leftIdx=3, rightIdx=7， 那么要取4， 5， 6的宽度3， 7-3=4， 需要再减去1 24 rst+= (getMin(height[leftIdx], height[rightIdx])-height[targetIdx])*(rightIdx-leftIdx-1) 25 } 26 } 27 s.</description>
     </item>
     
     <item>

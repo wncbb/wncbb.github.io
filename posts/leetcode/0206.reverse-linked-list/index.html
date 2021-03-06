@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>0092 &middot; WNCBB&#39;s blog</title>
+  <title>0206 &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,31 +50,19 @@
 
     <main class="content container">
     <div class="post">
-  <h1>0092</h1>
-  <time datetime=2021-03-05T15:11:12&#43;0800 class="post-date">2021-03-05 15:11:12</time>
-  <p>// reverse m~n</p>
-
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int)*ListNode{
-	dummy:=&amp;ListNode{}
-	dummy.Next=head
-	prev:=dummy
-	// 如果m==1,那么prev就是dummy
-	for i:=0; i&lt;m-1; i++{
-		prev=prev.Next
-	}
-
-	cur:=prev.Next
-	var nxt *ListNode
-	for i:=0; i&lt;n-m; i++{
-		nxt=cur.Next
-		cur.Next=nxt.Next
-		nxt.Next=prev.Next
-		prev.Next=nxt
-	}
-
-	return dummy.Next
+  <h1>0206</h1>
+  <time datetime=2021-03-06T18:33:10&#43;0800 class="post-date">2021-03-06 18:33:10</time>
+  <pre><code class="language-go">func reverseList(head *ListNode) *ListNode {
+    var newHead *ListNode
+    cur:=head
+    for cur!=nil{
+        next:=cur.Next
+        cur.Next=newHead
+        newHead=cur
+        cur=next
+    }
+    return newHead
 }
-
 
 
 </code></pre>

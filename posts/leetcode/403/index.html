@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>0092 &middot; WNCBB&#39;s blog</title>
+  <title>403 &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,33 +50,49 @@
 
     <main class="content container">
     <div class="post">
-  <h1>0092</h1>
-  <time datetime=2021-03-05T15:11:12&#43;0800 class="post-date">2021-03-05 15:11:12</time>
-  <p>// reverse m~n</p>
+  <h1>403</h1>
+  <time datetime=2021-03-05T17:13:02&#43;0800 class="post-date">2021-03-05 17:13:02</time>
+  <pre><code class="language-go">package main
 
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int)*ListNode{
-	dummy:=&amp;ListNode{}
-	dummy.Next=head
-	prev:=dummy
-	// 如果m==1,那么prev就是dummy
-	for i:=0; i&lt;m-1; i++{
-		prev=prev.Next
+import &quot;fmt&quot;
+
+func canCross(stones []int) bool {
+	// stone2Prevs 表示石头，到上一次跳到这块石头上的步数的集合
+	stone2Prevs:=make(map[int]map[int]struct{}, len(stones))
+	for _, v:=range stones{
+		stone2Prevs[v]=make(map[int]struct{})
+	}
+	stone2Prevs[stones[0]][0]= struct{}{}
+	for i:=0; i&lt;len(stones); i++{
+		// 跳到这一块石头的上一次的步数的集合
+		prevs:=stone2Prevs[stones[i]]
+		for prev, _:=range prevs{
+			for curStep:=prev-1; curStep&lt;=prev+1; curStep++{
+				// 向左跳或者不动是非法的
+				if curStep&lt;=0{
+					continue
+				}
+				// 下一跳的位置
+				nextStone:=stones[i]+curStep
+				// 如果这个位置没有石头，就continue
+				if _, ok:=stone2Prevs[nextStone]; !ok{
+					continue
+				}
+				stone2Prevs[nextStone][curStep]= struct{}{}
+			}
+		}
 	}
 
-	cur:=prev.Next
-	var nxt *ListNode
-	for i:=0; i&lt;n-m; i++{
-		nxt=cur.Next
-		cur.Next=nxt.Next
-		nxt.Next=prev.Next
-		prev.Next=nxt
-	}
-
-	return dummy.Next
+	return len(stone2Prevs[stones[len(stones)-1]])&gt;0
 }
 
-
-
+func main(){
+	var stones []int
+	stones=[]int{0,1,3,5,6,8,12,17}
+	stones=[]int{0,1,2,3,4,5,6,12}
+	stones=[]int{0,2}
+	fmt.Printf(&quot;rst:%v\n&quot;, canCross(stones))
+}
 </code></pre>
 
 </div>
