@@ -53,6 +53,13 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0022.generate-parentheses/">0022</a>
+  </h1>
+  <time datetime="2021-03-09T23:47:50&#43;0800" class="post-date">2021-03-09 23:47:50</time>
+  var rst []string func generateParenthesis(n int) []string { rst=make([]string, 0) cur:=make([]byte, 0, n*2) bt(cur, n, n) return rst } func bt(s []byte, openNum, closeNum int){ fmt.Printf(&quot;s:%+v, openNum:%d closeNum:%d\n&quot;, s, openNum, closeNum) if openNum==0 &amp;&amp; closeNum==0{ rst=append(rst, string(s)) return } if openNum&gt;0 { openNum-- s=append(s, '(') bt(s, openNum, closeNum) s=s[:len(s)-1] openNum++ } // 剩下的close的个数要大于open if closeNum&gt;0 &amp;&amp; openNum&lt;closeNum{ closeNum-- s=append(s, ')') bt(s, openNum, closeNum) s=s[:len(s)-1] closeNum++ } }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0079.word-search/">0079</a>
   </h1>
   <time datetime="2021-03-09T23:22:34&#43;0800" class="post-date">2021-03-09 23:22:34</time>

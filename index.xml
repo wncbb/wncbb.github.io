@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Mar 2021 23:22:34 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 23:47:50 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0022</title>
+      <link>https://wncbb.github.io/posts/leetcode/0022.generate-parentheses/</link>
+      <pubDate>Tue, 09 Mar 2021 23:47:50 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0022.generate-parentheses/</guid>
+      <description>var rst []string func generateParenthesis(n int) []string { rst=make([]string, 0) cur:=make([]byte, 0, n*2) bt(cur, n, n) return rst } func bt(s []byte, openNum, closeNum int){ fmt.Printf(&amp;quot;s:%+v, openNum:%d closeNum:%d\n&amp;quot;, s, openNum, closeNum) if openNum==0 &amp;amp;&amp;amp; closeNum==0{ rst=append(rst, string(s)) return } if openNum&amp;gt;0 { openNum-- s=append(s, &#39;(&#39;) bt(s, openNum, closeNum) s=s[:len(s)-1] openNum++ } // 剩下的close的个数要大于open if closeNum&amp;gt;0 &amp;amp;&amp;amp; openNum&amp;lt;closeNum{ closeNum-- s=append(s, &#39;)&#39;) bt(s, openNum, closeNum) s=s[:len(s)-1] closeNum++ } }  </description>
+    </item>
     
     <item>
       <title>0079</title>
