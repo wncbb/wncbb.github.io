@@ -8,13 +8,37 @@
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/categories/</loc>
+    <lastmod>2021-03-09T23:19:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/posts/</loc>
     <lastmod>2021-03-09T23:19:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://wncbb.github.io/series/</loc>
+    <lastmod>2021-03-09T23:19:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wncbb.github.io/</loc>
+    <lastmod>2021-03-09T23:19:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/series/leetcode/</loc>
+    <lastmod>2021-03-09T23:19:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/categories/stack/</loc>
     <lastmod>2021-03-09T23:19:44+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -30,26 +54,8 @@
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2021-03-07T14:15:20+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/series/leetcode/</loc>
-    <lastmod>2021-03-07T14:15:20+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://wncbb.github.io/posts/leetcode/0005.longest-palindromic-substring/</loc>
     <lastmod>2021-03-06T22:30:31+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2021-03-06T22:30:31+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -98,12 +104,6 @@
   <url>
     <loc>https://wncbb.github.io/posts/leetcode/0316.remove-duplicate-letters/</loc>
     <lastmod>2021-03-06T15:57:34+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://wncbb.github.io/categories/stack/</loc>
-    <lastmod>2021-03-06T15:57:34+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

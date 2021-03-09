@@ -6,10 +6,19 @@
     <description>Recent content in stack on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Mar 2021 15:57:34 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 23:19:44 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/stack/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0739 Daily Temperatures</title>
+      <link>https://wncbb.github.io/posts/leetcode/0739-daily-temperatures/</link>
+      <pubDate>Tue, 09 Mar 2021 23:19:44 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0739-daily-temperatures/</guid>
+      <description>func dailyTemperatures(T []int) []int { if len(T)==0{ return []int{} } ret:=make([]int, len(T)) s:=&amp;amp;Stack{ raw: make([]int, 0), } s.Push(0) for i:=1; i&amp;lt;len(T); i++{ for !s.Empty() &amp;amp;&amp;amp; T[s.Top()]&amp;lt;T[i]{ targetIdx:=s.Pop() ret[targetIdx]=i-targetIdx } s.Push(i) } return ret } type Stack struct{ raw []int } func (s *Stack)Empty()bool{ return len(s.raw)==0 } func (s *Stack)Push(v int){ s.raw=append(s.raw, v) } func (s *Stack)Pop()int{ ret:=s.raw[len(s.raw)-1] s.raw=s.raw[:len(s.raw)-1] return ret } func (s *Stack)Top()int{ return s.raw[len(s.raw)-1] }  </description>
+    </item>
     
     <item>
       <title>0316</title>
