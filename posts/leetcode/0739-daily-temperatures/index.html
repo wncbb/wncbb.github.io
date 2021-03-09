@@ -52,7 +52,50 @@
     <div class="post">
   <h1>0739 Daily Temperatures</h1>
   <time datetime=2021-03-09T23:19:44&#43;0800 class="post-date">2021-03-09 23:19:44</time>
-  
+  <pre><code class="language-go">func dailyTemperatures(T []int) []int {
+    if len(T)==0{
+        return []int{}
+    }
+    ret:=make([]int, len(T))
+    s:=&amp;Stack{
+        raw: make([]int, 0),
+    }
+    s.Push(0)
+    for i:=1; i&lt;len(T); i++{
+        for !s.Empty() &amp;&amp; T[s.Top()]&lt;T[i]{
+            targetIdx:=s.Pop()
+            ret[targetIdx]=i-targetIdx
+        }
+        s.Push(i)
+    }
+    return ret
+}
+
+type Stack struct{
+    raw []int
+}
+
+func (s *Stack)Empty()bool{
+    return len(s.raw)==0
+}
+
+func (s *Stack)Push(v int){
+    s.raw=append(s.raw, v)
+}
+func (s *Stack)Pop()int{
+    ret:=s.raw[len(s.raw)-1]
+    s.raw=s.raw[:len(s.raw)-1]
+    return ret
+}
+
+func (s *Stack)Top()int{
+    return s.raw[len(s.raw)-1]
+}
+
+
+
+</code></pre>
+
 </div>
 
 <h2>Comments</h2>
