@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>0092 &middot; WNCBB&#39;s blog</title>
+  <title>0015.3sum &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,85 +50,55 @@
 
     <main class="content container">
     <div class="post">
-  <h1>0092</h1>
-  <time datetime=2021-03-05T15:11:12&#43;0800 class="post-date">2021-03-05 15:11:12</time>
-  <p>// reverse m~n</p>
+  <h1>0015.3sum</h1>
+  <time datetime=2021-03-06T22:28:39&#43;0800 class="post-date">2021-03-06 22:28:39</time>
+  <pre><code class="language-go">import(
+    &quot;sort&quot;
+)
 
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int) *ListNode {
-	dummy := &amp;ListNode{}
-	dummy.Next = head
-	// m-1+1 比如dummy-&gt;1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6  m=2, n=5
-	// m=2其实是取前m-1个，因为m属于第二部分
-	// 由于dummy的存在，需要加一个1跳过dummy
-	firstPartTail, secondPartHead := splitN(dummy, m-1+1)
-	// n-m+1 因为n跟m都属于第二部分，所以总共有n-m+1个元素
-	_, thirdPartHead := splitN(secondPartHead, n-m+1)
-	//printList(&quot;secondPartHead&quot;, secondPartHead)
-	//printList(&quot;thirdPartHead&quot;, thirdPartHead)
-	reversedSecondPartHead := reverseList(secondPartHead)
-	reversedSecondPartTail := secondPartHead
-	firstPartTail.Next = reversedSecondPartHead
-	reversedSecondPartTail.Next = thirdPartHead
-	return dummy.Next
+func threeSum(nums []int) [][]int {
+    sort.Ints(nums)
+    res:=make([][]int, 0)
+    if len(nums)&lt;=2{
+        return res
+    }
+
+    for i:=0; i&lt;len(nums)-2; i++{
+    	// 这里不会存在，0， 0， 0， 0，结果没有数据的原因，是
+    	// i&lt;len(nums)-2, i不会从0走到len(nums)-1
+        if i&gt;0 &amp;&amp; nums[i]==nums[i-1] {
+            continue
+        }
+
+        left:=i+1
+        right:=len(nums)-1
+        target:=-1*nums[i]
+
+
+        for left&lt;right{
+            if nums[left]+nums[right]==target{
+                res=append(res, []int{nums[i], nums[left], nums[right]})
+                // 有结果之后要去重， 没有结果的时候不能去重，比如0， 0， 0， 0...因为都一样，直接去重就都没了
+                for left&lt;right &amp;&amp; nums[left]==nums[left+1]{
+                    left++
+                }
+                for left&lt;right &amp;&amp; nums[right]==nums[right-1]{
+                    right--
+                }
+                left++
+                right--
+            }else if nums[left]+nums[right]&lt;target{
+                left++
+            }else{
+                right--
+            }
+        }
+
+
+    }
+
+    return res
 }
-
-// 比如 dummy-&gt;1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6  k=3
-// 就是取前三个，然后断开，分成两部分:
-// dummy-&gt;1-&gt;2 与 3-&gt;4-&gt;5-&gt;6
-// 然后返回第一部分的最后一个: 2
-// 跟第二部分第一个：3
-func splitN(head *ListNode, k int) (*ListNode, *ListNode) {
-	k--
-	cur := head
-	for cur != nil &amp;&amp; k &gt; 0 {
-		k--
-		cur = cur.Next
-	}
-	var rest *ListNode
-	if cur.Next != nil {
-		rest = cur.Next
-		cur.Next = nil
-	}
-	return cur, rest
-}
-
-func reverseList(head *ListNode) *ListNode {
-	var newHead *ListNode
-	var next *ListNode
-	cur := head
-	for cur != nil {
-		next = cur.Next
-		cur.Next = newHead
-		newHead = cur
-		cur = next
-	}
-	return newHead
-}
-</code></pre>
-
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int)*ListNode{
-	dummy:=&amp;ListNode{}
-	dummy.Next=head
-	prev:=dummy
-	// 如果m==1,那么prev就是dummy
-	for i:=0; i&lt;m-1; i++{
-		prev=prev.Next
-	}
-
-	cur:=prev.Next
-	var nxt *ListNode
-	for i:=0; i&lt;n-m; i++{
-		nxt=cur.Next
-		cur.Next=nxt.Next
-		nxt.Next=prev.Next
-		prev.Next=nxt
-	}
-
-	return dummy.Next
-}
-
-
-
 </code></pre>
 
 </div>

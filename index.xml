@@ -6,10 +6,55 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Mar 2021 18:47:29 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 23:17:58 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0019</title>
+      <link>https://wncbb.github.io/posts/leetcode/0019.remove-nth-node-from-end-of-list/</link>
+      <pubDate>Tue, 09 Mar 2021 23:17:58 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0019.remove-nth-node-from-end-of-list/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>0033</title>
+      <link>https://wncbb.github.io/posts/leetcode/0033.search-in-rotated-sorted-array/</link>
+      <pubDate>Sun, 07 Mar 2021 14:15:20 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0033.search-in-rotated-sorted-array/</guid>
+      <description>func search(nums []int, target int) int { left:=0 right:=len(nums)-1 for left&amp;lt;=right{ mid:=(left+right)/2 if nums[mid]==target{ return mid } // 分为两种情况，要么左边是有序的(左半边，最左侧数据&amp;lt;=最右侧数据)，要是是右边 if nums[left]&amp;lt;=nums[mid]{ // 在左侧数据里，既然是有序的，如果target在左侧左右边界里，那么right=mid // 否则就不在左侧，那么left=mid+1 if nums[left]&amp;lt;=target &amp;amp;&amp;amp; target&amp;lt;=nums[mid]{ right=mid }else{ left=mid+1 } }else{ if nums[mid+1]&amp;lt;=target &amp;amp;&amp;amp; target&amp;lt;=nums[right]{ left=mid+1 }else{ right=mid } } } return -1 }  </description>
+    </item>
+    
+    <item>
+      <title>0005</title>
+      <link>https://wncbb.github.io/posts/leetcode/0005.longest-palindromic-substring/</link>
+      <pubDate>Sat, 06 Mar 2021 22:30:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0005.longest-palindromic-substring/</guid>
+      <description>func longestPalindrome(s string) string { start:=0 end:=0 sBytes:=[]byte(s) dp:=make([][]bool, 0, len(sBytes)) for i:=0; i&amp;lt;len(sBytes); i++{ dp=append(dp, make([]bool, len(sBytes), len(sBytes))) } for l:=0; l&amp;lt;len(sBytes); l++{ for i:=0; i+l&amp;lt;len(sBytes); i++{ j:=i+l if l==0{ dp[i][j]=true }else if l==1{ if sBytes[i]==sBytes[j]{ dp[i][j]=true } }else{ if sBytes[i]==sBytes[j]{ dp[i][j]=dp[i+1][j-1] } } if dp[i][j] &amp;amp;&amp;amp; end-start&amp;lt;j-i{ end=j start=i } } } return string(sBytes[start:end+1]) }  </description>
+    </item>
+    
+    <item>
+      <title>0015.3sum</title>
+      <link>https://wncbb.github.io/posts/leetcode/0015.3sum/</link>
+      <pubDate>Sat, 06 Mar 2021 22:28:39 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0015.3sum/</guid>
+      <description>import( &amp;quot;sort&amp;quot; ) func threeSum(nums []int) [][]int { sort.Ints(nums) res:=make([][]int, 0) if len(nums)&amp;lt;=2{ return res } for i:=0; i&amp;lt;len(nums)-2; i++{ // 这里不会存在，0， 0， 0， 0，结果没有数据的原因，是 // i&amp;lt;len(nums)-2, i不会从0走到len(nums)-1 if i&amp;gt;0 &amp;amp;&amp;amp; nums[i]==nums[i-1] { continue } left:=i+1 right:=len(nums)-1 target:=-1*nums[i] for left&amp;lt;right{ if nums[left]+nums[right]==target{ res=append(res, []int{nums[i], nums[left], nums[right]}) // 有结果之后要去重， 没有结果的时候不能去重，比如0， 0， 0， 0...因为都一样，直接去重就都没了 for left&amp;lt;right &amp;amp;&amp;amp; nums[left]==nums[left+1]{ left++ } for left&amp;lt;right &amp;amp;&amp;amp; nums[right]==nums[right-1]{ right-- } left++ right-- }else if nums[left]+nums[right]&amp;lt;target{ left++ }else{ right-- } } } return res }  </description>
+    </item>
+    
+    <item>
+      <title>0031</title>
+      <link>https://wncbb.github.io/posts/leetcode/0031.next-permutation/</link>
+      <pubDate>Sat, 06 Mar 2021 21:43:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0031.next-permutation/</guid>
+      <description>func nextPermutation(nums []int) { if len(nums)&amp;lt;=1{ return } /* 举个例子： 0 1 2 3 4 1 2 5 8 7 step1: 从后往前，找第一个相邻的升序对(nums[i], nums[i+1]), 这里是5，8, i=2 step2: 在i的右侧，从右往前，找第一个大于nums[i]的数nums[j],这里是7， j=4 step3: 交换i, j 得到 0 1 2 3 4 1 2 7 8 5 step4: reverse(i+1, len(nums)-1) 得到： 1 2 7 5 8 */ i:=len(nums)-2 // 从后面开始，找第一个相邻的升序对 for i&amp;gt;=0 &amp;amp;&amp;amp; nums[i]&amp;gt;=nums[i+1]{ i-- } if i&amp;gt;=0{ j:=len(nums)-1 for j&amp;gt;i &amp;amp;&amp;amp; nums[i]&amp;gt;=nums[j]{ j-- } nums[i], nums[j]=nums[j], nums[i] } reverse(nums, i+1, len(nums)-1) } func reverse(nums []int, left, right int){ for left&amp;lt;right{ nums[left], nums[right]=nums[right], nums[left] left++ right-- } } // 1 2 5 8 7  </description>
+    </item>
     
     <item>
       <title>0440.k-th-smallest-lexicographical-order</title>
@@ -17,7 +62,7 @@
       <pubDate>Sat, 06 Mar 2021 18:47:29 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0440.k-th-smallest-in-lexicographical-order/</guid>
-      <description>1func findKthNumber(n int, k int) int { 2	cur:=1 3	k-- 4	for k&amp;gt;0{ 5	nodes:=countNodes(n, cur) 6	if k&amp;lt;nodes{ 7 // ...k...nodes... 8 // 第k个元素在cur的孩子节点中，因此下降到自己的孩子节点，k-1表示刨去cur节点(root节点) 9	k-- 10	cur*=10 11	}else{ 12 // ...nodes...k... 13 // cur的子节点的个数小于k，说明第k个节点不在自己的孩子节点内部，cur++表示转向自己的兄弟节点 14	k-=nodes 15	cur++ 16	} 17	} 18	return cur 19} 20// 以cur为根节点，且最大值为n的十叉树中，有多少个元素 21// 比如下面，以x为root的树(咱们记作tree(x))的所有节点个数, 就等于各个层(从第0层到第N层)的节点的个数的和 22// x+1为root的树是x的右边的第一棵树, 记作tree(x+1) 23// 有意思的是： 对于第i层， 且i&amp;lt;N， tree(x)的第i层的节点的个数等于= tree(x+1)的第i层的第一个节点 - tree(x)的第i层的第一个节点 24// 对于第N层，节点个数= n - tree(x)的第N层的第一个节点 + 1 因为从0开始计数，所以要加1 25// 上面合起来就是： 取 MIN( tree(x+1).</description>
+      <description>1func findKthNumber(n int, k int) int { 2	// 第一个数字一定是1 3	cur:=1 4	k-- 5	for k&amp;gt;0{ 6	nodes:=countNodes(n, cur) 7	if k&amp;lt;nodes{ 8 // ...k...nodes... 9 // 第k个元素在cur的孩子节点中，因此下降到自己的孩子节点，k-1表示刨去cur节点(root节点) 10	k-- 11	cur*=10 12	}else{ 13 // ...nodes...k... 14 // cur的子节点的个数小于k，说明第k个节点不在自己的孩子节点内部，cur++表示转向自己的兄弟节点 15	k-=nodes 16	cur++ 17	} 18	} 19	return cur 20} 21// 以cur为根节点，且最大值为n的十叉树中，有多少个元素 22// 比如下面，以x为root的树(咱们记作tree(x))的所有节点个数, 就等于各个层(从第0层到第N层)的节点的个数的和 23// x+1为root的树是x的右边的第一棵树, 记作tree(x+1) 24// 有意思的是： 对于第i层， 且i&amp;lt;N， tree(x)的第i层的节点的个数等于= tree(x+1)的第i层的第一个节点 - tree(x)的第i层的第一个节点 25// 对于第N层，节点个数= n - tree(x)的第N层的第一个节点 + 1 因为从0开始计数，所以要加1 26// 上面合起来就是： 取 MIN( tree(x+1).</description>
     </item>
     
     <item>
@@ -77,15 +122,6 @@ a b c d e f g h i j k l 对于a, b,  import( &amp;quot;container/heap&amp;quot; 
     </item>
     
     <item>
-      <title>0005</title>
-      <link>https://wncbb.github.io/posts/leetcode/0005/</link>
-      <pubDate>Fri, 05 Mar 2021 18:52:38 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/posts/leetcode/0005/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>403</title>
       <link>https://wncbb.github.io/posts/leetcode/403/</link>
       <pubDate>Fri, 05 Mar 2021 17:13:02 +0800</pubDate>
@@ -101,7 +137,7 @@ a b c d e f g h i j k l 对于a, b,  import( &amp;quot;container/heap&amp;quot; 
       
       <guid>https://wncbb.github.io/posts/leetcode/0092/</guid>
       <description>// reverse m~n
-func reverseBetween(head *ListNode, m, n int)*ListNode{ dummy:=&amp;amp;ListNode{} dummy.Next=head prev:=dummy // 如果m==1,那么prev就是dummy for i:=0; i&amp;lt;m-1; i++{ prev=prev.Next } cur:=prev.Next var nxt *ListNode for i:=0; i&amp;lt;n-m; i++{ nxt=cur.Next cur.Next=nxt.Next nxt.Next=prev.Next prev.Next=nxt } return dummy.Next }  </description>
+func reverseBetween(head *ListNode, m, n int) *ListNode { dummy := &amp;amp;ListNode{} dummy.Next = head // m-1+1 比如dummy-&amp;gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;6 m=2, n=5 // m=2其实是取前m-1个，因为m属于第二部分 // 由于dummy的存在，需要加一个1跳过dummy firstPartTail, secondPartHead := splitN(dummy, m-1+1) // n-m+1 因为n跟m都属于第二部分，所以总共有n-m+1个元素 _, thirdPartHead := splitN(secondPartHead, n-m+1) //printList(&amp;quot;secondPartHead&amp;quot;, secondPartHead) //printList(&amp;quot;thirdPartHead&amp;quot;, thirdPartHead) reversedSecondPartHead := reverseList(secondPartHead) reversedSecondPartTail := secondPartHead firstPartTail.Next = reversedSecondPartHead reversedSecondPartTail.Next = thirdPartHead return dummy.Next } // 比如 dummy-&amp;gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;6 k=3 // 就是取前三个，然后断开，分成两部分: // dummy-&amp;gt;1-&amp;gt;2 与 3-&amp;gt;4-&amp;gt;5-&amp;gt;6 // 然后返回第一部分的最后一个: 2 // 跟第二部分第一个：3 func splitN(head *ListNode, k int) (*ListNode, *ListNode) { k-- cur := head for cur !</description>
     </item>
     
     <item>
@@ -325,7 +361,7 @@ helper(root) return ret  }
 示例 1 :
 输入:nums = [1,1,1], k = 2 输出: 2 , [1,1] 与 [1,1] 为两种不同的情况。 说明 :
 数组的长度为 [1, 20,000]。 数组中元素的范围是 [-1000, 1000] ，且整数 k 的范围是 [-1e7, 1e7]。
-解 解1 1/* 2比如 ABCDEFG... 3如果当前所有的和是Sum(A...G) 4如果存在Sum(A...X), 使得 Sum(A...X)+k=Sum(A...G)， 5也就是说，Sum(A...G)-k这个数存在， 6那么，(X...G]就是满足条件的 7*/ 8 9class Solution { 10 public int subarraySum(int[] nums, int k) { 11 // 扫描一遍数组, 使用map记录出现同样的和的次数, 对每个i计算累计和sum并判断map内是否有sum-k 12 Map&amp;lt;Integer, Integer&amp;gt; map = new HashMap&amp;lt;&amp;gt;(); 13 map.</description>
+解 解1 1/* 2比如 ABCDEFG... 3如果当前所有的和是Sum(A...G) 4如果存在Sum(A...X), 使得 Sum(A...X)+k=Sum(A...G)， 5也就是说，Sum(A...G)-k这个数存在， 6那么，(X...G]就是满足条件的 7*/ 8 9class Solution { 10 public int subarraySum(int[] nums, int k) { 11 // 扫描一遍数组, 使用map记录出现同样的和的次数, 对每个i计算累计和sum并判断map内是否有sum-k 12 Map&amp;lt;Integer, Integer&amp;gt; map = new HashMap&amp;lt;&amp;gt;(); 13 // 放0的目的是： 如果Sum(A.</description>
     </item>
     
     <item>
@@ -455,7 +491,7 @@ helper(root) return ret  }
     </item>
     
     <item>
-      <title>0053.maximum-subarra</title>
+      <title>0053.maximum-subarray</title>
       <link>https://wncbb.github.io/posts/leetcode/0053.maximum-subarra/</link>
       <pubDate>Thu, 10 Dec 2020 16:33:51 +0800</pubDate>
       

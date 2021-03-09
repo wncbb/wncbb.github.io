@@ -6,10 +6,19 @@
     <description>Recent content in dp on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 Feb 2021 22:11:58 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Mar 2021 22:30:31 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/dp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0005</title>
+      <link>https://wncbb.github.io/posts/leetcode/0005.longest-palindromic-substring/</link>
+      <pubDate>Sat, 06 Mar 2021 22:30:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0005.longest-palindromic-substring/</guid>
+      <description>func longestPalindrome(s string) string { start:=0 end:=0 sBytes:=[]byte(s) dp:=make([][]bool, 0, len(sBytes)) for i:=0; i&amp;lt;len(sBytes); i++{ dp=append(dp, make([]bool, len(sBytes), len(sBytes))) } for l:=0; l&amp;lt;len(sBytes); l++{ for i:=0; i+l&amp;lt;len(sBytes); i++{ j:=i+l if l==0{ dp[i][j]=true }else if l==1{ if sBytes[i]==sBytes[j]{ dp[i][j]=true } }else{ if sBytes[i]==sBytes[j]{ dp[i][j]=dp[i+1][j-1] } } if dp[i][j] &amp;amp;&amp;amp; end-start&amp;lt;j-i{ end=j start=i } } } return string(sBytes[start:end+1]) }  </description>
+    </item>
     
     <item>
       <title>0121</title>

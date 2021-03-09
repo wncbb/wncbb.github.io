@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>0092 &middot; WNCBB&#39;s blog</title>
+  <title>0019 &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,87 +50,9 @@
 
     <main class="content container">
     <div class="post">
-  <h1>0092</h1>
-  <time datetime=2021-03-05T15:11:12&#43;0800 class="post-date">2021-03-05 15:11:12</time>
-  <p>// reverse m~n</p>
-
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int) *ListNode {
-	dummy := &amp;ListNode{}
-	dummy.Next = head
-	// m-1+1 比如dummy-&gt;1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6  m=2, n=5
-	// m=2其实是取前m-1个，因为m属于第二部分
-	// 由于dummy的存在，需要加一个1跳过dummy
-	firstPartTail, secondPartHead := splitN(dummy, m-1+1)
-	// n-m+1 因为n跟m都属于第二部分，所以总共有n-m+1个元素
-	_, thirdPartHead := splitN(secondPartHead, n-m+1)
-	//printList(&quot;secondPartHead&quot;, secondPartHead)
-	//printList(&quot;thirdPartHead&quot;, thirdPartHead)
-	reversedSecondPartHead := reverseList(secondPartHead)
-	reversedSecondPartTail := secondPartHead
-	firstPartTail.Next = reversedSecondPartHead
-	reversedSecondPartTail.Next = thirdPartHead
-	return dummy.Next
-}
-
-// 比如 dummy-&gt;1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6  k=3
-// 就是取前三个，然后断开，分成两部分:
-// dummy-&gt;1-&gt;2 与 3-&gt;4-&gt;5-&gt;6
-// 然后返回第一部分的最后一个: 2
-// 跟第二部分第一个：3
-func splitN(head *ListNode, k int) (*ListNode, *ListNode) {
-	k--
-	cur := head
-	for cur != nil &amp;&amp; k &gt; 0 {
-		k--
-		cur = cur.Next
-	}
-	var rest *ListNode
-	if cur.Next != nil {
-		rest = cur.Next
-		cur.Next = nil
-	}
-	return cur, rest
-}
-
-func reverseList(head *ListNode) *ListNode {
-	var newHead *ListNode
-	var next *ListNode
-	cur := head
-	for cur != nil {
-		next = cur.Next
-		cur.Next = newHead
-		newHead = cur
-		cur = next
-	}
-	return newHead
-}
-</code></pre>
-
-<pre><code class="language-go">func reverseBetween(head *ListNode, m, n int)*ListNode{
-	dummy:=&amp;ListNode{}
-	dummy.Next=head
-	prev:=dummy
-	// 如果m==1,那么prev就是dummy
-	for i:=0; i&lt;m-1; i++{
-		prev=prev.Next
-	}
-
-	cur:=prev.Next
-	var nxt *ListNode
-	for i:=0; i&lt;n-m; i++{
-		nxt=cur.Next
-		cur.Next=nxt.Next
-		nxt.Next=prev.Next
-		prev.Next=nxt
-	}
-
-	return dummy.Next
-}
-
-
-
-</code></pre>
-
+  <h1>0019</h1>
+  <time datetime=2021-03-09T23:17:58&#43;0800 class="post-date">2021-03-09 23:17:58</time>
+  
 </div>
 
 <h2>Comments</h2>

@@ -17,7 +17,7 @@
       <pubDate>Sat, 06 Mar 2021 18:47:29 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0440.k-th-smallest-in-lexicographical-order/</guid>
-      <description>1func findKthNumber(n int, k int) int { 2	cur:=1 3	k-- 4	for k&amp;gt;0{ 5	nodes:=countNodes(n, cur) 6	if k&amp;lt;nodes{ 7 // ...k...nodes... 8 // 第k个元素在cur的孩子节点中，因此下降到自己的孩子节点，k-1表示刨去cur节点(root节点) 9	k-- 10	cur*=10 11	}else{ 12 // ...nodes...k... 13 // cur的子节点的个数小于k，说明第k个节点不在自己的孩子节点内部，cur++表示转向自己的兄弟节点 14	k-=nodes 15	cur++ 16	} 17	} 18	return cur 19} 20// 以cur为根节点，且最大值为n的十叉树中，有多少个元素 21// 比如下面，以x为root的树(咱们记作tree(x))的所有节点个数, 就等于各个层(从第0层到第N层)的节点的个数的和 22// x+1为root的树是x的右边的第一棵树, 记作tree(x+1) 23// 有意思的是： 对于第i层， 且i&amp;lt;N， tree(x)的第i层的节点的个数等于= tree(x+1)的第i层的第一个节点 - tree(x)的第i层的第一个节点 24// 对于第N层，节点个数= n - tree(x)的第N层的第一个节点 + 1 因为从0开始计数，所以要加1 25// 上面合起来就是： 取 MIN( tree(x+1).</description>
+      <description>1func findKthNumber(n int, k int) int { 2	// 第一个数字一定是1 3	cur:=1 4	k-- 5	for k&amp;gt;0{ 6	nodes:=countNodes(n, cur) 7	if k&amp;lt;nodes{ 8 // ...k...nodes... 9 // 第k个元素在cur的孩子节点中，因此下降到自己的孩子节点，k-1表示刨去cur节点(root节点) 10	k-- 11	cur*=10 12	}else{ 13 // ...nodes...k... 14 // cur的子节点的个数小于k，说明第k个节点不在自己的孩子节点内部，cur++表示转向自己的兄弟节点 15	k-=nodes 16	cur++ 17	} 18	} 19	return cur 20} 21// 以cur为根节点，且最大值为n的十叉树中，有多少个元素 22// 比如下面，以x为root的树(咱们记作tree(x))的所有节点个数, 就等于各个层(从第0层到第N层)的节点的个数的和 23// x+1为root的树是x的右边的第一棵树, 记作tree(x+1) 24// 有意思的是： 对于第i层， 且i&amp;lt;N， tree(x)的第i层的节点的个数等于= tree(x+1)的第i层的第一个节点 - tree(x)的第i层的第一个节点 25// 对于第N层，节点个数= n - tree(x)的第N层的第一个节点 + 1 因为从0开始计数，所以要加1 26// 上面合起来就是： 取 MIN( tree(x+1).</description>
     </item>
     
     <item>

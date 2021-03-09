@@ -6,10 +6,28 @@
     <description>Recent content in Categories on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Mar 2021 18:47:29 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Mar 2021 22:30:31 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>dp</title>
+      <link>https://wncbb.github.io/categories/dp/</link>
+      <pubDate>Sat, 06 Mar 2021 22:30:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/categories/dp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>n sum</title>
+      <link>https://wncbb.github.io/categories/n-sum/</link>
+      <pubDate>Sat, 06 Mar 2021 22:28:39 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/categories/n-sum/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>tree</title>
@@ -89,15 +107,6 @@
       <pubDate>Mon, 01 Mar 2021 20:00:04 +0800</pubDate>
       
       <guid>https://wncbb.github.io/categories/qs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dp</title>
-      <link>https://wncbb.github.io/categories/dp/</link>
-      <pubDate>Sun, 28 Feb 2021 22:11:58 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/categories/dp/</guid>
       <description></description>
     </item>
     
