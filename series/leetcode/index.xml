@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>0019</title>
+      <link>https://wncbb.github.io/posts/leetcode/0019.remove-nth-node-from-end-of-list/</link>
+      <pubDate>Tue, 09 Mar 2021 23:17:58 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0019.remove-nth-node-from-end-of-list/</guid>
+      <description>/** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func removeNthFromEnd(head *ListNode, n int) *ListNode { if head==nil{ return nil } dummy:=&amp;amp;ListNode{} dummy.Next=head fastNode:=dummy slowNode:=dummy for i:=0; i&amp;lt;n; i++{ fastNode=fastNode.Next } for fastNode.Next!=nil{ fastNode=fastNode.Next slowNode=slowNode.Next } slowNode.Next=slowNode.Next.Next return dummy.Next }  </description>
+    </item>
+    
+    <item>
       <title>0033</title>
       <link>https://wncbb.github.io/posts/leetcode/0033.search-in-rotated-sorted-array/</link>
       <pubDate>Sun, 07 Mar 2021 14:15:20 +0800</pubDate>
