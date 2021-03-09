@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0079.word-search/">0079</a>
+  </h1>
+  <time datetime="2021-03-09T23:22:34&#43;0800" class="post-date">2021-03-09 23:22:34</time>
+  func exist(board [][]byte, word string) bool { for i:=0; i&lt;len(board); i++{ for j:=0; j&lt;len(board[0]); j++{ if findWord(board, i, j, word){ return true } } } return false } func findWord(board [][]byte, i, j int, word string)bool{ visited:=make([][]bool, 0, len(board)) for i:=0; i&lt;len(board); i++{ visited=append(visited, make([]bool, len(board[0]), len(board[0]))) } dirs:=[][]int{ {0, 1}, {0, -1}, {1, 0}, {-1, 0}, } wordBytes:=[]byte(word) var inner func(i, j, k int)bool inner = func(i, j, k int)bool{ if wordBytes[k]!
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0079.word-search/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0739-daily-temperatures/">0739 Daily Temperatures</a>
   </h1>
   <time datetime="2021-03-09T23:19:44&#43;0800" class="post-date">2021-03-09 23:19:44</time>
