@@ -6,10 +6,37 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 17:27:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 17:55:31 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0006.zigzag-conversion</title>
+      <link>https://wncbb.github.io/posts/leetcode/0006.zigzag-conversion/</link>
+      <pubDate>Wed, 10 Mar 2021 17:55:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0006.zigzag-conversion/</guid>
+      <description>// 可以看做每 2*numRows-2 个元素，是一轮 func convert(s string, numRows int) string { if numRows==1{ return s } rst:=make([][]byte, 0, numRows) for i:=0; i&amp;lt;numRows; i++{ rst=append(rst, make([]byte, 0)) } sBytes:=[]byte(s) for i:=0; i&amp;lt;len(sBytes); i++{ modValue:=i%(2*numRows-2) if modValue&amp;lt;numRows{ rst[modValue]=append(rst[modValue], sBytes[i]) }else{ targetValue:=(numRows-1) - (modValue-(numRows-1)) rst[targetValue]=append(rst[targetValue], sBytes[i]) } } rstStr:=&amp;quot;&amp;quot; for _, v:=range rst{ rstStr+=string(v) } return rstStr }  </description>
+    </item>
+    
+    <item>
+      <title>0236.lowest-common-ancestor-of-a-binary-tree</title>
+      <link>https://wncbb.github.io/posts/leetcode/0236.lowest-common-ancestor-of-a-binary-tree/</link>
+      <pubDate>Wed, 10 Mar 2021 17:46:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0236.lowest-common-ancestor-of-a-binary-tree/</guid>
+      <description>/** * Definition for TreeNode. * type TreeNode struct { * Val int * Left *ListNode * Right *ListNode * } */ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode { if root==nil{ return nil } if root.Val==p.Val || root.Val==q.Val{ return root } left:=lowestCommonAncestor(root.Left, p, q) right:=lowestCommonAncestor(root.Right, p, q) if left!=nil &amp;amp;&amp;amp; right!=nil{ return root } if left!=nil{ return left } return right }  </description>
+    </item>
+    
+    <item>
+      <title>0009.palindrome-number</title>
+      <link>https://wncbb.github.io/posts/leetcode/0009.palindrome-number/</link>
+      <pubDate>Wed, 10 Mar 2021 17:30:05 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0009.palindrome-number/</guid>
+      <description>func isPalindrome(x int) bool { return x==reverse(x) } func reverse(x int)int{ ret:=0 for x&amp;gt;0{ ret=ret*10+x%10 x=x/10 } return ret }  </description>
+    </item>
     
     <item>
       <title>0008.string-to-integer-atoi</title>

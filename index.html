@@ -53,6 +53,27 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0006.zigzag-conversion/">0006.zigzag-conversion</a>
+  </h1>
+  <time datetime="2021-03-10T17:55:31&#43;0800" class="post-date">2021-03-10 17:55:31</time>
+  // 可以看做每 2*numRows-2 个元素，是一轮 func convert(s string, numRows int) string { if numRows==1{ return s } rst:=make([][]byte, 0, numRows) for i:=0; i&lt;numRows; i++{ rst=append(rst, make([]byte, 0)) } sBytes:=[]byte(s) for i:=0; i&lt;len(sBytes); i++{ modValue:=i%(2*numRows-2) if modValue&lt;numRows{ rst[modValue]=append(rst[modValue], sBytes[i]) }else{ targetValue:=(numRows-1) - (modValue-(numRows-1)) rst[targetValue]=append(rst[targetValue], sBytes[i]) } } rstStr:=&quot;&quot; for _, v:=range rst{ rstStr+=string(v) } return rstStr }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0236.lowest-common-ancestor-of-a-binary-tree/">0236.lowest-common-ancestor-of-a-binary-tree</a>
+  </h1>
+  <time datetime="2021-03-10T17:46:07&#43;0800" class="post-date">2021-03-10 17:46:07</time>
+  /** * Definition for TreeNode. * type TreeNode struct { * Val int * Left *ListNode * Right *ListNode * } */ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode { if root==nil{ return nil } if root.Val==p.Val || root.Val==q.Val{ return root } left:=lowestCommonAncestor(root.Left, p, q) right:=lowestCommonAncestor(root.Right, p, q) if left!=nil &amp;&amp; right!=nil{ return root } if left!=nil{ return left } return right }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0009.palindrome-number/">0009.palindrome-number</a>
+  </h1>
+  <time datetime="2021-03-10T17:30:05&#43;0800" class="post-date">2021-03-10 17:30:05</time>
+  func isPalindrome(x int) bool { return x==reverse(x) } func reverse(x int)int{ ret:=0 for x&gt;0{ ret=ret*10+x%10 x=x/10 } return ret }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0008.string-to-integer-atoi/">0008.string-to-integer-atoi</a>
   </h1>
   <time datetime="2021-03-10T17:27:19&#43;0800" class="post-date">2021-03-10 17:27:19</time>
