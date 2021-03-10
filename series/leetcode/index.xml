@@ -6,10 +6,29 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 22:27:01 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 23:13:32 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0082.remove-duplicates-from-sorted-list-ii</title>
+      <link>https://wncbb.github.io/posts/leetcode/0082.remove-duplicates-from-sorted-list-ii/</link>
+      <pubDate>Wed, 10 Mar 2021 23:13:32 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0082.remove-duplicates-from-sorted-list-ii/</guid>
+      <description>/** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func deleteDuplicates(head *ListNode) *ListNode { dummy:=&amp;amp;ListNode{} dummy.Next=head cur:=dummy for cur.Next!=nil{ left:=cur.Next right:=cur.Next for right.Next!=nil &amp;amp;&amp;amp; right.Next.Val==left.Val{ right=right.Next } if left!=right{ cur.Next=right.Next }else{ cur=cur.Next } } return dummy.Next }  </description>
+    </item>
+    
+    <item>
+      <title>0394.decode-string</title>
+      <link>https://wncbb.github.io/posts/leetcode/0394.decode-string/</link>
+      <pubDate>Wed, 10 Mar 2021 22:51:08 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0394.decode-string/</guid>
+      <description>https://leetcode-cn.com/problems/decode-string/solution/decode-string-fu-zhu-zhan-fa-di-gui-fa-by-jyd/
+func decodeString(s string) string { stack:=&amp;amp;Stack{ raw: make([]*Elem, 0), } str:=&amp;quot;&amp;quot; multi:=0 sBytes:=[]byte(s) for _, v:=range sBytes{ switch { case v==&#39;[&#39;: stack.Push(&amp;amp;Elem{CurMulti: multi, LastStr: str}) multi=0 str=&amp;quot;&amp;quot; case v==&#39;]&#39;: curElem:=stack.Pop() str=curElem.LastStr+multiStr(str, curElem.CurMulti) case &#39;0&#39;&amp;lt;=v &amp;amp;&amp;amp; v&amp;lt;=&#39;9&#39;: multi=multi*10+int(v-&#39;0&#39;) default: str+=string([]byte{v}) } } return str } type Elem struct{ CurMulti int LastStr string } func multiStr(s string, num int)string{ ret:=&amp;quot;&amp;quot; for i:=0; i&amp;lt;num; i++{ ret+=s } return ret } type Stack struct{ raw []*Elem } func(s *Stack)Push(v *Elem){ s.</description>
+    </item>
     
     <item>
       <title>0134.gas-station</title>

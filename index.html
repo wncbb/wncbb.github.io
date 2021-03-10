@@ -53,6 +53,25 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0082.remove-duplicates-from-sorted-list-ii/">0082.remove-duplicates-from-sorted-list-ii</a>
+  </h1>
+  <time datetime="2021-03-10T23:13:32&#43;0800" class="post-date">2021-03-10 23:13:32</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func deleteDuplicates(head *ListNode) *ListNode { dummy:=&amp;ListNode{} dummy.Next=head cur:=dummy for cur.Next!=nil{ left:=cur.Next right:=cur.Next for right.Next!=nil &amp;&amp; right.Next.Val==left.Val{ right=right.Next } if left!=right{ cur.Next=right.Next }else{ cur=cur.Next } } return dummy.Next }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0394.decode-string/">0394.decode-string</a>
+  </h1>
+  <time datetime="2021-03-10T22:51:08&#43;0800" class="post-date">2021-03-10 22:51:08</time>
+  https://leetcode-cn.com/problems/decode-string/solution/decode-string-fu-zhu-zhan-fa-di-gui-fa-by-jyd/
+func decodeString(s string) string { stack:=&amp;Stack{ raw: make([]*Elem, 0), } str:=&quot;&quot; multi:=0 sBytes:=[]byte(s) for _, v:=range sBytes{ switch { case v=='[': stack.Push(&amp;Elem{CurMulti: multi, LastStr: str}) multi=0 str=&quot;&quot; case v==']': curElem:=stack.Pop() str=curElem.LastStr+multiStr(str, curElem.CurMulti) case '0'&lt;=v &amp;&amp; v&lt;='9': multi=multi*10+int(v-'0') default: str+=string([]byte{v}) } } return str } type Elem struct{ CurMulti int LastStr string } func multiStr(s string, num int)string{ ret:=&quot;&quot; for i:=0; i&lt;num; i++{ ret+=s } return ret } type Stack struct{ raw []*Elem } func(s *Stack)Push(v *Elem){ s.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0394.decode-string/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0134.gas-station/">0134.gas-station</a>
   </h1>
   <time datetime="2021-03-10T22:27:01&#43;0800" class="post-date">2021-03-10 22:27:01</time>
