@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0445.add-two-numbers-ii/">0445.add-two-numbers-ii</a>
+  </h1>
+  <time datetime="2021-03-10T12:52:31&#43;0800" class="post-date">2021-03-10 12:52:31</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode { if l1==nil{ return l2 } if l2==nil{ return l1 } l1Stack:=getStackFromList(l1) l2Stack:=getStackFromList(l2) carry:=0 dummy:=&amp;ListNode{} for !l1Stack.Empty() || !l2Stack.Empty() || carry&gt;0{ cur:=carry if !l1Stack.Empty(){ cur+=l1Stack.Pop() } if !l2Stack.Empty(){ cur+=l2Stack.Pop() } newNode:=&amp;ListNode{ Val: cur%10, } carry=cur/10 newNode.Next=dummy.Next dummy.Next=newNode } return dummy.Next } func getStackFromList(l *ListNode)*Stack{ stack:=&amp;Stack{ raw: make([]int, 0), } for l!
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0445.add-two-numbers-ii/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0415.add-strings/">0415.add-strings</a>
   </h1>
   <time datetime="2021-03-10T12:38:19&#43;0800" class="post-date">2021-03-10 12:38:19</time>

@@ -6,10 +6,19 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 12:38:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 12:52:31 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0445.add-two-numbers-ii</title>
+      <link>https://wncbb.github.io/posts/leetcode/0445.add-two-numbers-ii/</link>
+      <pubDate>Wed, 10 Mar 2021 12:52:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0445.add-two-numbers-ii/</guid>
+      <description>/** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode { if l1==nil{ return l2 } if l2==nil{ return l1 } l1Stack:=getStackFromList(l1) l2Stack:=getStackFromList(l2) carry:=0 dummy:=&amp;amp;ListNode{} for !l1Stack.Empty() || !l2Stack.Empty() || carry&amp;gt;0{ cur:=carry if !l1Stack.Empty(){ cur+=l1Stack.Pop() } if !l2Stack.Empty(){ cur+=l2Stack.Pop() } newNode:=&amp;amp;ListNode{ Val: cur%10, } carry=cur/10 newNode.Next=dummy.Next dummy.Next=newNode } return dummy.Next } func getStackFromList(l *ListNode)*Stack{ stack:=&amp;amp;Stack{ raw: make([]int, 0), } for l!</description>
+    </item>
     
     <item>
       <title>0415.add-strings</title>
