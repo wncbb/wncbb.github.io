@@ -6,10 +6,19 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 14:28:58 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 14:30:50 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0175.combine-two-tables</title>
+      <link>https://wncbb.github.io/posts/leetcode/0175.combine-two-tables/</link>
+      <pubDate>Wed, 10 Mar 2021 14:30:50 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0175.combine-two-tables/</guid>
+      <description>select FirstName, LastName, City, State from Person left join Address on Person.PersonId = Address.PersonId ;  </description>
+    </item>
     
     <item>
       <title>0300.longest-increasing-subsequence</title>
