@@ -6,10 +6,19 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 12:52:31 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 13:14:56 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0093.restore-ip-addresses</title>
+      <link>https://wncbb.github.io/posts/leetcode/0093.restore-ip-addresses/</link>
+      <pubDate>Wed, 10 Mar 2021 13:14:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0093.restore-ip-addresses/</guid>
+      <description>func restoreIpAddresses(s string) []string { rst := make([]string, 0) var dfs func(curRst []string, start int) dfs = func(curRst []string, start int) { if len(curRst) == 4 { if start == len(s) { rst = append(rst, strings.Join(curRst, &amp;quot;.&amp;quot;)) return } else { return } } for length := 1; length &amp;lt;= 3; length++ { // 2+2 2 3 4 if start+length &amp;gt; len(s) { return } curStr := s[start : start+length] if length &amp;gt; 1 &amp;amp;&amp;amp; curStr[0] == &#39;0&#39; { return } curNum, _ := strconv.</description>
+    </item>
     
     <item>
       <title>0445.add-two-numbers-ii</title>

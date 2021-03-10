@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0093.restore-ip-addresses/">0093.restore-ip-addresses</a>
+  </h1>
+  <time datetime="2021-03-10T13:14:56&#43;0800" class="post-date">2021-03-10 13:14:56</time>
+  func restoreIpAddresses(s string) []string { rst := make([]string, 0) var dfs func(curRst []string, start int) dfs = func(curRst []string, start int) { if len(curRst) == 4 { if start == len(s) { rst = append(rst, strings.Join(curRst, &quot;.&quot;)) return } else { return } } for length := 1; length &lt;= 3; length++ { // 2+2 2 3 4 if start+length &gt; len(s) { return } curStr := s[start : start+length] if length &gt; 1 &amp;&amp; curStr[0] == '0' { return } curNum, _ := strconv.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0093.restore-ip-addresses/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0445.add-two-numbers-ii/">0445.add-two-numbers-ii</a>
   </h1>
   <time datetime="2021-03-10T12:52:31&#43;0800" class="post-date">2021-03-10 12:52:31</time>
