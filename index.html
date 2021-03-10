@@ -53,6 +53,47 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0020.valid-parentheses/">0020.valid-parentheses</a>
+  </h1>
+  <time datetime="2021-03-10T11:02:58&#43;0800" class="post-date">2021-03-10 11:02:58</time>
+  func isValid(s string) bool { sBytes:=[]byte(s) stack:=&amp;Stack{ raw: make([]byte, 0, len(sBytes)), } for _, v:=range sBytes{ switch(v){ case '(': stack.Push(v) case ')': if stack.Empty(){ return false } if stack.Top()=='('{ stack.Pop() }else{ stack.Push(v) } case '[': stack.Push(v) case ']': if stack.Empty(){ return false } if stack.Top()=='['{ stack.Pop() }else{ stack.Push(v) } case '{': stack.Push(v) case '}': if stack.Empty(){ return false } if stack.Top()=='{'{ stack.Pop() }else{ stack.Push(v) } } } return stack.Empty() } type Stack struct{ raw []byte } func (s *Stack)Push(v byte){ s.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0020.valid-parentheses/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0221.maximal-square/">0221.maximal-square</a>
+  </h1>
+  <time datetime="2021-03-10T10:52:31&#43;0800" class="post-date">2021-03-10 10:52:31</time>
+  func maximalSquare(matrix [][]byte) int { dp:=make([][]int, 0, len(matrix)) for i:=0; i&lt;len(matrix); i++{ dp=append(dp, make([]int, len(matrix[0]), len(matrix[0]))) } rst:=0 for i:=0; i&lt;len(matrix); i++{ for j:=0; j&lt;len(matrix[0]); j++{ if matrix[i][j]=='0'{ continue } if i==0 || j==0{ dp[i][j]=1 }else{ dp[i][j]=getMin(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])+1 } if rst&lt;dp[i][j]{ rst=dp[i][j] } } } return rst*rst } func getMin(a int, s ... int)int{ ret:=a for _, v:=range s{ if ret&gt;v{ ret=v } } return ret }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/cut_woods_k_n/">Cut_woods_k_n</a>
+  </h1>
+  <time datetime="2021-03-10T10:24:24&#43;0800" class="post-date">2021-03-10 10:24:24</time>
+  https://blog.csdn.net/weixin_39590058/article/details/108397552
+给定数组，每个元素代表一个木头的长度，木头可以任意截断， 从这堆木头中截出至少k个相同长度为m的木块，已知k，求max(m)  二分查找 数组排序后，mid=最小值+(最大值-最小值)/2 试一试mid能不能可以，如果不可以，说明mid太大，右边界=mid-1 如果可以，说明mid还可以继续扩大试试，左边界=mid+1  package main import ( &quot;fmt&quot; &quot;sort&quot; ) func main() { nums := []int{4, 7, 2, 10, 5} k := 5 rst := maxM(nums, k) fmt.Printf(&quot;rst: %d\n&quot;, rst) } func maxM(nums []int, k int) int { if len(nums) == 0 { return 0 } sort.Slice(nums, func(i, j int) bool { return nums[i] &gt; nums[j] }) max := nums[0] min := nums[len(nums)-1] lo := min hi := max ans := -1 for lo &lt;= hi { mid := lo + (hi-lo)/2 if isFit(nums, k, mid) { ans = mid lo = mid + 1 } else { hi = mid - 1 } } return ans } func isFit(nums []int, k int, v int) bool { count := 0 for i := 0; i &lt; len(nums); i++ { count += nums[i] / v if count &gt;= k { return true } } return false } func getMin(a, b int) int { if a &lt; b { return a } return b } func getMax(a, b int) int { if a &gt; b { return a } return b }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/algo/36_multiplication/">36_multiplication</a>
+  </h1>
+  <time datetime="2021-03-10T10:23:10&#43;0800" class="post-date">2021-03-10 10:23:10</time>
+  https://leetcode-cn.com/circle/discuss/I8NZUx/
+import ( &quot;fmt&quot; ) func main() { num1 := &quot;11&quot; num2 := &quot;12&quot; rst := addStrings(num1, num2) fmt.Printf(&quot;rst: %s\n&quot;, rst) } func addStrings(num1, num2 string) string { lookup := make([]byte, 0, 36) for i := byte('0'); i &lt;= '9'; i++ { lookup = append(lookup, i) } for i := byte('a'); i &lt;= 'z'; i++ { lookup = append(lookup, i) } carry := 0 num1Bytes := []byte(num1) num2Bytes := []byte(num2) i := len(num1Bytes) - 1 j := len(num2Bytes) - 1 reversedRst := make([]byte, 0) for i &gt;= 0 || j &gt;= 0 || carry &gt; 0 { cur := carry if i &gt;= 0 { cur += byte2Number(num1Bytes[i]) i-- } if j &gt;= 0 { cur += byte2Number(num2Bytes[j]) j-- } carry = cur / 36 cur = cur % 36 if cur &gt;= 0 &amp;&amp; cur &lt; len(lookup) { reversedRst = append(reversedRst, lookup[cur]) } } return string(reverseBytes(reversedRst)) } func reverseBytes(s []byte) []byte { if len(s) &lt;= 1 { return s } i := 0 j := len(s) - 1 for i &lt; j { s[i], s[j] = s[j], s[i] i++ j-- } return s } func byte2Number(b byte) int { if '0' &lt;= b &amp;&amp; b &lt;= '9' { return int(b - '0') } if 'a' &lt;= b &amp;&amp; b &lt;= 'z' { return int(b-'a') + 10 } return 0 }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0102.binary-tree-level-order-traversal/">0012</a>
+  </h1>
+  <time datetime="2021-03-10T00:05:49&#43;0800" class="post-date">2021-03-10 00:05:49</time>
+  /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func levelOrder(root *TreeNode) [][]int { rst:=make([][]int, 0) q:=make([]*TreeNode, 0) q=append(q, root) for len(q)&gt;0{ nextQ:=make([]*TreeNode, 0) curRst:=make([]int, 0) for i:=0; i&lt;len(q); i++{ curRst=append(curRst, q[i].Val) if q[i].Left!=nil{ nextQ=append(nextQ, q[i].Left) } if q[i].Right!=nil{ nextQ=append(nextQ, q[i].Right) } } rst=append(rst, curRst) q=nextQ } return rst }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0022.generate-parentheses/">0022</a>
   </h1>
   <time datetime="2021-03-09T23:47:50&#43;0800" class="post-date">2021-03-09 23:47:50</time>

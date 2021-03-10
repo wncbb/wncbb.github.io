@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.56.0-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>36_multiplication &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>36_multiplication</h1>
+  <time datetime=2021-03-10T10:23:10&#43;0800 class="post-date">2021-03-10 10:23:10</time>
+  <p><a href="https://leetcode-cn.com/circle/discuss/I8NZUx/">https://leetcode-cn.com/circle/discuss/I8NZUx/</a></p>
+
+<pre><code class="language-go">import (
+	&quot;fmt&quot;
+)
+
+func main() {
+	num1 := &quot;11&quot;
+	num2 := &quot;12&quot;
+	rst := addStrings(num1, num2)
+	fmt.Printf(&quot;rst: %s\n&quot;, rst)
+}
+
+func addStrings(num1, num2 string) string {
+	lookup := make([]byte, 0, 36)
+	for i := byte('0'); i &lt;= '9'; i++ {
+		lookup = append(lookup, i)
+	}
+	for i := byte('a'); i &lt;= 'z'; i++ {
+		lookup = append(lookup, i)
+	}
+
+	carry := 0
+
+	num1Bytes := []byte(num1)
+	num2Bytes := []byte(num2)
+
+	i := len(num1Bytes) - 1
+	j := len(num2Bytes) - 1
+
+	reversedRst := make([]byte, 0)
+
+	for i &gt;= 0 || j &gt;= 0 || carry &gt; 0 {
+		cur := carry
+		if i &gt;= 0 {
+			cur += byte2Number(num1Bytes[i])
+			i--
+		}
+		if j &gt;= 0 {
+			cur += byte2Number(num2Bytes[j])
+			j--
+		}
+		carry = cur / 36
+		cur = cur % 36
+		if cur &gt;= 0 &amp;&amp; cur &lt; len(lookup) {
+			reversedRst = append(reversedRst, lookup[cur])
+		}
+	}
+	return string(reverseBytes(reversedRst))
+}
+
+func reverseBytes(s []byte) []byte {
+	if len(s) &lt;= 1 {
+		return s
+	}
+	i := 0
+	j := len(s) - 1
+	for i &lt; j {
+		s[i], s[j] = s[j], s[i]
+		i++
+		j--
+	}
+	return s
+}
+
+func byte2Number(b byte) int {
+	if '0' &lt;= b &amp;&amp; b &lt;= '9' {
+		return int(b - '0')
+	}
+	if 'a' &lt;= b &amp;&amp; b &lt;= 'z' {
+		return int(b-'a') + 10
+	}
+	return 0
+}
+</code></pre>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

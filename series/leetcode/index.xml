@@ -6,10 +6,37 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Mar 2021 23:47:50 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 11:02:58 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0020.valid-parentheses</title>
+      <link>https://wncbb.github.io/posts/leetcode/0020.valid-parentheses/</link>
+      <pubDate>Wed, 10 Mar 2021 11:02:58 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0020.valid-parentheses/</guid>
+      <description>func isValid(s string) bool { sBytes:=[]byte(s) stack:=&amp;amp;Stack{ raw: make([]byte, 0, len(sBytes)), } for _, v:=range sBytes{ switch(v){ case &#39;(&#39;: stack.Push(v) case &#39;)&#39;: if stack.Empty(){ return false } if stack.Top()==&#39;(&#39;{ stack.Pop() }else{ stack.Push(v) } case &#39;[&#39;: stack.Push(v) case &#39;]&#39;: if stack.Empty(){ return false } if stack.Top()==&#39;[&#39;{ stack.Pop() }else{ stack.Push(v) } case &#39;{&#39;: stack.Push(v) case &#39;}&#39;: if stack.Empty(){ return false } if stack.Top()==&#39;{&#39;{ stack.Pop() }else{ stack.Push(v) } } } return stack.Empty() } type Stack struct{ raw []byte } func (s *Stack)Push(v byte){ s.</description>
+    </item>
+    
+    <item>
+      <title>0221.maximal-square</title>
+      <link>https://wncbb.github.io/posts/leetcode/0221.maximal-square/</link>
+      <pubDate>Wed, 10 Mar 2021 10:52:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0221.maximal-square/</guid>
+      <description>func maximalSquare(matrix [][]byte) int { dp:=make([][]int, 0, len(matrix)) for i:=0; i&amp;lt;len(matrix); i++{ dp=append(dp, make([]int, len(matrix[0]), len(matrix[0]))) } rst:=0 for i:=0; i&amp;lt;len(matrix); i++{ for j:=0; j&amp;lt;len(matrix[0]); j++{ if matrix[i][j]==&#39;0&#39;{ continue } if i==0 || j==0{ dp[i][j]=1 }else{ dp[i][j]=getMin(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])+1 } if rst&amp;lt;dp[i][j]{ rst=dp[i][j] } } } return rst*rst } func getMin(a int, s ... int)int{ ret:=a for _, v:=range s{ if ret&amp;gt;v{ ret=v } } return ret }  </description>
+    </item>
+    
+    <item>
+      <title>0012</title>
+      <link>https://wncbb.github.io/posts/leetcode/0102.binary-tree-level-order-traversal/</link>
+      <pubDate>Wed, 10 Mar 2021 00:05:49 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0102.binary-tree-level-order-traversal/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func levelOrder(root *TreeNode) [][]int { rst:=make([][]int, 0) q:=make([]*TreeNode, 0) q=append(q, root) for len(q)&amp;gt;0{ nextQ:=make([]*TreeNode, 0) curRst:=make([]int, 0) for i:=0; i&amp;lt;len(q); i++{ curRst=append(curRst, q[i].Val) if q[i].Left!=nil{ nextQ=append(nextQ, q[i].Left) } if q[i].Right!=nil{ nextQ=append(nextQ, q[i].Right) } } rst=append(rst, curRst) q=nextQ } return rst }  </description>
+    </item>
     
     <item>
       <title>0022</title>
