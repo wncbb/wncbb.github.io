@@ -53,10 +53,22 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0347.top-k-frequent-elements/">0347.top-k-frequent-elements</a>
+  </h1>
+  <time datetime="2021-03-10T17:06:38&#43;0800" class="post-date">2021-03-10 17:06:38</time>
+  func topKFrequent(nums []int, k int) []int { value2Num:=make(map[int]int, len(nums)) for _, v:=range nums{ value2Num[v]++ } elems:=make([]*Elem, 0, len(nums)) for value, num:=range value2Num{ elems=append(elems, &amp;Elem{ Value: value, Num: num, }) } qsort(elems, 0, len(elems)-1, k) rst:=make([]int, 0, k) for i:=0; i&lt;k; i++{ rst=append(rst, elems[i].Value) } return rst } type Elem struct{ Value int Num int } func qsort(elems []*Elem, left, right, k int){ //fmt.Printf(&quot;left:%d, right:%d, k:%d\n&quot;, left, right, k) if left&lt;right{ p:=partition(elems, left, right) if p==k-1{ return } // 这里是快排，p已经在位置上了，需要解决[left, p)与(p, right]俩子问题 // 如果k-1&lt;p， 也就是想要的数在左边，就只处理左边的数据 if k-1&lt;p{ qsort(elems, left, p-1, k) }else{ qsort(elems, p+1, right, k) } } } func partition(elems []*Elem, left, right int)int{ pivot:=elems[right] i:=left-1 j:=left for ;j&lt;right; j++{ if elems[j].
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0347.top-k-frequent-elements/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0329.longest-increasing-path-in-a-matrix/">0329.longest-increasing-path-in-a-matrix</a>
   </h1>
   <time datetime="2021-03-10T16:44:54&#43;0800" class="post-date">2021-03-10 16:44:54</time>
-  func longestIncreasingPath(matrix [][]int) int { m:=len(matrix) n:=len(matrix[0]) dp:=make([][]int, 0, m) for i:=0; i&lt;m; i++{ dp=append(dp, make([]int, n, n)) } for i:=0; i&lt;m; i++{ for j:=0; j&lt;n; j++{ dp[i][j]=-1 } } rst:=0 dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} var dfs func(i, j int)int dfs=func(i, j int)int{ if dp[i][j]!=-1{ return dp[i][j] } dp[i][j]=1 for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&lt;0 || newI&gt;=m || newJ&lt;0 || newJ&gt;=n{ continue } if matrix[newI][newJ]&lt;=matrix[i][j]{ continue } // 注意，这里是 dfs(newI, newJ)+1, 而不是 dp[newI][newJ] dp[i][j]=getMax(dp[i][j], dfs(newI, newJ)+1) } // fmt.
+  http://zxi.mytechroad.com/blog/dynamic-programming/leetcode-329-longest-increasing-path-in-a-matrix/
+func longestIncreasingPath(matrix [][]int) int { m:=len(matrix) n:=len(matrix[0]) dp:=make([][]int, 0, m) for i:=0; i&lt;m; i++{ dp=append(dp, make([]int, n, n)) } for i:=0; i&lt;m; i++{ for j:=0; j&lt;n; j++{ dp[i][j]=-1 } } rst:=0 dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} var dfs func(i, j int)int dfs=func(i, j int)int{ if dp[i][j]!=-1{ return dp[i][j] } dp[i][j]=1 for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&lt;0 || newI&gt;=m || newJ&lt;0 || newJ&gt;=n{ continue } if matrix[newI][newJ]&lt;=matrix[i][j]{ continue } // 注意，这里是 dfs(newI, newJ)+1, 而不是 dp[newI][newJ] dp[i][j]=getMax(dp[i][j], dfs(newI, newJ)+1) } // fmt.
   
   <div class="read-more-link">
     <a href="/posts/leetcode/0329.longest-increasing-path-in-a-matrix/">Read More…</a>

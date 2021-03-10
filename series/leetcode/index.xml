@@ -6,10 +6,19 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 16:44:54 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 17:06:38 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0347.top-k-frequent-elements</title>
+      <link>https://wncbb.github.io/posts/leetcode/0347.top-k-frequent-elements/</link>
+      <pubDate>Wed, 10 Mar 2021 17:06:38 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0347.top-k-frequent-elements/</guid>
+      <description>func topKFrequent(nums []int, k int) []int { value2Num:=make(map[int]int, len(nums)) for _, v:=range nums{ value2Num[v]++ } elems:=make([]*Elem, 0, len(nums)) for value, num:=range value2Num{ elems=append(elems, &amp;amp;Elem{ Value: value, Num: num, }) } qsort(elems, 0, len(elems)-1, k) rst:=make([]int, 0, k) for i:=0; i&amp;lt;k; i++{ rst=append(rst, elems[i].Value) } return rst } type Elem struct{ Value int Num int } func qsort(elems []*Elem, left, right, k int){ //fmt.Printf(&amp;quot;left:%d, right:%d, k:%d\n&amp;quot;, left, right, k) if left&amp;lt;right{ p:=partition(elems, left, right) if p==k-1{ return } // 这里是快排，p已经在位置上了，需要解决[left, p)与(p, right]俩子问题 // 如果k-1&amp;lt;p， 也就是想要的数在左边，就只处理左边的数据 if k-1&amp;lt;p{ qsort(elems, left, p-1, k) }else{ qsort(elems, p+1, right, k) } } } func partition(elems []*Elem, left, right int)int{ pivot:=elems[right] i:=left-1 j:=left for ;j&amp;lt;right; j++{ if elems[j].</description>
+    </item>
     
     <item>
       <title>0329.longest-increasing-path-in-a-matrix</title>
@@ -17,7 +26,8 @@
       <pubDate>Wed, 10 Mar 2021 16:44:54 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0329.longest-increasing-path-in-a-matrix/</guid>
-      <description>func longestIncreasingPath(matrix [][]int) int { m:=len(matrix) n:=len(matrix[0]) dp:=make([][]int, 0, m) for i:=0; i&amp;lt;m; i++{ dp=append(dp, make([]int, n, n)) } for i:=0; i&amp;lt;m; i++{ for j:=0; j&amp;lt;n; j++{ dp[i][j]=-1 } } rst:=0 dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} var dfs func(i, j int)int dfs=func(i, j int)int{ if dp[i][j]!=-1{ return dp[i][j] } dp[i][j]=1 for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&amp;lt;0 || newI&amp;gt;=m || newJ&amp;lt;0 || newJ&amp;gt;=n{ continue } if matrix[newI][newJ]&amp;lt;=matrix[i][j]{ continue } // 注意，这里是 dfs(newI, newJ)+1, 而不是 dp[newI][newJ] dp[i][j]=getMax(dp[i][j], dfs(newI, newJ)+1) } // fmt.</description>
+      <description>http://zxi.mytechroad.com/blog/dynamic-programming/leetcode-329-longest-increasing-path-in-a-matrix/
+func longestIncreasingPath(matrix [][]int) int { m:=len(matrix) n:=len(matrix[0]) dp:=make([][]int, 0, m) for i:=0; i&amp;lt;m; i++{ dp=append(dp, make([]int, n, n)) } for i:=0; i&amp;lt;m; i++{ for j:=0; j&amp;lt;n; j++{ dp[i][j]=-1 } } rst:=0 dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} var dfs func(i, j int)int dfs=func(i, j int)int{ if dp[i][j]!=-1{ return dp[i][j] } dp[i][j]=1 for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&amp;lt;0 || newI&amp;gt;=m || newJ&amp;lt;0 || newJ&amp;gt;=n{ continue } if matrix[newI][newJ]&amp;lt;=matrix[i][j]{ continue } // 注意，这里是 dfs(newI, newJ)+1, 而不是 dp[newI][newJ] dp[i][j]=getMax(dp[i][j], dfs(newI, newJ)+1) } // fmt.</description>
     </item>
     
     <item>
