@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 17:55:31 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 18:05:37 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0069.sqrtx</title>
+      <link>https://wncbb.github.io/posts/leetcode/0069.sqrtx/</link>
+      <pubDate>Wed, 10 Mar 2021 18:05:37 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0069.sqrtx/</guid>
+      <description>func mySqrt(x int) int { l:=0 r:=x ans:=-1 // 这里是小于等于 for l&amp;lt;=r{ mid:=l+(r-l)/2 // 这里是小于等于 if mid*mid&amp;lt;=x{ ans=mid l=mid+1 }else{ r=mid-1 } } return ans }  </description>
+    </item>
     
     <item>
       <title>0006.zigzag-conversion</title>
