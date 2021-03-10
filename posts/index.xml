@@ -6,10 +6,19 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 16:05:29 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 16:44:54 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0329.longest-increasing-path-in-a-matrix</title>
+      <link>https://wncbb.github.io/posts/leetcode/0329.longest-increasing-path-in-a-matrix/</link>
+      <pubDate>Wed, 10 Mar 2021 16:44:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0329.longest-increasing-path-in-a-matrix/</guid>
+      <description>func longestIncreasingPath(matrix [][]int) int { m:=len(matrix) n:=len(matrix[0]) dp:=make([][]int, 0, m) for i:=0; i&amp;lt;m; i++{ dp=append(dp, make([]int, n, n)) } for i:=0; i&amp;lt;m; i++{ for j:=0; j&amp;lt;n; j++{ dp[i][j]=-1 } } rst:=0 dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} var dfs func(i, j int)int dfs=func(i, j int)int{ if dp[i][j]!=-1{ return dp[i][j] } dp[i][j]=1 for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&amp;lt;0 || newI&amp;gt;=m || newJ&amp;lt;0 || newJ&amp;gt;=n{ continue } if matrix[newI][newJ]&amp;lt;=matrix[i][j]{ continue } // 注意，这里是 dfs(newI, newJ)+1, 而不是 dp[newI][newJ] dp[i][j]=getMax(dp[i][j], dfs(newI, newJ)+1) } // fmt.</description>
+    </item>
     
     <item>
       <title>0078</title>
