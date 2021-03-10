@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0322.coin-change/">0322.coin-change</a>
+  </h1>
+  <time datetime="2021-03-10T15:09:43&#43;0800" class="post-date">2021-03-10 15:09:43</time>
+  dfs func coinChange(coins []int, amount int) int { if amount == 0 { return 0 } sort.Slice(coins, func(i, j int) bool { return coins[i] &gt; coins[j] }) ans := math.MaxInt32 var dfs func(coins []int, curAmount, curCoinIndex, curCount int) dfs = func(coins []int, curAmount, curCoinIndex, curCount int) { if curAmount == 0 { ans = getMin(ans, curCount) return } if curCoinIndex == len(coins) { return } for k := curAmount / coins[curCoinIndex]; k &gt;= 0 &amp;&amp; (k+curCount) &lt; ans; k-- { dfs(coins, curAmount-k*coins[curCoinIndex], curCoinIndex+1, curCount+k) } } dfs(coins, amount, 0, 0) if ans == math.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0322.coin-change/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0175.combine-two-tables/">0175.combine-two-tables</a>
   </h1>
   <time datetime="2021-03-10T14:30:50&#43;0800" class="post-date">2021-03-10 14:30:50</time>

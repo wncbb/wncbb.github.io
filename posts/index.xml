@@ -6,10 +6,19 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 14:30:50 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 15:09:43 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0322.coin-change</title>
+      <link>https://wncbb.github.io/posts/leetcode/0322.coin-change/</link>
+      <pubDate>Wed, 10 Mar 2021 15:09:43 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0322.coin-change/</guid>
+      <description>dfs func coinChange(coins []int, amount int) int { if amount == 0 { return 0 } sort.Slice(coins, func(i, j int) bool { return coins[i] &amp;gt; coins[j] }) ans := math.MaxInt32 var dfs func(coins []int, curAmount, curCoinIndex, curCount int) dfs = func(coins []int, curAmount, curCoinIndex, curCount int) { if curAmount == 0 { ans = getMin(ans, curCount) return } if curCoinIndex == len(coins) { return } for k := curAmount / coins[curCoinIndex]; k &amp;gt;= 0 &amp;amp;&amp;amp; (k+curCount) &amp;lt; ans; k-- { dfs(coins, curAmount-k*coins[curCoinIndex], curCoinIndex+1, curCount+k) } } dfs(coins, amount, 0, 0) if ans == math.</description>
+    </item>
     
     <item>
       <title>0175.combine-two-tables</title>
