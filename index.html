@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0143.reorder-list/">0143.reorder-list</a>
+  </h1>
+  <time datetime="2021-03-10T11:56:29&#43;0800" class="post-date">2021-03-10 11:56:29</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func reorderList(head *ListNode) { if head==nil || head.Next==nil{ return } firstPart, secondPart:=cutMid(head) secondPart=reverseList(secondPart) dummy:=&amp;ListNode{} tail:=dummy for firstPart!=nil &amp;&amp; secondPart!=nil{ tail.Next=firstPart firstPart=firstPart.Next tail=tail.Next tail.Next=secondPart secondPart=secondPart.Next tail=tail.Next } if firstPart!=nil{ tail.Next=firstPart } } // 1 2 3 4 5 // s // f func cutMid(head *ListNode)(*ListNode, *ListNode){ fast:=head slow:=head for fast!=nil &amp;&amp; fast.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0143.reorder-list/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0054.spiral-matrix/">0054.spiral-matrix</a>
   </h1>
   <time datetime="2021-03-10T11:46:17&#43;0800" class="post-date">2021-03-10 11:46:17</time>

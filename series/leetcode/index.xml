@@ -6,10 +6,19 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 11:46:17 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 11:56:29 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0143.reorder-list</title>
+      <link>https://wncbb.github.io/posts/leetcode/0143.reorder-list/</link>
+      <pubDate>Wed, 10 Mar 2021 11:56:29 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0143.reorder-list/</guid>
+      <description>/** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func reorderList(head *ListNode) { if head==nil || head.Next==nil{ return } firstPart, secondPart:=cutMid(head) secondPart=reverseList(secondPart) dummy:=&amp;amp;ListNode{} tail:=dummy for firstPart!=nil &amp;amp;&amp;amp; secondPart!=nil{ tail.Next=firstPart firstPart=firstPart.Next tail=tail.Next tail.Next=secondPart secondPart=secondPart.Next tail=tail.Next } if firstPart!=nil{ tail.Next=firstPart } } // 1 2 3 4 5 // s // f func cutMid(head *ListNode)(*ListNode, *ListNode){ fast:=head slow:=head for fast!=nil &amp;amp;&amp;amp; fast.</description>
+    </item>
     
     <item>
       <title>0054.spiral-matrix</title>
