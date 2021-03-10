@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 23:13:32 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 23:21:48 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0152.maximum-product-subarray</title>
+      <link>https://wncbb.github.io/posts/leetcode/0152.maximum-product-subarray/</link>
+      <pubDate>Wed, 10 Mar 2021 23:21:48 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0152.maximum-product-subarray/</guid>
+      <description>import( &amp;quot;math&amp;quot; ) func maxProduct(nums []int) int { dpMin:=make([]int, len(nums), len(nums)) dpMax:=make([]int, len(nums), len(nums)) rst:=math.MinInt32 for i:=0; i&amp;lt;len(nums); i++{ if i==0{ dpMin[i]=nums[i] dpMax[i]=nums[i] }else{ dpMax[i]=getMax(nums[i], nums[i]*dpMin[i-1], nums[i]*dpMax[i-1]) dpMin[i]=getMin(nums[i], nums[i]*dpMin[i-1], nums[i]*dpMax[i-1]) } rst=getMax(rst, dpMax[i]) } return rst } func getMax(a int, s... int)int{ for _, v:=range s{ if a&amp;lt;v{ a=v } } return a } func getMin(a int, s... int)int{ for _, v:=range s{ if a&amp;gt;v{ a=v } } return a }  </description>
+    </item>
     
     <item>
       <title>0082.remove-duplicates-from-sorted-list-ii</title>
