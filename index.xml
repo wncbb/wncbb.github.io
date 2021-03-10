@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 15:49:05 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 16:05:29 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0078</title>
+      <link>https://wncbb.github.io/posts/leetcode/0078.subsets/</link>
+      <pubDate>Wed, 10 Mar 2021 16:05:29 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0078.subsets/</guid>
+      <description>func subsets(nums []int) [][]int { rst:=make([][]int, 0) var dfs func(curIdx int) curRst:=make([]int, 0, len(nums)) dfs=func(curIdx int){ if curIdx==len(nums){ // 既然copy的是curRst,那么tmpRst的长度就跟curRst一样 tmpRst:=make([]int, len(curRst), len(curRst)) copy(tmpRst, curRst) rst=append(rst, tmpRst) return } // 要么有这个元素 curRst=append(curRst, nums[curIdx]) dfs(curIdx+1) // 要么没有这个元素 curRst=curRst[:len(curRst)-1] dfs(curIdx+1) } dfs(0) return rst }  </description>
+    </item>
     
     <item>
       <title>0128.longest-consecutive-sequence</title>
