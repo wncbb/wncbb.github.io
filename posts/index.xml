@@ -6,10 +6,19 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 15:29:09 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 15:49:05 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0128.longest-consecutive-sequence</title>
+      <link>https://wncbb.github.io/posts/leetcode/0128.longest-consecutive-sequence/</link>
+      <pubDate>Wed, 10 Mar 2021 15:49:05 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0128.longest-consecutive-sequence/</guid>
+      <description>/* 举个例子: nums: 100, 4, 200, 1, 3, 2 line22 m:map[100:1] line22 m:map[4:1 100:1] line22 m:map[4:1 100:1 200:1] line22 m:map[1:1 4:1 100:1 200:1] line22 m:map[1:1 3:2 4:2 100:1 200:1] line22 m:map[1:4 2:4 3:2 4:4 100:1 200:1] 最终效果就是: 对于连续的数组: [i, j] (且[i-1, j][i, j+1]都不是) map里的map[i], map[j]一定是最长的连续序列的长度 */ func longestConsecutive(nums []int) int { maxLen := 0 m := make(map[int]int) for _, v := range nums { _, ok := m[v] if ok { continue } leftLen := m[v-1] rightLen := m[v+1] curLen := leftLen + rightLen + 1 m[v] = curLen maxLen = getMax(maxLen, curLen) // 更新左右边界的值，因为下次用到的话，一定是只用到边界 m[v-leftLen] = curLen m[v+rightLen] = curLen // fmt.</description>
+    </item>
     
     <item>
       <title>0543.diameter-of-binary-tree</title>
