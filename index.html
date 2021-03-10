@@ -53,6 +53,13 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0112.path-sum/">0112.path-sum</a>
+  </h1>
+  <time datetime="2021-03-10T13:33:22&#43;0800" class="post-date">2021-03-10 13:33:22</time>
+  /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func hasPathSum(root *TreeNode, targetSum int) bool { if root==nil { return false } if root.Left==nil &amp;&amp; root.Right==nil &amp;&amp; root.Val==targetSum{ return true } return hasPathSum(root.Left, targetSum-root.Val) || hasPathSum(root.Right, targetSum-root.Val) }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0093.restore-ip-addresses/">0093.restore-ip-addresses</a>
   </h1>
   <time datetime="2021-03-10T13:14:56&#43;0800" class="post-date">2021-03-10 13:14:56</time>

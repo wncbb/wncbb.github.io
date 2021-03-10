@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 13:14:56 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 13:33:22 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0112.path-sum</title>
+      <link>https://wncbb.github.io/posts/leetcode/0112.path-sum/</link>
+      <pubDate>Wed, 10 Mar 2021 13:33:22 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0112.path-sum/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func hasPathSum(root *TreeNode, targetSum int) bool { if root==nil { return false } if root.Left==nil &amp;amp;&amp;amp; root.Right==nil &amp;amp;&amp;amp; root.Val==targetSum{ return true } return hasPathSum(root.Left, targetSum-root.Val) || hasPathSum(root.Right, targetSum-root.Val) }  </description>
+    </item>
     
     <item>
       <title>0093.restore-ip-addresses</title>
