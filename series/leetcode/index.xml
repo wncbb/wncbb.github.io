@@ -6,10 +6,28 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 19:40:17 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 20:50:02 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0113.path-sum-ii</title>
+      <link>https://wncbb.github.io/posts/leetcode/0113.path-sum-ii/</link>
+      <pubDate>Wed, 10 Mar 2021 20:50:02 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0113.path-sum-ii/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func pathSum(root *TreeNode, targetSum int) [][]int { rst:=make([][]int, 0) curPath:=make([]int, 0) var dfs func(node *TreeNode, curSum int) dfs=func(node *TreeNode, curSum int){ if node==nil{ return } curPath=append(curPath, node.Val) defer func(){ curPath=curPath[:len(curPath)-1] }() curSum-=node.Val if curSum==0 &amp;amp;&amp;amp; node.Left==nil &amp;amp;&amp;amp; node.Right==nil{ tmpRst:=make([]int, len(curPath), len(curPath)) copy(tmpRst, curPath) rst=append(rst, tmpRst) return } dfs(node.</description>
+    </item>
+    
+    <item>
+      <title>0424.longest-repeating-character-replacement</title>
+      <link>https://wncbb.github.io/posts/leetcode/0424.longest-repeating-character-replacement/</link>
+      <pubDate>Wed, 10 Mar 2021 20:11:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0424.longest-repeating-character-replacement/</guid>
+      <description>func characterReplacement(s string, k int) int { cnt := [26]int{} maxCnt, left := 0, 0 rst:=0 for right, ch := range s { cnt[ch-&#39;A&#39;]++ maxCnt = max(maxCnt, cnt[ch-&#39;A&#39;]) for left&amp;lt;right &amp;amp;&amp;amp; right-left+1-maxCnt &amp;lt;= k { rst=max(right-left+1, rst) cnt[s[left]-&#39;A&#39;]-- maxCnt = max(maxCnt, cnt[s[left]-&#39;A&#39;]) left++ } } return rst } func max(a, b int) int { if a &amp;gt; b { return a } return b }  </description>
+    </item>
     
     <item>
       <title>0240.search-a-2d-matrix-ii</title>

@@ -53,6 +53,24 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0113.path-sum-ii/">0113.path-sum-ii</a>
+  </h1>
+  <time datetime="2021-03-10T20:50:02&#43;0800" class="post-date">2021-03-10 20:50:02</time>
+  /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func pathSum(root *TreeNode, targetSum int) [][]int { rst:=make([][]int, 0) curPath:=make([]int, 0) var dfs func(node *TreeNode, curSum int) dfs=func(node *TreeNode, curSum int){ if node==nil{ return } curPath=append(curPath, node.Val) defer func(){ curPath=curPath[:len(curPath)-1] }() curSum-=node.Val if curSum==0 &amp;&amp; node.Left==nil &amp;&amp; node.Right==nil{ tmpRst:=make([]int, len(curPath), len(curPath)) copy(tmpRst, curPath) rst=append(rst, tmpRst) return } dfs(node.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0113.path-sum-ii/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0424.longest-repeating-character-replacement/">0424.longest-repeating-character-replacement</a>
+  </h1>
+  <time datetime="2021-03-10T20:11:31&#43;0800" class="post-date">2021-03-10 20:11:31</time>
+  func characterReplacement(s string, k int) int { cnt := [26]int{} maxCnt, left := 0, 0 rst:=0 for right, ch := range s { cnt[ch-'A']++ maxCnt = max(maxCnt, cnt[ch-'A']) for left&lt;right &amp;&amp; right-left+1-maxCnt &lt;= k { rst=max(right-left+1, rst) cnt[s[left]-'A']-- maxCnt = max(maxCnt, cnt[s[left]-'A']) left++ } } return rst } func max(a, b int) int { if a &gt; b { return a } return b }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0240.search-a-2d-matrix-ii/">0240.search-a-2d-matrix-ii</a>
   </h1>
   <time datetime="2021-03-10T19:40:17&#43;0800" class="post-date">2021-03-10 19:40:17</time>
