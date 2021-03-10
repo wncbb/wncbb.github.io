@@ -53,6 +53,27 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0200.number-of-islands/">0200</a>
+  </h1>
+  <time datetime="2021-03-10T11:31:02&#43;0800" class="post-date">2021-03-10 11:31:02</time>
+  func numIslands(grid [][]byte) int { rst:=0 for i:=0; i&lt;len(grid); i++{ for j:=0; j&lt;len(grid[0]); j++{ if grid[i][j]=='0'{ continue } rst++ delIsland(grid, i, j) } } return rst } func delIsland(grid [][]byte, i, j int){ // 千万别忘记这一个，如果是0, 直接返回，不然直接死循环 if grid[i][j]=='0'{ return } grid[i][j]='0' dirs:=[][]int{{0, 1},{0, -1},{1, 0},{-1, 0}} for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&gt;=0 &amp;&amp; newI&lt;len(grid) &amp;&amp; newJ&gt;=0 &amp;&amp; newJ&lt;len(grid[0]){ delIsland(grid, newI, newJ) } } }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0007.reverse-integer/">0007.reverse-integer</a>
+  </h1>
+  <time datetime="2021-03-10T11:17:01&#43;0800" class="post-date">2021-03-10 11:17:01</time>
+  func reverse(x int) int { ret := 0 for x != 0 { ret = ret*10 + x % 10 x /= 10 if ret &lt; math.MinInt32 || ret &gt; math.MaxInt32 { return 0 } } return ret }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0176.second-highest-salary/">0176</a>
+  </h1>
+  <time datetime="2021-03-10T11:07:10&#43;0800" class="post-date">2021-03-10 11:07:10</time>
+  SELECT (SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT 1 OFFSET 1) AS SecondHighestSalary  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0020.valid-parentheses/">0020.valid-parentheses</a>
   </h1>
   <time datetime="2021-03-10T11:02:58&#43;0800" class="post-date">2021-03-10 11:02:58</time>

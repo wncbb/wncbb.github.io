@@ -6,10 +6,28 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 11:02:58 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 11:31:02 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0200</title>
+      <link>https://wncbb.github.io/posts/leetcode/0200.number-of-islands/</link>
+      <pubDate>Wed, 10 Mar 2021 11:31:02 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0200.number-of-islands/</guid>
+      <description>func numIslands(grid [][]byte) int { rst:=0 for i:=0; i&amp;lt;len(grid); i++{ for j:=0; j&amp;lt;len(grid[0]); j++{ if grid[i][j]==&#39;0&#39;{ continue } rst++ delIsland(grid, i, j) } } return rst } func delIsland(grid [][]byte, i, j int){ // 千万别忘记这一个，如果是0, 直接返回，不然直接死循环 if grid[i][j]==&#39;0&#39;{ return } grid[i][j]=&#39;0&#39; dirs:=[][]int{{0, 1},{0, -1},{1, 0},{-1, 0}} for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&amp;gt;=0 &amp;amp;&amp;amp; newI&amp;lt;len(grid) &amp;amp;&amp;amp; newJ&amp;gt;=0 &amp;amp;&amp;amp; newJ&amp;lt;len(grid[0]){ delIsland(grid, newI, newJ) } } }  </description>
+    </item>
+    
+    <item>
+      <title>0007.reverse-integer</title>
+      <link>https://wncbb.github.io/posts/leetcode/0007.reverse-integer/</link>
+      <pubDate>Wed, 10 Mar 2021 11:17:01 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0007.reverse-integer/</guid>
+      <description>func reverse(x int) int { ret := 0 for x != 0 { ret = ret*10 + x % 10 x /= 10 if ret &amp;lt; math.MinInt32 || ret &amp;gt; math.MaxInt32 { return 0 } } return ret }  </description>
+    </item>
     
     <item>
       <title>0020.valid-parentheses</title>
