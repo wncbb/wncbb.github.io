@@ -53,6 +53,13 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0543.diameter-of-binary-tree/">0543.diameter-of-binary-tree</a>
+  </h1>
+  <time datetime="2021-03-10T15:29:09&#43;0800" class="post-date">2021-03-10 15:29:09</time>
+  /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func diameterOfBinaryTree(root *TreeNode) int { if root==nil{ return 0 } rst:=0 var getDepth func(root *TreeNode)int getDepth=func(root *TreeNode)int{ if root==nil{ return 0 } left:=getDepth(root.Left) right:=getDepth(root.Right) rst=getMax(rst, left+right) return getMax(left, right)+1 } getDepth(root) return rst } func getMax(a, b int)int{ if a&gt;b{ return a } return b }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0322.coin-change/">0322.coin-change</a>
   </h1>
   <time datetime="2021-03-10T15:09:43&#43;0800" class="post-date">2021-03-10 15:09:43</time>
