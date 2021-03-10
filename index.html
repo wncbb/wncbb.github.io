@@ -53,6 +53,28 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0160.intersection-of-two-linked-lists/">0160.intersection-of-two-linked-lists</a>
+  </h1>
+  <time datetime="2021-03-10T12:26:32&#43;0800" class="post-date">2021-03-10 12:26:32</time>
+  遍历A+B跟遍历B+A A=1, 3, 5, 7, 8 B=2, 6, 7, 8 A与B的最后一部分肯定相同，所以第一个相同的就是交叉点 A+B: 1 3 5 7 8 2 6 7 8 B+A: 2 6 7 8 1 3 5 7 8  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func getIntersectionNode(headA, headB *ListNode) *ListNode { pA:=headA pB:=headB for pA!=pB{ if pA!=nil{ pA=pA.Next }else{ pA=headB } if pB!=nil{ pB=pB.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0160.intersection-of-two-linked-lists/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0023.merge-k-sorted-lists/">0023.merge-k-sorted-lists</a>
+  </h1>
+  <time datetime="2021-03-10T12:15:16&#43;0800" class="post-date">2021-03-10 12:15:16</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func mergeKLists(lists []*ListNode) *ListNode { if len(lists)==0{ return nil } if len(lists)==1{ return lists[0] } // 看做left=0, right=len(lists)-1 mid:=(len(lists)-1+0)/2 // mid放在第一段里， [left, mid] (mid, right] left:=mergeKLists(lists[:mid+1]) right:=mergeKLists(lists[mid+1:]) return merge2List(left, right) } func merge2List(l1, l2 *ListNode)*ListNode{ // 一定要判断下l1,l2是否有nil的情况 if l1==nil{ return l2 } if l2==nil{ return l1 } dummy:=&amp;ListNode{} tail:=dummy for l1!
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0023.merge-k-sorted-lists/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0143.reorder-list/">0143.reorder-list</a>
   </h1>
   <time datetime="2021-03-10T11:56:29&#43;0800" class="post-date">2021-03-10 11:56:29</time>
