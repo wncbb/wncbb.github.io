@@ -6,10 +6,19 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 11:31:02 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 11:46:17 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0054.spiral-matrix</title>
+      <link>https://wncbb.github.io/posts/leetcode/0054.spiral-matrix/</link>
+      <pubDate>Wed, 10 Mar 2021 11:46:17 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0054.spiral-matrix/</guid>
+      <description>func spiralOrder(matrix [][]int) []int { allNums:=len(matrix)*len(matrix[0]) left:=0 right:=len(matrix[0])-1 top:=0 bottom:=len(matrix)-1 rst:=make([]int, 0, allNums) for allNums&amp;gt;0{ for i:=left; i&amp;lt;=right &amp;amp;&amp;amp;allNums&amp;gt;0; i++{ rst=append(rst, matrix[top][i]) allNums-- } top++ for i:=top; i&amp;lt;=bottom &amp;amp;&amp;amp;allNums&amp;gt;0; i++{ rst=append(rst, matrix[i][right]) allNums-- } right-- // i的左边界是left，不是0 for i:=right; i&amp;gt;=left &amp;amp;&amp;amp;allNums&amp;gt;0; i--{ rst=append(rst, matrix[bottom][i]) allNums-- } bottom-- for i:=bottom; i&amp;gt;=top &amp;amp;&amp;amp;allNums&amp;gt;0; i--{ rst=append(rst, matrix[i][left]) allNums-- } left++ } return rst }  </description>
+    </item>
     
     <item>
       <title>0200</title>

@@ -53,6 +53,13 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0054.spiral-matrix/">0054.spiral-matrix</a>
+  </h1>
+  <time datetime="2021-03-10T11:46:17&#43;0800" class="post-date">2021-03-10 11:46:17</time>
+  func spiralOrder(matrix [][]int) []int { allNums:=len(matrix)*len(matrix[0]) left:=0 right:=len(matrix[0])-1 top:=0 bottom:=len(matrix)-1 rst:=make([]int, 0, allNums) for allNums&gt;0{ for i:=left; i&lt;=right &amp;&amp;allNums&gt;0; i++{ rst=append(rst, matrix[top][i]) allNums-- } top++ for i:=top; i&lt;=bottom &amp;&amp;allNums&gt;0; i++{ rst=append(rst, matrix[i][right]) allNums-- } right-- // i的左边界是left，不是0 for i:=right; i&gt;=left &amp;&amp;allNums&gt;0; i--{ rst=append(rst, matrix[bottom][i]) allNums-- } bottom-- for i:=bottom; i&gt;=top &amp;&amp;allNums&gt;0; i--{ rst=append(rst, matrix[i][left]) allNums-- } left++ } return rst }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0200.number-of-islands/">0200</a>
   </h1>
   <time datetime="2021-03-10T11:31:02&#43;0800" class="post-date">2021-03-10 11:31:02</time>
