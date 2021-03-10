@@ -6,10 +6,37 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 18:05:37 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 19:40:17 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0240.search-a-2d-matrix-ii</title>
+      <link>https://wncbb.github.io/posts/leetcode/0240.search-a-2d-matrix-ii/</link>
+      <pubDate>Wed, 10 Mar 2021 19:40:17 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0240.search-a-2d-matrix-ii/</guid>
+      <description>func searchMatrix(matrix [][]int, target int) bool { if len(matrix)==0{ return false } i:=0 j:=len(matrix[0])-1 for i&amp;lt;len(matrix) &amp;amp;&amp;amp; j&amp;gt;=0{ if matrix[i][j]==target{ return true } if matrix[i][j]&amp;lt;target{ i++ } else { j-- } } return false }  </description>
+    </item>
+    
+    <item>
+      <title>0695.max-area-of-island</title>
+      <link>https://wncbb.github.io/posts/leetcode/0695.max-area-of-island/</link>
+      <pubDate>Wed, 10 Mar 2021 19:31:34 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0695.max-area-of-island/</guid>
+      <description>func maxAreaOfIsland(grid [][]int) int { m:=len(grid) n:=len(grid[0]) rst:=0 var bt func(i, j int)int bt=func(i, j int)int{ if i&amp;lt;0 || i&amp;gt;=m || j&amp;lt;0 || j&amp;gt;=n{ return 0 } if grid[i][j]!=1{ return 0 } ans:=1 // 统计过了就设置为1，下次不会统计了 grid[i][j]=-1 dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} for _, v:=range dirs{ newI:=i+v[0] newJ:=j+v[1] ans+=bt(newI, newJ) } return ans } for i:=0; i&amp;lt;m; i++{ for j:=0; j&amp;lt;n; j++{ if grid[i][j]==0{ continue } curRst:=bt(i, j) if rst&amp;lt;curRst{ rst=curRst } } } return rst }  </description>
+    </item>
+    
+    <item>
+      <title>0088.merge-sorted-array</title>
+      <link>https://wncbb.github.io/posts/leetcode/0088.merge-sorted-array/</link>
+      <pubDate>Wed, 10 Mar 2021 18:24:35 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0088.merge-sorted-array/</guid>
+      <description>func merge(nums1 []int, m int, nums2 []int, n int) { for i:=0; i&amp;lt;n; i++{ j:=m-1+i for ; j&amp;gt;=0; j--{ if nums1[j]&amp;gt;nums2[i]{ nums1[j+1]=nums1[j] }else{ break } } nums1[j+1]=nums2[i] } }  </description>
+    </item>
     
     <item>
       <title>0069.sqrtx</title>
@@ -770,6 +797,15 @@ helper(root) return ret  }
       
       <guid>https://wncbb.github.io/posts/leetcode/0010.regular-expression-matching/</guid>
       <description>1func isMatch(s string, p string) bool { 2 // sBytes := []byte(s) 3 // pBytes := []byte(p) 4 // dp[i][j]表示s[:i+1] p[:j+1]是否匹配 5 dp := make([][]bool, 0, len(s)+1) 6 for i := 0; i &amp;lt; len(s)+1; i++ { 7 dp = append(dp, make([]bool, len(p)+1)) 8 } 9 // s跟p都是空字符，肯定匹配的上 10 dp[0][0] = true 11 for i := 1; i &amp;lt; len(p); i++ { 12 // 如果当前p[i]是*，那么*可以把前面的字符搞没 13 // 比如 &amp;#34;b*a*&amp;#34; 跟 &amp;#34;&amp;#34;比较，a*可以去掉，那么就变成&amp;#34;b*&amp;#34;跟&amp;#34;&amp;#34;比较 14 if p[i] == &amp;#39;*&amp;#39; { 15 dp[0][i+1] = dp[0][i-1] 16 } 17 } 18 19	for i, sByte := range s { 20	for j, pByte := range p { 21	switch { 22	case sByte == pByte: 23 // 最简单的case，俩字符一样，那么前面的如果匹配，这个一定匹配 24	dp[i+1][j+1] = dp[i+1][j+1] || dp[i][j] 25	case pByte == &amp;#39;.</description>
+    </item>
+    
+    <item>
+      <title>0014.longest-common-prefix</title>
+      <link>https://wncbb.github.io/posts/leetcode/0014.longest-common-prefix/</link>
+      <pubDate>Thu, 17 Dec 2020 17:22:10 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0014.longest-common-prefix/</guid>
+      <description>func longestCommonPrefix(strs []string) string { if len(strs)==0{ return &amp;quot;&amp;quot; } if len(strs)==1{ return strs[0] } for i:=0; i&amp;lt;len(strs[0]); i++{ for j:=1; j&amp;lt;len(strs); j++{ // fmt.Printf(&amp;quot;i:%d strs[j]:%s\n&amp;quot;, i, strs[j]) // 等于号，因为要取strs[j][i], 要是长度是i，最多取到i-1 if len(strs[j])&amp;lt;=i || strs[j][i]!=strs[0][i]{ return strs[0][:i] } } } return strs[0] }  </description>
     </item>
     
     <item>
