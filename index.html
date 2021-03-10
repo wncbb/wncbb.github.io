@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0300.longest-increasing-subsequence/">0300.longest-increasing-subsequence</a>
+  </h1>
+  <time datetime="2021-03-10T14:28:58&#43;0800" class="post-date">2021-03-10 14:28:58</time>
+  func lengthOfLIS(nums []int) int { numLen := len(nums) if numLen &lt;= 1 { return numLen } // 长度为i+1的递增子序列，的最后一个元素 tail := make([]int, numLen, numLen) tail[0] = nums[0] end := 0 for i := 1; i &lt; numLen; i++ { if nums[i] &gt; tail[end] { end++ tail[end] = nums[i] } else { left := 0 right := end for left &lt; right { mid := left + (right-left)/2 if nums[i] &lt;= tail[mid] { right = mid } else { left = mid + 1 } } // fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0300.longest-increasing-subsequence/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0112.path-sum/">0112.path-sum</a>
   </h1>
   <time datetime="2021-03-10T13:33:22&#43;0800" class="post-date">2021-03-10 13:33:22</time>
