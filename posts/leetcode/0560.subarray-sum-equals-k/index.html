@@ -69,6 +69,26 @@
 
 <h2 id="解">解</h2>
 
+<h3 id="golang">golang</h3>
+
+<pre><code class="language-go">func subarraySum(nums []int, k int) int {
+    prefixSum2Freq:=make(map[int]int)
+    prefixSum2Freq[0]=1
+    curPrefixSum:=0
+    rst:=0
+    for i:=0; i&lt;len(nums); i++{
+        curPrefixSum+=nums[i]
+        //
+        // line a 必须在 line b 之前，因为防止自己跟自己拼在了一起
+        rst+=prefixSum2Freq[curPrefixSum-k]
+        // line b
+        prefixSum2Freq[curPrefixSum]++
+    }
+    
+    return rst
+}
+</code></pre>
+
 <h3 id="解1">解1</h3>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#75715e">/*

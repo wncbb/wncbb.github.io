@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Series &middot; WNCBB&#39;s blog</title>
+  <title>05 &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -24,7 +24,6 @@
   <link rel="shortcut icon" href="/favicon.png">
 
   
-  <link href="https://wncbb.github.io/series/index.xml" rel="alternate" type="application/rss+xml" title="WNCBB's blog" />
   
 </head>
 
@@ -50,21 +49,63 @@
 </aside>
 
     <main class="content container">
-    <ul class="posts">
-<li>
-    <span><a href="https://wncbb.github.io/series/leetcode/">leetcode</a> <time class="pull-right post-list" datetime="2021-03-11T12:02:47&#43;0800">Thu, Mar 11, 2021</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/series/bytedance/">bytedance</a> <time class="pull-right post-list" datetime="2021-03-10T11:02:58&#43;0800">Wed, Mar 10, 2021</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/series/golang/">golang</a> <time class="pull-right post-list" datetime="2021-03-04T11:34:19&#43;0800">Thu, Mar 4, 2021</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/series/algo_base/">algo_base</a> <time class="pull-right post-list" datetime="2021-03-04T11:26:13&#43;0800">Thu, Mar 4, 2021</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/series/mysql/">mysql</a> <time class="pull-right post-list" datetime="2021-03-03T14:12:14&#43;0800">Wed, Mar 3, 2021</time></span>
-  </li><li>
-    <span><a href="https://wncbb.github.io/series/hugo-web-dev/">Hugo Web Dev</a> <time class="pull-right post-list" datetime="2018-10-06T18:52:24&#43;0800">Sat, Oct 6, 2018</time></span>
-  </li>
-</ul>
+    <div class="post">
+  <h1>05</h1>
+  <time datetime=2021-03-11T11:57:00&#43;0800 class="post-date">2021-03-11 11:57:00</time>
+  <pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+    dummy:=&amp;ListNode{}
+    tail:=dummy
+    carry:=0
+    for l1!=nil || l2!=nil || carry&gt;0{
+        if l1!=nil{
+            carry+=l1.Val
+            l1=l1.Next
+        }
+        if l2!=nil{
+            carry+=l2.Val
+            l2=l2.Next
+        }
+        curNode:=&amp;ListNode{
+            Val: carry%10,
+        }
+        carry=carry/10
+        tail.Next=curNode
+        tail=tail.Next
+    }
+    return dummy.Next
+}
+</code></pre>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </main>
 
     

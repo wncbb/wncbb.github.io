@@ -53,6 +53,101 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0083.remove-duplicates-from-sorted-list/">0083.remove-duplicates-from-sorted-list</a>
+  </h1>
+  <time datetime="2021-03-11T12:02:47&#43;0800" class="post-date">2021-03-11 12:02:47</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func deleteDuplicates(head *ListNode) *ListNode { dummy:=&amp;ListNode{} dummy.Next=head cur:=dummy for cur.Next!=nil &amp;&amp; cur.Next.Next!=nil{ left:=cur.Next right:=cur.Next for right.Next!=nil &amp;&amp; right.Next.Val==left.Val{ right=right.Next } if left!=right{ cur.Next.Next=right.Next } cur=cur.Next } return dummy.Next }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/interview02/05/">05</a>
+  </h1>
+  <time datetime="2021-03-11T11:57:00&#43;0800" class="post-date">2021-03-11 11:57:00</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode { dummy:=&amp;ListNode{} tail:=dummy carry:=0 for l1!=nil || l2!=nil || carry&gt;0{ if l1!=nil{ carry+=l1.Val l1=l1.Next } if l2!=nil{ carry+=l2.Val l2=l2.Next } curNode:=&amp;ListNode{ Val: carry%10, } carry=carry/10 tail.Next=curNode tail=tail.Next } return dummy.Next }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/179.largest-number/">179.largest-number</a>
+  </h1>
+  <time datetime="2021-03-11T11:51:03&#43;0800" class="post-date">2021-03-11 11:51:03</time>
+  import( &quot;strings&quot; &quot;strconv&quot; &quot;sort&quot; ) func largestNumber(nums []int) string { strs := make([]string, len(nums)) for i, num := range nums { strs[i] = strconv.Itoa(num) } sort.Slice(strs, func(i, j int) bool { return strs[i]+strs[j] &gt;= strs[j]+strs[i] }) ret := strings.Join(strs, &quot;&quot;) if ret[0]=='0'{ // 对应 &quot;0&quot; if len(ret)==1{ return ret } i:=0 for ; i&lt;len(ret); i++{ if ret[i]=='0'{ continue } } // 对应 &quot;0000000&quot; if i==len(ret){ return &quot;0&quot; }else{ // 对应 &quot;000123&quot; return ret[i:] } } return ret }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/297.serialize-and-deserialize-binary-tree/">297.serialize-and-deserialize-binary-tree</a>
+  </h1>
+  <time datetime="2021-03-11T11:39:00&#43;0800" class="post-date">2021-03-11 11:39:00</time>
+  /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ type Codec struct { } func Constructor() Codec { return Codec{} } // Serializes a tree to a single string. func (this *Codec) serialize(root *TreeNode) string { queue:=&amp;Queue{ raw: make([]*TreeNode, 0), } s:=&quot;&quot; queue.Append(root) for !queue.Empty(){ cur:=queue.Pop() if cur!=nil{ s+=strconv.FormatInt(int64(cur.Val), 10) queue.Append(cur.Left) queue.Append(cur.Right) }else{ s+=&quot;n&quot; } s+=&quot;,&quot; } // fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/297.serialize-and-deserialize-binary-tree/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/sword_offer/22/">22</a>
+  </h1>
+  <time datetime="2021-03-11T10:43:31&#43;0800" class="post-date">2021-03-11 10:43:31</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func getKthFromEnd(head *ListNode, k int) *ListNode { dummy:=&amp;ListNode{} dummy.Next=head slow:=dummy quick:=dummy for i:=0; i&lt;k; i++{ quick=quick.Next } for quick.Next!=nil{ quick=quick.Next slow=slow.Next } return slow.Next }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0039.combination-sum/">0039.combination-sum</a>
+  </h1>
+  <time datetime="2021-03-11T10:39:04&#43;0800" class="post-date">2021-03-11 10:39:04</time>
+  https://leetcode-cn.com/problems/combination-sum/solution/zu-he-zong-he-by-leetcode-solution/
+func combinationSum(candidates []int, target int) (ans [][]int) { comb := []int{} var dfs func(target, idx int) dfs = func(target, idx int) { if idx == len(candidates) { return } if target == 0 { ans = append(ans, append([]int(nil), comb...)) return } // 直接跳过 dfs(target, idx+1) // 选择当前数 if target-candidates[idx] &gt;= 0 { comb = append(comb, candidates[idx]) dfs(target-candidates[idx], idx) comb = comb[:len(comb)-1] } } dfs(target, 0) return }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0085.maximal-rectangle/">0085.maximal-rectangle</a>
+  </h1>
+  <time datetime="2021-03-10T23:58:27&#43;0800" class="post-date">2021-03-10 23:58:27</time>
+  https://leetcode-cn.com/problems/maximal-rectangle/solution/dong-tai-gui-hua-zhuang-tai-ya-suo-go849-z4ym/
+func maximalRectangle(matrix [][]byte) (result int) { if len(matrix) == 0 || len(matrix[0]) == 0 { return 0 } // matrix[i][j].height height := make([]int, len(matrix[0])) for i := 0; i &lt; len(matrix); i++ { for j := range height { height[j] = (height[j] + 1) * int(matrix[i][j]-'0') // update height if height[j] &gt; 0 { minHeight := height[j] for k := j; k &gt;= 0 &amp;&amp; height[k] &gt; 0; k-- { // loop valid width minHeight = min(minHeight, height[k]) s := minHeight * (j - k + 1) if result &lt; s { result = s } } } } } return } func min(a, b int) (result int) { if a &lt; b { result = a } else { result = b } return } /* 作者：mats9693 链接：https://leetcode-cn.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0085.maximal-rectangle/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/sword_offer/24/">24</a>
+  </h1>
+  <time datetime="2021-03-10T23:55:31&#43;0800" class="post-date">2021-03-10 23:55:31</time>
+  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func reverseList(head *ListNode) *ListNode { var newHead *ListNode cur:=head var next *ListNode for cur!=nil{ next=cur.Next cur.Next=newHead newHead=cur cur=next } return newHead }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0013.roman-to-integer/">0013.roman-to-integer</a>
+  </h1>
+  <time datetime="2021-03-10T23:53:27&#43;0800" class="post-date">2021-03-10 23:53:27</time>
+  import java.util.*; class Solution { public int romanToInt(String s) { int sum = 0; int preNum = getValue(s.charAt(0)); for(int i = 1;i &lt; s.length(); i ++) { int num = getValue(s.charAt(i)); if(preNum &lt; num) { sum -= preNum; } else { sum += preNum; } preNum = num; } sum += preNum; return sum; } private int getValue(char ch) { switch(ch) { case 'I': return 1; case 'V': return 5; case 'X': return 10; case 'L': return 50; case 'C': return 100; case 'D': return 500; case 'M': return 1000; default: return 0; } } } /* 作者：donespeak 链接：https://leetcode-cn.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0013.roman-to-integer/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0141.linked-list-cycle/">0141.linked-list-cycle</a>
+  </h1>
+  <time datetime="2021-03-10T23:50:40&#43;0800" class="post-date">2021-03-10 23:50:40</time>
+  func hasCycle(head *ListNode) bool { if head == nil || head.Next == nil { return false } slow, fast := head, head.Next for fast != slow { if fast == nil || fast.Next == nil { return false } slow = slow.Next fast = fast.Next.Next } return true }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0309.best-time-to-buy-and-sell-stock-with-cooldown/">0309.best-time-to-buy-and-sell-stock-with-cooldown</a>
+  </h1>
+  <time datetime="2021-03-10T23:40:55&#43;0800" class="post-date">2021-03-10 23:40:55</time>
+  func maxProfit(prices []int) int { if len(prices) == 0 { return 0 } n := len(prices) // f[i][0]: 手上持有股票的最大收益 // f[i][1]: 手上不持有股票，并且处于冷冻期中的累计最大收益 // f[i][2]: 手上不持有股票，并且不在冷冻期中的累计最大收益 f := make([][3]int, n) f[0][0] = -prices[0] for i := 1; i &lt; n; i++ { f[i][0] = max(f[i-1][0], f[i-1][2] - prices[i]) f[i][1] = f[i-1][0] + prices[i] f[i][2] = max(f[i-1][1], f[i-1][2]) } return max(f[n-1][1], f[n-1][2]) } func max(x, y int) int { if x &gt; y { return x } return y } /* 作者：LeetCode-Solution 链接：https://leetcode-cn.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0309.best-time-to-buy-and-sell-stock-with-cooldown/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0152.maximum-product-subarray/">0152.maximum-product-subarray</a>
   </h1>
   <time datetime="2021-03-10T23:21:48&#43;0800" class="post-date">2021-03-10 23:21:48</time>
@@ -795,7 +890,7 @@ helper(root) return ret  }
 示例 1 :
 输入:nums = [1,1,1], k = 2 输出: 2 , [1,1] 与 [1,1] 为两种不同的情况。 说明 :
 数组的长度为 [1, 20,000]。 数组中元素的范围是 [-1000, 1000] ，且整数 k 的范围是 [-1e7, 1e7]。
-解 解1 1/* 2比如 ABCDEFG... 3如果当前所有的和是Sum(A...G) 4如果存在Sum(A...X), 使得 Sum(A...X)+k=Sum(A...G)， 5也就是说，Sum(A...G)-k这个数存在， 6那么，(X...G]就是满足条件的 7*/ 8 9class Solution { 10 public int subarraySum(int[] nums, int k) { 11 // 扫描一遍数组, 使用map记录出现同样的和的次数, 对每个i计算累计和sum并判断map内是否有sum-k 12 Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); 13 // 放0的目的是： 如果Sum(A.
+解 golang func subarraySum(nums []int, k int) int { prefixSum2Freq:=make(map[int]int) prefixSum2Freq[0]=1 curPrefixSum:=0 rst:=0 for i:=0; i&lt;len(nums); i++{ curPrefixSum+=nums[i] // // line a 必须在 line b 之前，因为防止自己跟自己拼在了一起 rst+=prefixSum2Freq[curPrefixSum-k] // line b prefixSum2Freq[curPrefixSum]++ } return rst }  解1 1/* 2比如 ABCDEFG.
   
   <div class="read-more-link">
     <a href="/posts/leetcode/0560.subarray-sum-equals-k/">Read More…</a>
