@@ -53,6 +53,24 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0050.powx-n/">0050.powx-n</a>
+  </h1>
+  <time datetime="2021-03-11T18:24:20&#43;0800" class="post-date">2021-03-11 18:24:20</time>
+  每个二进制数位都有一个权值，权值如下图所示，最终结果就等于所有二进制位为1的权值之积，, 例如上述 x^77次方对应的二进制 (1001101) 和每个二进制位的权值如下 1 0 0 1 1 0	1 x^64 x^32 x^16 x^8 x^4	x^2 x^1 最终结果就是所有二进制位为1的权值之积：x^1 * x^4 * x^8 * x^64 = x^77 而且我们不必预先把每一个二进制位的权值计算出来，我们可以一边计算结果，一边计算权值  func myPow(x float64, n int) float64 { if n &gt;= 0 { return quickMul(x, n) } return 1.0 / quickMul(x, -n) } func quickMul(x float64, N int) float64 { ans := 1.0 // 贡献的初始值为 x x_contribute := x // 在对 N 进行二进制拆分的同时计算答案 for N &gt; 0 { fmt.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0050.powx-n/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/sword_offer/38/">38</a>
+  </h1>
+  <time datetime="2021-03-11T18:01:44&#43;0800" class="post-date">2021-03-11 18:01:44</time>
+  func permutation(s string) []string { rst:=make([]string, 0) sBytes:=[]byte(s) sort.Slice(sBytes, func(i, j int)bool{ return sBytes[i]&lt;sBytes[j] }) seen:=make(map[int]bool) var dfs func(curRst []byte) dfs = func(curRst []byte){ if len(curRst)==len(sBytes){ rst=append(rst, string(curRst)) return } for i:=0; i&lt;len(sBytes); i++{ curByte:=sBytes[i] if seen[i]{ continue } if i&gt;0 &amp;&amp; sBytes[i]==sBytes[i-1] &amp;&amp; !seen[i-1] { continue } seen[i]=true curRst=append(curRst, curByte) dfs(curRst) seen[i]=false curRst=curRst[:len(curRst)-1] } } dfs(make([]byte, 0, len(s))) return rst }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0169.majority-element/">0169.majority-element</a>
   </h1>
   <time datetime="2021-03-11T17:41:51&#43;0800" class="post-date">2021-03-11 17:41:51</time>
