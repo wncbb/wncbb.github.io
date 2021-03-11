@@ -6,10 +6,37 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 20:09:16 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Mar 2021 22:42:13 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0207.course-schedule</title>
+      <link>https://wncbb.github.io/posts/leetcode/0207.course-schedule/</link>
+      <pubDate>Thu, 11 Mar 2021 22:42:13 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0207.course-schedule/</guid>
+      <description>dfs func canFinish(numCourses int, prerequisites [][]int) bool { src2Dsts:=make(map[int][]int, 0) id2Color:=make(map[int]int) // 有的课程可能不在 prerequisites 里，所以最好用numCourses for i:=0; i&amp;lt;numCourses; i++{ id2Color[i]=0 } for _, v:=range prerequisites{ src2Dsts[v[1]]=append(src2Dsts[v[1]], v[0]) } isValid:=true var dfs func(idx int) dfs=func(idx int){ id2Color[idx]=1 dsts:=src2Dsts[idx] for _, v:=range dsts{ // 如果存在节点颜色为1，表示有环了 if id2Color[v]==1{ isValid=false return }else if id2Color[v]==0{ dfs(v) }else{ // nothing need to do } } id2Color[idx]=2 } for i:=0; i&amp;lt;numCourses; i++{ if !isValid{ break } if id2Color[i]==0{ dfs(i) } } return isValid }  bfs func canFinish(numCourses int, prerequisites [][]int) bool { src2Dsts:=make(map[int][]int, 0) id2Indegrees:=make(map[int]int) // 需要这样写，不然如果点不在prerequisites这里出现，就会导致入度为0的节点id2Indegrees里一个也没有 for i:=0; i&amp;lt;numCourses; i++{ id2Indegrees[i]=0 } for _, v:=range prerequisites{ src2Dsts[v[1]]=append(src2Dsts[v[1]], v[0]) id2Indegrees[v[0]]++ } q:=make([]int, 0) for idx, indegree:=range id2Indegrees{ if indegree==0{ q=append(q, idx) } } finished:=make([]int, 0) for len(q)!</description>
+    </item>
+    
+    <item>
+      <title>0038.count-and-say</title>
+      <link>https://wncbb.github.io/posts/leetcode/0038.count-and-say/</link>
+      <pubDate>Thu, 11 Mar 2021 22:07:46 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0038.count-and-say/</guid>
+      <description>func countAndSay(n int) string { if n==1{ return &amp;quot;1&amp;quot; } s:=countAndSay(n-1) start:=0 result:=&amp;quot;&amp;quot; i:=1 for i=1; i&amp;lt;len(s); i++{ // 这里加的是start，i会赋值给start，下次再计算 if s[i]!=s[start]{ result+=strconv.FormatInt(int64(i-start), 10) result+=s[start:start+1] start=i } } result+=strconv.FormatInt(int64(i-start), 10) result+=s[start:start+1] return result }  </description>
+    </item>
+    
+    <item>
+      <title>0155.min-stack</title>
+      <link>https://wncbb.github.io/posts/leetcode/0155.min-stack/</link>
+      <pubDate>Thu, 11 Mar 2021 21:12:23 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0155.min-stack/</guid>
+      <description>double stack 拿两个栈，一个正常存数据stack，一个存最小值minStack minStack里放一个math.MaxInt64来初始化 对于push一个数据x x被push到stack后，更新minStack: 判断下x跟minStack.top的大小，把小值再push到minStack  import( &amp;quot;math&amp;quot; ) type MinStack struct { stack []int minStack []int } /** initialize your data structure here. */ func Constructor() MinStack { minStack:=make([]int, 0) minStack=append(minStack, math.MaxInt64) return MinStack{ stack: make([]int, 0), minStack: minStack, } } func (this *MinStack) Push(x int) { this.stack=append(this.stack, x) // minStack里至少要有一个math.MaxInt64 minStackTop:=this.minStack[len(this.minStack)-1] this.minStack=append(this.minStack, getMin(x, minStackTop)) } func getMin(a, b int)int{ if a&amp;lt;b{ return a } return b } func (this *MinStack) Pop() { // this.</description>
+    </item>
     
     <item>
       <title>0547.number-of-provinces</title>
