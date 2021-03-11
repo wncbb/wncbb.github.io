@@ -53,6 +53,31 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0547.number-of-provinces/">0547.number-of-provinces</a>
+  </h1>
+  <time datetime="2021-03-11T20:09:16&#43;0800" class="post-date">2021-03-11 20:09:16</time>
+  func findCircleNum(isConnected [][]int) int { if len(isConnected)==0{ return 0 } m:=len(isConnected) visited:=make([]bool, m, m) var dfs func(idx int) dfs = func (idx int){ if visited[idx]{ return } visited[idx]=true for i:=0; i&lt;m; i++{ if isConnected[idx][i]!=1{ continue } if visited[i]{ continue } dfs(i) } } ans:=0 for i:=0; i&lt;m; i++{ if visited[i]{ continue } ans++ dfs(i) } return ans }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode.0547.number-of-provinces/">Leetcode.0547</a>
+  </h1>
+  <time datetime="2021-03-11T20:08:55&#43;0800" class="post-date">2021-03-11 20:08:55</time>
+  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0239.sliding-window-maximum/">0239.sliding-window-maximum</a>
+  </h1>
+  <time datetime="2021-03-11T19:08:44&#43;0800" class="post-date">2021-03-11 19:08:44</time>
+  heap import( &quot;container/heap&quot; ) func maxSlidingWindow(nums []int, k int) []int { myHeap:=&amp;Heap{ raw: make([]*Elem, 0), } for i:=0; i&lt;k; i++{ heap.Push(myHeap, &amp;Elem{ Value: nums[i], Index: i, }) } ans:=make([]int, 0) ans=append(ans, myHeap.raw[0].Value) for i:=k; i&lt;len(nums); i++{ heap.Push(myHeap, &amp;Elem{ Value: nums[i], Index: i, }) for myHeap.raw[0].Index&lt;=i-k{ heap.Pop(myHeap) } ans=append(ans, myHeap.raw[0].Value) } return ans } type Elem struct{ Value int Index int } type Heap struct{ raw [] *Elem } func (h *Heap)Len()int{ return len(h.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0239.sliding-window-maximum/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0061.rotate-list/">61.rotate-list</a>
   </h1>
   <time datetime="2021-03-11T18:43:34&#43;0800" class="post-date">2021-03-11 18:43:34</time>
