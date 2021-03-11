@@ -6,10 +6,19 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 18:24:20 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Mar 2021 18:43:34 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>61.rotate-list</title>
+      <link>https://wncbb.github.io/posts/leetcode/0061.rotate-list/</link>
+      <pubDate>Thu, 11 Mar 2021 18:43:34 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0061.rotate-list/</guid>
+      <description>先连接成一个环 然后新的头位置在length-k%length，  /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func rotateRight(head *ListNode, k int) *ListNode { if head==nil || head.Next==nil{ return head } length:=0 cur:=head var oldTail *ListNode for cur!=nil{ oldTail=cur cur=cur.Next length++ } oldTail.Next=head target:=length-k%length cur=head for i:=0; i&amp;lt;target-1; i++{ cur=cur.Next } newHead:=cur.Next cur.Next=nil return newHead }  </description>
+    </item>
     
     <item>
       <title>0050.powx-n</title>
