@@ -6,10 +6,74 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 14:13:37 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Mar 2021 17:41:51 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0169.majority-element</title>
+      <link>https://wncbb.github.io/posts/leetcode/0169.majority-element/</link>
+      <pubDate>Thu, 11 Mar 2021 17:41:51 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0169.majority-element/</guid>
+      <description>// Boyer-Moore 投票算法 func majorityElement(nums []int) int { count:=0 candidate:=0 for _, v:=range nums{ fmt.Printf(&amp;quot;BEFORE: v:%d count:%d candidate:%d\n&amp;quot;, v, count, candidate) if count==0{ candidate=v } if v==candidate{ count++ }else{ count-- } fmt.Printf(&amp;quot;AFTER: v:%d count:%d candidate:%d\n&amp;quot;, v, count, candidate) } return candidate }  </description>
+    </item>
+    
+    <item>
+      <title>0139.word-break</title>
+      <link>https://wncbb.github.io/posts/leetcode/0139.word-break/</link>
+      <pubDate>Thu, 11 Mar 2021 17:33:15 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0139.word-break/</guid>
+      <description>func wordBreak(s string, wordDict []string) bool { wordDictSet := make(map[string]bool) for _, w := range wordDict { wordDictSet[w] = true } // dp[i]表示，索引i之前的字符[0:i]，能否被wordDict表示 dp := make([]bool, len(s) + 1) dp[0] = true for i := 1; i &amp;lt;= len(s); i++ { for j := 0; j &amp;lt; i; j++ { if dp[j] &amp;amp;&amp;amp; wordDictSet[s[j:i]] { dp[i] = true break } } } return dp[len(s)] }  </description>
+    </item>
+    
+    <item>
+      <title>0234.palindrome-linked-list</title>
+      <link>https://wncbb.github.io/posts/leetcode/0234.palindrome-linked-list/</link>
+      <pubDate>Thu, 11 Mar 2021 17:27:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0234.palindrome-linked-list/</guid>
+      <description>/** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ func isPalindrome(head *ListNode) bool { if head==nil || head.Next==nil{ return true } slow:=head fast:=head for fast!=nil &amp;amp;&amp;amp; fast.Next!=nil { slow=slow.Next fast=fast.Next.Next } var secondPart *ListNode /* 1 2 3 3 2 1 s f 如果f是nil，s就是第二段的开始 */ if fast==nil{ secondPart=reverseList(slow) }else{ /* 1 2 3 4 3 2 1 s f 如果f不是nil，s.</description>
+    </item>
+    
+    <item>
+      <title>0104.maximum-depth-of-binary-tree</title>
+      <link>https://wncbb.github.io/posts/leetcode/0104.maximum-depth-of-binary-tree/</link>
+      <pubDate>Thu, 11 Mar 2021 16:59:48 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0104.maximum-depth-of-binary-tree/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func maxDepth(root *TreeNode) int { if root==nil{ return 0 } left:=maxDepth(root.Left) right:=maxDepth(root.Right) return getMax(left, right)+1 } func getMax(a, b int)int{ if a&amp;gt;b{ return a } return b }  </description>
+    </item>
+    
+    <item>
+      <title>0043.multiply-strings</title>
+      <link>https://wncbb.github.io/posts/leetcode/0043.multiply-strings/</link>
+      <pubDate>Thu, 11 Mar 2021 15:26:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0043.multiply-strings/</guid>
+      <description>func multiply(a string, b string) string { if a == &amp;quot;0&amp;quot; || b == &amp;quot;0&amp;quot; { return &amp;quot;0&amp;quot; } // string转换成[]byte，容易取得相应位上的具体值 bsi := []byte(a) bsj := []byte(b) temp := make([]int, len(bsi)+len(bsj)) //两数相乘，结果位数不会超过两乘数位数和，即temp的长度只可能为 len(num1)+len(num2) 或 len(num1)+len(num2)-1 // 选最大的，免得位数不够 for i := 0; i &amp;lt; len(bsi); i++ { for j := 0; j &amp;lt; len(bsj); j++ { // 对应每个位上的乘积，直接累加存入 temp 中相应的位置 temp[i+j+1] += int(bsi[i]-&#39;0&#39;) * int(bsj[j]-&#39;0&#39;) fmt.Printf(&amp;quot;i:%d j:%d temp:%+v\n&amp;quot;, i, j, temp) } } //统一处理进位 for i := len(temp) - 1; i &amp;gt; 0; i-- { temp[i-1] += temp[i] / 10 //对该结果进位（进到前一位） temp[i] = temp[i] % 10 //对个位数保留 } // a 和 b 较小的时候，temp的首位为0 // 为避免输出结果以0开头，需要去掉temp的0首位 if temp[0] == 0 { temp = temp[1:] } //转换结果：将[]int类型的temp转成[]byte类型, //因为在未处理进位的情况下，temp每位的结果可能超过255(go中，byte类型实为uint8，最大为255),所以temp选用[]int类型 //但在处理完进位后，不再会出现溢出 res := make([]byte, len(temp)) //res 存放最终结果的ASCII码 for i := 0; i &amp;lt; len(temp); i++ { res[i] = byte(temp[i] + &#39;0&#39;) } return string(res) }  </description>
+    </item>
+    
+    <item>
+      <title>0406.queue-reconstruction-by-height</title>
+      <link>https://wncbb.github.io/posts/leetcode/0406.queue-reconstruction-by-height/</link>
+      <pubDate>Thu, 11 Mar 2021 15:15:46 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0406.queue-reconstruction-by-height/</guid>
+      <description>func reconstructQueue(input [][]int) [][]int { sort.Slice(input, func(i, j int) bool { return input[i][0] &amp;gt; input[j][0] || (input[i][0] == input[j][0] &amp;amp;&amp;amp; input[i][1] &amp;lt; input[j][1]) }) for from, p := range input { to := p[1] // ---to---from--- // to跟from整体后移一位，然后把p放到to上 copy(input[to+1:from+1], input[to:from]) input[to] = p } return input }  </description>
+    </item>
+    
+    <item>
+      <title>0026.remove-duplicates-from-sorted-array</title>
+      <link>https://wncbb.github.io/posts/leetcode/0026.remove-duplicates-from-sorted-array/</link>
+      <pubDate>Thu, 11 Mar 2021 14:18:24 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0026.remove-duplicates-from-sorted-array/</guid>
+      <description>双指针
+func removeDuplicates(nums []int) int { if len(nums)==0{ return 0 } i:=0 for j:=1; j&amp;lt;len(nums); j++{ if nums[i]==nums[j]{ continue } i++ nums[i]=nums[j] } return i+1 }  </description>
+    </item>
     
     <item>
       <title>0062.unique-paths</title>
