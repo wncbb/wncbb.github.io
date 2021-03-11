@@ -3,32 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://wncbb.github.io/posts/leetcode/0083.remove-duplicates-from-sorted-list/</loc>
-    <lastmod>2021-03-11T12:02:47+08:00</lastmod>
+    <loc>https://wncbb.github.io/posts/leetcode/0062.unique-paths/</loc>
+    <lastmod>2021-03-11T14:13:37+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/posts/</loc>
-    <lastmod>2021-03-11T12:02:47+08:00</lastmod>
+    <lastmod>2021-03-11T14:13:37+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2021-03-11T12:02:47+08:00</lastmod>
+    <lastmod>2021-03-11T14:13:37+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/</loc>
-    <lastmod>2021-03-11T12:02:47+08:00</lastmod>
+    <lastmod>2021-03-11T14:13:37+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://wncbb.github.io/series/leetcode/</loc>
-    <lastmod>2021-03-11T12:02:47+08:00</lastmod>
+    <lastmod>2021-03-11T14:13:37+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/leetcode/0726.number-of-atoms/</loc>
+    <lastmod>2021-03-11T14:10:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/leetcode/0287.find-the-duplicate-number/</loc>
+    <lastmod>2021-03-11T12:21:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://wncbb.github.io/posts/leetcode/0083.remove-duplicates-from-sorted-list/</loc>
+    <lastmod>2021-03-11T12:02:47+08:00</lastmod>
   </url>
   
   <url>
@@ -42,7 +57,7 @@
   </url>
   
   <url>
-    <loc>https://wncbb.github.io/posts/leetcode/297.serialize-and-deserialize-binary-tree/</loc>
+    <loc>https://wncbb.github.io/posts/leetcode/0297.serialize-and-deserialize-binary-tree/</loc>
     <lastmod>2021-03-11T11:39:00+08:00</lastmod>
   </url>
   

@@ -6,10 +6,37 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 12:02:47 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Mar 2021 14:13:37 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0062.unique-paths</title>
+      <link>https://wncbb.github.io/posts/leetcode/0062.unique-paths/</link>
+      <pubDate>Thu, 11 Mar 2021 14:13:37 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0062.unique-paths/</guid>
+      <description>func uniquePaths(m int, n int) int { dp:=make([][]int, 0, m) for i:=0; i&amp;lt;m; i++{ dp=append(dp, make([]int, n, n)) } for i:=0; i&amp;lt;m; i++{ dp[i][0]=1 } for j:=0; j&amp;lt;n; j++{ dp[0][j]=1 } for i:=1; i&amp;lt;m; i++{ for j:=1; j&amp;lt;n; j++{ dp[i][j]=dp[i-1][j]+dp[i][j-1] } } return dp[m-1][n-1] }  </description>
+    </item>
+    
+    <item>
+      <title>0726.number-of-atoms</title>
+      <link>https://wncbb.github.io/posts/leetcode/0726.number-of-atoms/</link>
+      <pubDate>Thu, 11 Mar 2021 14:10:36 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0726.number-of-atoms/</guid>
+      <description>func isDigit(b byte) bool { return &#39;0&#39; &amp;lt;= b &amp;amp;&amp;amp; b &amp;lt;= &#39;9&#39; } func isLower(b byte) bool { return &#39;a&#39; &amp;lt;= b &amp;amp;&amp;amp; b &amp;lt;= &#39;z&#39; } func countOfAtoms(s string) (ans string) { stack:=&amp;amp;Stack{ raw: make([]map[string]int, 0), } i, n := 0, len(s) parseNum := func() (v int) { if i == n || !isDigit(s[i]) { return 1 } for ; i &amp;lt; n &amp;amp;&amp;amp; isDigit(s[i]); i++ { v = v*10 + int(s[i]-&#39;0&#39;) } return } stack.</description>
+    </item>
+    
+    <item>
+      <title>0287.find-the-duplicate-number</title>
+      <link>https://wncbb.github.io/posts/leetcode/0287.find-the-duplicate-number/</link>
+      <pubDate>Thu, 11 Mar 2021 12:21:41 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0287.find-the-duplicate-number/</guid>
+      <description>func findDuplicate(nums []int) int { slow:=0 fast:=0 slow=nums[slow] fast=nums[nums[fast]] for slow!=fast{ slow=nums[slow] fast=nums[nums[fast]] } slow=0 for slow!=fast{ slow=nums[slow] fast=nums[fast] } return slow }  </description>
+    </item>
     
     <item>
       <title>0083.remove-duplicates-from-sorted-list</title>
@@ -40,10 +67,10 @@
     
     <item>
       <title>297.serialize-and-deserialize-binary-tree</title>
-      <link>https://wncbb.github.io/posts/leetcode/297.serialize-and-deserialize-binary-tree/</link>
+      <link>https://wncbb.github.io/posts/leetcode/0297.serialize-and-deserialize-binary-tree/</link>
       <pubDate>Thu, 11 Mar 2021 11:39:00 +0800</pubDate>
       
-      <guid>https://wncbb.github.io/posts/leetcode/297.serialize-and-deserialize-binary-tree/</guid>
+      <guid>https://wncbb.github.io/posts/leetcode/0297.serialize-and-deserialize-binary-tree/</guid>
       <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ type Codec struct { } func Constructor() Codec { return Codec{} } // Serializes a tree to a single string. func (this *Codec) serialize(root *TreeNode) string { queue:=&amp;amp;Queue{ raw: make([]*TreeNode, 0), } s:=&amp;quot;&amp;quot; queue.Append(root) for !queue.Empty(){ cur:=queue.Pop() if cur!=nil{ s+=strconv.FormatInt(int64(cur.Val), 10) queue.Append(cur.Left) queue.Append(cur.Right) }else{ s+=&amp;quot;n&amp;quot; } s+=&amp;quot;,&amp;quot; } // fmt.</description>
     </item>
     

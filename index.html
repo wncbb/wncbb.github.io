@@ -53,6 +53,31 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0062.unique-paths/">0062.unique-paths</a>
+  </h1>
+  <time datetime="2021-03-11T14:13:37&#43;0800" class="post-date">2021-03-11 14:13:37</time>
+  func uniquePaths(m int, n int) int { dp:=make([][]int, 0, m) for i:=0; i&lt;m; i++{ dp=append(dp, make([]int, n, n)) } for i:=0; i&lt;m; i++{ dp[i][0]=1 } for j:=0; j&lt;n; j++{ dp[0][j]=1 } for i:=1; i&lt;m; i++{ for j:=1; j&lt;n; j++{ dp[i][j]=dp[i-1][j]+dp[i][j-1] } } return dp[m-1][n-1] }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0726.number-of-atoms/">0726.number-of-atoms</a>
+  </h1>
+  <time datetime="2021-03-11T14:10:36&#43;0800" class="post-date">2021-03-11 14:10:36</time>
+  func isDigit(b byte) bool { return '0' &lt;= b &amp;&amp; b &lt;= '9' } func isLower(b byte) bool { return 'a' &lt;= b &amp;&amp; b &lt;= 'z' } func countOfAtoms(s string) (ans string) { stack:=&amp;Stack{ raw: make([]map[string]int, 0), } i, n := 0, len(s) parseNum := func() (v int) { if i == n || !isDigit(s[i]) { return 1 } for ; i &lt; n &amp;&amp; isDigit(s[i]); i++ { v = v*10 + int(s[i]-'0') } return } stack.
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0726.number-of-atoms/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0287.find-the-duplicate-number/">0287.find-the-duplicate-number</a>
+  </h1>
+  <time datetime="2021-03-11T12:21:41&#43;0800" class="post-date">2021-03-11 12:21:41</time>
+  func findDuplicate(nums []int) int { slow:=0 fast:=0 slow=nums[slow] fast=nums[nums[fast]] for slow!=fast{ slow=nums[slow] fast=nums[nums[fast]] } slow=0 for slow!=fast{ slow=nums[slow] fast=nums[fast] } return slow }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0083.remove-duplicates-from-sorted-list/">0083.remove-duplicates-from-sorted-list</a>
   </h1>
   <time datetime="2021-03-11T12:02:47&#43;0800" class="post-date">2021-03-11 12:02:47</time>
@@ -74,13 +99,13 @@
   
 </article><article class="post">
   <h1 class="post-title">
-    <a href="https://wncbb.github.io/posts/leetcode/297.serialize-and-deserialize-binary-tree/">297.serialize-and-deserialize-binary-tree</a>
+    <a href="https://wncbb.github.io/posts/leetcode/0297.serialize-and-deserialize-binary-tree/">297.serialize-and-deserialize-binary-tree</a>
   </h1>
   <time datetime="2021-03-11T11:39:00&#43;0800" class="post-date">2021-03-11 11:39:00</time>
   /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ type Codec struct { } func Constructor() Codec { return Codec{} } // Serializes a tree to a single string. func (this *Codec) serialize(root *TreeNode) string { queue:=&amp;Queue{ raw: make([]*TreeNode, 0), } s:=&quot;&quot; queue.Append(root) for !queue.Empty(){ cur:=queue.Pop() if cur!=nil{ s+=strconv.FormatInt(int64(cur.Val), 10) queue.Append(cur.Left) queue.Append(cur.Right) }else{ s+=&quot;n&quot; } s+=&quot;,&quot; } // fmt.
   
   <div class="read-more-link">
-    <a href="/posts/leetcode/297.serialize-and-deserialize-binary-tree/">Read More…</a>
+    <a href="/posts/leetcode/0297.serialize-and-deserialize-binary-tree/">Read More…</a>
   </div>
   
 </article><article class="post">
