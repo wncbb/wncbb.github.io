@@ -53,6 +53,27 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/sword_offer/57/">57</a>
+  </h1>
+  <time datetime="2021-03-11T23:29:18&#43;0800" class="post-date">2021-03-11 23:29:18</time>
+  func findContinuousSequence(target int) [][]int { ret:=make([][]int, 0) for l, r:=1, 2; l&lt;r; { // 长度=r-l+1 乘以 平均值=(l+r)/2 sum:=(r-l+1)*(l+r)/2 if sum&lt;target{ r++ }else if sum&gt;target{ l++ }else{ ret=append(ret, getList(l, r)) l++ r++ } } return ret } func getList(l, r int)[]int{ ret:=make([]int, 0, r-l+1) for i:=l; i&lt;=r; i++{ ret=append(ret, i) } return ret }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0153.find-minimum-in-rotated-sorted-array/">0153.find-minimum-in-rotated-sorted-array</a>
+  </h1>
+  <time datetime="2021-03-11T23:18:37&#43;0800" class="post-date">2021-03-11 23:18:37</time>
+  func findMin(nums []int) int { left:=0 right:=len(nums)-1 if nums[left]&lt;nums[right]{ return nums[0] } for left&lt;right{ mid:=left+(right-left)/2 if nums[mid]&gt;nums[right]{ left=mid+1 }else{ right=mid } } // 这种写法不对，因为这个数组是升序排列的，所以得用nums[mid]&gt;nums[right]来做判断 // for left&lt;right{ // fmt.Printf(&quot;BEFORE left:%d right:%d\n&quot;, left, right) // mid:=left+(right-left)/2 // if nums[mid]&gt;nums[left]{ // left=mid+1 // }else{ // right=mid // } // fmt.Printf(&quot;AFTER left:%d right:%d\n&quot;, left, right) // } return nums[left] }  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0108.convert-sorted-array-to-binary-search-tree/">0108.convert-sorted-array-to-binary-search-tree</a>
+  </h1>
+  <time datetime="2021-03-11T23:02:42&#43;0800" class="post-date">2021-03-11 23:02:42</time>
+  /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func sortedArrayToBST(nums []int) *TreeNode { return helper(nums, 0, len(nums)-1) } func helper(nums []int, left, right int)*TreeNode{ if left&gt;right{ return nil } mid:=left+(right-left)/2 ret:=&amp;TreeNode{ Val: nums[mid], } ret.Left=helper(nums, left, mid-1) ret.Right=helper(nums, mid+1, right) return ret }  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0207.course-schedule/">0207.course-schedule</a>
   </h1>
   <time datetime="2021-03-11T22:42:13&#43;0800" class="post-date">2021-03-11 22:42:13</time>

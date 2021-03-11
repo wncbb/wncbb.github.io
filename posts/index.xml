@@ -6,10 +6,37 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 22:42:13 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Mar 2021 23:29:18 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>57</title>
+      <link>https://wncbb.github.io/posts/sword_offer/57/</link>
+      <pubDate>Thu, 11 Mar 2021 23:29:18 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/sword_offer/57/</guid>
+      <description>func findContinuousSequence(target int) [][]int { ret:=make([][]int, 0) for l, r:=1, 2; l&amp;lt;r; { // 长度=r-l+1 乘以 平均值=(l+r)/2 sum:=(r-l+1)*(l+r)/2 if sum&amp;lt;target{ r++ }else if sum&amp;gt;target{ l++ }else{ ret=append(ret, getList(l, r)) l++ r++ } } return ret } func getList(l, r int)[]int{ ret:=make([]int, 0, r-l+1) for i:=l; i&amp;lt;=r; i++{ ret=append(ret, i) } return ret }  </description>
+    </item>
+    
+    <item>
+      <title>0153.find-minimum-in-rotated-sorted-array</title>
+      <link>https://wncbb.github.io/posts/leetcode/0153.find-minimum-in-rotated-sorted-array/</link>
+      <pubDate>Thu, 11 Mar 2021 23:18:37 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0153.find-minimum-in-rotated-sorted-array/</guid>
+      <description>func findMin(nums []int) int { left:=0 right:=len(nums)-1 if nums[left]&amp;lt;nums[right]{ return nums[0] } for left&amp;lt;right{ mid:=left+(right-left)/2 if nums[mid]&amp;gt;nums[right]{ left=mid+1 }else{ right=mid } } // 这种写法不对，因为这个数组是升序排列的，所以得用nums[mid]&amp;gt;nums[right]来做判断 // for left&amp;lt;right{ // fmt.Printf(&amp;quot;BEFORE left:%d right:%d\n&amp;quot;, left, right) // mid:=left+(right-left)/2 // if nums[mid]&amp;gt;nums[left]{ // left=mid+1 // }else{ // right=mid // } // fmt.Printf(&amp;quot;AFTER left:%d right:%d\n&amp;quot;, left, right) // } return nums[left] }  </description>
+    </item>
+    
+    <item>
+      <title>0108.convert-sorted-array-to-binary-search-tree</title>
+      <link>https://wncbb.github.io/posts/leetcode/0108.convert-sorted-array-to-binary-search-tree/</link>
+      <pubDate>Thu, 11 Mar 2021 23:02:42 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0108.convert-sorted-array-to-binary-search-tree/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func sortedArrayToBST(nums []int) *TreeNode { return helper(nums, 0, len(nums)-1) } func helper(nums []int, left, right int)*TreeNode{ if left&amp;gt;right{ return nil } mid:=left+(right-left)/2 ret:=&amp;amp;TreeNode{ Val: nums[mid], } ret.Left=helper(nums, left, mid-1) ret.Right=helper(nums, mid+1, right) return ret }  </description>
+    </item>
     
     <item>
       <title>0207.course-schedule</title>
