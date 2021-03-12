@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.56.0-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>0460.lfu-cache &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>0460.lfu-cache</h1>
+  <time datetime=2021-03-12T11:50:24&#43;0800 class="post-date">2021-03-12 11:50:24</time>
+  <pre><code class="language-go">import(
+    &quot;container/list&quot;
+)
+
+type Data struct{
+    Key int
+    Value int
+    Count int
+}
+
+type LFUCache struct {
+    key2Elem map[int]*list.Element
+    count2List map[int]*list.List
+    minCount int
+    capacity int
+}
+
+
+func Constructor(capacity int) LFUCache {
+    return LFUCache{
+        key2Elem: make(map[int]*list.Element),
+        count2List: make(map[int]*list.List),
+        minCount: 0,
+        capacity: capacity,
+    }
+}
+
+
+func (this *LFUCache) Get(key int) int {
+    // fmt.Printf(&quot;[GET] ---------- START\n&quot;)
+    // fmt.Printf(&quot;[GET] BEFORE this.count2List: %+v \n&quot;, this.count2List)
+    // fmt.Printf(&quot;[GET] %d\n&quot;, key)
+    elem, ok:=this.key2Elem[key]
+    if !ok{
+        return -1
+    }
+    data:=elem.Value.(*Data)
+    this.update(elem)
+    // fmt.Printf(&quot;[GET] AFTER this.count2List: %+v \n&quot;, this.count2List)
+    return data.Value
+}
+
+func (this *LFUCache) update(elem *list.Element){
+    data:=elem.Value.(*Data)
+    elemList:=this.count2List[data.Count]
+    // fmt.Printf(&quot;this.count2List: %+v data:%+v\n&quot;, this.count2List, data)
+
+    elemList.Remove(elem)
+    if elemList.Len()==0{
+        if data.Count==this.minCount{
+            this.minCount++
+        }
+    }
+
+    data.Count++
+
+    targetList:=this.count2List[data.Count]
+    if targetList==nil{
+        targetList=list.New()
+    }
+    newElem:=targetList.PushFront(data)
+    // 别忘了把list加进去
+    this.count2List[data.Count]=targetList
+    this.key2Elem[data.Key]=newElem
+}
+
+func (this *LFUCache)deleteMin()bool{
+    elemList, ok:=this.count2List[this.minCount]
+    if !ok{
+        return false
+    }
+
+    elem:=elemList.Back()
+    if elem==nil{
+        return false
+    }
+
+    _ = elemList.Remove(elem)
+
+    data:=elem.Value.(*Data)
+    delete(this.key2Elem, data.Key)
+    return true
+}
+
+func (this *LFUCache) Put(key int, value int)  {
+    // fmt.Printf(&quot;[PUT] ---------- START\n&quot;)
+    // fmt.Printf(&quot;[PUT] BEFORE this.count2List: %+v \n&quot;, this.count2List)
+    // fmt.Printf(&quot;[PUT] key:%d vaue:%d\n&quot;, key, value)
+    // fmt.Printf(&quot;[PUT] BEFORE key2Elem: %+v\n&quot;, this.key2Elem)
+    defer func(){
+        // fmt.Printf(&quot;[PUT] AFTER key2Elem: %+v\n&quot;, this.key2Elem)
+    }()
+    elem, ok:=this.key2Elem[key]
+    if ok{
+        data:=elem.Value.(*Data)
+        data.Value=value
+        // update函数里，需要原始的count来获取list，count++后，再加入新的list里，所以count需要在update里做
+        // data.Count++
+        this.update(elem)
+        return
+    }
+    // 如果之前不存在，需要新加入一个element，需要看看当前capacity
+    if len(this.key2Elem)==this.capacity{
+        if !this.deleteMin(){
+            return
+        }
+    }
+    if len(this.key2Elem)==this.capacity{
+        return
+    }
+    newData:=&amp;Data{
+        Key: key, 
+        Value: value,
+        Count: 1,
+    }
+    // fmt.Printf(&quot;[PUT] newData:%+v\n&quot;, newData)
+    targetList, ok:=this.count2List[newData.Count]
+    if !ok{
+        targetList=list.New()
+        this.count2List[newData.Count]=targetList
+    }
+    newElem:=targetList.PushFront(newData)
+    this.key2Elem[newData.Key]=newElem
+    this.minCount=newData.Count
+
+    // fmt.Printf(&quot;[PUT] AFTER this.count2List: %+v \n&quot;, this.count2List)
+}
+
+
+
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * obj := Constructor(capacity);
+ * param_1 := obj.Get(key);
+ * obj.Put(key,value);
+ */
+</code></pre>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

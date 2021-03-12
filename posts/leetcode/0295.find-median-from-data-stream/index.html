@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.56.0-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>0295.find-median-from-data-stream &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>0295.find-median-from-data-stream</h1>
+  <time datetime=2021-03-12T12:16:09&#43;0800 class="post-date">2021-03-12 12:16:09</time>
+  <pre><code class="language-go">import &quot;container/heap&quot;
+
+type MyHeap struct {
+	raw []int
+    cmp func(a, b int)bool
+}
+
+func (m *MyHeap)Len()int{
+    return len(m.raw)
+}
+func (m *MyHeap)Less(i, j int)bool{
+    return m.cmp(m.raw[i], m.raw[j])
+}
+func (m *MyHeap)Swap(i, j int){
+    m.raw[i], m.raw[j]=m.raw[j], m.raw[i]
+}
+func (m *MyHeap)Push(v interface{}){
+    m.raw=append(m.raw, v.(int))
+}
+func (m *MyHeap)Pop()interface{}{
+    ret:=m.raw[len(m.raw)-1]
+    m.raw=m.raw[:len(m.raw)-1]
+    return ret
+}
+func(m *MyHeap)Top()int{
+    return m.raw[0]
+}
+
+// MedianFinder
+// 用大、小顶堆存储数据。
+// 其中前半部分是大顶堆
+// 后半部分是小顶堆
+// 而且前半部分（大顶堆）最多比后半部分（小顶堆）多存一个元素
+// 因此：
+//    当元素总共有奇数个时，则返回大顶堆的堆顶元素。
+//    当元素纵隔有偶数个时，则返回两个堆顶元素之和再除以2.0
+type MedianFinder struct {
+	maxHeap *MyHeap   // 前半部分，用大顶堆存储，都是较小的数（都小于后半部分）
+	minHeap *MyHeap   // 后半部分，用小顶堆存储，都是较大的数（都大于前半部分）
+}
+/** initialize your data structure here. */
+func Constructor() MedianFinder {
+    maxHeap:=&amp;MyHeap{
+        raw: make([]int, 0),
+        cmp: func(a, b int)bool{
+            return a&gt;b
+        },
+    }
+    minHeap:=&amp;MyHeap{
+        raw: make([]int, 0),
+        cmp: func(a, b int)bool{
+            return a&lt;b
+        },
+    }
+    heap.Init(maxHeap)
+    heap.Init(minHeap)
+
+    return MedianFinder{
+        maxHeap: maxHeap,
+        minHeap: minHeap,
+    }
+}
+
+func (this *MedianFinder) AddNum(num int) {
+    // 先加入到大顶堆
+	heap.Push(this.maxHeap, num)
+    // 调整两个堆平衡，此时从大顶堆Pop出最大元素，加入到小顶堆。
+	heap.Push(this.minHeap, heap.Pop(this.maxHeap))
+
+	for this.maxHeap.Len() &lt; this.minHeap.Len() {
+		heap.Push(this.maxHeap, heap.Pop(this.minHeap))
+	}
+}
+
+
+func (this *MedianFinder) FindMedian() float64 {
+	if this.maxHeap.Len() &gt; this.minHeap.Len() {
+		return float64(this.maxHeap.Top())
+	}
+
+	return float64(this.maxHeap.Top()+this.minHeap.Top()) /2
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.AddNum(num);
+ * param_2 := obj.FindMedian();
+ */
+
+
+</code></pre>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

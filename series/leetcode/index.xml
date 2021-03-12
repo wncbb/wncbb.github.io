@@ -6,10 +6,56 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Mar 2021 23:18:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Mar 2021 12:50:33 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0315.count-of-smaller-numbers-after-self</title>
+      <link>https://wncbb.github.io/posts/leetcode/0315.count-of-smaller-numbers-after-self/</link>
+      <pubDate>Fri, 12 Mar 2021 12:50:33 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0315.count-of-smaller-numbers-after-self/</guid>
+      <description>https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/solution/ji-suan-you-ce-xiao-yu-dang-qian-yuan-su-de-ge-s-7/
+// 一个数右侧比他小的数的个数 // 数组reverse一下，就是一个数左侧比他小的数的个数 // 比如: 1, 7, 2, 2, 3 ,4 // 遍历一遍，当看到1时，左侧没有数，所以是0 // 等遍历到3的时候，比他小的数是1的个数跟2的个数 // 我们把数组从小到大排序，然后记录遍历一个数字之后，数字的个数 // 就像下图: 遍历到3的时候，已经看到一个1，2个2，一个7，以及本身的一个三 // 只需要把3前面的个数加起来即可 // 跟binray-index-tree的使用场景一样，同意一个前缀和，且支持随时修改数据 // 1 2 1 0 1 // 1 2 3 4 7 func countSmaller(nums []int) []int { num2Idx:=getSortedUnique(nums) tree:=&amp;amp;BinaryIndexTree{} tree.Build(make([]int, len(num2Idx), len(num2Idx))) rst:=make([]int, 0) for i:=len(nums)-1; i&amp;gt;=0; i--{ // fmt.Printf(&amp;quot;i;&amp;quot;) v:=nums[i] idx:=num2Idx[v] tree.Update(idx, 1) rst=append(rst, tree.PrefixSum(idx-1)) } return reverseInts(rst) } func reverseInts(s []int)[]int{ left:=0 right:=len(s)-1 for left&amp;lt;right{ s[left], s[right]=s[right], s[left] left++ right-- } return s } func getSortedUnique(nums []int)map[int]int{ unique:=make([]int, 0, len(nums)) seen:=make(map[int]struct{}) for _, v:=range nums{ seen[v]=struct{}{} } for k, _:=range seen{ unique=append(unique, k) } sort.</description>
+    </item>
+    
+    <item>
+      <title>0295.find-median-from-data-stream</title>
+      <link>https://wncbb.github.io/posts/leetcode/0295.find-median-from-data-stream/</link>
+      <pubDate>Fri, 12 Mar 2021 12:16:09 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0295.find-median-from-data-stream/</guid>
+      <description>import &amp;quot;container/heap&amp;quot; type MyHeap struct { raw []int cmp func(a, b int)bool } func (m *MyHeap)Len()int{ return len(m.raw) } func (m *MyHeap)Less(i, j int)bool{ return m.cmp(m.raw[i], m.raw[j]) } func (m *MyHeap)Swap(i, j int){ m.raw[i], m.raw[j]=m.raw[j], m.raw[i] } func (m *MyHeap)Push(v interface{}){ m.raw=append(m.raw, v.(int)) } func (m *MyHeap)Pop()interface{}{ ret:=m.raw[len(m.raw)-1] m.raw=m.raw[:len(m.raw)-1] return ret } func(m *MyHeap)Top()int{ return m.raw[0] } // MedianFinder // 用大、小顶堆存储数据。 // 其中前半部分是大顶堆 // 后半部分是小顶堆 // 而且前半部分（大顶堆）最多比后半部分（小顶堆）多存一个元素 // 因此： // 当元素总共有奇数个时，则返回大顶堆的堆顶元素。 // 当元素纵隔有偶数个时，则返回两个堆顶元素之和再除以2.</description>
+    </item>
+    
+    <item>
+      <title>0460.lfu-cache</title>
+      <link>https://wncbb.github.io/posts/leetcode/0460.lfu-cache/</link>
+      <pubDate>Fri, 12 Mar 2021 11:50:24 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0460.lfu-cache/</guid>
+      <description>import( &amp;quot;container/list&amp;quot; ) type Data struct{ Key int Value int Count int } type LFUCache struct { key2Elem map[int]*list.Element count2List map[int]*list.List minCount int capacity int } func Constructor(capacity int) LFUCache { return LFUCache{ key2Elem: make(map[int]*list.Element), count2List: make(map[int]*list.List), minCount: 0, capacity: capacity, } } func (this *LFUCache) Get(key int) int { // fmt.Printf(&amp;quot;[GET] ---------- START\n&amp;quot;) // fmt.Printf(&amp;quot;[GET] BEFORE this.count2List: %+v \n&amp;quot;, this.count2List) // fmt.Printf(&amp;quot;[GET] %d\n&amp;quot;, key) elem, ok:=this.key2Elem[key] if !ok{ return -1 } data:=elem.</description>
+    </item>
+    
+    <item>
+      <title>0144.binary-tree-preorder-traversal</title>
+      <link>https://wncbb.github.io/posts/leetcode/0144.binary-tree-preorder-traversal/</link>
+      <pubDate>Thu, 11 Mar 2021 23:43:03 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0144.binary-tree-preorder-traversal/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func preorderTraversal(root *TreeNode) []int { ret:=make([]int, 0) var helper func(node *TreeNode) helper=func(node *TreeNode){ if node==nil{ return } ret=append(ret, node.Val) helper(node.Left) helper(node.Right) } helper(root) return ret }  </description>
+    </item>
+    
+    <item>
+      <title>0114.flatten-binary-tree-to-linked-list</title>
+      <link>https://wncbb.github.io/posts/leetcode/0114.flatten-binary-tree-to-linked-list/</link>
+      <pubDate>Thu, 11 Mar 2021 23:40:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0114.flatten-binary-tree-to-linked-list/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func flatten(root *TreeNode) { if root==nil{ return } myStack:=&amp;amp;Stack{ raw: make([]*TreeNode, 0), } myStack.Push(root) lastNode:=root for !myStack.Empty(){ cur:=myStack.Pop() if cur.Right!=nil{ myStack.Push(cur.Right) } if cur.Left!=nil{ myStack.Push(cur.Left) } if lastNode!=cur{ lastNode.Left=nil lastNode.Right=cur lastNode=cur } } } type Stack struct{ raw []*TreeNode } func(s *Stack)Push(v *TreeNode){ s.raw=append(s.raw, v) } func (s *Stack)Pop()*TreeNode{ ret:=s.</description>
+    </item>
     
     <item>
       <title>0153.find-minimum-in-rotated-sorted-array</title>
