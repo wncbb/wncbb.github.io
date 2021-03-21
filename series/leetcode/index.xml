@@ -6,10 +6,37 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Mar 2021 22:02:14 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 13 Mar 2021 18:47:42 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0146.lru-cache</title>
+      <link>https://wncbb.github.io/posts/leetcode/0146.lru-cache/</link>
+      <pubDate>Sat, 13 Mar 2021 18:47:42 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0146.lru-cache/</guid>
+      <description>type Node struct{ val int key int prev *Node next *Node } type LRUCache struct { head *Node tail *Node length int capacity int key2Node map[int]*Node } func Constructor(capacity int) LRUCache { head:=&amp;amp;Node{} tail:=&amp;amp;Node{} head.next=tail tail.prev=head return LRUCache{ head: head, tail: tail, capacity: capacity, key2Node: make(map[int]*Node, capacity), } } func (this *LRUCache) Get(key int) int { targetNode, ok:=this.key2Node[key] if !ok || targetNode==nil{ return -1 } // Get操作， 需要将当前node放到最前面 this.Delete(key) this.addToHead(key, targetNode.</description>
+    </item>
+    
+    <item>
+      <title>0226.invert-binary-tree</title>
+      <link>https://wncbb.github.io/posts/leetcode/0226.invert-binary-tree/</link>
+      <pubDate>Fri, 12 Mar 2021 23:18:03 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0226.invert-binary-tree/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func invertTree(root *TreeNode) *TreeNode { if root==nil{ return nil } if root.Left==nil &amp;amp;&amp;amp; root.Right==nil{ return root } invertTree(root.Left) invertTree(root.Right) root.Left, root.Right=root.Right, root.Left return root }  </description>
+    </item>
+    
+    <item>
+      <title>0189.rotate-array</title>
+      <link>https://wncbb.github.io/posts/leetcode/0189.rotate-array/</link>
+      <pubDate>Fri, 12 Mar 2021 23:14:58 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0189.rotate-array/</guid>
+      <description>func reverse(a []int) { for i, n := 0, len(a); i &amp;lt; n/2; i++ { a[i], a[n-1-i] = a[n-1-i], a[i] } } func rotate(nums []int, k int) { k %= len(nums) reverse(nums) reverse(nums[:k]) reverse(nums[k:]) }  </description>
+    </item>
     
     <item>
       <title>0120.triangle</title>
@@ -814,7 +841,7 @@ func longestIncreasingPath(matrix [][]int) int { m:=len(matrix) n:=len(matrix[0]
       <pubDate>Tue, 09 Mar 2021 23:22:34 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0079.word-search/</guid>
-      <description>func exist(board [][]byte, word string) bool { for i:=0; i&amp;lt;len(board); i++{ for j:=0; j&amp;lt;len(board[0]); j++{ if findWord(board, i, j, word){ return true } } } return false } func findWord(board [][]byte, i, j int, word string)bool{ visited:=make([][]bool, 0, len(board)) for i:=0; i&amp;lt;len(board); i++{ visited=append(visited, make([]bool, len(board[0]), len(board[0]))) } dirs:=[][]int{ {0, 1}, {0, -1}, {1, 0}, {-1, 0}, } wordBytes:=[]byte(word) var inner func(i, j, k int)bool inner = func(i, j, k int)bool{ if wordBytes[k]!</description>
+      <description>func exist(board [][]byte, word string) bool { m:=len(board) n:=len(board[0]) visited:=make([][]bool, 0, m) for i:=0; i&amp;lt;m; i++{ visited=append(visited, make([]bool, n, n)) } dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} var findWord func(i, j, wordIdx int)bool findWord=func(i, j, wordIdx int)bool{ if word[wordIdx]!=board[i][j]{ return false } if wordIdx==len(word)-1{ return true } for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&amp;lt;0 || newI&amp;gt;=m || newJ&amp;lt;0 || newJ&amp;gt;=n{ continue } if visited[newI][newJ]{ continue } visited[newI][newJ]=true if findWord(newI, newJ, wordIdx+1){ return true } visited[newI][newJ]=false } return false } for i:=0; i&amp;lt;len(board); i++{ for j:=0; j&amp;lt;len(board[0]); j++{ visited[i][j]=true if findWord(i, j, 0){ return true } visited[i][j]=false } } return false }  func exist(board [][]byte, word string) bool { for i:=0; i&amp;lt;len(board); i++{ for j:=0; j&amp;lt;len(board[0]); j++{ if findWord(board, i, j, word){ return true } } } return false } func findWord(board [][]byte, i, j int, word string)bool{ visited:=make([][]bool, 0, len(board)) for i:=0; i&amp;lt;len(board); i++{ visited=append(visited, make([]bool, len(board[0]), len(board[0]))) } dirs:=[][]int{ {0, 1}, {0, -1}, {1, 0}, {-1, 0}, } wordBytes:=[]byte(word) var inner func(i, j, k int)bool inner = func(i, j, k int)bool{ if wordBytes[k]!</description>
     </item>
     
     <item>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Kmp &middot; WNCBB&#39;s blog</title>
+  <title>Topological_sort &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,65 +50,75 @@
 
     <main class="content container">
     <div class="post">
-  <h1>Kmp</h1>
-  <time datetime=2021-03-04T11:26:13&#43;0800 class="post-date">2021-03-04 11:26:13</time>
+  <h1>Topological_sort</h1>
+  <time datetime=2021-03-17T14:19:49&#43;0800 class="post-date">2021-03-17 14:19:49</time>
   <pre><code class="language-go">package main
 
-import (
-	&quot;fmt&quot;
-)
-
-func main() {
-	s := &quot;atoddasdfasdtodd&quot;
-	p := &quot;abab&quot;
-	rst := match(s, p)
-	fmt.Printf(&quot;rst: %+v\n&quot;, rst)
+type Task struct{
+	ID string
+	Cost int
+	Next []string
+	PreCost int
 }
 
-func match(s, p string) []int {
-	nxt := build(p)
-	ret := make([]int, 0)
-	for i, j := 0, 0; i &lt; len(s); i++ {
-		for j &gt; 0 &amp;&amp; s[i] != p[j] {
-			j = nxt[j]
+func scheduleTask(tasks []*Task)int{
+	taskID2Task:=make(map[string]*Task)
+	for _, v:=range tasks{
+		taskID2Task[v.ID]=v
+	}
+
+	myList:=make([]string, 0)
+	taskID2Indegree:=make(map[string]int)
+	for _, curTask:=range tasks{
+    
+    if _, ok:=taskID2Indegree[curTask.ID]; !ok{
+			taskID2Indegree[curTask.ID]=0
 		}
-		if s[i] == p[j] {
-			j++
-		}
-		if j == len(p) {
-			ret = append(ret, i-len(p)+1)
-			j = nxt[j]
+    
+    
+		for _, curID:=range curTask.Next{
+			taskID2Indegree[curID]++
 		}
 	}
-	return ret
-}
 
-// build would build the next array
-// a b a b
-// 0 0 0 1 2
-// nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度
-// 比如nxt[3], p[:3]=&quot;aba&quot;,  前缀a，跟后缀a
-// 比如nxt[4], p[:4]=&quot;abab&quot;, 前缀ab，跟后缀ab
-func build(p string) []int {
-	ret := make([]int, 0, len(p))
-	ret = append(ret, 0)
-	ret = append(ret, 0)
-
-	for i, j := 1, 0; i &lt; len(p); i++ {
-		for j &gt; 0 &amp;&amp; p[i] != p[j] {
-			j = ret[j]
+	for curID, curIndegree:=range taskID2Indegree{
+		if curIndegree==0{
+			myList=append(myList, curID)
 		}
-		if p[i] == p[j] {
-			j++
-		}
-		// 看的是[0:i]闭区间，也就是i+1位置之前的最长前后缀长度
-		ret = append(ret, j)
 	}
-	fmt.Printf(&quot;nxt: %+v\n&quot;, ret)
-	return ret
+
+	rst:=0
+
+	for len(myList)!=0{
+		curTaskID:=myList[0]
+		myList=myList[1:]
+		curTask:=taskID2Task[curTaskID]
+		for _, nextTaskID:=range curTask.Next{
+			taskID2Indegree[nextTaskID]--
+			if taskID2Indegree[nextTaskID]==0{
+				myList=append(myList, nextTaskID)
+			}
+			nextTask:=taskID2Task[nextTaskID]
+			nextTask.PreCost=getMax(nextTask.PreCost, curTask.Cost+curTask.PreCost)
+		}
+		if len(curTask.Next)==0{
+			rst=getMax(rst, curTask.PreCost+curTask.Cost)
+		}
+	}
+
+	return rst
 }
 
+func getMax(a, b int)int{
+	if a&gt;b{
+		return a
+	}
+	return b
+}
 
+func main(){
+	
+}
 </code></pre>
 
 </div>

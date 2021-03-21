@@ -6,10 +6,100 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Mar 2021 22:02:14 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 20 Mar 2021 22:16:19 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>List</title>
+      <link>https://wncbb.github.io/posts/leetcode/list/</link>
+      <pubDate>Sat, 20 Mar 2021 22:16:19 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/list/</guid>
+      <description> 计算器 224 227 772  处理-1*2(-3+2)为0-1*2(0-3+2) 逆波兰式 计算逆波兰式  单调栈 栈 1  去除重复字母（困难） 拼接最大数（困难） 移掉 K 位数字（中等） 不同字符的最小子序列（中等） https://leetcode-cn.com/problems/create-maximum-number/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-7/  树 DFS/BFS 129 dfs: https://leetcode-cn.com/submissions/detail/157922761/ bfs: https://leetcode-cn.com/submissions/detail/157927965/
+1063 </description>
+    </item>
+    
+    <item>
+      <title>Topological_sort</title>
+      <link>https://wncbb.github.io/posts/algo/topological_sort/</link>
+      <pubDate>Wed, 17 Mar 2021 14:19:49 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/topological_sort/</guid>
+      <description>package main type Task struct{ ID string Cost int Next []string PreCost int } func scheduleTask(tasks []*Task)int{ taskID2Task:=make(map[string]*Task) for _, v:=range tasks{ taskID2Task[v.ID]=v } myList:=make([]string, 0) taskID2Indegree:=make(map[string]int) for _, curTask:=range tasks{ if _, ok:=taskID2Indegree[curTask.ID]; !ok{ taskID2Indegree[curTask.ID]=0 } for _, curID:=range curTask.Next{ taskID2Indegree[curID]++ } } for curID, curIndegree:=range taskID2Indegree{ if curIndegree==0{ myList=append(myList, curID) } } rst:=0 for len(myList)!=0{ curTaskID:=myList[0] myList=myList[1:] curTask:=taskID2Task[curTaskID] for _, nextTaskID:=range curTask.Next{ taskID2Indegree[nextTaskID]-- if taskID2Indegree[nextTaskID]==0{ myList=append(myList, nextTaskID) } nextTask:=taskID2Task[nextTaskID] nextTask.</description>
+    </item>
+    
+    <item>
+      <title>0146.lru-cache</title>
+      <link>https://wncbb.github.io/posts/leetcode/0146.lru-cache/</link>
+      <pubDate>Sat, 13 Mar 2021 18:47:42 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0146.lru-cache/</guid>
+      <description>type Node struct{ val int key int prev *Node next *Node } type LRUCache struct { head *Node tail *Node length int capacity int key2Node map[int]*Node } func Constructor(capacity int) LRUCache { head:=&amp;amp;Node{} tail:=&amp;amp;Node{} head.next=tail tail.prev=head return LRUCache{ head: head, tail: tail, capacity: capacity, key2Node: make(map[int]*Node, capacity), } } func (this *LRUCache) Get(key int) int { targetNode, ok:=this.key2Node[key] if !ok || targetNode==nil{ return -1 } // Get操作， 需要将当前node放到最前面 this.Delete(key) this.addToHead(key, targetNode.</description>
+    </item>
+    
+    <item>
+      <title>Qa</title>
+      <link>https://wncbb.github.io/posts/mysql/qa/</link>
+      <pubDate>Sat, 13 Mar 2021 17:30:01 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/mysql/qa/</guid>
+      <description>statement：会将对数据库操作的sql语句写入到binlog中。 row：会将每一条数据的变化写入到binlog中。 mixed：statement与row的混合。Mysql决定什么时候写statement格式的，什么时候写row格式的binlog。</description>
+    </item>
+    
+    <item>
+      <title>Qa</title>
+      <link>https://wncbb.github.io/posts/redis/qa/</link>
+      <pubDate>Sat, 13 Mar 2021 17:15:21 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/redis/qa/</guid>
+      <description> 为啥用跳表不用红黑树?  性能类似，但是跳表实现更简单，更容易debug 对于range查询，跳表更适合，缓存局部性原理至少跟红黑树一样 由于红黑树存在rebalance操作，对于并发场景，红黑树要锁住更多的资源  </description>
+    </item>
+    
+    <item>
+      <title>Gc</title>
+      <link>https://wncbb.github.io/posts/golang/gc/</link>
+      <pubDate>Sat, 13 Mar 2021 16:29:02 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/golang/gc/</guid>
+      <description>https://zhuanlan.zhihu.com/p/92210761
+https://segmentfault.com/a/1190000022030353
+  Stop the world  </description>
+    </item>
+    
+    <item>
+      <title>Basic</title>
+      <link>https://wncbb.github.io/posts/base_tcp/basic/</link>
+      <pubDate>Sat, 13 Mar 2021 14:29:30 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/base_tcp/basic/</guid>
+      <description>1. TCP 1.1 三次握手四次挥手 1，2 TIME_WAIT的作用 原因1：为了保证客户端发送的最后一个ack报文段能够到达服务器。因为这最后一个ack确认包可能会丢失，然后服务器就会超时重传第三次挥手的fin信息报，然后客户端再重传一次第四次挥手的ack报文。如果没有这2msl，客户端发送完最后一个ack数据报后直接关闭连接，那么就接收不到服务器超时重传的fin信息报(此处应该是客户端收到一个非法的报文段，而返回一个RST的数据报，表明拒绝此次通信，然后双方就产生异常，而不是收不到。)，那么服务器就不能按正常步骤进入close状态。那么就会耗费服务器的资源。当网络中存在大量的timewait状态，那么服务器的压力可想而知。
+原因2：在第四次挥手后，经过2msl的时间足以让本次连接产生的所有报文段都从网络中消失，这样下一次新的连接中就肯定不会出现旧连接的报文段了。也就是防止我们上一篇文章 为什么tcp是三次握手而不是两次握手？ 中说的：已经失效的连接请求报文段出现在本次连接中。如果没有的话就可能这样：这次连接一挥手完马上就结束了，没有timewait。这次连接中有个迷失在网络中的syn包，然后下次连接又马上开始，下个连接发送syn包，迷失的syn包忽然又到达了对面，所以对面可能同时收到或者不同时间收到请求连接的syn包，然后就出现问题了。
+1.3 TCP如何保证可靠  应用数据被分割成 TCP 认为最适合发送的数据块。 TCP 给发送的每一个包进行编号，接收方对数据包进行排序，把有序数据传送给应用层。 校验和：TCP 将保持它首部和数据的检验和。这是一个端到端的检验和，目的是检测数据在传输过程中的任何变化。如果收到段的检验和有差错，TCP 将丢弃这个报文段和不确认收到此报文段。 TCP 的接收端会丢弃重复的数据。 流量控制：TCP 连接的每一方都有固定大小的缓冲空间，TCP的接收端只允许发送端发送接收端缓冲区能接纳的数据。当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。TCP 使用的流量控制协议是可变大小的滑动窗口协议。 （TCP 利用滑动窗口实现流量控制） 拥塞控制：当网络拥塞时，减少数据的发送。 ARQ协议：也是为了实现可靠传输的，它的基本原理就是每发完一个分组就停止发送，等待对方确认。在收到确认后再发下一个分组。 超时重传：当 TCP 发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。  1.4 流量控制 滑动窗口
+1.5 拥塞控制 慢开始 拥塞避免 快重传与快恢复
+1.6 SYN DoS 解决办法: 1. SYN Cookie 精心构造SYN序号，通过ip/port四元组与秘密值等构造SYN序号，下次客户端发送ACK时校验下 2. SYN Cache 收到SYN包后，并不分配传输控制块，而是存起来，等正式建立再分配
+2.0 HTTP 2.1 1.0/1.1&amp;frasl;2.0区别 1.0/1.1 1. 缓存处理 1.0用if-modified-since/expires来判断 1.1引入更多策略，比如entity tag, if-unmodified-since, if-match, if-none-match等 提供更多的缓存头来控制缓存策略
+ 带宽优化及网络连接的使用 HTTP1.</description>
+    </item>
+    
+    <item>
+      <title>0226.invert-binary-tree</title>
+      <link>https://wncbb.github.io/posts/leetcode/0226.invert-binary-tree/</link>
+      <pubDate>Fri, 12 Mar 2021 23:18:03 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0226.invert-binary-tree/</guid>
+      <description>/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func invertTree(root *TreeNode) *TreeNode { if root==nil{ return nil } if root.Left==nil &amp;amp;&amp;amp; root.Right==nil{ return root } invertTree(root.Left) invertTree(root.Right) root.Left, root.Right=root.Right, root.Left return root }  </description>
+    </item>
+    
+    <item>
+      <title>0189.rotate-array</title>
+      <link>https://wncbb.github.io/posts/leetcode/0189.rotate-array/</link>
+      <pubDate>Fri, 12 Mar 2021 23:14:58 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0189.rotate-array/</guid>
+      <description>func reverse(a []int) { for i, n := 0, len(a); i &amp;lt; n/2; i++ { a[i], a[n-1-i] = a[n-1-i], a[i] } } func rotate(nums []int, k int) { k %= len(nums) reverse(nums) reverse(nums[:k]) reverse(nums[k:]) }  </description>
+    </item>
     
     <item>
       <title>0120.triangle</title>
@@ -934,7 +1024,7 @@ import ( &amp;quot;fmt&amp;quot; ) func main() { num1 := &amp;quot;11&amp;quot; 
       <pubDate>Tue, 09 Mar 2021 23:22:34 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0079.word-search/</guid>
-      <description>func exist(board [][]byte, word string) bool { for i:=0; i&amp;lt;len(board); i++{ for j:=0; j&amp;lt;len(board[0]); j++{ if findWord(board, i, j, word){ return true } } } return false } func findWord(board [][]byte, i, j int, word string)bool{ visited:=make([][]bool, 0, len(board)) for i:=0; i&amp;lt;len(board); i++{ visited=append(visited, make([]bool, len(board[0]), len(board[0]))) } dirs:=[][]int{ {0, 1}, {0, -1}, {1, 0}, {-1, 0}, } wordBytes:=[]byte(word) var inner func(i, j, k int)bool inner = func(i, j, k int)bool{ if wordBytes[k]!</description>
+      <description>func exist(board [][]byte, word string) bool { m:=len(board) n:=len(board[0]) visited:=make([][]bool, 0, m) for i:=0; i&amp;lt;m; i++{ visited=append(visited, make([]bool, n, n)) } dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} var findWord func(i, j, wordIdx int)bool findWord=func(i, j, wordIdx int)bool{ if word[wordIdx]!=board[i][j]{ return false } if wordIdx==len(word)-1{ return true } for _, dir:=range dirs{ newI:=i+dir[0] newJ:=j+dir[1] if newI&amp;lt;0 || newI&amp;gt;=m || newJ&amp;lt;0 || newJ&amp;gt;=n{ continue } if visited[newI][newJ]{ continue } visited[newI][newJ]=true if findWord(newI, newJ, wordIdx+1){ return true } visited[newI][newJ]=false } return false } for i:=0; i&amp;lt;len(board); i++{ for j:=0; j&amp;lt;len(board[0]); j++{ visited[i][j]=true if findWord(i, j, 0){ return true } visited[i][j]=false } } return false }  func exist(board [][]byte, word string) bool { for i:=0; i&amp;lt;len(board); i++{ for j:=0; j&amp;lt;len(board[0]); j++{ if findWord(board, i, j, word){ return true } } } return false } func findWord(board [][]byte, i, j int, word string)bool{ visited:=make([][]bool, 0, len(board)) for i:=0; i&amp;lt;len(board); i++{ visited=append(visited, make([]bool, len(board[0]), len(board[0]))) } dirs:=[][]int{ {0, 1}, {0, -1}, {1, 0}, {-1, 0}, } wordBytes:=[]byte(word) var inner func(i, j, k int)bool inner = func(i, j, k int)bool{ if wordBytes[k]!</description>
     </item>
     
     <item>

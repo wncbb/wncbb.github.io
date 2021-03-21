@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Kmp &middot; WNCBB&#39;s blog</title>
+  <title>List &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,66 +50,43 @@
 
     <main class="content container">
     <div class="post">
-  <h1>Kmp</h1>
-  <time datetime=2021-03-04T11:26:13&#43;0800 class="post-date">2021-03-04 11:26:13</time>
-  <pre><code class="language-go">package main
+  <h1>List</h1>
+  <time datetime=2021-03-20T22:16:19&#43;0800 class="post-date">2021-03-20 22:16:19</time>
+  
 
-import (
-	&quot;fmt&quot;
-)
+<h2 id="计算器">计算器</h2>
 
-func main() {
-	s := &quot;atoddasdfasdtodd&quot;
-	p := &quot;abab&quot;
-	rst := match(s, p)
-	fmt.Printf(&quot;rst: %+v\n&quot;, rst)
-}
+<h4 id="224-227-772">224 227 772</h4>
 
-func match(s, p string) []int {
-	nxt := build(p)
-	ret := make([]int, 0)
-	for i, j := 0, 0; i &lt; len(s); i++ {
-		for j &gt; 0 &amp;&amp; s[i] != p[j] {
-			j = nxt[j]
-		}
-		if s[i] == p[j] {
-			j++
-		}
-		if j == len(p) {
-			ret = append(ret, i-len(p)+1)
-			j = nxt[j]
-		}
-	}
-	return ret
-}
+<ol>
+<li>处理-1*2(-3+2)为0-1*2(0-3+2)</li>
+<li>逆波兰式</li>
+<li>计算逆波兰式</li>
+</ol>
 
-// build would build the next array
-// a b a b
-// 0 0 0 1 2
-// nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度
-// 比如nxt[3], p[:3]=&quot;aba&quot;,  前缀a，跟后缀a
-// 比如nxt[4], p[:4]=&quot;abab&quot;, 前缀ab，跟后缀ab
-func build(p string) []int {
-	ret := make([]int, 0, len(p))
-	ret = append(ret, 0)
-	ret = append(ret, 0)
+<h2 id="单调栈">单调栈</h2>
 
-	for i, j := 1, 0; i &lt; len(p); i++ {
-		for j &gt; 0 &amp;&amp; p[i] != p[j] {
-			j = ret[j]
-		}
-		if p[i] == p[j] {
-			j++
-		}
-		// 看的是[0:i]闭区间，也就是i+1位置之前的最长前后缀长度
-		ret = append(ret, j)
-	}
-	fmt.Printf(&quot;nxt: %+v\n&quot;, ret)
-	return ret
-}
+<h3 id="栈">栈</h3>
 
+<h4 id="1">1</h4>
 
-</code></pre>
+<ol>
+<li>去除重复字母（困难）</li>
+<li>拼接最大数（困难）</li>
+<li>移掉 K 位数字（中等）</li>
+<li>不同字符的最小子序列（中等）
+<a href="https://leetcode-cn.com/problems/create-maximum-number/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-7/">https://leetcode-cn.com/problems/create-maximum-number/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-7/</a></li>
+</ol>
+
+<h2 id="树">树</h2>
+
+<h3 id="dfs-bfs">DFS/BFS</h3>
+
+<p>129
+dfs: <a href="https://leetcode-cn.com/submissions/detail/157922761/">https://leetcode-cn.com/submissions/detail/157922761/</a>
+bfs: <a href="https://leetcode-cn.com/submissions/detail/157927965/">https://leetcode-cn.com/submissions/detail/157927965/</a></p>
+
+<h4 id="1063">1063</h4>
 
 </div>
 

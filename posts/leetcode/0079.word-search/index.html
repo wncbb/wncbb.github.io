@@ -53,6 +53,60 @@
   <h1>0079</h1>
   <time datetime=2021-03-09T23:22:34&#43;0800 class="post-date">2021-03-09 23:22:34</time>
   <pre><code class="language-go">func exist(board [][]byte, word string) bool {
+    m:=len(board)
+    n:=len(board[0])
+    visited:=make([][]bool, 0, m)
+    for i:=0; i&lt;m; i++{
+        visited=append(visited, make([]bool, n, n))
+    }
+
+    dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
+
+    var findWord func(i, j, wordIdx int)bool
+    findWord=func(i, j, wordIdx int)bool{
+        
+        if word[wordIdx]!=board[i][j]{
+            return false
+        }
+        if wordIdx==len(word)-1{
+            return true
+        }
+
+        for _, dir:=range dirs{
+            newI:=i+dir[0]
+            newJ:=j+dir[1]
+            if newI&lt;0 || newI&gt;=m || newJ&lt;0 || newJ&gt;=n{
+                continue
+            }
+            if visited[newI][newJ]{
+                continue
+            }
+            visited[newI][newJ]=true
+            if findWord(newI, newJ, wordIdx+1){
+                return true
+            }
+            visited[newI][newJ]=false
+        }
+        return false
+    }
+
+
+    for i:=0; i&lt;len(board); i++{
+        for j:=0; j&lt;len(board[0]); j++{
+            visited[i][j]=true
+            if findWord(i, j, 0){
+                return true
+            }
+            visited[i][j]=false
+        }
+    }
+    return false
+}
+
+
+</code></pre>
+
+<pre><code class="language-go">func exist(board [][]byte, word string) bool {
     for i:=0; i&lt;len(board); i++{
         for j:=0; j&lt;len(board[0]); j++{
             if findWord(board, i, j, word){
