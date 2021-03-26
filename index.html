@@ -53,10 +53,30 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0772.basic-calculator-iii/">0772.basic-calculator-iii</a>
+  </h1>
+  <time datetime="2021-03-26T14:23:16&#43;0800" class="post-date">2021-03-26 14:23:16</time>
+  1import( 2 &#34;strings&#34; 3) 4 5func calculate(s string) int { 6 s=normalS(s) 7 tokens:=genRPN(s) 8 return calRPN(tokens) 9} 10 11// 应对-1+(-2+3)这种情况，会转化为 0-1+(0-2+3) 12func normalS(s string)string{ 13 s=strings.ReplaceAll(s, &#34; &#34;, &#34;&#34;) 14 if s[0]==&#39;-&#39;{ 15 s=&#34;0&#34;+s 16 } 17 sBytes:=[]byte(s) 18 rst:=make([]byte, 0) 19 for i:=0; i&lt;len(s); i++{ 20 if i&gt;0 &amp;&amp; (sBytes[i]==&#39;-&#39; || sBytes[i]==&#39;+&#39;) &amp;&amp; sBytes[i-1]==&#39;(&#39;{ 21 rst=append(rst, &#39;0&#39;) 22 } 23 rst=append(rst, sBytes[i]) 24 } 25 return string(rst) 26} 27 28func calRPN(s []interface{})int{ 29 myStack:=make([]int, 0) 30 i:=0 31 for i&lt;len(s){ 32 if num, ok:=s[i].
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0772.basic-calculator-iii/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetocde/0772.caculate-iii/">0772</a>
+  </h1>
+  <time datetime="2021-03-26T14:22:30&#43;0800" class="post-date">2021-03-26 14:22:30</time>
+  
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/list/">List</a>
   </h1>
   <time datetime="2021-03-20T22:16:19&#43;0800" class="post-date">2021-03-20 22:16:19</time>
    计算器 224 227 772  处理-1*2(-3+2)为0-1*2(0-3+2) 逆波兰式 计算逆波兰式  单调栈 栈 1  去除重复字母（困难） 拼接最大数（困难） 移掉 K 位数字（中等） 不同字符的最小子序列（中等） https://leetcode-cn.com/problems/create-maximum-number/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-7/  树 DFS/BFS 129 dfs: https://leetcode-cn.com/submissions/detail/157922761/ bfs: https://leetcode-cn.com/submissions/detail/157927965/
+递归 https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/
+中序遍历 https://leetcode-cn.com/problems/recover-binary-search-tree/solution/san-chong-jie-fa-xiang-xi-tu-jie-99-hui-fu-er-cha-/
 1063 
   
 </article><article class="post">
@@ -1148,7 +1168,7 @@ func reverseBetween(head *ListNode, m, n int) *ListNode { dummy := &amp;ListNode
     <a href="https://wncbb.github.io/posts/algo/kmp/">Kmp</a>
   </h1>
   <time datetime="2021-03-04T11:26:13&#43;0800" class="post-date">2021-03-04 11:26:13</time>
-  package main import ( &quot;fmt&quot; ) func main() { s := &quot;atoddasdfasdtodd&quot; p := &quot;abab&quot; rst := match(s, p) fmt.Printf(&quot;rst: %+v\n&quot;, rst) } func match(s, p string) []int { nxt := build(p) ret := make([]int, 0) for i, j := 0, 0; i &lt; len(s); i++ { for j &gt; 0 &amp;&amp; s[i] != p[j] { j = nxt[j] } if s[i] == p[j] { j++ } if j == len(p) { ret = append(ret, i-len(p)+1) j = nxt[j] } } return ret } // build would build the next array // a b a b // 0 0 0 1 2 // nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度 // 比如nxt[3], p[:3]=&quot;aba&quot;, 前缀a，跟后缀a // 比如nxt[4], p[:4]=&quot;abab&quot;, 前缀ab，跟后缀ab func build(p string) []int { ret := make([]int, 0, len(p)) ret = append(ret, 0) ret = append(ret, 0) for i, j := 1, 0; i &lt; len(p); i++ { for j &gt; 0 &amp;&amp; p[i] !
+  package main import ( &quot;fmt&quot; ) func main() { s := &quot;atoddasdfasdtodd&quot; p := &quot;abab&quot; rst := match(s, p) fmt.Printf(&quot;rst: %+v\n&quot;, rst) } func match(s, p string) []int { nxt := build(p) ret := make([]int, 0) // j是p的索引，i是s的索引 for i, j := 0, 0; i &lt; len(s); i++ { for j &gt; 0 &amp;&amp; s[i] != p[j] { j = nxt[j] } if s[i] == p[j] { j++ } if j == len(p) { ret = append(ret, i-len(p)+1) j = nxt[j] } } return ret } // build would build the next array // a b a b // 0 0 0 1 2 // nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度 // 比如nxt[3], p[:3]=&quot;aba&quot;, 前缀a，跟后缀a // 比如nxt[4], p[:4]=&quot;abab&quot;, 前缀ab，跟后缀ab func build(p string) []int { ret := make([]int, 0, len(p)) ret = append(ret, 0) ret = append(ret, 0) for i, j := 1, 0; i &lt; len(p); i++ { for j &gt; 0 &amp;&amp; p[i] !
   
   <div class="read-more-link">
     <a href="/posts/algo/kmp/">Read More…</a>

@@ -68,6 +68,7 @@ func main() {
 func match(s, p string) []int {
 	nxt := build(p)
 	ret := make([]int, 0)
+	// j是p的索引，i是s的索引
 	for i, j := 0, 0; i &lt; len(s); i++ {
 		for j &gt; 0 &amp;&amp; s[i] != p[j] {
 			j = nxt[j]

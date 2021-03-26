@@ -6,10 +6,28 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Mar 2021 22:16:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Mar 2021 14:23:16 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0772.basic-calculator-iii</title>
+      <link>https://wncbb.github.io/posts/leetcode/0772.basic-calculator-iii/</link>
+      <pubDate>Fri, 26 Mar 2021 14:23:16 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0772.basic-calculator-iii/</guid>
+      <description>1import( 2 &amp;#34;strings&amp;#34; 3) 4 5func calculate(s string) int { 6 s=normalS(s) 7 tokens:=genRPN(s) 8 return calRPN(tokens) 9} 10 11// 应对-1+(-2+3)这种情况，会转化为 0-1+(0-2+3) 12func normalS(s string)string{ 13 s=strings.ReplaceAll(s, &amp;#34; &amp;#34;, &amp;#34;&amp;#34;) 14 if s[0]==&amp;#39;-&amp;#39;{ 15 s=&amp;#34;0&amp;#34;+s 16 } 17 sBytes:=[]byte(s) 18 rst:=make([]byte, 0) 19 for i:=0; i&amp;lt;len(s); i++{ 20 if i&amp;gt;0 &amp;amp;&amp;amp; (sBytes[i]==&amp;#39;-&amp;#39; || sBytes[i]==&amp;#39;+&amp;#39;) &amp;amp;&amp;amp; sBytes[i-1]==&amp;#39;(&amp;#39;{ 21 rst=append(rst, &amp;#39;0&amp;#39;) 22 } 23 rst=append(rst, sBytes[i]) 24 } 25 return string(rst) 26} 27 28func calRPN(s []interface{})int{ 29 myStack:=make([]int, 0) 30 i:=0 31 for i&amp;lt;len(s){ 32 if num, ok:=s[i].</description>
+    </item>
+    
+    <item>
+      <title>0772</title>
+      <link>https://wncbb.github.io/posts/leetocde/0772.caculate-iii/</link>
+      <pubDate>Fri, 26 Mar 2021 14:22:30 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetocde/0772.caculate-iii/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>List</title>
@@ -18,6 +36,8 @@
       
       <guid>https://wncbb.github.io/posts/leetcode/list/</guid>
       <description> 计算器 224 227 772  处理-1*2(-3+2)为0-1*2(0-3+2) 逆波兰式 计算逆波兰式  单调栈 栈 1  去除重复字母（困难） 拼接最大数（困难） 移掉 K 位数字（中等） 不同字符的最小子序列（中等） https://leetcode-cn.com/problems/create-maximum-number/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-7/  树 DFS/BFS 129 dfs: https://leetcode-cn.com/submissions/detail/157922761/ bfs: https://leetcode-cn.com/submissions/detail/157927965/
+递归 https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/
+中序遍历 https://leetcode-cn.com/problems/recover-binary-search-tree/solution/san-chong-jie-fa-xiang-xi-tu-jie-99-hui-fu-er-cha-/
 1063 </description>
     </item>
     
@@ -1189,7 +1209,7 @@ func reverseBetween(head *ListNode, m, n int) *ListNode { dummy := &amp;amp;List
       <pubDate>Thu, 04 Mar 2021 11:26:13 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/kmp/</guid>
-      <description>package main import ( &amp;quot;fmt&amp;quot; ) func main() { s := &amp;quot;atoddasdfasdtodd&amp;quot; p := &amp;quot;abab&amp;quot; rst := match(s, p) fmt.Printf(&amp;quot;rst: %+v\n&amp;quot;, rst) } func match(s, p string) []int { nxt := build(p) ret := make([]int, 0) for i, j := 0, 0; i &amp;lt; len(s); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; s[i] != p[j] { j = nxt[j] } if s[i] == p[j] { j++ } if j == len(p) { ret = append(ret, i-len(p)+1) j = nxt[j] } } return ret } // build would build the next array // a b a b // 0 0 0 1 2 // nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度 // 比如nxt[3], p[:3]=&amp;quot;aba&amp;quot;, 前缀a，跟后缀a // 比如nxt[4], p[:4]=&amp;quot;abab&amp;quot;, 前缀ab，跟后缀ab func build(p string) []int { ret := make([]int, 0, len(p)) ret = append(ret, 0) ret = append(ret, 0) for i, j := 1, 0; i &amp;lt; len(p); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; p[i] !</description>
+      <description>package main import ( &amp;quot;fmt&amp;quot; ) func main() { s := &amp;quot;atoddasdfasdtodd&amp;quot; p := &amp;quot;abab&amp;quot; rst := match(s, p) fmt.Printf(&amp;quot;rst: %+v\n&amp;quot;, rst) } func match(s, p string) []int { nxt := build(p) ret := make([]int, 0) // j是p的索引，i是s的索引 for i, j := 0, 0; i &amp;lt; len(s); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; s[i] != p[j] { j = nxt[j] } if s[i] == p[j] { j++ } if j == len(p) { ret = append(ret, i-len(p)+1) j = nxt[j] } } return ret } // build would build the next array // a b a b // 0 0 0 1 2 // nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度 // 比如nxt[3], p[:3]=&amp;quot;aba&amp;quot;, 前缀a，跟后缀a // 比如nxt[4], p[:4]=&amp;quot;abab&amp;quot;, 前缀ab，跟后缀ab func build(p string) []int { ret := make([]int, 0, len(p)) ret = append(ret, 0) ret = append(ret, 0) for i, j := 1, 0; i &amp;lt; len(p); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; p[i] !</description>
     </item>
     
     <item>

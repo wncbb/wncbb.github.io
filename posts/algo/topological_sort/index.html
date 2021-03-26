@@ -71,7 +71,7 @@ func scheduleTask(tasks []*Task)int{
 	taskID2Indegree:=make(map[string]int)
 	for _, curTask:=range tasks{
     
-    if _, ok:=taskID2Indegree[curTask.ID]; !ok{
+        if _, ok:=taskID2Indegree[curTask.ID]; !ok{
 			taskID2Indegree[curTask.ID]=0
 		}
     
