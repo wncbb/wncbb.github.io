@@ -56,7 +56,7 @@
     <a href="https://wncbb.github.io/posts/leetcode/0772.basic-calculator-iii/">0772.basic-calculator-iii</a>
   </h1>
   <time datetime="2021-03-26T14:23:16&#43;0800" class="post-date">2021-03-26 14:23:16</time>
-  1import( 2 &#34;strings&#34; 3) 4 5func calculate(s string) int { 6 s=normalS(s) 7 tokens:=genRPN(s) 8 return calRPN(tokens) 9} 10 11// 应对-1+(-2+3)这种情况，会转化为 0-1+(0-2+3) 12func normalS(s string)string{ 13 s=strings.ReplaceAll(s, &#34; &#34;, &#34;&#34;) 14 if s[0]==&#39;-&#39;{ 15 s=&#34;0&#34;+s 16 } 17 sBytes:=[]byte(s) 18 rst:=make([]byte, 0) 19 for i:=0; i&lt;len(s); i++{ 20 if i&gt;0 &amp;&amp; (sBytes[i]==&#39;-&#39; || sBytes[i]==&#39;+&#39;) &amp;&amp; sBytes[i-1]==&#39;(&#39;{ 21 rst=append(rst, &#39;0&#39;) 22 } 23 rst=append(rst, sBytes[i]) 24 } 25 return string(rst) 26} 27 28func calRPN(s []interface{})int{ 29 myStack:=make([]int, 0) 30 i:=0 31 for i&lt;len(s){ 32 if num, ok:=s[i].
+  能够解决 224， 227， 772  1import( 2 &#34;strings&#34; 3) 4 5func calculate(s string) int { 6 s=normalS(s) 7 tokens:=genRPN(s) 8 return calRPN(tokens) 9} 10 11// 应对-1+(-2+3)这种情况，会转化为 0-1+(0-2+3) 12func normalS(s string)string{ 13 s=strings.ReplaceAll(s, &#34; &#34;, &#34;&#34;) 14 if s[0]==&#39;-&#39;{ 15 s=&#34;0&#34;+s 16 } 17 sBytes:=[]byte(s) 18 rst:=make([]byte, 0) 19 for i:=0; i&lt;len(s); i++{ 20 if i&gt;0 &amp;&amp; (sBytes[i]==&#39;-&#39; || sBytes[i]==&#39;+&#39;) &amp;&amp; sBytes[i-1]==&#39;(&#39;{ 21 rst=append(rst, &#39;0&#39;) 22 } 23 rst=append(rst, sBytes[i]) 24 } 25 return string(rst) 26} 27 28func calRPN(s []interface{})int{ 29 myStack:=make([]int, 0) 30 i:=0 31 for i&lt;len(s){ 32 if num, ok:=s[i].
   
   <div class="read-more-link">
     <a href="/posts/leetcode/0772.basic-calculator-iii/">Read More…</a>
