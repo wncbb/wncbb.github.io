@@ -53,6 +53,17 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://wncbb.github.io/posts/leetcode/0127.word-ladder/">0127.word-ladder</a>
+  </h1>
+  <time datetime="2021-03-27T15:49:45&#43;0800" class="post-date">2021-03-27 15:49:45</time>
+  func ladderLength(beginWord string, endWord string, wordList []string) int { wordId := map[string]int{} graph := [][]int{} addWord := func(word string) int { id, has := wordId[word] if !has { id = len(wordId) wordId[word] = id graph = append(graph, []int{}) } return id } addEdge := func(word string) int { id1 := addWord(word) s := []byte(word) for i, b := range s { s[i] = '*' id2 := addWord(string(s)) graph[id1] = append(graph[id1], id2) graph[id2] = append(graph[id2], id1) s[i] = b } return id1 } for _, word := range wordList { addEdge(word) } beginId := addEdge(beginWord) endId, has := wordId[endWord] if !
+  
+  <div class="read-more-link">
+    <a href="/posts/leetcode/0127.word-ladder/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://wncbb.github.io/posts/leetcode/0772.basic-calculator-iii/">0772.basic-calculator-iii</a>
   </h1>
   <time datetime="2021-03-26T14:23:16&#43;0800" class="post-date">2021-03-26 14:23:16</time>

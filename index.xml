@@ -6,10 +6,19 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Mar 2021 14:23:16 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 27 Mar 2021 15:49:45 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0127.word-ladder</title>
+      <link>https://wncbb.github.io/posts/leetcode/0127.word-ladder/</link>
+      <pubDate>Sat, 27 Mar 2021 15:49:45 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0127.word-ladder/</guid>
+      <description>func ladderLength(beginWord string, endWord string, wordList []string) int { wordId := map[string]int{} graph := [][]int{} addWord := func(word string) int { id, has := wordId[word] if !has { id = len(wordId) wordId[word] = id graph = append(graph, []int{}) } return id } addEdge := func(word string) int { id1 := addWord(word) s := []byte(word) for i, b := range s { s[i] = &#39;*&#39; id2 := addWord(string(s)) graph[id1] = append(graph[id1], id2) graph[id2] = append(graph[id2], id1) s[i] = b } return id1 } for _, word := range wordList { addEdge(word) } beginId := addEdge(beginWord) endId, has := wordId[endWord] if !</description>
+    </item>
     
     <item>
       <title>0772.basic-calculator-iii</title>
