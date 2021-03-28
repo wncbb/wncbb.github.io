@@ -6,10 +6,20 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Mar 2021 15:49:45 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Mar 2021 17:18:28 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0173.binary-search-tree-iterator</title>
+      <link>https://wncbb.github.io/posts/leetcode/0173.binary-search-tree-iterator/</link>
+      <pubDate>Sun, 28 Mar 2021 17:18:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0173.binary-search-tree-iterator/</guid>
+      <description>morris中序遍历
+/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ type BSTIterator struct { cur *TreeNode } func Constructor(root *TreeNode) BSTIterator { return BSTIterator{ cur: root, } } func (this *BSTIterator) Next() int { var prev *TreeNode var ret int for this.cur!=nil{ if this.cur.Left==nil{ // 中序遍历顺序是左中右，如果左边没有元素了 // 那么就轮到visit自己，然后cur就到了cur.Right ret=this.cur.Val this.cur=this.cur.Right return ret }else{ // 如果左子树不为空，需要找当前节点的前驱节点，也就是左子树中最大的那个数，在cur的左子树的最右边 prev=this.</description>
+    </item>
     
     <item>
       <title>0127.word-ladder</title>

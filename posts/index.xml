@@ -6,10 +6,20 @@
     <description>Recent content in Posts on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Mar 2021 15:49:45 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Mar 2021 17:18:28 +0800</lastBuildDate>
     
 	<atom:link href="https://wncbb.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>0173.binary-search-tree-iterator</title>
+      <link>https://wncbb.github.io/posts/leetcode/0173.binary-search-tree-iterator/</link>
+      <pubDate>Sun, 28 Mar 2021 17:18:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0173.binary-search-tree-iterator/</guid>
+      <description>morris中序遍历
+/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ type BSTIterator struct { cur *TreeNode } func Constructor(root *TreeNode) BSTIterator { return BSTIterator{ cur: root, } } func (this *BSTIterator) Next() int { var prev *TreeNode var ret int for this.cur!=nil{ if this.cur.Left==nil{ // 中序遍历顺序是左中右，如果左边没有元素了 // 那么就轮到visit自己，然后cur就到了cur.Right ret=this.cur.Val this.cur=this.cur.Right return ret }else{ // 如果左子树不为空，需要找当前节点的前驱节点，也就是左子树中最大的那个数，在cur的左子树的最右边 prev=this.</description>
+    </item>
     
     <item>
       <title>0127.word-ladder</title>
@@ -27,15 +37,6 @@
       
       <guid>https://wncbb.github.io/posts/leetcode/0772.basic-calculator-iii/</guid>
       <description>能够解决 224， 227， 772  1import( 2 &amp;#34;strings&amp;#34; 3) 4 5func calculate(s string) int { 6 s=normalS(s) 7 tokens:=genRPN(s) 8 return calRPN(tokens) 9} 10 11// 应对-1+(-2+3)这种情况，会转化为 0-1+(0-2+3) 12func normalS(s string)string{ 13 s=strings.ReplaceAll(s, &amp;#34; &amp;#34;, &amp;#34;&amp;#34;) 14 if s[0]==&amp;#39;-&amp;#39;{ 15 s=&amp;#34;0&amp;#34;+s 16 } 17 sBytes:=[]byte(s) 18 rst:=make([]byte, 0) 19 for i:=0; i&amp;lt;len(s); i++{ 20 if i&amp;gt;0 &amp;amp;&amp;amp; (sBytes[i]==&amp;#39;-&amp;#39; || sBytes[i]==&amp;#39;+&amp;#39;) &amp;amp;&amp;amp; sBytes[i-1]==&amp;#39;(&amp;#39;{ 21 rst=append(rst, &amp;#39;0&amp;#39;) 22 } 23 rst=append(rst, sBytes[i]) 24 } 25 return string(rst) 26} 27 28func calRPN(s []interface{})int{ 29 myStack:=make([]int, 0) 30 i:=0 31 for i&amp;lt;len(s){ 32 if num, ok:=s[i].</description>
-    </item>
-    
-    <item>
-      <title>0772</title>
-      <link>https://wncbb.github.io/posts/leetocde/0772.caculate-iii/</link>
-      <pubDate>Fri, 26 Mar 2021 14:22:30 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/posts/leetocde/0772.caculate-iii/</guid>
-      <description></description>
     </item>
     
     <item>
