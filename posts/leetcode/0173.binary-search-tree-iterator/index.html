@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,78 +53,76 @@
   <h1>0173.binary-search-tree-iterator</h1>
   <time datetime=2021-03-28T17:18:28&#43;0800 class="post-date">2021-03-28 17:18:28</time>
   <p>morris中序遍历</p>
-
-<pre><code class="language-go">/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-type BSTIterator struct {
-    cur *TreeNode
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for a binary tree node.
+</span><span style="color:#75715e"> * type TreeNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Left *TreeNode
+</span><span style="color:#75715e"> *     Right *TreeNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BSTIterator</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">cur</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>
 }
 
 
-func Constructor(root *TreeNode) BSTIterator {
-    return BSTIterator{
-        cur: root,
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Constructor</span>(<span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#a6e22e">BSTIterator</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">BSTIterator</span>{
+        <span style="color:#a6e22e">cur</span>: <span style="color:#a6e22e">root</span>,
     }
 }
 
 
-func (this *BSTIterator) Next() int {
-    var prev *TreeNode
-    var ret int
-    for this.cur!=nil{
-        if this.cur.Left==nil{
-            // 中序遍历顺序是左中右，如果左边没有元素了
-            // 那么就轮到visit自己，然后cur就到了cur.Right
-            ret=this.cur.Val
-            this.cur=this.cur.Right
-            return ret
-        }else{
-            // 如果左子树不为空，需要找当前节点的前驱节点，也就是左子树中最大的那个数，在cur的左子树的最右边
-            prev=this.cur.Left
-            // 因为前驱节点的right可能会指向cur，所以要求prev.Right!=nil， 缺prev.Right!=cur
-            for prev.Right!=nil &amp;&amp; prev.Right!=this.cur{
-                prev=prev.Right
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BSTIterator</span>) <span style="color:#a6e22e">Next</span>() <span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">prev</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ret</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Left</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+            <span style="color:#75715e">// 中序遍历顺序是左中右，如果左边没有元素了
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 那么就轮到visit自己，然后cur就到了cur.Right
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">ret</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Val</span>
+            <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Right</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#75715e">// 如果左子树不为空，需要找当前节点的前驱节点，也就是左子树中最大的那个数，在cur的左子树的最右边
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">prev</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Left</span>
+            <span style="color:#75715e">// 因为前驱节点的right可能会指向cur，所以要求prev.Right!=nil， 缺prev.Right!=cur
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">prev</span>.<span style="color:#a6e22e">Right</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">prev</span>.<span style="color:#a6e22e">Right</span><span style="color:#f92672">!=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>{
+                <span style="color:#a6e22e">prev</span>=<span style="color:#a6e22e">prev</span>.<span style="color:#a6e22e">Right</span>
             }
-            if prev.Right==nil{
-                // 如果右子树为空，说明还没访问到cur的前驱节点，肯定不能访问cur，
-                // cur的前驱结点的right指向cur
-                prev.Right=this.cur
-                // 然后cur=cur.Left
-                this.cur=this.cur.Left
-            }else{
-                // 如果右子树等于cur，说明prev已经访问过了，所以需要visit cur
-                ret=this.cur.Val
-                // 恢复前驱结点的right为nil
-                prev.Right=nil
-                // 访问完cur，下一个是cur的right
-                this.cur=this.cur.Right
-                return ret
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">prev</span>.<span style="color:#a6e22e">Right</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+                <span style="color:#75715e">// 如果右子树为空，说明还没访问到cur的前驱节点，肯定不能访问cur，
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// cur的前驱结点的right指向cur
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">prev</span>.<span style="color:#a6e22e">Right</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>
+                <span style="color:#75715e">// 然后cur=cur.Left
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Left</span>
+            }<span style="color:#66d9ef">else</span>{
+                <span style="color:#75715e">// 如果右子树等于cur，说明prev已经访问过了，所以需要visit cur
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">ret</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Val</span>
+                <span style="color:#75715e">// 恢复前驱结点的right为nil
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">prev</span>.<span style="color:#a6e22e">Right</span>=<span style="color:#66d9ef">nil</span>
+                <span style="color:#75715e">// 访问完cur，下一个是cur的right
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Right</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
             }
         }
     }
-    return -1
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 }
 
 
-func (this *BSTIterator) HasNext() bool {
-    return this.cur!=nil
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BSTIterator</span>) <span style="color:#a6e22e">HasNext</span>() <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">cur</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>
 }
 
 
-/**
- * Your BSTIterator object will be instantiated and called as such:
- * obj := Constructor(root);
- * param_1 := obj.Next();
- * param_2 := obj.HasNext();
- */
-</code></pre>
-
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Your BSTIterator object will be instantiated and called as such:
+</span><span style="color:#75715e"> * obj := Constructor(root);
+</span><span style="color:#75715e"> * param_1 := obj.Next();
+</span><span style="color:#75715e"> * param_2 := obj.HasNext();
+</span><span style="color:#75715e"> */</span>
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

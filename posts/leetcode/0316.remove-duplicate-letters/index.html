@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,66 +53,64 @@
   <h1>0316</h1>
   <time datetime=2021-03-06T15:57:34&#43;0800 class="post-date">2021-03-06 15:57:34</time>
   <p>as same as 1081</p>
-
-<pre><code class="language-go">func removeDuplicateLetters(s string) string {
-    if len(s)&lt;=1{
-        return s
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">removeDuplicateLetters</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">1</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>
     }
-    sBytes:=[]byte(s)
-    // 判断字符是否在栈中
-    inStack:=make([]bool, 256)
-    // 判断当前剩下的字符中，每个字符还剩多少个
-    bytesNum:=make([]int, 256)
-    for _, v:=range sBytes{
-        bytesNum[v]++
+    <span style="color:#a6e22e">sBytes</span><span style="color:#f92672">:=</span>[]byte(<span style="color:#a6e22e">s</span>)
+    <span style="color:#75715e">// 判断字符是否在栈中
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">inStack</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">bool</span>, <span style="color:#ae81ff">256</span>)
+    <span style="color:#75715e">// 判断当前剩下的字符中，每个字符还剩多少个
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">bytesNum</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">256</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sBytes</span>{
+        <span style="color:#a6e22e">bytesNum</span>[<span style="color:#a6e22e">v</span>]<span style="color:#f92672">++</span>
     }
-    //  变量名不要跟参数重复
-    stack:=&amp;Stack{
-        raw: make([]byte, 0),
+    <span style="color:#75715e">//  变量名不要跟参数重复
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">stack</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">Stack</span>{
+        <span style="color:#a6e22e">raw</span>: make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">0</span>),
     }
-    for _, v:=range sBytes{
-        // 只要遍历到，剩下的v的个数就要--
-        bytesNum[v]--
-        // 已经在栈中了，就不管了
-        if inStack[v]{
-            continue
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sBytes</span>{
+        <span style="color:#75715e">// 只要遍历到，剩下的v的个数就要--
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">bytesNum</span>[<span style="color:#a6e22e">v</span>]<span style="color:#f92672">--</span>
+        <span style="color:#75715e">// 已经在栈中了，就不管了
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">inStack</span>[<span style="color:#a6e22e">v</span>]{
+            <span style="color:#66d9ef">continue</span>
         }
-        // 如果栈顶元素t比当前v大，且后面还有栈顶元素t，那与其tv, 还不如vt, 后者字典序更小，因此直接pop出t
-        for stack.Len()&gt;0 &amp;&amp; stack.Top()&gt;v &amp;&amp; bytesNum[stack.Top()]&gt;0{
-            //fmt.Printf(&quot;pop: %c\n&quot;, stack.Top())
-            inStack[stack.Pop()]=false
+        <span style="color:#75715e">// 如果栈顶元素t比当前v大，且后面还有栈顶元素t，那与其tv, 还不如vt, 后者字典序更小，因此直接pop出t
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Len</span>()&gt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Top</span>()&gt;<span style="color:#a6e22e">v</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">bytesNum</span>[<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Top</span>()]&gt;<span style="color:#ae81ff">0</span>{
+            <span style="color:#75715e">//fmt.Printf(&#34;pop: %c\n&#34;, stack.Top())
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">inStack</span>[<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Pop</span>()]=<span style="color:#66d9ef">false</span>
         }
-        stack.Push(v)
-        // fmt.Printf(&quot;stack: %s\n&quot;, string(stack.raw))
-        inStack[v]=true
+        <span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">v</span>)
+        <span style="color:#75715e">// fmt.Printf(&#34;stack: %s\n&#34;, string(stack.raw))
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">inStack</span>[<span style="color:#a6e22e">v</span>]=<span style="color:#66d9ef">true</span>
     }
 
-    return string(stack.raw)
+    <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">raw</span>)
 }
 
 
 
-type Stack struct{
-    raw []byte
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stack</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">raw</span> []<span style="color:#66d9ef">byte</span>
 }
 
-func(s *Stack)Top()byte{
-    return s.raw[len(s.raw)-1]
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Top</span>()<span style="color:#66d9ef">byte</span>{
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>[len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 }
 
-func(s *Stack)Len()int{
-    return len(s.raw)
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Len</span>()<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)
 }
-func(s *Stack)Push(v byte){
-    s.raw=append(s.raw, v)
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">byte</span>){
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>=append(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>, <span style="color:#a6e22e">v</span>)
 }
-func(s *Stack)Pop()byte{
-    ret:=s.raw[len(s.raw)-1]
-    s.raw=s.raw[:len(s.raw)-1]
-    return ret
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Pop</span>()<span style="color:#66d9ef">byte</span>{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>[len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>=<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>[:len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

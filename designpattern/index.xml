@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DesignPatterns on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/designpattern/</link>
+    <description>Recent content in DesignPatterns on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 19 Aug 2021 16:31:13 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/designpattern/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SOLID</title>
+      <link>https://wncbb.github.io/designpattern/solid/</link>
+      <pubDate>Thu, 19 Aug 2021 16:31:13 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/designpattern/solid/</guid>
+      <description>Single-responsibility principle  Every class should have only one responsibility.
+ Open-closed principle  Be open for extension, but closed for modification.
+ Liskov substitution principle  Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.
+ Interface segregation principle  Many client-specific interfaces are better than one general-purpose interface.
+ Dependency inversion principle  Depend upon abstractions, not concretions.</description>
+    </item>
+    
+  </channel>
+</rss>

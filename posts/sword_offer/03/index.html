@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,22 +52,21 @@
     <div class="post">
   <h1>03</h1>
   <time datetime=2021-03-10T21:00:34&#43;0800 class="post-date">2021-03-10 21:00:34</time>
-  <pre><code class="language-go">func findRepeatNumber(nums []int) int {
-    for idx:=0; idx&lt;len(nums); idx++{
-        // 正常排序后，应该是nums[i]=i, 如果不成立，就交换  i与nums[i]位置的数据，如果这俩数据相等，就可以返回
-        if idx!=nums[idx]{
-            i:=idx
-            j:=nums[idx]
-            if nums[i]==nums[j]{
-                return nums[i]
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findRepeatNumber</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">idx</span>&lt;len(<span style="color:#a6e22e">nums</span>); <span style="color:#a6e22e">idx</span><span style="color:#f92672">++</span>{
+        <span style="color:#75715e">// 正常排序后，应该是nums[i]=i, 如果不成立，就交换  i与nums[i]位置的数据，如果这俩数据相等，就可以返回
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">idx</span><span style="color:#f92672">!=</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">idx</span>]{
+            <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">idx</span>
+            <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">idx</span>]
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">j</span>]{
+                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
             }
-            nums[i], nums[j]=nums[j], nums[i]
+            <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
         }
     }
-    return -1
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,47 +52,46 @@
     <div class="post">
   <h1>0215</h1>
   <time datetime=2021-03-01T20:00:04&#43;0800 class="post-date">2021-03-01 20:00:04</time>
-  <pre><code class="language-go">func findKthLargest(nums []int, k int) int {
-	// kth内部从0开始算，第0大的数
-    return kth(nums, 0, len(nums)-1, k-1)
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findKthLargest</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#75715e">// kth内部从0开始算，第0大的数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">kth</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 }
 
-func kth(s []int, left, right, k int) int {
-	if left &lt;= right {
-		// 这里的m一定是s里的元素的索引
-		m := partition(s, left, right)
-		if m == k {
-			return s[m]
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">kth</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">right</span> {
+		<span style="color:#75715e">// 这里的m一定是s里的元素的索引
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">partition</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">k</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">m</span>]
 		}
-		if m &lt; k {
-			// 最后一个参数k
-			return kth(s, m+1, right, k)
-		} else {
-            // 最后一个参数k
-			return kth(s, left, m-1, k)
-		}
-	}
-	return -1
-
-}
-
-func partition(s []int, left, right int) int {
-	i := left - 1
-	j := left
-	pivot := s[right]
-	for ; j &lt; right; j++ {
-		if s[j] &gt; pivot {
-			i = i + 1
-			s[i], s[j] = s[j], s[i]
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span> &lt; <span style="color:#a6e22e">k</span> {
+			<span style="color:#75715e">// 最后一个参数k
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">kth</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">m</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">k</span>)
+		} <span style="color:#66d9ef">else</span> {
+            <span style="color:#75715e">// 最后一个参数k
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">kth</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">m</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">k</span>)
 		}
 	}
-	i = i + 1
-	s[i], s[j] = s[j], s[i]
-	return i
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+
 }
 
-</code></pre>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">partition</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">left</span>
+	<span style="color:#a6e22e">pivot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">right</span>]
+	<span style="color:#66d9ef">for</span> ; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">right</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>] &gt; <span style="color:#a6e22e">pivot</span> {
+			<span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+			<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>]
+		}
+	}
+	<span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">i</span>
+}
 
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

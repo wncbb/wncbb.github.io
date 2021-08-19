@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>dp on WNCBB&#39;s blog</title>
@@ -6,18 +6,14 @@
     <description>Recent content in dp on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Mar 2021 22:30:31 +0800</lastBuildDate>
-    
-	<atom:link href="https://wncbb.github.io/categories/dp/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 06 Mar 2021 22:30:31 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/dp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>0005</title>
       <link>https://wncbb.github.io/posts/leetcode/0005.longest-palindromic-substring/</link>
       <pubDate>Sat, 06 Mar 2021 22:30:31 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0005.longest-palindromic-substring/</guid>
-      <description>func longestPalindrome(s string) string { start:=0 end:=0 sBytes:=[]byte(s) dp:=make([][]bool, 0, len(sBytes)) for i:=0; i&amp;lt;len(sBytes); i++{ dp=append(dp, make([]bool, len(sBytes), len(sBytes))) } for l:=0; l&amp;lt;len(sBytes); l++{ for i:=0; i+l&amp;lt;len(sBytes); i++{ j:=i+l if l==0{ dp[i][j]=true }else if l==1{ if sBytes[i]==sBytes[j]{ dp[i][j]=true } }else{ if sBytes[i]==sBytes[j]{ dp[i][j]=dp[i+1][j-1] } } if dp[i][j] &amp;amp;&amp;amp; end-start&amp;lt;j-i{ end=j start=i } } } return string(sBytes[start:end+1]) }  </description>
+      <description>func longestPalindrome(s string) string { start:=0 end:=0 sBytes:=[]byte(s) dp:=make([][]bool, 0, len(sBytes)) for i:=0; i&amp;lt;len(sBytes); i++{ dp=append(dp, make([]bool, len(sBytes), len(sBytes))) } for l:=0; l&amp;lt;len(sBytes); l++{ for i:=0; i+l&amp;lt;len(sBytes); i++{ j:=i+l if l==0{ dp[i][j]=true }else if l==1{ if sBytes[i]==sBytes[j]{ dp[i][j]=true } }else{ if sBytes[i]==sBytes[j]{ dp[i][j]=dp[i+1][j-1] } } if dp[i][j] &amp;amp;&amp;amp; end-start&amp;lt;j-i{ end=j start=i } } } return string(sBytes[start:end+1]) } </description>
     </item>
     
     <item>
@@ -26,7 +22,7 @@
       <pubDate>Sun, 28 Feb 2021 22:11:58 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0121.best-time-to-buy-and-sell-stock/</guid>
-      <description>func maxProfit(prices []int) int { if len(prices)==0{ return 0 } minPrice:=0 maxProfit:=0 minPrice=prices[0] for _, v:=range prices{ if minPrice&amp;gt;v{ minPrice=v }else if maxProfit&amp;lt; v-minPrice{ maxProfit=v-minPrice } } return maxProfit }  </description>
+      <description>func maxProfit(prices []int) int { if len(prices)==0{ return 0 } minPrice:=0 maxProfit:=0 minPrice=prices[0] for _, v:=range prices{ if minPrice&amp;gt;v{ minPrice=v }else if maxProfit&amp;lt; v-minPrice{ maxProfit=v-minPrice } } return maxProfit } </description>
     </item>
     
     <item>
@@ -35,7 +31,7 @@
       <pubDate>Sun, 28 Feb 2021 21:55:34 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0122.best-time-to-buy-and-sell-stock-ii/</guid>
-      <description>// dp[i][0]表示第i天结束后，不持有股票的最大收益 // dp[i][1]表示第i天结束后，持有股票的最大收益 func maxProfit(prices []int) int { n := len(prices) dp := make([][2]int, n) dp[0][1] = -prices[0] for i := 1; i &amp;lt; n; i++ { // 第i天结束后不持有股票，有两种可能： // 1. 昨天就不持有股票 // 2. 昨天持有股票，今天卖掉了 dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i]) // 第i天结束后持有股票，有两种可能： // 1. 昨天就持有股票 // 2. 昨天不持有股票，今天又买进了 dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i]) } return dp[n-1][0] } func max(a, b int) int { if a &amp;gt; b { return a } return b }  </description>
+      <description>// dp[i][0]表示第i天结束后，不持有股票的最大收益 // dp[i][1]表示第i天结束后，持有股票的最大收益 func maxProfit(prices []int) int { n := len(prices) dp := make([][2]int, n) dp[0][1] = -prices[0] for i := 1; i &amp;lt; n; i++ { // 第i天结束后不持有股票，有两种可能：  // 1. 昨天就不持有股票  // 2. 昨天持有股票，今天卖掉了  dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i]) // 第i天结束后持有股票，有两种可能：  // 1. 昨天就持有股票  // 2. 昨天不持有股票，今天又买进了  dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i]) } return dp[n-1][0] } func max(a, b int) int { if a &amp;gt; b { return a } return b } </description>
     </item>
     
   </channel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>skiplist on WNCBB&#39;s blog</title>
@@ -6,11 +6,7 @@
     <description>Recent content in skiplist on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2020 16:37:20 +0800</lastBuildDate>
-    
-	<atom:link href="https://wncbb.github.io/categories/skiplist/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 30 Dec 2020 16:37:20 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/skiplist/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1206.design-skiplist</title>
       <link>https://wncbb.github.io/posts/leetcode/1206.design-skiplist/</link>

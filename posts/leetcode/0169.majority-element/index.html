@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,28 +52,27 @@
     <div class="post">
   <h1>0169.majority-element</h1>
   <time datetime=2021-03-11T17:41:51&#43;0800 class="post-date">2021-03-11 17:41:51</time>
-  <pre><code class="language-go">// Boyer-Moore 投票算法
-func majorityElement(nums []int) int {
-    count:=0
-    candidate:=0
-    for _, v:=range nums{
-        fmt.Printf(&quot;BEFORE: v:%d count:%d candidate:%d\n&quot;, v, count, candidate)
-        if count==0{
-            candidate=v
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Boyer-Moore 投票算法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">majorityElement</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">count</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">candidate</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span>{
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;BEFORE: v:%d count:%d candidate:%d\n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">candidate</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+            <span style="color:#a6e22e">candidate</span>=<span style="color:#a6e22e">v</span>
         }
-        if v==candidate{
-            count++
-        }else{
-            count--
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">==</span><span style="color:#a6e22e">candidate</span>{
+            <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#a6e22e">count</span><span style="color:#f92672">--</span>
         }
-        fmt.Printf(&quot;AFTER: v:%d count:%d candidate:%d\n&quot;, v, count, candidate)
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;AFTER: v:%d count:%d candidate:%d\n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">candidate</span>)
 
     }
-    return candidate
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">candidate</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

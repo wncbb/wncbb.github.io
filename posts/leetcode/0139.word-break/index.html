@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,27 +52,26 @@
     <div class="post">
   <h1>0139.word-break</h1>
   <time datetime=2021-03-11T17:33:15&#43;0800 class="post-date">2021-03-11 17:33:15</time>
-  <pre><code class="language-go">func wordBreak(s string, wordDict []string) bool {
-    wordDictSet := make(map[string]bool)
-    for _, w := range wordDict {
-        wordDictSet[w] = true
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">wordBreak</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">wordDict</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">wordDictSet</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">wordDict</span> {
+        <span style="color:#a6e22e">wordDictSet</span>[<span style="color:#a6e22e">w</span>] = <span style="color:#66d9ef">true</span>
     }
-    // dp[i]表示，索引i之前的字符[0:i]，能否被wordDict表示
-    dp := make([]bool, len(s) + 1)
-    dp[0] = true
-    for i := 1; i &lt;= len(s); i++ {
-        for j := 0; j &lt; i; j++ {
-            if dp[j] &amp;&amp; wordDictSet[s[j:i]] {
-                dp[i] = true
-                break
+    <span style="color:#75715e">// dp[i]表示，索引i之前的字符[0:i]，能否被wordDict表示
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">dp</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">bool</span>, len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+    <span style="color:#a6e22e">dp</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> len(<span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">wordDictSet</span>[<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>:<span style="color:#a6e22e">i</span>]] {
+                <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#66d9ef">true</span>
+                <span style="color:#66d9ef">break</span>
             }
         }
     }
-    return dp[len(s)]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dp</span>[len(<span style="color:#a6e22e">s</span>)]
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

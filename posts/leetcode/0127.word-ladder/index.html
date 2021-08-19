@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,66 +52,64 @@
     <div class="post">
   <h1>0127.word-ladder</h1>
   <time datetime=2021-03-27T15:49:45&#43;0800 class="post-date">2021-03-27 15:49:45</time>
-  <p><img src="/leetcode/0127/example.png" alt="example" /></p>
-
-<pre><code class="language-go">func ladderLength(beginWord string, endWord string, wordList []string) int {
-    wordId := map[string]int{}
-    graph := [][]int{}
-    addWord := func(word string) int {
-        id, has := wordId[word]
-        if !has {
-            id = len(wordId)
-            wordId[word] = id
-            graph = append(graph, []int{})
+  <p><img src="/leetcode/0127/example.png" alt="example"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ladderLength</span>(<span style="color:#a6e22e">beginWord</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">endWord</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">wordList</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">wordId</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{}
+    <span style="color:#a6e22e">graph</span> <span style="color:#f92672">:=</span> [][]<span style="color:#66d9ef">int</span>{}
+    <span style="color:#a6e22e">addWord</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">word</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+        <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">has</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">wordId</span>[<span style="color:#a6e22e">word</span>]
+        <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">has</span> {
+            <span style="color:#a6e22e">id</span> = len(<span style="color:#a6e22e">wordId</span>)
+            <span style="color:#a6e22e">wordId</span>[<span style="color:#a6e22e">word</span>] = <span style="color:#a6e22e">id</span>
+            <span style="color:#a6e22e">graph</span> = append(<span style="color:#a6e22e">graph</span>, []<span style="color:#66d9ef">int</span>{})
         }
-        return id
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">id</span>
     }
-    addEdge := func(word string) int {
-        id1 := addWord(word)
-        s := []byte(word)
-        for i, b := range s {
-            s[i] = '*'
-            id2 := addWord(string(s))
-            graph[id1] = append(graph[id1], id2)
-            graph[id2] = append(graph[id2], id1)
-            s[i] = b
+    <span style="color:#a6e22e">addEdge</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">word</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+        <span style="color:#a6e22e">id1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">addWord</span>(<span style="color:#a6e22e">word</span>)
+        <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">word</span>)
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span> {
+            <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#e6db74">&#39;*&#39;</span>
+            <span style="color:#a6e22e">id2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">addWord</span>(string(<span style="color:#a6e22e">s</span>))
+            <span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">id1</span>] = append(<span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">id1</span>], <span style="color:#a6e22e">id2</span>)
+            <span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">id2</span>] = append(<span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">id2</span>], <span style="color:#a6e22e">id1</span>)
+            <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">b</span>
         }
-        return id1
-    }
-
-    for _, word := range wordList {
-        addEdge(word)
-    }
-    beginId := addEdge(beginWord)
-    endId, has := wordId[endWord]
-    if !has {
-        return 0
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">id1</span>
     }
 
-    const inf int = math.MaxInt64
-    dist := make([]int, len(wordId))
-    for i := range dist {
-        dist[i] = inf
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">word</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">wordList</span> {
+        <span style="color:#a6e22e">addEdge</span>(<span style="color:#a6e22e">word</span>)
     }
-    dist[beginId] = 0
-    queue := []int{beginId}
-    for len(queue) &gt; 0 {
-        v := queue[0]
-        queue = queue[1:]
-        if v == endId {
-            return dist[endId]/2 + 1
+    <span style="color:#a6e22e">beginId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">addEdge</span>(<span style="color:#a6e22e">beginWord</span>)
+    <span style="color:#a6e22e">endId</span>, <span style="color:#a6e22e">has</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">wordId</span>[<span style="color:#a6e22e">endWord</span>]
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">has</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+    }
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">inf</span> <span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt64</span>
+    <span style="color:#a6e22e">dist</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">wordId</span>))
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dist</span> {
+        <span style="color:#a6e22e">dist</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">inf</span>
+    }
+    <span style="color:#a6e22e">dist</span>[<span style="color:#a6e22e">beginId</span>] = <span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">queue</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">beginId</span>}
+    <span style="color:#66d9ef">for</span> len(<span style="color:#a6e22e">queue</span>) &gt; <span style="color:#ae81ff">0</span> {
+        <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">queue</span>[<span style="color:#ae81ff">0</span>]
+        <span style="color:#a6e22e">queue</span> = <span style="color:#a6e22e">queue</span>[<span style="color:#ae81ff">1</span>:]
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">endId</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dist</span>[<span style="color:#a6e22e">endId</span>]<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
         }
-        for _, w := range graph[v] {
-            if dist[w] == inf {
-                dist[w] = dist[v] + 1
-                queue = append(queue, w)
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">graph</span>[<span style="color:#a6e22e">v</span>] {
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dist</span>[<span style="color:#a6e22e">w</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">inf</span> {
+                <span style="color:#a6e22e">dist</span>[<span style="color:#a6e22e">w</span>] = <span style="color:#a6e22e">dist</span>[<span style="color:#a6e22e">v</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                <span style="color:#a6e22e">queue</span> = append(<span style="color:#a6e22e">queue</span>, <span style="color:#a6e22e">w</span>)
             }
         }
     }
-    return 0
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

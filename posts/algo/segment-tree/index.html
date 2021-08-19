@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,211 +78,206 @@ sum(倒数第二层节点个数, 虽有只有两个，但是因为是数组，�
 所以sum=2N-3+2N-4=4N-7
 所以4N个肯定够用了
 
-</code></pre>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-<pre><code class="language-go">package main
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 
-import &quot;fmt&quot;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">merge</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>
 
-var merge func(v1, v2 int) int
-
-type Node struct {
-	start int
-	end   int
-	value int
-	left  *Node
-	right *Node
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">start</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">end</span>   <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">left</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+	<span style="color:#a6e22e">right</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
 }
 
-func buildTree(start, end int, vals []int) *Node {
-	if start == end {
-		return &amp;Node{
-			start: start,
-			end:   end,
-			value: vals[start],
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">buildTree</span>(<span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">end</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">vals</span> []<span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">end</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{
+			<span style="color:#a6e22e">start</span>: <span style="color:#a6e22e">start</span>,
+			<span style="color:#a6e22e">end</span>:   <span style="color:#a6e22e">end</span>,
+			<span style="color:#a6e22e">value</span>: <span style="color:#a6e22e">vals</span>[<span style="color:#a6e22e">start</span>],
 		}
 	}
 
-	mid := start + (end-start)/2
-	leftChild := buildTree(start, mid, vals)
-	rightChild := buildTree(mid+1, end, vals)
-	return &amp;Node{
-		start: start,
-		end:   end,
-		value: merge(leftChild.value, rightChild.value),
-		left:  leftChild,
-		right: rightChild,
+	<span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">end</span><span style="color:#f92672">-</span><span style="color:#a6e22e">start</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+	<span style="color:#a6e22e">leftChild</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">buildTree</span>(<span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">mid</span>, <span style="color:#a6e22e">vals</span>)
+	<span style="color:#a6e22e">rightChild</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">buildTree</span>(<span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">end</span>, <span style="color:#a6e22e">vals</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{
+		<span style="color:#a6e22e">start</span>: <span style="color:#a6e22e">start</span>,
+		<span style="color:#a6e22e">end</span>:   <span style="color:#a6e22e">end</span>,
+		<span style="color:#a6e22e">value</span>: <span style="color:#a6e22e">merge</span>(<span style="color:#a6e22e">leftChild</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">rightChild</span>.<span style="color:#a6e22e">value</span>),
+		<span style="color:#a6e22e">left</span>:  <span style="color:#a6e22e">leftChild</span>,
+		<span style="color:#a6e22e">right</span>: <span style="color:#a6e22e">rightChild</span>,
 	}
 }
 
-func updateTree(root *Node, idx, value int) {
-	if root.start == idx &amp;&amp; root.end == idx {
-		root.value = value
-		return
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">updateTree</span>(<span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">start</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">end</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">idx</span> {
+		<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">value</span> = <span style="color:#a6e22e">value</span>
+		<span style="color:#66d9ef">return</span>
 	}
-	mid := root.start + (root.end-root.start)/2
-	if idx &lt;= mid {
-		updateTree(root.left, idx, value)
-	} else {
-		updateTree(root.right, idx, value)
+	<span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">start</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">end</span><span style="color:#f92672">-</span><span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">start</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">mid</span> {
+		<span style="color:#a6e22e">updateTree</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">value</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">updateTree</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">value</span>)
 	}
-	root.value = merge(root.left.value, root.right.value)
+	<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">value</span> = <span style="color:#a6e22e">merge</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">right</span>.<span style="color:#a6e22e">value</span>)
 }
 
-func queryTree(root *Node, start, end int) int {
-	if root.start == start &amp;&amp; root.end == end {
-		return root.value
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">queryTree</span>(<span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">end</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">start</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">end</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">end</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">value</span>
 	}
-	mid := root.start + (root.end-root.start)/2
-	if end &lt;= mid {
-		return queryTree(root.left, start, end)
+	<span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">start</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">end</span><span style="color:#f92672">-</span><span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">start</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">mid</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">queryTree</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">end</span>)
 	}
-	if start &gt; mid {
-		return queryTree(root.right, start, end)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">start</span> &gt; <span style="color:#a6e22e">mid</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">queryTree</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">end</span>)
 	}
-	return merge(
-		queryTree(root.left, start, mid),
-		queryTree(root.right, mid+1, end),
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">merge</span>(
+		<span style="color:#a6e22e">queryTree</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">mid</span>),
+		<span style="color:#a6e22e">queryTree</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">end</span>),
 	)
 }
 
-func main() {
-	merge = func(v1, v2 int) int {
-		return v1 + v2
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">merge</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">v2</span>
 	}
-	//         0  1  2  3  4  5  6  7  8  9
-	s := []int{7, 1, 4, 0, 3, 2, 6, 8, 5, 9}
-	tree := buildTree(0, len(s)-1, s)
+	<span style="color:#75715e">//         0  1  2  3  4  5  6  7  8  9
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>}
+	<span style="color:#a6e22e">tree</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">buildTree</span>(<span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>)
 
-	var rst int
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rst</span> <span style="color:#66d9ef">int</span>
 
-	rst = queryTree(tree, 3, 7)
-	fmt.Printf(&quot;rst: %d\n&quot;, rst)
+	<span style="color:#a6e22e">rst</span> = <span style="color:#a6e22e">queryTree</span>(<span style="color:#a6e22e">tree</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rst: %d\n&#34;</span>, <span style="color:#a6e22e">rst</span>)
 
-	updateTree(tree, 3, 10)
-	rst = queryTree(tree, 3, 7)
-	fmt.Printf(&quot;rst: %d\n&quot;, rst)
+	<span style="color:#a6e22e">updateTree</span>(<span style="color:#a6e22e">tree</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">10</span>)
+	<span style="color:#a6e22e">rst</span> = <span style="color:#a6e22e">queryTree</span>(<span style="color:#a6e22e">tree</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rst: %d\n&#34;</span>, <span style="color:#a6e22e">rst</span>)
 
 }
 
-</code></pre>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-<pre><code class="language-go">package main
-
-import (
-	&quot;fmt&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
 )
 
-func main() {
-	//         0  1  2  3  4  5  6  7  8  9
-	s := []int{1, 4, 8, 5, 7, 6, 9, 2, 3, 0}
-	st := NewSegmentTree(s, func(v1, v2 int) int {
-		// return v1 + v2
-		if v1 &lt; v2 {
-			return v1
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#75715e">//         0  1  2  3  4  5  6  7  8  9
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0</span>}
+	<span style="color:#a6e22e">st</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewSegmentTree</span>(<span style="color:#a6e22e">s</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+		<span style="color:#75715e">// return v1 + v2
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v1</span> &lt; <span style="color:#a6e22e">v2</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v1</span>
 		}
-		return v2
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v2</span>
 	})
 
-	var rst int
-	rst = st.Query(0, 9)
-	fmt.Printf(&quot;rst: %d\n&quot;, rst)
-	st.Update(3, -100)
-	rst = st.Query(0, 9)
-	fmt.Printf(&quot;rst: %d\n&quot;, rst)
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rst</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">rst</span> = <span style="color:#a6e22e">st</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">9</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rst: %d\n&#34;</span>, <span style="color:#a6e22e">rst</span>)
+	<span style="color:#a6e22e">st</span>.<span style="color:#a6e22e">Update</span>(<span style="color:#ae81ff">3</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>)
+	<span style="color:#a6e22e">rst</span> = <span style="color:#a6e22e">st</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">9</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rst: %d\n&#34;</span>, <span style="color:#a6e22e">rst</span>)
 }
 
-type SegmentTree struct {
-	tree   []int
-	data   []int
-	merger func(v1, v2 int) int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SegmentTree</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">tree</span>   []<span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">data</span>   []<span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">merger</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>
 }
 
-// Build在s.tree[idx]的位置，创建包含s.data[left:right+1]的根节点
-// 返回s.tree[idx]的值
-func (s *SegmentTree) Build(idx, left, right int) int {
-	if left == right {
-		s.tree[idx] = s.data[left]
-		return s.tree[idx]
+<span style="color:#75715e">// Build在s.tree[idx]的位置，创建包含s.data[left:right+1]的根节点
+</span><span style="color:#75715e">// 返回s.tree[idx]的值
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SegmentTree</span>) <span style="color:#a6e22e">Build</span>(<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">right</span> {
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">idx</span>] = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">left</span>]
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">idx</span>]
 	}
-	treeLeftIdx := leftChildIdx(idx)
-	treeRightIdx := treeLeftIdx + 1
-	mid := left + (right-left)/2
-	leftResp := s.Build(treeLeftIdx, left, mid)
-	rightResp := s.Build(treeRightIdx, mid+1, right)
-	s.tree[idx] = s.merger(leftResp, rightResp)
-	return s.tree[idx]
+	<span style="color:#a6e22e">treeLeftIdx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">leftChildIdx</span>(<span style="color:#a6e22e">idx</span>)
+	<span style="color:#a6e22e">treeRightIdx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">treeLeftIdx</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">right</span><span style="color:#f92672">-</span><span style="color:#a6e22e">left</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+	<span style="color:#a6e22e">leftResp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Build</span>(<span style="color:#a6e22e">treeLeftIdx</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">mid</span>)
+	<span style="color:#a6e22e">rightResp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Build</span>(<span style="color:#a6e22e">treeRightIdx</span>, <span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">right</span>)
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">idx</span>] = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">merger</span>(<span style="color:#a6e22e">leftResp</span>, <span style="color:#a6e22e">rightResp</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">idx</span>]
 }
 
-func (s *SegmentTree) Query(queryLeft, queryRight int) int {
-	return s.queryRange(0, 0, len(s.data)-1, queryLeft, queryRight)
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SegmentTree</span>) <span style="color:#a6e22e">Query</span>(<span style="color:#a6e22e">queryLeft</span>, <span style="color:#a6e22e">queryRight</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">queryRange</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">data</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">queryLeft</span>, <span style="color:#a6e22e">queryRight</span>)
 }
 
-func (s *SegmentTree) Update(k, v int) {
-	if k &lt; 0 || k &gt;= len(s.data) {
-		return
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SegmentTree</span>) <span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span> &lt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">&gt;=</span> len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">data</span>) {
+		<span style="color:#66d9ef">return</span>
 	}
-	s.set(0, 0, len(s.data)-1, k, v)
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">set</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">data</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span>)
 }
 
-func (s *SegmentTree) set(treeIdx, dataLeft, dataRight, targetIdx, targetValue int) {
-	fmt.Println(&quot;line60&quot;)
-	if dataLeft == dataRight {
-		fmt.Println(&quot;line62&quot;)
-		s.tree[treeIdx] = targetValue
-		return
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SegmentTree</span>) <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">treeIdx</span>, <span style="color:#a6e22e">dataLeft</span>, <span style="color:#a6e22e">dataRight</span>, <span style="color:#a6e22e">targetIdx</span>, <span style="color:#a6e22e">targetValue</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;line60&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dataLeft</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">dataRight</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;line62&#34;</span>)
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">treeIdx</span>] = <span style="color:#a6e22e">targetValue</span>
+		<span style="color:#66d9ef">return</span>
 	}
-	fmt.Println(&quot;line65&quot;)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;line65&#34;</span>)
 
-	leftIdx := leftChildIdx(treeIdx)
-	rightIdx := leftIdx + 1
-	dataMid := dataLeft + (dataRight-dataLeft)/2
-	if targetIdx &gt; dataMid {
-		s.set(rightIdx, dataMid+1, dataRight, targetIdx, targetValue)
-	} else {
-		s.set(leftIdx, dataLeft, dataMid, targetIdx, targetValue)
-	}
-
-	s.tree[treeIdx] = s.merger(s.tree[leftIdx], s.tree[rightIdx])
-}
-
-func (s *SegmentTree) queryRange(rootIdx, dataLeft, dataRight, queryLeft, queryRight int) int {
-	if dataLeft == queryLeft &amp;&amp; dataRight == queryRight {
-		return s.tree[rootIdx]
+	<span style="color:#a6e22e">leftIdx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">leftChildIdx</span>(<span style="color:#a6e22e">treeIdx</span>)
+	<span style="color:#a6e22e">rightIdx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">leftIdx</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">dataMid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dataLeft</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">dataRight</span><span style="color:#f92672">-</span><span style="color:#a6e22e">dataLeft</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">targetIdx</span> &gt; <span style="color:#a6e22e">dataMid</span> {
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">rightIdx</span>, <span style="color:#a6e22e">dataMid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataRight</span>, <span style="color:#a6e22e">targetIdx</span>, <span style="color:#a6e22e">targetValue</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">leftIdx</span>, <span style="color:#a6e22e">dataLeft</span>, <span style="color:#a6e22e">dataMid</span>, <span style="color:#a6e22e">targetIdx</span>, <span style="color:#a6e22e">targetValue</span>)
 	}
 
-	leftIdx := leftChildIdx(rootIdx)
-	rightIdx := leftIdx + 1
-	// rootIdx/leftIdx/rightIdx是跟data绑定的，根据data的范围0, len(s)来产生的
-	dataMid := dataLeft + (dataRight-dataLeft)/2
-
-	if queryRight &lt;= dataMid {
-		return s.queryRange(leftIdx, dataLeft, dataMid, queryLeft, queryRight)
-	}
-	if queryLeft &gt; dataMid {
-		return s.queryRange(rightIdx, dataMid+1, dataRight, queryLeft, queryRight)
-	}
-	leftRst := s.queryRange(leftIdx, dataLeft, dataMid, queryLeft, dataMid)
-	rightRst := s.queryRange(rightIdx, dataMid+1, dataRight, dataMid+1, queryRight)
-	return s.merger(leftRst, rightRst)
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">treeIdx</span>] = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">merger</span>(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">leftIdx</span>], <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">rightIdx</span>])
 }
 
-func leftChildIdx(i int) int {
-	return i*2 + 1
-}
-
-func NewSegmentTree(s []int, merger func(v1, v2 int) int) *SegmentTree {
-	ret := &amp;SegmentTree{
-		tree:   make([]int, len(s)*4, len(s)*4),
-		data:   s,
-		merger: merger,
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SegmentTree</span>) <span style="color:#a6e22e">queryRange</span>(<span style="color:#a6e22e">rootIdx</span>, <span style="color:#a6e22e">dataLeft</span>, <span style="color:#a6e22e">dataRight</span>, <span style="color:#a6e22e">queryLeft</span>, <span style="color:#a6e22e">queryRight</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dataLeft</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">queryLeft</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">dataRight</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">queryRight</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">tree</span>[<span style="color:#a6e22e">rootIdx</span>]
 	}
-	ret.Build(0, 0, len(ret.data)-1)
-	return ret
+
+	<span style="color:#a6e22e">leftIdx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">leftChildIdx</span>(<span style="color:#a6e22e">rootIdx</span>)
+	<span style="color:#a6e22e">rightIdx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">leftIdx</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#75715e">// rootIdx/leftIdx/rightIdx是跟data绑定的，根据data的范围0, len(s)来产生的
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dataMid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dataLeft</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">dataRight</span><span style="color:#f92672">-</span><span style="color:#a6e22e">dataLeft</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">queryRight</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">dataMid</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">queryRange</span>(<span style="color:#a6e22e">leftIdx</span>, <span style="color:#a6e22e">dataLeft</span>, <span style="color:#a6e22e">dataMid</span>, <span style="color:#a6e22e">queryLeft</span>, <span style="color:#a6e22e">queryRight</span>)
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">queryLeft</span> &gt; <span style="color:#a6e22e">dataMid</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">queryRange</span>(<span style="color:#a6e22e">rightIdx</span>, <span style="color:#a6e22e">dataMid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataRight</span>, <span style="color:#a6e22e">queryLeft</span>, <span style="color:#a6e22e">queryRight</span>)
+	}
+	<span style="color:#a6e22e">leftRst</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">queryRange</span>(<span style="color:#a6e22e">leftIdx</span>, <span style="color:#a6e22e">dataLeft</span>, <span style="color:#a6e22e">dataMid</span>, <span style="color:#a6e22e">queryLeft</span>, <span style="color:#a6e22e">dataMid</span>)
+	<span style="color:#a6e22e">rightRst</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">queryRange</span>(<span style="color:#a6e22e">rightIdx</span>, <span style="color:#a6e22e">dataMid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataRight</span>, <span style="color:#a6e22e">dataMid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">queryRight</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">merger</span>(<span style="color:#a6e22e">leftRst</span>, <span style="color:#a6e22e">rightRst</span>)
 }
 
-</code></pre>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">leftChildIdx</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+}
 
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewSegmentTree</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">merger</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">SegmentTree</span> {
+	<span style="color:#a6e22e">ret</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">SegmentTree</span>{
+		<span style="color:#a6e22e">tree</span>:   make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>, len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>),
+		<span style="color:#a6e22e">data</span>:   <span style="color:#a6e22e">s</span>,
+		<span style="color:#a6e22e">merger</span>: <span style="color:#a6e22e">merger</span>,
+	}
+	<span style="color:#a6e22e">ret</span>.<span style="color:#a6e22e">Build</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">ret</span>.<span style="color:#a6e22e">data</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
+}
+
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

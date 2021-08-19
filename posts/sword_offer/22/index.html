@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,29 +52,28 @@
     <div class="post">
   <h1>22</h1>
   <time datetime=2021-03-11T10:43:31&#43;0800 class="post-date">2021-03-11 10:43:31</time>
-  <pre><code class="language-go">/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func getKthFromEnd(head *ListNode, k int) *ListNode {
-    dummy:=&amp;ListNode{}
-    dummy.Next=head
-    slow:=dummy
-    quick:=dummy
-    for i:=0; i&lt;k; i++{
-        quick=quick.Next
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * type ListNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Next *ListNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getKthFromEnd</span>(<span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span> {
+    <span style="color:#a6e22e">dummy</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">ListNode</span>{}
+    <span style="color:#a6e22e">dummy</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">head</span>
+    <span style="color:#a6e22e">slow</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dummy</span>
+    <span style="color:#a6e22e">quick</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dummy</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">quick</span>=<span style="color:#a6e22e">quick</span>.<span style="color:#a6e22e">Next</span>
     }
-    for quick.Next!=nil{
-        quick=quick.Next
-        slow=slow.Next
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">quick</span>.<span style="color:#a6e22e">Next</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">quick</span>=<span style="color:#a6e22e">quick</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#a6e22e">slow</span>=<span style="color:#a6e22e">slow</span>.<span style="color:#a6e22e">Next</span>
     }
-    return slow.Next
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">slow</span>.<span style="color:#a6e22e">Next</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

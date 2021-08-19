@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,81 +53,79 @@
   <h1>36_multiplication</h1>
   <time datetime=2021-03-10T10:23:10&#43;0800 class="post-date">2021-03-10 10:23:10</time>
   <p><a href="https://leetcode-cn.com/circle/discuss/I8NZUx/">https://leetcode-cn.com/circle/discuss/I8NZUx/</a></p>
-
-<pre><code class="language-go">import (
-	&quot;fmt&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
 )
 
-func main() {
-	num1 := &quot;11&quot;
-	num2 := &quot;12&quot;
-	rst := addStrings(num1, num2)
-	fmt.Printf(&quot;rst: %s\n&quot;, rst)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">num1</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;11&#34;</span>
+	<span style="color:#a6e22e">num2</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;12&#34;</span>
+	<span style="color:#a6e22e">rst</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">addStrings</span>(<span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">num2</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rst: %s\n&#34;</span>, <span style="color:#a6e22e">rst</span>)
 }
 
-func addStrings(num1, num2 string) string {
-	lookup := make([]byte, 0, 36)
-	for i := byte('0'); i &lt;= '9'; i++ {
-		lookup = append(lookup, i)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">addStrings</span>(<span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">num2</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">lookup</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">36</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> byte(<span style="color:#e6db74">&#39;0&#39;</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;9&#39;</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">lookup</span> = append(<span style="color:#a6e22e">lookup</span>, <span style="color:#a6e22e">i</span>)
 	}
-	for i := byte('a'); i &lt;= 'z'; i++ {
-		lookup = append(lookup, i)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> byte(<span style="color:#e6db74">&#39;a&#39;</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;z&#39;</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">lookup</span> = append(<span style="color:#a6e22e">lookup</span>, <span style="color:#a6e22e">i</span>)
 	}
 
-	carry := 0
+	<span style="color:#a6e22e">carry</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
 
-	num1Bytes := []byte(num1)
-	num2Bytes := []byte(num2)
+	<span style="color:#a6e22e">num1Bytes</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">num1</span>)
+	<span style="color:#a6e22e">num2Bytes</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">num2</span>)
 
-	i := len(num1Bytes) - 1
-	j := len(num2Bytes) - 1
+	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">num1Bytes</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">num2Bytes</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
 
-	reversedRst := make([]byte, 0)
+	<span style="color:#a6e22e">reversedRst</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">0</span>)
 
-	for i &gt;= 0 || j &gt;= 0 || carry &gt; 0 {
-		cur := carry
-		if i &gt;= 0 {
-			cur += byte2Number(num1Bytes[i])
-			i--
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">carry</span> &gt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">cur</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">carry</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">cur</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">byte2Number</span>(<span style="color:#a6e22e">num1Bytes</span>[<span style="color:#a6e22e">i</span>])
+			<span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>
 		}
-		if j &gt;= 0 {
-			cur += byte2Number(num2Bytes[j])
-			j--
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">cur</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">byte2Number</span>(<span style="color:#a6e22e">num2Bytes</span>[<span style="color:#a6e22e">j</span>])
+			<span style="color:#a6e22e">j</span><span style="color:#f92672">--</span>
 		}
-		carry = cur / 36
-		cur = cur % 36
-		if cur &gt;= 0 &amp;&amp; cur &lt; len(lookup) {
-			reversedRst = append(reversedRst, lookup[cur])
+		<span style="color:#a6e22e">carry</span> = <span style="color:#a6e22e">cur</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">36</span>
+		<span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">cur</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">36</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cur</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">cur</span> &lt; len(<span style="color:#a6e22e">lookup</span>) {
+			<span style="color:#a6e22e">reversedRst</span> = append(<span style="color:#a6e22e">reversedRst</span>, <span style="color:#a6e22e">lookup</span>[<span style="color:#a6e22e">cur</span>])
 		}
 	}
-	return string(reverseBytes(reversedRst))
+	<span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">reverseBytes</span>(<span style="color:#a6e22e">reversedRst</span>))
 }
 
-func reverseBytes(s []byte) []byte {
-	if len(s) &lt;= 1 {
-		return s
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">reverseBytes</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">byte</span>) []<span style="color:#66d9ef">byte</span> {
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>
 	}
-	i := 0
-	j := len(s) - 1
-	for i &lt; j {
-		s[i], s[j] = s[j], s[i]
-		i++
-		j--
+	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">j</span> {
+		<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>]
+		<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+		<span style="color:#a6e22e">j</span><span style="color:#f92672">--</span>
 	}
-	return s
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>
 }
 
-func byte2Number(b byte) int {
-	if '0' &lt;= b &amp;&amp; b &lt;= '9' {
-		return int(b - '0')
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">byte2Number</span>(<span style="color:#a6e22e">b</span> <span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;9&#39;</span> {
+		<span style="color:#66d9ef">return</span> int(<span style="color:#a6e22e">b</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>)
 	}
-	if 'a' &lt;= b &amp;&amp; b &lt;= 'z' {
-		return int(b-'a') + 10
+	<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;z&#39;</span> {
+		<span style="color:#66d9ef">return</span> int(<span style="color:#a6e22e">b</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;a&#39;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>
 	}
-	return 0
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

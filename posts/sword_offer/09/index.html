@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,48 +52,47 @@
     <div class="post">
   <h1>09</h1>
   <time datetime=2021-03-12T21:11:13&#43;0800 class="post-date">2021-03-12 21:11:13</time>
-  <pre><code class="language-go">import(
-    &quot;container/list&quot;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span>(
+    <span style="color:#e6db74">&#34;container/list&#34;</span>
 )
 
-type CQueue struct {
-    stack1, stack2 *list.List
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CQueue</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">stack1</span>, <span style="color:#a6e22e">stack2</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">List</span>
 }
 
-func Constructor() CQueue {
-    return CQueue{
-        stack1: list.New(),
-        stack2: list.New(),
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Constructor</span>() <span style="color:#a6e22e">CQueue</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">CQueue</span>{
+        <span style="color:#a6e22e">stack1</span>: <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">New</span>(),
+        <span style="color:#a6e22e">stack2</span>: <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">New</span>(),
     }
 }
 
-func (this *CQueue) AppendTail(value int)  {
-    this.stack1.PushBack(value)
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CQueue</span>) <span style="color:#a6e22e">AppendTail</span>(<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">int</span>)  {
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack1</span>.<span style="color:#a6e22e">PushBack</span>(<span style="color:#a6e22e">value</span>)
 }
 
-func (this *CQueue) DeleteHead() int {
-    // 如果第二个栈为空
-    if this.stack2.Len() == 0 {
-        for this.stack1.Len() &gt; 0 {
-            this.stack2.PushBack(this.stack1.Remove(this.stack1.Back()))
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CQueue</span>) <span style="color:#a6e22e">DeleteHead</span>() <span style="color:#66d9ef">int</span> {
+    <span style="color:#75715e">// 如果第二个栈为空
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack2</span>.<span style="color:#a6e22e">Len</span>() <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack1</span>.<span style="color:#a6e22e">Len</span>() &gt; <span style="color:#ae81ff">0</span> {
+            <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack2</span>.<span style="color:#a6e22e">PushBack</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack1</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack1</span>.<span style="color:#a6e22e">Back</span>()))
         }
     }
-    if this.stack2.Len() != 0 {
-        e := this.stack2.Back()
-        this.stack2.Remove(e)
-        return e.Value.(int)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack2</span>.<span style="color:#a6e22e">Len</span>() <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack2</span>.<span style="color:#a6e22e">Back</span>()
+        <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">stack2</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">e</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Value</span>.(<span style="color:#66d9ef">int</span>)
     }
-    return -1
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 }
 
-/*
-作者：LeetCode-Solution
-链接：https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/solution/mian-shi-ti-09-yong-liang-ge-zhan-shi-xian-dui-l-3/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-*/
-</code></pre>
-
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">作者：LeetCode-Solution
+</span><span style="color:#75715e">链接：https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/solution/mian-shi-ti-09-yong-liang-ge-zhan-shi-xian-dui-l-3/
+</span><span style="color:#75715e">来源：力扣（LeetCode）
+</span><span style="color:#75715e">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+</span><span style="color:#75715e">*/</span>
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

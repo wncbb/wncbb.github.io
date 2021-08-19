@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,37 +52,36 @@
     <div class="post">
   <h1>05</h1>
   <time datetime=2021-03-11T11:57:00&#43;0800 class="post-date">2021-03-11 11:57:00</time>
-  <pre><code class="language-go">/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-    dummy:=&amp;ListNode{}
-    tail:=dummy
-    carry:=0
-    for l1!=nil || l2!=nil || carry&gt;0{
-        if l1!=nil{
-            carry+=l1.Val
-            l1=l1.Next
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * type ListNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Next *ListNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">addTwoNumbers</span>(<span style="color:#a6e22e">l1</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>, <span style="color:#a6e22e">l2</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span> {
+    <span style="color:#a6e22e">dummy</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">ListNode</span>{}
+    <span style="color:#a6e22e">tail</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dummy</span>
+    <span style="color:#a6e22e">carry</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">l1</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">l2</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">carry</span>&gt;<span style="color:#ae81ff">0</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l1</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+            <span style="color:#a6e22e">carry</span><span style="color:#f92672">+=</span><span style="color:#a6e22e">l1</span>.<span style="color:#a6e22e">Val</span>
+            <span style="color:#a6e22e">l1</span>=<span style="color:#a6e22e">l1</span>.<span style="color:#a6e22e">Next</span>
         }
-        if l2!=nil{
-            carry+=l2.Val
-            l2=l2.Next
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l2</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+            <span style="color:#a6e22e">carry</span><span style="color:#f92672">+=</span><span style="color:#a6e22e">l2</span>.<span style="color:#a6e22e">Val</span>
+            <span style="color:#a6e22e">l2</span>=<span style="color:#a6e22e">l2</span>.<span style="color:#a6e22e">Next</span>
         }
-        curNode:=&amp;ListNode{
-            Val: carry%10,
+        <span style="color:#a6e22e">curNode</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">ListNode</span>{
+            <span style="color:#a6e22e">Val</span>: <span style="color:#a6e22e">carry</span><span style="color:#f92672">%</span><span style="color:#ae81ff">10</span>,
         }
-        carry=carry/10
-        tail.Next=curNode
-        tail=tail.Next
+        <span style="color:#a6e22e">carry</span>=<span style="color:#a6e22e">carry</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>
+        <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">curNode</span>
+        <span style="color:#a6e22e">tail</span>=<span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>
     }
-    return dummy.Next
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dummy</span>.<span style="color:#a6e22e">Next</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,61 +53,59 @@
   <h1>0329.longest-increasing-path-in-a-matrix</h1>
   <time datetime=2021-03-10T16:44:54&#43;0800 class="post-date">2021-03-10 16:44:54</time>
   <p><a href="http://zxi.mytechroad.com/blog/dynamic-programming/leetcode-329-longest-increasing-path-in-a-matrix/">http://zxi.mytechroad.com/blog/dynamic-programming/leetcode-329-longest-increasing-path-in-a-matrix/</a></p>
-
-<pre><code class="language-go">func longestIncreasingPath(matrix [][]int) int {
-    m:=len(matrix)
-    n:=len(matrix[0])
-    dp:=make([][]int, 0, m)
-    for i:=0; i&lt;m; i++{
-        dp=append(dp, make([]int, n, n))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longestIncreasingPath</span>(<span style="color:#a6e22e">matrix</span> [][]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">m</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">matrix</span>)
+    <span style="color:#a6e22e">n</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">matrix</span>[<span style="color:#ae81ff">0</span>])
+    <span style="color:#a6e22e">dp</span><span style="color:#f92672">:=</span>make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">m</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">m</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">dp</span>=append(<span style="color:#a6e22e">dp</span>, make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">n</span>))
     }
-    for i:=0; i&lt;m; i++{
-        for j:=0; j&lt;n; j++{
-            dp[i][j]=-1
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">m</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span>&lt;<span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+            <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
         }
     }
-    rst:=0
-    dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
-    var dfs func(i, j int)int
-    dfs=func(i, j int)int{
-        if dp[i][j]!=-1{
-            return dp[i][j]
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">dirs</span><span style="color:#f92672">:=</span>[][]<span style="color:#66d9ef">int</span>{{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>}, {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>}}
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">dfs</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">dfs</span>=<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]<span style="color:#f92672">!=-</span><span style="color:#ae81ff">1</span>{
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]
         }
-        dp[i][j]=1
-        for _, dir:=range dirs{
-            newI:=i+dir[0]
-            newJ:=j+dir[1]
-            if newI&lt;0 || newI&gt;=m || newJ&lt;0 || newJ&gt;=n{
-                continue
+        <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">dir</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dirs</span>{
+            <span style="color:#a6e22e">newI</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">0</span>]
+            <span style="color:#a6e22e">newJ</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">1</span>]
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">newI</span>&lt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newI</span><span style="color:#f92672">&gt;=</span><span style="color:#a6e22e">m</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newJ</span>&lt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newJ</span><span style="color:#f92672">&gt;=</span><span style="color:#a6e22e">n</span>{
+                <span style="color:#66d9ef">continue</span>
             }
-            if matrix[newI][newJ]&lt;=matrix[i][j]{
-                continue
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">newI</span>][<span style="color:#a6e22e">newJ</span>]<span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]{
+                <span style="color:#66d9ef">continue</span>
             }
-            // 注意，这里是  dfs(newI, newJ)+1, 而不是 dp[newI][newJ]
-            dp[i][j]=getMax(dp[i][j], dfs(newI, newJ)+1)
+            <span style="color:#75715e">// 注意，这里是  dfs(newI, newJ)+1, 而不是 dp[newI][newJ]
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">newI</span>, <span style="color:#a6e22e">newJ</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
         }
-        // fmt.Printf(&quot;i:%d j:%d dp[i][j]:%d\n&quot;, j, j, dp[i][j])
-        return dp[i][j]
+        <span style="color:#75715e">// fmt.Printf(&#34;i:%d j:%d dp[i][j]:%d\n&#34;, j, j, dp[i][j])
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]
     }
-    for i:=0; i&lt;m; i++{
-        for j:=0; j&lt;n; j++{
-            rst=getMax(rst, dfs(i, j))
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">m</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span>&lt;<span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+            <span style="color:#a6e22e">rst</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>))
         }
     }
     
-    return rst
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-func getMax(a, b int)int{
-    if a&gt;b{
-        return a
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">b</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
     }
-    return b
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

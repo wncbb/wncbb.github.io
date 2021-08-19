@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,15 +52,14 @@
     <div class="post">
   <h1>0176</h1>
   <time datetime=2021-03-10T11:07:10&#43;0800 class="post-date">2021-03-10 11:07:10</time>
-  <pre><code class="language-sql">SELECT
-    (SELECT DISTINCT
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+    (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">DISTINCT</span>
          Salary
-     FROM
+     <span style="color:#66d9ef">FROM</span>
          Employee
-     ORDER BY Salary DESC
-        LIMIT 1 OFFSET 1) AS SecondHighestSalary
-</code></pre>
-
+     <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> Salary <span style="color:#66d9ef">DESC</span>
+        <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">OFFSET</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">AS</span> SecondHighestSalary
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

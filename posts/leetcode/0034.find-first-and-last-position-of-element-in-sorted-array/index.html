@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,56 +52,55 @@
     <div class="post">
   <h1>0034.find-first-and-last-position-of-element-in-sorted-array</h1>
   <time datetime=2021-03-12T16:47:38&#43;0800 class="post-date">2021-03-12 16:47:38</time>
-  <pre><code class="language-go">func searchRange(nums []int, target int) []int {
-    left:=findLeft(nums, target)
-    if left==-1{
-        return []int{-1, -1}
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">searchRange</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">findLeft</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">target</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span><span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>{
+        <span style="color:#66d9ef">return</span> []<span style="color:#66d9ef">int</span>{<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}
     }
-    right:=findRight(nums, target)
-    return []int{left, right}
+    <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">findRight</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">target</span>)
+    <span style="color:#66d9ef">return</span> []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>}
 }
 
-func findLeft(nums []int, target int) int{
-    left:=0
-    right:=len(nums)-1
-    for left&lt;=right{
-        fmt.Printf(&quot;LEFT left:%d right:%d\n&quot;, left, right)
-        mid:=left+(right-left)/2
-        if nums[mid]==target{
-            right=mid-1
-        }else if nums[mid]&lt;target{
-            left=mid+1
-        }else{
-            right=mid-1
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findLeft</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">left</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">right</span>{
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;LEFT left:%d right:%d\n&#34;</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>)
+        <span style="color:#a6e22e">mid</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">left</span><span style="color:#f92672">+</span>(<span style="color:#a6e22e">right</span><span style="color:#f92672">-</span><span style="color:#a6e22e">left</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">mid</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">target</span>{
+            <span style="color:#a6e22e">right</span>=<span style="color:#a6e22e">mid</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">mid</span>]&lt;<span style="color:#a6e22e">target</span>{
+            <span style="color:#a6e22e">left</span>=<span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#a6e22e">right</span>=<span style="color:#a6e22e">mid</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
         }
     }
-    if left&lt;len(nums) &amp;&amp; nums[left]==target{
-        return left
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span>&lt;len(<span style="color:#a6e22e">nums</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">left</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">target</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">left</span>
     }
-    return -1
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 }
 
-func findRight(nums []int, target int)int{
-    left:=0
-    right:=len(nums)-1
-    for left&lt;=right{
-        fmt.Printf(&quot;RIGHT left:%d right:%d\n&quot;, left, right)
-        mid:=left+(right-left)/2
-        if nums[mid]==target{
-            left=mid+1
-        }else if nums[mid]&lt;target{
-            left=mid+1
-        }else{
-            right=mid-1
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findRight</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">left</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">right</span>{
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;RIGHT left:%d right:%d\n&#34;</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>)
+        <span style="color:#a6e22e">mid</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">left</span><span style="color:#f92672">+</span>(<span style="color:#a6e22e">right</span><span style="color:#f92672">-</span><span style="color:#a6e22e">left</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">mid</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">target</span>{
+            <span style="color:#a6e22e">left</span>=<span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">mid</span>]&lt;<span style="color:#a6e22e">target</span>{
+            <span style="color:#a6e22e">left</span>=<span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#a6e22e">right</span>=<span style="color:#a6e22e">mid</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
         }
     }
-    if right&gt;=0 &amp;&amp; nums[right]==target{
-        return right
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">right</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">right</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">target</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">right</span>
     }
-    return -1
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

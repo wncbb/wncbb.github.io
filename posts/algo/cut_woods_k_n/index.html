@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,84 +53,78 @@
   <h1>Cut_woods_k_n</h1>
   <time datetime=2021-03-10T10:24:24&#43;0800 class="post-date">2021-03-10 10:24:24</time>
   <p><a href="https://blog.csdn.net/weixin_39590058/article/details/108397552">https://blog.csdn.net/weixin_39590058/article/details/108397552</a></p>
-
 <pre><code>给定数组，每个元素代表一个木头的长度，木头可以任意截断， 从这堆木头中截出至少k个相同长度为m的木块，已知k，求max(m)
-</code></pre>
-
-<pre><code>二分查找
+</code></pre><pre><code>二分查找
 数组排序后，mid=最小值+(最大值-最小值)/2
 试一试mid能不能可以，如果不可以，说明mid太大，右边界=mid-1
 如果可以，说明mid还可以继续扩大试试，左边界=mid+1
-</code></pre>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-<pre><code class="language-go">package main
-
-import (
-	&quot;fmt&quot;
-	&quot;sort&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;sort&#34;</span>
 )
 
-func main() {
-	nums := []int{4, 7, 2, 10, 5}
-	k := 5
-	rst := maxM(nums, k)
-	fmt.Printf(&quot;rst: %d\n&quot;, rst)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">nums</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>}
+	<span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5</span>
+	<span style="color:#a6e22e">rst</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">maxM</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">k</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rst: %d\n&#34;</span>, <span style="color:#a6e22e">rst</span>)
 }
 
-func maxM(nums []int, k int) int {
-	if len(nums) == 0 {
-		return 0
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxM</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">nums</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
 	}
-	sort.Slice(nums, func(i, j int) bool {
-		return nums[i] &gt; nums[j]
+	<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Slice</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>] &gt; <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">j</span>]
 	})
-	max := nums[0]
-	min := nums[len(nums)-1]
+	<span style="color:#a6e22e">max</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">nums</span>[<span style="color:#ae81ff">0</span>]
+	<span style="color:#a6e22e">min</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">nums</span>[len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 
-	lo := min
-	hi := max
-	ans := -1
+	<span style="color:#a6e22e">lo</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">min</span>
+	<span style="color:#a6e22e">hi</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">max</span>
+	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 
-	for lo &lt;= hi {
-		mid := lo + (hi-lo)/2
-		if isFit(nums, k, mid) {
-			ans = mid
-			lo = mid + 1
-		} else {
-			hi = mid - 1
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">lo</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">hi</span> {
+		<span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lo</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">hi</span><span style="color:#f92672">-</span><span style="color:#a6e22e">lo</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isFit</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">mid</span>) {
+			<span style="color:#a6e22e">ans</span> = <span style="color:#a6e22e">mid</span>
+			<span style="color:#a6e22e">lo</span> = <span style="color:#a6e22e">mid</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">hi</span> = <span style="color:#a6e22e">mid</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
 		}
 	}
 
-	return ans
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
 }
 
-func isFit(nums []int, k int, v int) bool {
-	count := 0
-	for i := 0; i &lt; len(nums); i++ {
-		count += nums[i] / v
-		if count &gt;= k {
-			return true
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isFit</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#a6e22e">count</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">nums</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">count</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">/</span> <span style="color:#a6e22e">v</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">k</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
 		}
 	}
-	return false
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
 }
 
-func getMin(a, b int) int {
-	if a &lt; b {
-		return a
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMin</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span> &lt; <span style="color:#a6e22e">b</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
 	}
-	return b
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
 }
 
-func getMax(a, b int) int {
-	if a &gt; b {
-		return a
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span> &gt; <span style="color:#a6e22e">b</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
 	}
-	return b
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

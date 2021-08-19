@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,31 +52,30 @@
     <div class="post">
   <h1>0014.longest-common-prefix</h1>
   <time datetime=2020-12-17T17:22:10&#43;0800 class="post-date">2020-12-17 17:22:10</time>
-  <pre><code class="language-go">func longestCommonPrefix(strs []string) string {
-    if len(strs)==0{
-        return &quot;&quot;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longestCommonPrefix</span>(<span style="color:#a6e22e">strs</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">strs</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
     }
-    if len(strs)==1{
-        return strs[0]
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">strs</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">strs</span>[<span style="color:#ae81ff">0</span>]
     }
     
 
-    for i:=0; i&lt;len(strs[0]); i++{
-        for j:=1; j&lt;len(strs); j++{
-            // fmt.Printf(&quot;i:%d strs[j]:%s\n&quot;, i, strs[j])
-            // 等于号，因为要取strs[j][i], 要是长度是i，最多取到i-1
-            if len(strs[j])&lt;=i || strs[j][i]!=strs[0][i]{
-                return strs[0][:i]
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">strs</span>[<span style="color:#ae81ff">0</span>]); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span>&lt;len(<span style="color:#a6e22e">strs</span>); <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+            <span style="color:#75715e">// fmt.Printf(&#34;i:%d strs[j]:%s\n&#34;, i, strs[j])
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 等于号，因为要取strs[j][i], 要是长度是i，最多取到i-1
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">strs</span>[<span style="color:#a6e22e">j</span>])<span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">strs</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>]<span style="color:#f92672">!=</span><span style="color:#a6e22e">strs</span>[<span style="color:#ae81ff">0</span>][<span style="color:#a6e22e">i</span>]{
+                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">strs</span>[<span style="color:#ae81ff">0</span>][:<span style="color:#a6e22e">i</span>]
             } 
         }
     }
-    return strs[0]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">strs</span>[<span style="color:#ae81ff">0</span>]
     
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

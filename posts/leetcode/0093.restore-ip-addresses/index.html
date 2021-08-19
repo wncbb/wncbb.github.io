@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,44 +52,43 @@
     <div class="post">
   <h1>0093.restore-ip-addresses</h1>
   <time datetime=2021-03-10T13:14:56&#43;0800 class="post-date">2021-03-10 13:14:56</time>
-  <pre><code class="language-go">func restoreIpAddresses(s string) []string {
-	rst := make([]string, 0)
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">restoreIpAddresses</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) []<span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">rst</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>)
 
-	var dfs func(curRst []string, start int)
-	dfs = func(curRst []string, start int) {
-		if len(curRst) == 4 {
-			if start == len(s) {
-				rst = append(rst, strings.Join(curRst, &quot;.&quot;))
-				return
-			} else {
-				return
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">dfs</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">curRst</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">start</span> <span style="color:#66d9ef">int</span>)
+	<span style="color:#a6e22e">dfs</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">curRst</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">start</span> <span style="color:#66d9ef">int</span>) {
+		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">curRst</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">s</span>) {
+				<span style="color:#a6e22e">rst</span> = append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">curRst</span>, <span style="color:#e6db74">&#34;.&#34;</span>))
+				<span style="color:#66d9ef">return</span>
+			} <span style="color:#66d9ef">else</span> {
+				<span style="color:#66d9ef">return</span>
 			}
 		}
 
-		for length := 1; length &lt;= 3; length++ {
-			// 2+2   2 3 4
-			if start+length &gt; len(s) {
-				return
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">length</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">length</span><span style="color:#f92672">++</span> {
+			<span style="color:#75715e">// 2+2   2 3 4
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">start</span><span style="color:#f92672">+</span><span style="color:#a6e22e">length</span> &gt; len(<span style="color:#a6e22e">s</span>) {
+				<span style="color:#66d9ef">return</span>
 			}
-			curStr := s[start : start+length]
-			if length &gt; 1 &amp;&amp; curStr[0] == '0' {
-				return
+			<span style="color:#a6e22e">curStr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">start</span> : <span style="color:#a6e22e">start</span><span style="color:#f92672">+</span><span style="color:#a6e22e">length</span>]
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">length</span> &gt; <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">curStr</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span> {
+				<span style="color:#66d9ef">return</span>
 			}
-			curNum, _ := strconv.ParseInt(curStr, 10, 32)
-			if curNum &gt; 255 {
-				return
+			<span style="color:#a6e22e">curNum</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseInt</span>(<span style="color:#a6e22e">curStr</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">32</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">curNum</span> &gt; <span style="color:#ae81ff">255</span> {
+				<span style="color:#66d9ef">return</span>
 			}
-			curRst = append(curRst, curStr)
-			dfs(curRst, start+length)
-			curRst = curRst[:len(curRst)-1]
+			<span style="color:#a6e22e">curRst</span> = append(<span style="color:#a6e22e">curRst</span>, <span style="color:#a6e22e">curStr</span>)
+			<span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">curRst</span>, <span style="color:#a6e22e">start</span><span style="color:#f92672">+</span><span style="color:#a6e22e">length</span>)
+			<span style="color:#a6e22e">curRst</span> = <span style="color:#a6e22e">curRst</span>[:len(<span style="color:#a6e22e">curRst</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 		}
 	}
-	dfs(make([]string, 0, 4), 0)
-	return rst
+	<span style="color:#a6e22e">dfs</span>(make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>), <span style="color:#ae81ff">0</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

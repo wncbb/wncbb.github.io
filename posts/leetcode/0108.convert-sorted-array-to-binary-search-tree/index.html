@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,32 +52,31 @@
     <div class="post">
   <h1>0108.convert-sorted-array-to-binary-search-tree</h1>
   <time datetime=2021-03-11T23:02:42&#43;0800 class="post-date">2021-03-11 23:02:42</time>
-  <pre><code class="language-go">/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-func sortedArrayToBST(nums []int) *TreeNode {
-    return helper(nums, 0, len(nums)-1)
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for a binary tree node.
+</span><span style="color:#75715e"> * type TreeNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Left *TreeNode
+</span><span style="color:#75715e"> *     Right *TreeNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sortedArrayToBST</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 }
 
-func helper(nums []int, left, right int)*TreeNode{
-    if left&gt;right{
-        return nil
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span> <span style="color:#66d9ef">int</span>)<span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>{
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span>&gt;<span style="color:#a6e22e">right</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
     }
-    mid:=left+(right-left)/2
-    ret:=&amp;TreeNode{
-        Val: nums[mid],
+    <span style="color:#a6e22e">mid</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">left</span><span style="color:#f92672">+</span>(<span style="color:#a6e22e">right</span><span style="color:#f92672">-</span><span style="color:#a6e22e">left</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">TreeNode</span>{
+        <span style="color:#a6e22e">Val</span>: <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">mid</span>],
     }
-    ret.Left=helper(nums, left, mid-1)
-    ret.Right=helper(nums, mid+1, right)
-    return ret
+    <span style="color:#a6e22e">ret</span>.<span style="color:#a6e22e">Left</span>=<span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">mid</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#a6e22e">ret</span>.<span style="color:#a6e22e">Right</span>=<span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">right</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

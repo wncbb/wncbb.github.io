@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,47 +52,46 @@
     <div class="post">
   <h1>0013.roman-to-integer</h1>
   <time datetime=2021-03-10T23:53:27&#43;0800 class="post-date">2021-03-10 23:53:27</time>
-  <pre><code class="language-java">import java.util.*;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
 
-class Solution {
-    public int romanToInt(String s) {
-        int sum = 0;
-        int preNum = getValue(s.charAt(0));
-        for(int i = 1;i &lt; s.length(); i ++) {
-            int num = getValue(s.charAt(i));
-            if(preNum &lt; num) {
-                sum -= preNum;
-            } else {
-                sum += preNum;
-            }
-            preNum = num;
-        }
-        sum += preNum;
-        return sum;
-    }
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">romanToInt</span><span style="color:#f92672">(</span>String s<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> preNum <span style="color:#f92672">=</span> getValue<span style="color:#f92672">(</span>s<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>0<span style="color:#f92672">));</span>
+        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>i <span style="color:#f92672">&lt;</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">();</span> i <span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> getValue<span style="color:#f92672">(</span>s<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>i<span style="color:#f92672">));</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>preNum <span style="color:#f92672">&lt;</span> num<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                sum <span style="color:#f92672">-=</span> preNum<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+                sum <span style="color:#f92672">+=</span> preNum<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            preNum <span style="color:#f92672">=</span> num<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        sum <span style="color:#f92672">+=</span> preNum<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span> sum<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
     
-    private int getValue(char ch) {
-        switch(ch) {
-            case 'I': return 1;
-            case 'V': return 5;
-            case 'X': return 10;
-            case 'L': return 50;
-            case 'C': return 100;
-            case 'D': return 500;
-            case 'M': return 1000;
-            default: return 0;
-        }
-    }
-}
-/*
-作者：donespeak
-链接：https://leetcode-cn.com/problems/roman-to-integer/solution/yong-shi-9993nei-cun-9873jian-dan-jie-fa-by-donesp/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-*/
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span> ch<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">switch</span><span style="color:#f92672">(</span>ch<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;I&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 1<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;V&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 5<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;X&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 10<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;L&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 50<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;C&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 100<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;D&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 500<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;M&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 1000<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">作者：donespeak
+</span><span style="color:#75715e">链接：https://leetcode-cn.com/problems/roman-to-integer/solution/yong-shi-9993nei-cun-9873jian-dan-jie-fa-by-donesp/
+</span><span style="color:#75715e">来源：力扣（LeetCode）
+</span><span style="color:#75715e">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+</span><span style="color:#75715e">*/</span>
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

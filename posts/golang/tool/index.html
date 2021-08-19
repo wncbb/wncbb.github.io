@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,40 +52,26 @@
     <div class="post">
   <h1>Tool</h1>
   <time datetime=2020-06-19T14:48:19&#43;0800 class="post-date">2020-06-19 14:48:19</time>
-  
-
-<p>Copy from:
+  <p>Copy from:
 <a href="https://rakyll.org/go-tool-flags/">https://rakyll.org/go-tool-flags/</a>
 <a href="https://studygolang.com/articles/22803">https://studygolang.com/articles/22803</a></p>
-
-<h2 id="go-build-x">go build -x</h2>
-
+<h2 id="go-build--x">go build -x</h2>
 <p>Lists all the commands go build invokes.</p>
-
-<h2 id="go-build-gcflags">go build -gcflags</h2>
-
+<h2 id="go-build--gcflags">go build -gcflags</h2>
 <p>Used to pass flags to the Go compiler.
 go tool compile -help lists all the flags that can be passed to the compiler.</p>
-
 <p>For example, to disable compiler optimizations and inlining, you can use the following the gcflags.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># -N disable optimizations</span>
+<span style="color:#75715e"># -m print optimization decisions</span>
+<span style="color:#75715e"># -l disable inlining</span>
+<span style="color:#75715e"># -race enable race detector</span>
+go build/run -gcflags <span style="color:#e6db74">&#34;&lt;parameters&gt;&#34;</span> main.go
 
-<pre><code class="language-shell"># -N disable optimizations
-# -m print optimization decisions
-# -l disable inlining
-# -race enable race detector
-go build/run -gcflags &quot;&lt;parameters&gt;&quot; main.go
 
-
-</code></pre>
-
-<h2 id="go-test-coverprofile">go test -coverprofile</h2>
-
+</code></pre></div><h2 id="go-test--coverprofile">go test -coverprofile</h2>
 <pre><code>go test -coverprofile=c.out &amp;&amp; go tool cover -html=c.out
 
-</code></pre>
-
-<h2 id="go-test-race">go test -race</h2>
-
+</code></pre><h2 id="go-test--race">go test -race</h2>
 <h2 id="go-mod-help">go mod help</h2>
 
 </div>

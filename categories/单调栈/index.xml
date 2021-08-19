@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>单调栈 on WNCBB&#39;s blog</title>
@@ -6,11 +6,7 @@
     <description>Recent content in 单调栈 on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Dec 2020 19:03:01 +0800</lastBuildDate>
-    
-	<atom:link href="https://wncbb.github.io/categories/%E5%8D%95%E8%B0%83%E6%A0%88/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 10 Dec 2020 19:03:01 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/%E5%8D%95%E8%B0%83%E6%A0%88/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>0042.rapping-rain-water</title>
       <link>https://wncbb.github.io/posts/leetcode/0042.trapping-rain-water/</link>

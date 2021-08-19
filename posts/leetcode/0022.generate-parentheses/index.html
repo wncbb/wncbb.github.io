@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,38 +52,37 @@
     <div class="post">
   <h1>0022</h1>
   <time datetime=2021-03-09T23:47:50&#43;0800 class="post-date">2021-03-09 23:47:50</time>
-  <pre><code class="language-go">var rst []string
-func generateParenthesis(n int) []string {
-    rst=make([]string, 0)
-    cur:=make([]byte, 0, n*2)
-    bt(cur, n, n)
-    return rst
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rst</span> []<span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">generateParenthesis</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">rst</span>=make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#a6e22e">cur</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)
+    <span style="color:#a6e22e">bt</span>(<span style="color:#a6e22e">cur</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">n</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-func bt(s []byte, openNum, closeNum int){
-    fmt.Printf(&quot;s:%+v, openNum:%d closeNum:%d\n&quot;, s, openNum, closeNum)
-    if openNum==0 &amp;&amp; closeNum==0{
-        rst=append(rst, string(s))
-        return
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">bt</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">openNum</span>, <span style="color:#a6e22e">closeNum</span> <span style="color:#66d9ef">int</span>){
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;s:%+v, openNum:%d closeNum:%d\n&#34;</span>, <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">openNum</span>, <span style="color:#a6e22e">closeNum</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">openNum</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">closeNum</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+        <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, string(<span style="color:#a6e22e">s</span>))
+        <span style="color:#66d9ef">return</span>
     }
-    if openNum&gt;0 {
-        openNum--
-        s=append(s, '(')
-        bt(s, openNum, closeNum)
-        s=s[:len(s)-1]
-        openNum++
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">openNum</span>&gt;<span style="color:#ae81ff">0</span> {
+        <span style="color:#a6e22e">openNum</span><span style="color:#f92672">--</span>
+        <span style="color:#a6e22e">s</span>=append(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#39;(&#39;</span>)
+        <span style="color:#a6e22e">bt</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">openNum</span>, <span style="color:#a6e22e">closeNum</span>)
+        <span style="color:#a6e22e">s</span>=<span style="color:#a6e22e">s</span>[:len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+        <span style="color:#a6e22e">openNum</span><span style="color:#f92672">++</span>
     }
-    // 剩下的close的个数要大于open
-    if closeNum&gt;0 &amp;&amp; openNum&lt;closeNum{
-        closeNum--
-        s=append(s, ')')
-        bt(s, openNum, closeNum)
-        s=s[:len(s)-1]
-        closeNum++
+    <span style="color:#75715e">// 剩下的close的个数要大于open
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">closeNum</span>&gt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">openNum</span>&lt;<span style="color:#a6e22e">closeNum</span>{
+        <span style="color:#a6e22e">closeNum</span><span style="color:#f92672">--</span>
+        <span style="color:#a6e22e">s</span>=append(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#39;)&#39;</span>)
+        <span style="color:#a6e22e">bt</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">openNum</span>, <span style="color:#a6e22e">closeNum</span>)
+        <span style="color:#a6e22e">s</span>=<span style="color:#a6e22e">s</span>[:len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+        <span style="color:#a6e22e">closeNum</span><span style="color:#f92672">++</span>
     }
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

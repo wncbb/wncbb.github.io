@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,48 +52,47 @@
     <div class="post">
   <h1>0300.longest-increasing-subsequence</h1>
   <time datetime=2021-03-10T14:28:58&#43;0800 class="post-date">2021-03-10 14:28:58</time>
-  <pre><code class="language-go">func lengthOfLIS(nums []int) int {
-	numLen := len(nums)
-	if numLen &lt;= 1 {
-		return numLen
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lengthOfLIS</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">numLen</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">nums</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">numLen</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">numLen</span>
 	}
-	// 长度为i+1的递增子序列，的最后一个元素
-	tail := make([]int, numLen, numLen)
+	<span style="color:#75715e">// 长度为i+1的递增子序列，的最后一个元素
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">tail</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">numLen</span>, <span style="color:#a6e22e">numLen</span>)
 
-	tail[0] = nums[0]
-	end := 0
+	<span style="color:#a6e22e">tail</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#a6e22e">nums</span>[<span style="color:#ae81ff">0</span>]
+	<span style="color:#a6e22e">end</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
 
-	for i := 1; i &lt; numLen; i++ {
-		if nums[i] &gt; tail[end] {
-			end++
-			tail[end] = nums[i]
-		} else {
-			left := 0
-			right := end
-			for left &lt; right {
-				mid := left + (right-left)/2
-				if nums[i] &lt;= tail[mid] {
-					right = mid
-				} else {
-					left = mid + 1
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">numLen</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>] &gt; <span style="color:#a6e22e">tail</span>[<span style="color:#a6e22e">end</span>] {
+			<span style="color:#a6e22e">end</span><span style="color:#f92672">++</span>
+			<span style="color:#a6e22e">tail</span>[<span style="color:#a6e22e">end</span>] = <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">left</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+			<span style="color:#a6e22e">right</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">end</span>
+			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">left</span> &lt; <span style="color:#a6e22e">right</span> {
+				<span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">right</span><span style="color:#f92672">-</span><span style="color:#a6e22e">left</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">tail</span>[<span style="color:#a6e22e">mid</span>] {
+					<span style="color:#a6e22e">right</span> = <span style="color:#a6e22e">mid</span>
+				} <span style="color:#66d9ef">else</span> {
+					<span style="color:#a6e22e">left</span> = <span style="color:#a6e22e">mid</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 				}
 			}
-			// fmt.Printf(&quot;-------\n&quot;)
-			// fmt.Printf(&quot;tail:%+v\n&quot;, tail)
-			// fmt.Printf(&quot;left:%d i:%d\n&quot;, left, i)
-			// fmt.Printf(&quot;tail[left]:%d, nums[i]:%d\n&quot;, tail[left], nums[i])
-			// tail 一定是一个递增序列
-			// tail[left]是从右往左数，第一个大于nums[i]的数
-			tail[left] = nums[i]
+			<span style="color:#75715e">// fmt.Printf(&#34;-------\n&#34;)
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// fmt.Printf(&#34;tail:%+v\n&#34;, tail)
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// fmt.Printf(&#34;left:%d i:%d\n&#34;, left, i)
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// fmt.Printf(&#34;tail[left]:%d, nums[i]:%d\n&#34;, tail[left], nums[i])
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// tail 一定是一个递增序列
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// tail[left]是从右往左数，第一个大于nums[i]的数
+</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">tail</span>[<span style="color:#a6e22e">left</span>] = <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
 		}
 	}
-	return end + 1
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 }
 
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,50 +52,49 @@
     <div class="post">
   <h1>0043.multiply-strings</h1>
   <time datetime=2021-03-11T15:26:28&#43;0800 class="post-date">2021-03-11 15:26:28</time>
-  <pre><code class="language-go">func multiply(a string, b string) string {
-    if a == &quot;0&quot; || b == &quot;0&quot; {
-        return &quot;0&quot;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">multiply</span>(<span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;0&#34;</span>
     }
-    // string转换成[]byte，容易取得相应位上的具体值
-    bsi := []byte(a)
-    bsj := []byte(b)
+    <span style="color:#75715e">// string转换成[]byte，容易取得相应位上的具体值
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">bsi</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">a</span>)
+    <span style="color:#a6e22e">bsj</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">b</span>)
 
-    temp := make([]int, len(bsi)+len(bsj))
-    //两数相乘，结果位数不会超过两乘数位数和，即temp的长度只可能为 len(num1)+len(num2) 或 len(num1)+len(num2)-1
-    // 选最大的，免得位数不够
-    for i := 0; i &lt; len(bsi); i++ {
-        for j := 0; j &lt; len(bsj); j++ {
-            // 对应每个位上的乘积，直接累加存入 temp 中相应的位置
-            temp[i+j+1] += int(bsi[i]-'0') * int(bsj[j]-'0')
-            fmt.Printf(&quot;i:%d j:%d temp:%+v\n&quot;, i, j, temp)
+    <span style="color:#a6e22e">temp</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">bsi</span>)<span style="color:#f92672">+</span>len(<span style="color:#a6e22e">bsj</span>))
+    <span style="color:#75715e">//两数相乘，结果位数不会超过两乘数位数和，即temp的长度只可能为 len(num1)+len(num2) 或 len(num1)+len(num2)-1
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 选最大的，免得位数不够
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">bsi</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">bsj</span>); <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#75715e">// 对应每个位上的乘积，直接累加存入 temp 中相应的位置
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">temp</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> int(<span style="color:#a6e22e">bsi</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>) <span style="color:#f92672">*</span> int(<span style="color:#a6e22e">bsj</span>[<span style="color:#a6e22e">j</span>]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>)
+            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;i:%d j:%d temp:%+v\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">temp</span>)
         }
     }
 
-    //统一处理进位
-    for i := len(temp) - 1; i &gt; 0; i-- {
-        temp[i-1] += temp[i] / 10 //对该结果进位（进到前一位）
-        temp[i] = temp[i] % 10    //对个位数保留
+    <span style="color:#75715e">//统一处理进位
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">temp</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &gt; <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span> {
+        <span style="color:#a6e22e">temp</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">temp</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e">//对该结果进位（进到前一位）
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">temp</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">temp</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>    <span style="color:#75715e">//对个位数保留
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#75715e">// a 和 b 较小的时候，temp的首位为0
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 为避免输出结果以0开头，需要去掉temp的0首位
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">temp</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#a6e22e">temp</span> = <span style="color:#a6e22e">temp</span>[<span style="color:#ae81ff">1</span>:]
+    }
+    <span style="color:#75715e">//转换结果：将[]int类型的temp转成[]byte类型,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//因为在未处理进位的情况下，temp每位的结果可能超过255(go中，byte类型实为uint8，最大为255),所以temp选用[]int类型
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//但在处理完进位后，不再会出现溢出
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">res</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, len(<span style="color:#a6e22e">temp</span>)) <span style="color:#75715e">//res 存放最终结果的ASCII码
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">temp</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">res</span>[<span style="color:#a6e22e">i</span>] = byte(<span style="color:#a6e22e">temp</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>)
     }
 
-    // a 和 b 较小的时候，temp的首位为0
-    // 为避免输出结果以0开头，需要去掉temp的0首位
-    if temp[0] == 0 {
-        temp = temp[1:]
-    }
-    //转换结果：将[]int类型的temp转成[]byte类型,
-    //因为在未处理进位的情况下，temp每位的结果可能超过255(go中，byte类型实为uint8，最大为255),所以temp选用[]int类型
-    //但在处理完进位后，不再会出现溢出
-    res := make([]byte, len(temp)) //res 存放最终结果的ASCII码
-
-    for i := 0; i &lt; len(temp); i++ {
-        res[i] = byte(temp[i] + '0')
-    }
-
-    return string(res)
+    <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">res</span>)
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

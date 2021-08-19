@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,30 +52,29 @@
     <div class="post">
   <h1>0045</h1>
   <time datetime=2021-03-06T13:43:02&#43;0800 class="post-date">2021-03-06 13:43:02</time>
-  <pre><code class="language-go">func jump(nums []int) int {
-    end:=0
-    steps:=0
-    maxPosition:=0
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">jump</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">end</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">steps</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">maxPosition</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
 
-    for i:=0; i&lt;len(nums)-1; i++{
-        maxPosition=getMax(maxPosition, i+nums[i])
-        if i==end{
-            end=maxPosition
-            steps++
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">maxPosition</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">maxPosition</span>, <span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>])
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">==</span><span style="color:#a6e22e">end</span>{
+            <span style="color:#a6e22e">end</span>=<span style="color:#a6e22e">maxPosition</span>
+            <span style="color:#a6e22e">steps</span><span style="color:#f92672">++</span>
         }
     }
 
-    return steps
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">steps</span>
 }
 
-func getMax(a, b int)int{
-    if a&gt;b{
-        return a
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">b</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
     }
-    return b
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,111 +52,108 @@
     <div class="post">
   <h1>0079</h1>
   <time datetime=2021-03-09T23:22:34&#43;0800 class="post-date">2021-03-09 23:22:34</time>
-  <pre><code class="language-go">func exist(board [][]byte, word string) bool {
-    m:=len(board)
-    n:=len(board[0])
-    visited:=make([][]bool, 0, m)
-    for i:=0; i&lt;m; i++{
-        visited=append(visited, make([]bool, n, n))
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">exist</span>(<span style="color:#a6e22e">board</span> [][]<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">word</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">m</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">board</span>)
+    <span style="color:#a6e22e">n</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">board</span>[<span style="color:#ae81ff">0</span>])
+    <span style="color:#a6e22e">visited</span><span style="color:#f92672">:=</span>make([][]<span style="color:#66d9ef">bool</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">m</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">m</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">visited</span>=append(<span style="color:#a6e22e">visited</span>, make([]<span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">n</span>))
     }
 
-    dirs:=[][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
+    <span style="color:#a6e22e">dirs</span><span style="color:#f92672">:=</span>[][]<span style="color:#66d9ef">int</span>{{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>}, {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>}}
 
-    var findWord func(i, j, wordIdx int)bool
-    findWord=func(i, j, wordIdx int)bool{
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">findWord</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">wordIdx</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>
+    <span style="color:#a6e22e">findWord</span>=<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">wordIdx</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>{
         
-        if word[wordIdx]!=board[i][j]{
-            return false
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">word</span>[<span style="color:#a6e22e">wordIdx</span>]<span style="color:#f92672">!=</span><span style="color:#a6e22e">board</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]{
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
         }
-        if wordIdx==len(word)-1{
-            return true
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">wordIdx</span><span style="color:#f92672">==</span>len(<span style="color:#a6e22e">word</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>{
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
         }
 
-        for _, dir:=range dirs{
-            newI:=i+dir[0]
-            newJ:=j+dir[1]
-            if newI&lt;0 || newI&gt;=m || newJ&lt;0 || newJ&gt;=n{
-                continue
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">dir</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dirs</span>{
+            <span style="color:#a6e22e">newI</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">0</span>]
+            <span style="color:#a6e22e">newJ</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">1</span>]
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">newI</span>&lt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newI</span><span style="color:#f92672">&gt;=</span><span style="color:#a6e22e">m</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newJ</span>&lt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newJ</span><span style="color:#f92672">&gt;=</span><span style="color:#a6e22e">n</span>{
+                <span style="color:#66d9ef">continue</span>
             }
-            if visited[newI][newJ]{
-                continue
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">newI</span>][<span style="color:#a6e22e">newJ</span>]{
+                <span style="color:#66d9ef">continue</span>
             }
-            visited[newI][newJ]=true
-            if findWord(newI, newJ, wordIdx+1){
-                return true
+            <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">newI</span>][<span style="color:#a6e22e">newJ</span>]=<span style="color:#66d9ef">true</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">findWord</span>(<span style="color:#a6e22e">newI</span>, <span style="color:#a6e22e">newJ</span>, <span style="color:#a6e22e">wordIdx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>){
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
             }
-            visited[newI][newJ]=false
+            <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">newI</span>][<span style="color:#a6e22e">newJ</span>]=<span style="color:#66d9ef">false</span>
         }
-        return false
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
     }
 
 
-    for i:=0; i&lt;len(board); i++{
-        for j:=0; j&lt;len(board[0]); j++{
-            visited[i][j]=true
-            if findWord(i, j, 0){
-                return true
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">board</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span>&lt;len(<span style="color:#a6e22e">board</span>[<span style="color:#ae81ff">0</span>]); <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+            <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">true</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">findWord</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#ae81ff">0</span>){
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
             }
-            visited[i][j]=false
+            <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">false</span>
         }
     }
-    return false
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
 }
 
 
-</code></pre>
-
-<pre><code class="language-go">func exist(board [][]byte, word string) bool {
-    for i:=0; i&lt;len(board); i++{
-        for j:=0; j&lt;len(board[0]); j++{
-            if findWord(board, i, j, word){
-                return true
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">exist</span>(<span style="color:#a6e22e">board</span> [][]<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">word</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">board</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span>&lt;len(<span style="color:#a6e22e">board</span>[<span style="color:#ae81ff">0</span>]); <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">findWord</span>(<span style="color:#a6e22e">board</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">word</span>){
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
             }
         }
     }
-    return false
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
 }
 
-func findWord(board [][]byte, i, j int, word string)bool{
-    visited:=make([][]bool, 0, len(board))
-    for i:=0; i&lt;len(board); i++{
-        visited=append(visited, make([]bool, len(board[0]), len(board[0])))
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findWord</span>(<span style="color:#a6e22e">board</span> [][]<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">word</span> <span style="color:#66d9ef">string</span>)<span style="color:#66d9ef">bool</span>{
+    <span style="color:#a6e22e">visited</span><span style="color:#f92672">:=</span>make([][]<span style="color:#66d9ef">bool</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">board</span>))
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">board</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">visited</span>=append(<span style="color:#a6e22e">visited</span>, make([]<span style="color:#66d9ef">bool</span>, len(<span style="color:#a6e22e">board</span>[<span style="color:#ae81ff">0</span>]), len(<span style="color:#a6e22e">board</span>[<span style="color:#ae81ff">0</span>])))
     }
 
-    dirs:=[][]int{
-        {0, 1}, {0, -1}, {1, 0}, {-1, 0},
+    <span style="color:#a6e22e">dirs</span><span style="color:#f92672">:=</span>[][]<span style="color:#66d9ef">int</span>{
+        {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}, {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>}, {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>},
     }
-    wordBytes:=[]byte(word)
-    var inner func(i, j, k int)bool
-    inner = func(i, j, k int)bool{
-        if wordBytes[k]!=board[i][j]{
-            return false
+    <span style="color:#a6e22e">wordBytes</span><span style="color:#f92672">:=</span>[]byte(<span style="color:#a6e22e">word</span>)
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">inner</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>
+    <span style="color:#a6e22e">inner</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">wordBytes</span>[<span style="color:#a6e22e">k</span>]<span style="color:#f92672">!=</span><span style="color:#a6e22e">board</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]{
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
         }
-        if k==len(wordBytes)-1 {
-            return true
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span><span style="color:#f92672">==</span>len(<span style="color:#a6e22e">wordBytes</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
         }
 
-        visited[i][j]=true
-        for _,dir:=range dirs{
-            newI:=dir[0]+i
-            newJ:=dir[1]+j 
-            if newI&lt;0 || newI&gt;=len(board) || newJ&lt;0 || newJ&gt;=len(board[0]) {
-                continue
+        <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">true</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>,<span style="color:#a6e22e">dir</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dirs</span>{
+            <span style="color:#a6e22e">newI</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span><span style="color:#a6e22e">i</span>
+            <span style="color:#a6e22e">newJ</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span><span style="color:#a6e22e">j</span> 
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">newI</span>&lt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newI</span><span style="color:#f92672">&gt;=</span>len(<span style="color:#a6e22e">board</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">newJ</span>&lt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">newJ</span><span style="color:#f92672">&gt;=</span>len(<span style="color:#a6e22e">board</span>[<span style="color:#ae81ff">0</span>]) {
+                <span style="color:#66d9ef">continue</span>
             }
-            if visited[newI][newJ]{
-                continue
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">newI</span>][<span style="color:#a6e22e">newJ</span>]{
+                <span style="color:#66d9ef">continue</span>
             }
-            if inner(newI, newJ, k+1){
-                return true
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">inner</span>(<span style="color:#a6e22e">newI</span>, <span style="color:#a6e22e">newJ</span>, <span style="color:#a6e22e">k</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>){
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
             }
         }
-        visited[i][j]=false
-        return false
+        <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">false</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
     }
-    return inner(i, j, 0)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">inner</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#ae81ff">0</span>)
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

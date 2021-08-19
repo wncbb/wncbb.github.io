@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,28 +52,27 @@
     <div class="post">
   <h1>0203.remove-linked-list-elements</h1>
   <time datetime=2021-03-12T21:31:49&#43;0800 class="post-date">2021-03-12 21:31:49</time>
-  <pre><code class="language-go">/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func removeElements(head *ListNode, val int) *ListNode {
-    dummy:=&amp;ListNode{}
-    dummy.Next=head
-    // tail:=dummy
-    cur:=dummy
-    for cur!=nil{
-        for cur.Next!=nil &amp;&amp; cur.Next.Val==val{
-            cur.Next=cur.Next.Next
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * type ListNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Next *ListNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">removeElements</span>(<span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span> {
+    <span style="color:#a6e22e">dummy</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">ListNode</span>{}
+    <span style="color:#a6e22e">dummy</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">head</span>
+    <span style="color:#75715e">// tail:=dummy
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">cur</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dummy</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">cur</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Val</span><span style="color:#f92672">==</span><span style="color:#a6e22e">val</span>{
+            <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Next</span>
         }
-        cur=cur.Next
+        <span style="color:#a6e22e">cur</span>=<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>
     }
-    return dummy.Next
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dummy</span>.<span style="color:#a6e22e">Next</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

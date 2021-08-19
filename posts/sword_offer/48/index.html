@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,30 +52,29 @@
     <div class="post">
   <h1>48</h1>
   <time datetime=2021-03-12T20:02:29&#43;0800 class="post-date">2021-03-12 20:02:29</time>
-  <pre><code class="language-go">func lengthOfLongestSubstring(s string) int {
-    char2LastIdx:=make(map[byte]int)
-    sBytes:=[]byte(s)
-    curMaxLen:=0
-    curLeft:=0
-    for idx, c:=range sBytes{
-        lastIdx, ok:=char2LastIdx[c]
-        if ok{
-            curLeft=getMax(curLeft, lastIdx+1)
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lengthOfLongestSubstring</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">char2LastIdx</span><span style="color:#f92672">:=</span>make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">byte</span>]<span style="color:#66d9ef">int</span>)
+    <span style="color:#a6e22e">sBytes</span><span style="color:#f92672">:=</span>[]byte(<span style="color:#a6e22e">s</span>)
+    <span style="color:#a6e22e">curMaxLen</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">curLeft</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">c</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sBytes</span>{
+        <span style="color:#a6e22e">lastIdx</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">char2LastIdx</span>[<span style="color:#a6e22e">c</span>]
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span>{
+            <span style="color:#a6e22e">curLeft</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">curLeft</span>, <span style="color:#a6e22e">lastIdx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
         }
-        curMaxLen=getMax(curMaxLen, idx-curLeft+1)
-        char2LastIdx[c]=idx
+        <span style="color:#a6e22e">curMaxLen</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">curMaxLen</span>, <span style="color:#a6e22e">idx</span><span style="color:#f92672">-</span><span style="color:#a6e22e">curLeft</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#a6e22e">char2LastIdx</span>[<span style="color:#a6e22e">c</span>]=<span style="color:#a6e22e">idx</span>
     }
-    return curMaxLen
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">curMaxLen</span>
 }
 
-func getMax(a, b int)int{
-    if a&gt;b{
-        return a
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">b</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
     }
-    return b
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

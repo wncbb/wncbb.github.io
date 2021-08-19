@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,39 +59,36 @@ x^64    x^32    x^16  x^8   x^4	 x^2    x^1
 
 最终结果就是所有二进制位为1的权值之积：x^1 * x^4 * x^8 * x^64 = x^77
 而且我们不必预先把每一个二进制位的权值计算出来，我们可以一边计算结果，一边计算权值
-</code></pre>
-
-<pre><code class="language-go">func myPow(x float64, n int) float64 {
-    if n &gt;= 0 {
-        return quickMul(x, n)
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myPow</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">quickMul</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">n</span>)
     }
-    return 1.0 / quickMul(x, -n)
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">quickMul</span>(<span style="color:#a6e22e">x</span>, <span style="color:#f92672">-</span><span style="color:#a6e22e">n</span>)
 }
 
-func quickMul(x float64, N int) float64 {
-    ans := 1.0
-    // 贡献的初始值为 x
-    x_contribute := x
-    // 在对 N 进行二进制拆分的同时计算答案
-    for N &gt; 0 {
-        fmt.Printf(&quot;N: %d\n&quot;, N)
-        if N % 2 == 1 {
-            // 如果 N 二进制表示的最低位为 1，那么需要计入贡献
-            ans *= x_contribute
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">quickMul</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">N</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">float64</span> {
+    <span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1.0</span>
+    <span style="color:#75715e">// 贡献的初始值为 x
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">x_contribute</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">x</span>
+    <span style="color:#75715e">// 在对 N 进行二进制拆分的同时计算答案
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">N</span> &gt; <span style="color:#ae81ff">0</span> {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;N: %d\n&#34;</span>, <span style="color:#a6e22e">N</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">N</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+            <span style="color:#75715e">// 如果 N 二进制表示的最低位为 1，那么需要计入贡献
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">ans</span> <span style="color:#f92672">*=</span> <span style="color:#a6e22e">x_contribute</span>
         }
-        // 将贡献不断地平方
-        // 这个只是计算每个二进制位上的值，只要N%2==1,说明ans需要当前的x_countribute
-        x_contribute *= x_contribute
-        fmt.Printf(&quot;x_contribute: %f\n&quot;, x_contribute)
-        // 舍弃 N 二进制表示的最低位，这样我们每次只要判断最低位即可
-        N /= 2
+        <span style="color:#75715e">// 将贡献不断地平方
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 这个只是计算每个二进制位上的值，只要N%2==1,说明ans需要当前的x_countribute
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">x_contribute</span> <span style="color:#f92672">*=</span> <span style="color:#a6e22e">x_contribute</span>
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;x_contribute: %f\n&#34;</span>, <span style="color:#a6e22e">x_contribute</span>)
+        <span style="color:#75715e">// 舍弃 N 二进制表示的最低位，这样我们每次只要判断最低位即可
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">N</span> <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>
     }
-    return ans
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

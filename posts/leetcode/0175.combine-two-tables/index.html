@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,14 +52,13 @@
     <div class="post">
   <h1>0175.combine-two-tables</h1>
   <time datetime=2021-03-10T14:30:50&#43;0800 class="post-date">2021-03-10 14:30:50</time>
-  <pre><code class="language-sql">select FirstName, LastName, City, State
-from Person left join Address
-on Person.PersonId = Address.PersonId
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> FirstName, LastName, City, <span style="color:#66d9ef">State</span>
+<span style="color:#66d9ef">from</span> Person <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">join</span> Address
+<span style="color:#66d9ef">on</span> Person.PersonId <span style="color:#f92672">=</span> Address.PersonId
 ;
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

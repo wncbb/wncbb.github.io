@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on WNCBB&#39;s blog</title>
@@ -6,11 +6,7 @@
     <description>Recent content in git on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Dec 2020 14:05:18 +0800</lastBuildDate>
-    
-	<atom:link href="https://wncbb.github.io/categories/git/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 10 Dec 2020 14:05:18 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Reset</title>
       <link>https://wncbb.github.io/posts/git/reset/</link>
@@ -18,7 +14,7 @@
       
       <guid>https://wncbb.github.io/posts/git/reset/</guid>
       <description>https://ndpsoftware.com/git-cheatsheet.html
-// 取消上一次提交，且代码不要了 git reset --hard HEAD^1 // 取消上一次提交，代码在add状态 git reset --soft HEAD^1 // 取消add状态 git reset git reset &amp;lt;file&amp;gt;  </description>
+// 取消上一次提交，且代码不要了 git reset --hard HEAD^1 // 取消上一次提交，代码在add状态 git reset --soft HEAD^1 // 取消add状态 git reset git reset &amp;lt;file&amp;gt; </description>
     </item>
     
   </channel>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,69 +53,67 @@
   <h1>0394.decode-string</h1>
   <time datetime=2021-03-10T22:51:08&#43;0800 class="post-date">2021-03-10 22:51:08</time>
   <p><a href="https://leetcode-cn.com/problems/decode-string/solution/decode-string-fu-zhu-zhan-fa-di-gui-fa-by-jyd/">https://leetcode-cn.com/problems/decode-string/solution/decode-string-fu-zhu-zhan-fa-di-gui-fa-by-jyd/</a></p>
-
-<pre><code class="language-go">func decodeString(s string) string {
-    stack:=&amp;Stack{
-        raw: make([]*Elem, 0),
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">decodeString</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">stack</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">Stack</span>{
+        <span style="color:#a6e22e">raw</span>: make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>, <span style="color:#ae81ff">0</span>),
     }
-    str:=&quot;&quot;
-    multi:=0
+    <span style="color:#a6e22e">str</span><span style="color:#f92672">:=</span><span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#a6e22e">multi</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
 
-    sBytes:=[]byte(s)
-    for _, v:=range sBytes{
-        switch {
-        case v=='[':
-            stack.Push(&amp;Elem{CurMulti: multi, LastStr: str})
-            multi=0
-            str=&quot;&quot;
-        case v==']':
-            curElem:=stack.Pop()
-            str=curElem.LastStr+multiStr(str, curElem.CurMulti)
-        case '0'&lt;=v &amp;&amp; v&lt;='9':
-            multi=multi*10+int(v-'0')
-        default:
-            str+=string([]byte{v})
+    <span style="color:#a6e22e">sBytes</span><span style="color:#f92672">:=</span>[]byte(<span style="color:#a6e22e">s</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sBytes</span>{
+        <span style="color:#66d9ef">switch</span> {
+        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">==</span><span style="color:#e6db74">&#39;[&#39;</span>:
+            <span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Elem</span>{<span style="color:#a6e22e">CurMulti</span>: <span style="color:#a6e22e">multi</span>, <span style="color:#a6e22e">LastStr</span>: <span style="color:#a6e22e">str</span>})
+            <span style="color:#a6e22e">multi</span>=<span style="color:#ae81ff">0</span>
+            <span style="color:#a6e22e">str</span>=<span style="color:#e6db74">&#34;&#34;</span>
+        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">==</span><span style="color:#e6db74">&#39;]&#39;</span>:
+            <span style="color:#a6e22e">curElem</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Pop</span>()
+            <span style="color:#a6e22e">str</span>=<span style="color:#a6e22e">curElem</span>.<span style="color:#a6e22e">LastStr</span><span style="color:#f92672">+</span><span style="color:#a6e22e">multiStr</span>(<span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">curElem</span>.<span style="color:#a6e22e">CurMulti</span>)
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">v</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">&lt;=</span><span style="color:#e6db74">&#39;9&#39;</span>:
+            <span style="color:#a6e22e">multi</span>=<span style="color:#a6e22e">multi</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span><span style="color:#f92672">+</span>int(<span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>)
+        <span style="color:#66d9ef">default</span>:
+            <span style="color:#a6e22e">str</span><span style="color:#f92672">+=</span>string([]<span style="color:#66d9ef">byte</span>{<span style="color:#a6e22e">v</span>})
         }
     }
 
-    return str
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">str</span>
 }
 
-type Elem struct{
-    CurMulti int
-    LastStr string
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Elem</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">CurMulti</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">LastStr</span> <span style="color:#66d9ef">string</span>
 }
 
-func multiStr(s string, num int)string{
-    ret:=&quot;&quot;
-    for i:=0; i&lt;num; i++{
-        ret+=s
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">multiStr</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">num</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">string</span>{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span><span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">num</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">ret</span><span style="color:#f92672">+=</span><span style="color:#a6e22e">s</span>
     }
-    return ret
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
 
-type Stack struct{
-    raw []*Elem
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stack</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">raw</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>
 }
 
-func(s *Stack)Push(v *Elem){
-    s.raw=append(s.raw, v)
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">v</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>){
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>=append(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>, <span style="color:#a6e22e">v</span>)
 }
-func(s *Stack)Pop()*Elem{
-    ret:=s.raw[len(s.raw)-1]
-    s.raw=s.raw[:len(s.raw)-1]
-    return ret
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Pop</span>()<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>[len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>=<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>[:len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
-func(s *Stack)Empty()bool{
-    return len(s.raw)==0
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Empty</span>()<span style="color:#66d9ef">bool</span>{
+    <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
 }
-func(s *Stack)Top()*Elem{
-    return s.raw[len(s.raw)-1]
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>)<span style="color:#a6e22e">Top</span>()<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>{
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>[len(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

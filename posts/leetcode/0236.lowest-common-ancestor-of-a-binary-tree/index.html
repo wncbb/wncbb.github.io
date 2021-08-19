@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,34 +52,33 @@
     <div class="post">
   <h1>0236.lowest-common-ancestor-of-a-binary-tree</h1>
   <time datetime=2021-03-10T17:46:07&#43;0800 class="post-date">2021-03-10 17:46:07</time>
-  <pre><code class="language-go">/**
- * Definition for TreeNode.
- * type TreeNode struct {
- *     Val int
- *     Left *ListNode
- *     Right *ListNode
- * }
- */
- func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
-     if root==nil{
-         return nil
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for TreeNode.
+</span><span style="color:#75715e"> * type TreeNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Left *ListNode
+</span><span style="color:#75715e"> *     Right *ListNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+ <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lowestCommonAncestor</span>(<span style="color:#a6e22e">root</span>, <span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span> {
+     <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">root</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
      }
-     if root.Val==p.Val || root.Val==q.Val{
-         return root
+     <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Val</span><span style="color:#f92672">==</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Val</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Val</span><span style="color:#f92672">==</span><span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Val</span>{
+         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">root</span>
      }
-     left:=lowestCommonAncestor(root.Left, p, q)
-     right:=lowestCommonAncestor(root.Right, p, q)
-     if left!=nil &amp;&amp; right!=nil{
-         return root
+     <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">lowestCommonAncestor</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Left</span>, <span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span>)
+     <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">lowestCommonAncestor</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Right</span>, <span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">q</span>)
+     <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">right</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">root</span>
      }
-     if left!=nil{
-         return left
+     <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">left</span>
      }
-     return right
+     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">right</span>
 }
  
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

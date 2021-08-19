@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,34 +52,33 @@
     <div class="post">
   <h1>0082.remove-duplicates-from-sorted-list-ii</h1>
   <time datetime=2021-03-10T23:13:32&#43;0800 class="post-date">2021-03-10 23:13:32</time>
-  <pre><code class="language-go">/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func deleteDuplicates(head *ListNode) *ListNode {
-    dummy:=&amp;ListNode{}
-    dummy.Next=head
-    cur:=dummy
-    for cur.Next!=nil{
-        left:=cur.Next
-        right:=cur.Next
-        for right.Next!=nil &amp;&amp; right.Next.Val==left.Val{
-            right=right.Next
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * type ListNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Next *ListNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">deleteDuplicates</span>(<span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span> {
+    <span style="color:#a6e22e">dummy</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">ListNode</span>{}
+    <span style="color:#a6e22e">dummy</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">head</span>
+    <span style="color:#a6e22e">cur</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dummy</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">right</span>.<span style="color:#a6e22e">Next</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">right</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Val</span><span style="color:#f92672">==</span><span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">Val</span>{
+            <span style="color:#a6e22e">right</span>=<span style="color:#a6e22e">right</span>.<span style="color:#a6e22e">Next</span>
         }
-        if left!=right{
-            cur.Next=right.Next
-        }else{
-            cur=cur.Next
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span><span style="color:#f92672">!=</span><span style="color:#a6e22e">right</span>{
+            <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">right</span>.<span style="color:#a6e22e">Next</span>
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#a6e22e">cur</span>=<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>
         }
         
     }
-    return dummy.Next
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dummy</span>.<span style="color:#a6e22e">Next</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

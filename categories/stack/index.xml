@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>stack on WNCBB&#39;s blog</title>
@@ -6,18 +6,14 @@
     <description>Recent content in stack on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Mar 2021 23:19:44 +0800</lastBuildDate>
-    
-	<atom:link href="https://wncbb.github.io/categories/stack/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 09 Mar 2021 23:19:44 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/stack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>0739 Daily Temperatures</title>
       <link>https://wncbb.github.io/posts/leetcode/0739-daily-temperatures/</link>
       <pubDate>Tue, 09 Mar 2021 23:19:44 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/leetcode/0739-daily-temperatures/</guid>
-      <description>func dailyTemperatures(T []int) []int { if len(T)==0{ return []int{} } ret:=make([]int, len(T)) s:=&amp;amp;Stack{ raw: make([]int, 0), } s.Push(0) for i:=1; i&amp;lt;len(T); i++{ for !s.Empty() &amp;amp;&amp;amp; T[s.Top()]&amp;lt;T[i]{ targetIdx:=s.Pop() ret[targetIdx]=i-targetIdx } s.Push(i) } return ret } type Stack struct{ raw []int } func (s *Stack)Empty()bool{ return len(s.raw)==0 } func (s *Stack)Push(v int){ s.raw=append(s.raw, v) } func (s *Stack)Pop()int{ ret:=s.raw[len(s.raw)-1] s.raw=s.raw[:len(s.raw)-1] return ret } func (s *Stack)Top()int{ return s.raw[len(s.raw)-1] }  </description>
+      <description>func dailyTemperatures(T []int) []int { if len(T)==0{ return []int{} } ret:=make([]int, len(T)) s:=&amp;amp;Stack{ raw: make([]int, 0), } s.Push(0) for i:=1; i&amp;lt;len(T); i++{ for !s.Empty() &amp;amp;&amp;amp; T[s.Top()]&amp;lt;T[i]{ targetIdx:=s.Pop() ret[targetIdx]=i-targetIdx } s.Push(i) } return ret } type Stack struct{ raw []int } func (s *Stack)Empty()bool{ return len(s.raw)==0 } func (s *Stack)Push(v int){ s.raw=append(s.raw, v) } func (s *Stack)Pop()int{ ret:=s.raw[len(s.raw)-1] s.raw=s.raw[:len(s.raw)-1] return ret } func (s *Stack)Top()int{ return s.raw[len(s.raw)-1] } </description>
     </item>
     
     <item>
@@ -27,7 +23,7 @@
       
       <guid>https://wncbb.github.io/posts/leetcode/0316.remove-duplicate-letters/</guid>
       <description>as same as 1081
-func removeDuplicateLetters(s string) string { if len(s)&amp;lt;=1{ return s } sBytes:=[]byte(s) // 判断字符是否在栈中 inStack:=make([]bool, 256) // 判断当前剩下的字符中，每个字符还剩多少个 bytesNum:=make([]int, 256) for _, v:=range sBytes{ bytesNum[v]++ } // 变量名不要跟参数重复 stack:=&amp;amp;Stack{ raw: make([]byte, 0), } for _, v:=range sBytes{ // 只要遍历到，剩下的v的个数就要-- bytesNum[v]-- // 已经在栈中了，就不管了 if inStack[v]{ continue } // 如果栈顶元素t比当前v大，且后面还有栈顶元素t，那与其tv, 还不如vt, 后者字典序更小，因此直接pop出t for stack.Len()&amp;gt;0 &amp;amp;&amp;amp; stack.Top()&amp;gt;v &amp;amp;&amp;amp; bytesNum[stack.Top()]&amp;gt;0{ //fmt.Printf(&amp;quot;pop: %c\n&amp;quot;, stack.Top()) inStack[stack.Pop()]=false } stack.Push(v) // fmt.Printf(&amp;quot;stack: %s\n&amp;quot;, string(stack.raw)) inStack[v]=true } return string(stack.</description>
+func removeDuplicateLetters(s string) string { if len(s)&amp;lt;=1{ return s } sBytes:=[]byte(s) // 判断字符是否在栈中  inStack:=make([]bool, 256) // 判断当前剩下的字符中，每个字符还剩多少个  bytesNum:=make([]int, 256) for _, v:=range sBytes{ bytesNum[v]++ } // 变量名不要跟参数重复  stack:=&amp;amp;Stack{ raw: make([]byte, 0), } for _, v:=range sBytes{ // 只要遍历到，剩下的v的个数就要--  bytesNum[v]-- // 已经在栈中了，就不管了  if inStack[v]{ continue } // 如果栈顶元素t比当前v大，且后面还有栈顶元素t，那与其tv, 还不如vt, 后者字典序更小，因此直接pop出t  for stack.Len()&amp;gt;0 &amp;amp;&amp;amp; stack.Top()&amp;gt;v &amp;amp;&amp;amp; bytesNum[stack.Top()]&amp;gt;0{ //fmt.Printf(&amp;#34;pop: %c\n&amp;#34;, stack.Top())  inStack[stack.Pop()]=false } stack.</description>
     </item>
     
   </channel>

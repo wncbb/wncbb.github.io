@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,75 +52,74 @@
     <div class="post">
   <h1>Topological_sort</h1>
   <time datetime=2021-03-17T14:19:49&#43;0800 class="post-date">2021-03-17 14:19:49</time>
-  <pre><code class="language-go">package main
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-type Task struct{
-	ID string
-	Cost int
-	Next []string
-	PreCost int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Task</span> <span style="color:#66d9ef">struct</span>{
+	<span style="color:#a6e22e">ID</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Cost</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Next</span> []<span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">PreCost</span> <span style="color:#66d9ef">int</span>
 }
 
-func scheduleTask(tasks []*Task)int{
-	taskID2Task:=make(map[string]*Task)
-	for _, v:=range tasks{
-		taskID2Task[v.ID]=v
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">scheduleTask</span>(<span style="color:#a6e22e">tasks</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Task</span>)<span style="color:#66d9ef">int</span>{
+	<span style="color:#a6e22e">taskID2Task</span><span style="color:#f92672">:=</span>make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">Task</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tasks</span>{
+		<span style="color:#a6e22e">taskID2Task</span>[<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">ID</span>]=<span style="color:#a6e22e">v</span>
 	}
 
-	myList:=make([]string, 0)
-	taskID2Indegree:=make(map[string]int)
-	for _, curTask:=range tasks{
+	<span style="color:#a6e22e">myList</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#a6e22e">taskID2Indegree</span><span style="color:#f92672">:=</span>make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">curTask</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tasks</span>{
     
-        if _, ok:=taskID2Indegree[curTask.ID]; !ok{
-			taskID2Indegree[curTask.ID]=0
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">taskID2Indegree</span>[<span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">ID</span>]; !<span style="color:#a6e22e">ok</span>{
+			<span style="color:#a6e22e">taskID2Indegree</span>[<span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">ID</span>]=<span style="color:#ae81ff">0</span>
 		}
     
     
-		for _, curID:=range curTask.Next{
-			taskID2Indegree[curID]++
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">curID</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">Next</span>{
+			<span style="color:#a6e22e">taskID2Indegree</span>[<span style="color:#a6e22e">curID</span>]<span style="color:#f92672">++</span>
 		}
 	}
 
-	for curID, curIndegree:=range taskID2Indegree{
-		if curIndegree==0{
-			myList=append(myList, curID)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">curID</span>, <span style="color:#a6e22e">curIndegree</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">taskID2Indegree</span>{
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">curIndegree</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+			<span style="color:#a6e22e">myList</span>=append(<span style="color:#a6e22e">myList</span>, <span style="color:#a6e22e">curID</span>)
 		}
 	}
 
-	rst:=0
+	<span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
 
-	for len(myList)!=0{
-		curTaskID:=myList[0]
-		myList=myList[1:]
-		curTask:=taskID2Task[curTaskID]
-		for _, nextTaskID:=range curTask.Next{
-			taskID2Indegree[nextTaskID]--
-			if taskID2Indegree[nextTaskID]==0{
-				myList=append(myList, nextTaskID)
+	<span style="color:#66d9ef">for</span> len(<span style="color:#a6e22e">myList</span>)<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>{
+		<span style="color:#a6e22e">curTaskID</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">myList</span>[<span style="color:#ae81ff">0</span>]
+		<span style="color:#a6e22e">myList</span>=<span style="color:#a6e22e">myList</span>[<span style="color:#ae81ff">1</span>:]
+		<span style="color:#a6e22e">curTask</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">taskID2Task</span>[<span style="color:#a6e22e">curTaskID</span>]
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">nextTaskID</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">Next</span>{
+			<span style="color:#a6e22e">taskID2Indegree</span>[<span style="color:#a6e22e">nextTaskID</span>]<span style="color:#f92672">--</span>
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">taskID2Indegree</span>[<span style="color:#a6e22e">nextTaskID</span>]<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+				<span style="color:#a6e22e">myList</span>=append(<span style="color:#a6e22e">myList</span>, <span style="color:#a6e22e">nextTaskID</span>)
 			}
-			nextTask:=taskID2Task[nextTaskID]
-			nextTask.PreCost=getMax(nextTask.PreCost, curTask.Cost+curTask.PreCost)
+			<span style="color:#a6e22e">nextTask</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">taskID2Task</span>[<span style="color:#a6e22e">nextTaskID</span>]
+			<span style="color:#a6e22e">nextTask</span>.<span style="color:#a6e22e">PreCost</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">nextTask</span>.<span style="color:#a6e22e">PreCost</span>, <span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">Cost</span><span style="color:#f92672">+</span><span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">PreCost</span>)
 		}
-		if len(curTask.Next)==0{
-			rst=getMax(rst, curTask.PreCost+curTask.Cost)
+		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">Next</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+			<span style="color:#a6e22e">rst</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">PreCost</span><span style="color:#f92672">+</span><span style="color:#a6e22e">curTask</span>.<span style="color:#a6e22e">Cost</span>)
 		}
 	}
 
-	return rst
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-func getMax(a, b int)int{
-	if a&gt;b{
-		return a
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">b</span>{
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
 	}
-	return b
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
 }
 
-func main(){
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>(){
 	
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

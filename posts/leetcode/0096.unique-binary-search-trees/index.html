@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,36 +52,35 @@
     <div class="post">
   <h1>0096.unique-binary-search-trees</h1>
   <time datetime=2021-02-26T15:57:23&#43;0800 class="post-date">2021-02-26 15:57:23</time>
-  <pre><code class="language-go">/*
-G(n): 长度为 n 的序列能构成的不同二叉搜索树的个数。
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/*
+</span><span style="color:#75715e">G(n): 长度为 n 的序列能构成的不同二叉搜索树的个数。
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">F(i, n): 以 i 为根、序列长度为 n 的不同二叉搜索树个数
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">G(n)=F(1, n)+F(2, n)+...+F(n, n)
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">1 2 3 ... i ... n
+</span><span style="color:#75715e">A A A AAA   BBB B
+</span><span style="color:#75715e">F(i, n)=G(i-1)*G(n-i)
+</span><span style="color:#75715e">^^ F(i, n)， i已经是root了，那么i左边的部分A是left tree, i右边的部分B是right tree
+</span><span style="color:#75715e">从A组成的tree list里选一个，从B组成的tree list里选一种，总共就是两者相乘的可能数
+</span><span style="color:#75715e">i的范围是从1到n，对应到代码里，是从1到i, 因为求的是G[i], 此时n=i
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">*/</span>
 
-F(i, n): 以 i 为根、序列长度为 n 的不同二叉搜索树个数
-
-G(n)=F(1, n)+F(2, n)+...+F(n, n)
-
-1 2 3 ... i ... n
-A A A AAA   BBB B
-F(i, n)=G(i-1)*G(n-i)
-^^ F(i, n)， i已经是root了，那么i左边的部分A是left tree, i右边的部分B是right tree
-从A组成的tree list里选一个，从B组成的tree list里选一种，总共就是两者相乘的可能数
-i的范围是从1到n，对应到代码里，是从1到i, 因为求的是G[i], 此时n=i
-
-*/
-
-func numTrees(n int) int {
-    G := make([]int, n + 1)
-    G[0], G[1] = 1, 1
-    for i := 2; i &lt;= n; i++ {
-        // 
-        for j := 1; j &lt;= i; j++ {
-            G[i] += G[j-1] * G[i-j]
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">numTrees</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">G</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+    <span style="color:#a6e22e">G</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">G</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#a6e22e">G</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">G</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">G</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#a6e22e">j</span>]
         }
     }
-    return G[n]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">G</span>[<span style="color:#a6e22e">n</span>]
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

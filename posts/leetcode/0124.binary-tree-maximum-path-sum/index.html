@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,62 +52,56 @@
     <div class="post">
   <h1>0124.binary-tree-maximum-path-sum</h1>
   <time datetime=2021-02-26T14:58:35&#43;0800 class="post-date">2021-02-26 14:58:35</time>
-  <p>```go
-/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-var ret int
-var retIsSet bool
-func maxPathSum(root *TreeNode) int {
-    ret=0
-    retIsSet=false</p>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for a binary tree node.
+</span><span style="color:#75715e"> * type TreeNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Left *TreeNode
+</span><span style="color:#75715e"> *     Right *TreeNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ret</span> <span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">retIsSet</span> <span style="color:#66d9ef">bool</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxPathSum</span>(<span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">ret</span>=<span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">retIsSet</span>=<span style="color:#66d9ef">false</span>
+    
+    <span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">root</span>)
 
-<pre><code>helper(root)
-
-return ret
-</code></pre>
-
-<p>}</p>
-
-<p>// 获得一定包含root，且以root为起点，且单边(左子树或右子树路径上单链，当然可以只包含root，比如root的下面的节点都是负数，就可以只包含root)的最大值
-func helper(root *TreeNode) int {
-    if root==nil{
-        return 0
-    }</p>
-
-<pre><code>// 如果helper(root.Left)为负数，还不如不包含后面的节点，直接设置为0
-left:=getMax(0, helper(root.Left))
-right:=getMax(0, helper(root.Right))
-
-// 以root为最高层节点，的结果的最优值，只要遍历所有节点的最优值，且取最大值，即得到结果
-curVal:=left+right+root.Val
-if retIsSet{
-    ret=getMax(ret, curVal)
-}else{
-    retIsSet=true
-    ret=curVal
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
 
-if left&gt;right{
-    return left+root.Val
-}
-return right+root.Val
-</code></pre>
-
-<p>}</p>
-
-<p>func getMax(a, b int)int{
-    if a&gt;b{
-        return a
+<span style="color:#75715e">// 获得一定包含root，且以root为起点，且单边(左子树或右子树路径上单链，当然可以只包含root，比如root的下面的节点都是负数，就可以只包含root)的最大值
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">root</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
     }
-    return b
-}```</p>
 
+    <span style="color:#75715e">// 如果helper(root.Left)为负数，还不如不包含后面的节点，直接设置为0
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">getMax</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Left</span>))
+    <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">getMax</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">helper</span>(<span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Right</span>))
+
+    <span style="color:#75715e">// 以root为最高层节点，的结果的最优值，只要遍历所有节点的最优值，且取最大值，即得到结果
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">curVal</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">left</span><span style="color:#f92672">+</span><span style="color:#a6e22e">right</span><span style="color:#f92672">+</span><span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Val</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">retIsSet</span>{
+        <span style="color:#a6e22e">ret</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">ret</span>, <span style="color:#a6e22e">curVal</span>)
+    }<span style="color:#66d9ef">else</span>{
+        <span style="color:#a6e22e">retIsSet</span>=<span style="color:#66d9ef">true</span>
+        <span style="color:#a6e22e">ret</span>=<span style="color:#a6e22e">curVal</span>
+    }
+
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span>&gt;<span style="color:#a6e22e">right</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">left</span><span style="color:#f92672">+</span><span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Val</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">right</span><span style="color:#f92672">+</span><span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">Val</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">b</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
+}<span style="color:#e6db74">``</span><span style="color:#960050;background-color:#1e0010">`</span></code></pre></div>
 </div>
 
 <h2>Comments</h2>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,46 +52,45 @@
     <div class="post">
   <h1>0152.maximum-product-subarray</h1>
   <time datetime=2021-03-10T23:21:48&#43;0800 class="post-date">2021-03-10 23:21:48</time>
-  <pre><code class="language-go">import(
-    &quot;math&quot;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span>(
+    <span style="color:#e6db74">&#34;math&#34;</span>
 )
-func maxProduct(nums []int) int {
-    dpMin:=make([]int, len(nums), len(nums))
-    dpMax:=make([]int, len(nums), len(nums))
-    rst:=math.MinInt32
-    for i:=0; i&lt;len(nums); i++{
-        if i==0{
-            dpMin[i]=nums[i]
-            dpMax[i]=nums[i]
-        }else{
-            dpMax[i]=getMax(nums[i], nums[i]*dpMin[i-1], nums[i]*dpMax[i-1])
-            dpMin[i]=getMin(nums[i], nums[i]*dpMin[i-1], nums[i]*dpMax[i-1])
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxProduct</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">dpMin</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">nums</span>), len(<span style="color:#a6e22e">nums</span>))
+    <span style="color:#a6e22e">dpMax</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">nums</span>), len(<span style="color:#a6e22e">nums</span>))
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">nums</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+            <span style="color:#a6e22e">dpMin</span>[<span style="color:#a6e22e">i</span>]=<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
+            <span style="color:#a6e22e">dpMax</span>[<span style="color:#a6e22e">i</span>]=<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#a6e22e">dpMax</span>[<span style="color:#a6e22e">i</span>]=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">dpMin</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">dpMax</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+            <span style="color:#a6e22e">dpMin</span>[<span style="color:#a6e22e">i</span>]=<span style="color:#a6e22e">getMin</span>(<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">dpMin</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">dpMax</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
         }
-        rst=getMax(rst, dpMax[i])
+        <span style="color:#a6e22e">rst</span>=<span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">dpMax</span>[<span style="color:#a6e22e">i</span>])
     }
-    return rst
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-func getMax(a int, s... int)int{
-    for _, v:=range s{
-        if a&lt;v{
-            a=v
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">s</span><span style="color:#f92672">...</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&lt;<span style="color:#a6e22e">v</span>{
+            <span style="color:#a6e22e">a</span>=<span style="color:#a6e22e">v</span>
         }
     }
-    return a
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
 }
 
-func getMin(a int, s... int)int{
-    for _, v:=range s{
-        if a&gt;v{
-            a=v
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMin</span>(<span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">s</span><span style="color:#f92672">...</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">v</span>{
+            <span style="color:#a6e22e">a</span>=<span style="color:#a6e22e">v</span>
         }
     }
-    return a
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

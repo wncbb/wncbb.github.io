@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,33 +52,32 @@
     <div class="post">
   <h1>57</h1>
   <time datetime=2021-03-11T23:29:18&#43;0800 class="post-date">2021-03-11 23:29:18</time>
-  <pre><code class="language-go">func findContinuousSequence(target int) [][]int {
-    ret:=make([][]int, 0)
-    for l, r:=1, 2; l&lt;r; {
-        // 长度=r-l+1 乘以 平均值=(l+r)/2
-        sum:=(r-l+1)*(l+r)/2
-        if sum&lt;target{
-            r++
-        }else if sum&gt;target{
-            l++
-        }else{
-            ret=append(ret, getList(l, r))
-            l++
-            r++
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findContinuousSequence</span>(<span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) [][]<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span>make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">r</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">l</span>&lt;<span style="color:#a6e22e">r</span>; {
+        <span style="color:#75715e">// 长度=r-l+1 乘以 平均值=(l+r)/2
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">sum</span><span style="color:#f92672">:=</span>(<span style="color:#a6e22e">r</span><span style="color:#f92672">-</span><span style="color:#a6e22e">l</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(<span style="color:#a6e22e">l</span><span style="color:#f92672">+</span><span style="color:#a6e22e">r</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sum</span>&lt;<span style="color:#a6e22e">target</span>{
+            <span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
+        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sum</span>&gt;<span style="color:#a6e22e">target</span>{
+            <span style="color:#a6e22e">l</span><span style="color:#f92672">++</span>
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#a6e22e">ret</span>=append(<span style="color:#a6e22e">ret</span>, <span style="color:#a6e22e">getList</span>(<span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">r</span>))
+            <span style="color:#a6e22e">l</span><span style="color:#f92672">++</span>
+            <span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
         }
     }
-    return ret
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
 
-func getList(l, r int)[]int{
-    ret:=make([]int, 0, r-l+1)
-    for i:=l; i&lt;=r; i++{
-        ret=append(ret, i)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getList</span>(<span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>)[]<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">r</span><span style="color:#f92672">-</span><span style="color:#a6e22e">l</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">l</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">r</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">ret</span>=append(<span style="color:#a6e22e">ret</span>, <span style="color:#a6e22e">i</span>)
     }
-    return ret
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

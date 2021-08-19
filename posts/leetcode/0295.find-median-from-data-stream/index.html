@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,99 +52,98 @@
     <div class="post">
   <h1>0295.find-median-from-data-stream</h1>
   <time datetime=2021-03-12T12:16:09&#43;0800 class="post-date">2021-03-12 12:16:09</time>
-  <pre><code class="language-go">import &quot;container/heap&quot;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;container/heap&#34;</span>
 
-type MyHeap struct {
-	raw []int
-    cmp func(a, b int)bool
-}
-
-func (m *MyHeap)Len()int{
-    return len(m.raw)
-}
-func (m *MyHeap)Less(i, j int)bool{
-    return m.cmp(m.raw[i], m.raw[j])
-}
-func (m *MyHeap)Swap(i, j int){
-    m.raw[i], m.raw[j]=m.raw[j], m.raw[i]
-}
-func (m *MyHeap)Push(v interface{}){
-    m.raw=append(m.raw, v.(int))
-}
-func (m *MyHeap)Pop()interface{}{
-    ret:=m.raw[len(m.raw)-1]
-    m.raw=m.raw[:len(m.raw)-1]
-    return ret
-}
-func(m *MyHeap)Top()int{
-    return m.raw[0]
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyHeap</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">raw</span> []<span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">cmp</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>
 }
 
-// MedianFinder
-// 用大、小顶堆存储数据。
-// 其中前半部分是大顶堆
-// 后半部分是小顶堆
-// 而且前半部分（大顶堆）最多比后半部分（小顶堆）多存一个元素
-// 因此：
-//    当元素总共有奇数个时，则返回大顶堆的堆顶元素。
-//    当元素纵隔有偶数个时，则返回两个堆顶元素之和再除以2.0
-type MedianFinder struct {
-	maxHeap *MyHeap   // 前半部分，用大顶堆存储，都是较小的数（都小于后半部分）
-	minHeap *MyHeap   // 后半部分，用小顶堆存储，都是较大的数（都大于前半部分）
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>)<span style="color:#a6e22e">Len</span>()<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>)
 }
-/** initialize your data structure here. */
-func Constructor() MedianFinder {
-    maxHeap:=&amp;MyHeap{
-        raw: make([]int, 0),
-        cmp: func(a, b int)bool{
-            return a&gt;b
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>)<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>{
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">cmp</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>])
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>)<span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>){
+    <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>]
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>)<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">interface</span>{}){
+    <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>=append(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>, <span style="color:#a6e22e">v</span>.(<span style="color:#66d9ef">int</span>))
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>)<span style="color:#a6e22e">Pop</span>()<span style="color:#66d9ef">interface</span>{}{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[len(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>=<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[:len(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
+}
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>)<span style="color:#a6e22e">Top</span>()<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>]
+}
+
+<span style="color:#75715e">// MedianFinder
+</span><span style="color:#75715e">// 用大、小顶堆存储数据。
+</span><span style="color:#75715e">// 其中前半部分是大顶堆
+</span><span style="color:#75715e">// 后半部分是小顶堆
+</span><span style="color:#75715e">// 而且前半部分（大顶堆）最多比后半部分（小顶堆）多存一个元素
+</span><span style="color:#75715e">// 因此：
+</span><span style="color:#75715e">//    当元素总共有奇数个时，则返回大顶堆的堆顶元素。
+</span><span style="color:#75715e">//    当元素纵隔有偶数个时，则返回两个堆顶元素之和再除以2.0
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MedianFinder</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">maxHeap</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>   <span style="color:#75715e">// 前半部分，用大顶堆存储，都是较小的数（都小于后半部分）
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">minHeap</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyHeap</span>   <span style="color:#75715e">// 后半部分，用小顶堆存储，都是较大的数（都大于前半部分）
+</span><span style="color:#75715e"></span>}
+<span style="color:#75715e">/** initialize your data structure here. */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Constructor</span>() <span style="color:#a6e22e">MedianFinder</span> {
+    <span style="color:#a6e22e">maxHeap</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">MyHeap</span>{
+        <span style="color:#a6e22e">raw</span>: make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>),
+        <span style="color:#a6e22e">cmp</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>{
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">b</span>
         },
     }
-    minHeap:=&amp;MyHeap{
-        raw: make([]int, 0),
-        cmp: func(a, b int)bool{
-            return a&lt;b
+    <span style="color:#a6e22e">minHeap</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">MyHeap</span>{
+        <span style="color:#a6e22e">raw</span>: make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>),
+        <span style="color:#a6e22e">cmp</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>{
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>&lt;<span style="color:#a6e22e">b</span>
         },
     }
-    heap.Init(maxHeap)
-    heap.Init(minHeap)
+    <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">maxHeap</span>)
+    <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">minHeap</span>)
 
-    return MedianFinder{
-        maxHeap: maxHeap,
-        minHeap: minHeap,
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">MedianFinder</span>{
+        <span style="color:#a6e22e">maxHeap</span>: <span style="color:#a6e22e">maxHeap</span>,
+        <span style="color:#a6e22e">minHeap</span>: <span style="color:#a6e22e">minHeap</span>,
     }
 }
 
-func (this *MedianFinder) AddNum(num int) {
-    // 先加入到大顶堆
-	heap.Push(this.maxHeap, num)
-    // 调整两个堆平衡，此时从大顶堆Pop出最大元素，加入到小顶堆。
-	heap.Push(this.minHeap, heap.Pop(this.maxHeap))
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MedianFinder</span>) <span style="color:#a6e22e">AddNum</span>(<span style="color:#a6e22e">num</span> <span style="color:#66d9ef">int</span>) {
+    <span style="color:#75715e">// 先加入到大顶堆
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">maxHeap</span>, <span style="color:#a6e22e">num</span>)
+    <span style="color:#75715e">// 调整两个堆平衡，此时从大顶堆Pop出最大元素，加入到小顶堆。
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minHeap</span>, <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Pop</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">maxHeap</span>))
 
-	for this.maxHeap.Len() &lt; this.minHeap.Len() {
-		heap.Push(this.maxHeap, heap.Pop(this.minHeap))
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">maxHeap</span>.<span style="color:#a6e22e">Len</span>() &lt; <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minHeap</span>.<span style="color:#a6e22e">Len</span>() {
+		<span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">maxHeap</span>, <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Pop</span>(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minHeap</span>))
 	}
 }
 
 
-func (this *MedianFinder) FindMedian() float64 {
-	if this.maxHeap.Len() &gt; this.minHeap.Len() {
-		return float64(this.maxHeap.Top())
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MedianFinder</span>) <span style="color:#a6e22e">FindMedian</span>() <span style="color:#66d9ef">float64</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">maxHeap</span>.<span style="color:#a6e22e">Len</span>() &gt; <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minHeap</span>.<span style="color:#a6e22e">Len</span>() {
+		<span style="color:#66d9ef">return</span> float64(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">maxHeap</span>.<span style="color:#a6e22e">Top</span>())
 	}
 
-	return float64(this.maxHeap.Top()+this.minHeap.Top()) /2
+	<span style="color:#66d9ef">return</span> float64(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">maxHeap</span>.<span style="color:#a6e22e">Top</span>()<span style="color:#f92672">+</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minHeap</span>.<span style="color:#a6e22e">Top</span>()) <span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
 }
 
-/**
- * Your MedianFinder object will be instantiated and called as such:
- * obj := Constructor();
- * obj.AddNum(num);
- * param_2 := obj.FindMedian();
- */
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Your MedianFinder object will be instantiated and called as such:
+</span><span style="color:#75715e"> * obj := Constructor();
+</span><span style="color:#75715e"> * obj.AddNum(num);
+</span><span style="color:#75715e"> * param_2 := obj.FindMedian();
+</span><span style="color:#75715e"> */</span>
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

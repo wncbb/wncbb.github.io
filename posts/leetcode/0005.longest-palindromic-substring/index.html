@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,41 +52,40 @@
     <div class="post">
   <h1>0005</h1>
   <time datetime=2021-03-06T22:30:31&#43;0800 class="post-date">2021-03-06 22:30:31</time>
-  <pre><code class="language-go">func longestPalindrome(s string) string {
-	start:=0
-	end:=0
-	sBytes:=[]byte(s)
-	dp:=make([][]bool, 0, len(sBytes))
-	for i:=0; i&lt;len(sBytes); i++{
-		dp=append(dp, make([]bool, len(sBytes), len(sBytes)))
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longestPalindrome</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">start</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+	<span style="color:#a6e22e">end</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+	<span style="color:#a6e22e">sBytes</span><span style="color:#f92672">:=</span>[]byte(<span style="color:#a6e22e">s</span>)
+	<span style="color:#a6e22e">dp</span><span style="color:#f92672">:=</span>make([][]<span style="color:#66d9ef">bool</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">sBytes</span>))
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">sBytes</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+		<span style="color:#a6e22e">dp</span>=append(<span style="color:#a6e22e">dp</span>, make([]<span style="color:#66d9ef">bool</span>, len(<span style="color:#a6e22e">sBytes</span>), len(<span style="color:#a6e22e">sBytes</span>)))
 	}
-	for l:=0; l&lt;len(sBytes); l++{
-		for i:=0; i+l&lt;len(sBytes); i++{
-			j:=i+l
-			if l==0{
-				dp[i][j]=true
-			}else if l==1{
-				if sBytes[i]==sBytes[j]{
-					dp[i][j]=true
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">l</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">l</span>&lt;len(<span style="color:#a6e22e">sBytes</span>); <span style="color:#a6e22e">l</span><span style="color:#f92672">++</span>{
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">l</span>&lt;len(<span style="color:#a6e22e">sBytes</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+			<span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">l</span>
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+				<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">true</span>
+			}<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l</span><span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>{
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sBytes</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">sBytes</span>[<span style="color:#a6e22e">j</span>]{
+					<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">true</span>
 				}
-			}else{
-				if sBytes[i]==sBytes[j]{
-					dp[i][j]=dp[i+1][j-1]
+			}<span style="color:#66d9ef">else</span>{
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sBytes</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">sBytes</span>[<span style="color:#a6e22e">j</span>]{
+					<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 				}
 			}
-			if dp[i][j] &amp;&amp; end-start&lt;j-i{
-				end=j
-				start=i
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dp</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">end</span><span style="color:#f92672">-</span><span style="color:#a6e22e">start</span>&lt;<span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>{
+				<span style="color:#a6e22e">end</span>=<span style="color:#a6e22e">j</span>
+				<span style="color:#a6e22e">start</span>=<span style="color:#a6e22e">i</span>
 			}
 
 		}
 	}
-	return string(sBytes[start:end+1])
+	<span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">sBytes</span>[<span style="color:#a6e22e">start</span>:<span style="color:#a6e22e">end</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

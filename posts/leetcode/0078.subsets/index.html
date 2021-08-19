@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,31 +52,30 @@
     <div class="post">
   <h1>0078</h1>
   <time datetime=2021-03-10T16:05:29&#43;0800 class="post-date">2021-03-10 16:05:29</time>
-  <pre><code class="language-go">func subsets(nums []int) [][]int {
-    rst:=make([][]int, 0)
-    var dfs func(curIdx int)
-    curRst:=make([]int, 0, len(nums))
-    dfs=func(curIdx int){
-        if curIdx==len(nums){
-            // 既然copy的是curRst,那么tmpRst的长度就跟curRst一样
-            tmpRst:=make([]int, len(curRst), len(curRst))
-            copy(tmpRst, curRst)
-            rst=append(rst, tmpRst)
-            return
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">subsets</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) [][]<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span>make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">dfs</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">curIdx</span> <span style="color:#66d9ef">int</span>)
+    <span style="color:#a6e22e">curRst</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">nums</span>))
+    <span style="color:#a6e22e">dfs</span>=<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">curIdx</span> <span style="color:#66d9ef">int</span>){
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">curIdx</span><span style="color:#f92672">==</span>len(<span style="color:#a6e22e">nums</span>){
+            <span style="color:#75715e">// 既然copy的是curRst,那么tmpRst的长度就跟curRst一样
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">tmpRst</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">curRst</span>), len(<span style="color:#a6e22e">curRst</span>))
+            copy(<span style="color:#a6e22e">tmpRst</span>, <span style="color:#a6e22e">curRst</span>)
+            <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">tmpRst</span>)
+            <span style="color:#66d9ef">return</span>
         }
-        // 要么有这个元素
-        curRst=append(curRst, nums[curIdx])
-        dfs(curIdx+1)
-        // 要么没有这个元素
-        curRst=curRst[:len(curRst)-1]
-        dfs(curIdx+1)
+        <span style="color:#75715e">// 要么有这个元素
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">curRst</span>=append(<span style="color:#a6e22e">curRst</span>, <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">curIdx</span>])
+        <span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">curIdx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#75715e">// 要么没有这个元素
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">curRst</span>=<span style="color:#a6e22e">curRst</span>[:len(<span style="color:#a6e22e">curRst</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+        <span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">curIdx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
     }
-    dfs(0)
-    return rst
+    <span style="color:#a6e22e">dfs</span>(<span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

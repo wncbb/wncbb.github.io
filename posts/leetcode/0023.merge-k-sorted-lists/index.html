@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,59 +52,58 @@
     <div class="post">
   <h1>0023.merge-k-sorted-lists</h1>
   <time datetime=2021-03-10T12:15:16&#43;0800 class="post-date">2021-03-10 12:15:16</time>
-  <pre><code class="language-go">/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func mergeKLists(lists []*ListNode) *ListNode {
-    if len(lists)==0{
-        return nil
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * type ListNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Next *ListNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">mergeKLists</span>(<span style="color:#a6e22e">lists</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span> {
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">lists</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
     }
-    if len(lists)==1{
-        return lists[0]
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">lists</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">lists</span>[<span style="color:#ae81ff">0</span>]
     }
-    // 看做left=0, right=len(lists)-1
-    mid:=(len(lists)-1+0)/2
-    // mid放在第一段里， [left, mid] (mid, right]
-    left:=mergeKLists(lists[:mid+1])
-    right:=mergeKLists(lists[mid+1:])
-    return merge2List(left, right)
+    <span style="color:#75715e">// 看做left=0, right=len(lists)-1
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">mid</span><span style="color:#f92672">:=</span>(len(<span style="color:#a6e22e">lists</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+    <span style="color:#75715e">// mid放在第一段里， [left, mid] (mid, right]
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">mergeKLists</span>(<span style="color:#a6e22e">lists</span>[:<span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
+    <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">mergeKLists</span>(<span style="color:#a6e22e">lists</span>[<span style="color:#a6e22e">mid</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:])
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">merge2List</span>(<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>)
 }
 
-func merge2List(l1, l2 *ListNode)*ListNode{
-    // 一定要判断下l1,l2是否有nil的情况
-    if l1==nil{
-        return l2
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">merge2List</span>(<span style="color:#a6e22e">l1</span>, <span style="color:#a6e22e">l2</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>)<span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>{
+    <span style="color:#75715e">// 一定要判断下l1,l2是否有nil的情况
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l1</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">l2</span>
     }
-    if l2==nil{
-        return l1
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l2</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">l1</span>
     }
-    dummy:=&amp;ListNode{}
-    tail:=dummy
-    for l1!=nil &amp;&amp; l2!=nil{
-        if l1.Val&gt;l2.Val{
-            l1, l2=l2, l1
+    <span style="color:#a6e22e">dummy</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">ListNode</span>{}
+    <span style="color:#a6e22e">tail</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dummy</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">l1</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">l2</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l1</span>.<span style="color:#a6e22e">Val</span>&gt;<span style="color:#a6e22e">l2</span>.<span style="color:#a6e22e">Val</span>{
+            <span style="color:#a6e22e">l1</span>, <span style="color:#a6e22e">l2</span>=<span style="color:#a6e22e">l2</span>, <span style="color:#a6e22e">l1</span>
         }
-        tail.Next=l1
-        tail=tail.Next
-        l1=l1.Next
+        <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">l1</span>
+        <span style="color:#a6e22e">tail</span>=<span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#a6e22e">l1</span>=<span style="color:#a6e22e">l1</span>.<span style="color:#a6e22e">Next</span>
     }
-    // 因为l1优先设置，所以l2最后可能剩下
-    // 这里是if
-    if l2!=nil{
-        tail.Next=l2
+    <span style="color:#75715e">// 因为l1优先设置，所以l2最后可能剩下
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 这里是if
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l2</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">l2</span>
     }
-    if l1!=nil{
-        tail.Next=l1
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l1</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">l1</span>
     }
-    return dummy.Next
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dummy</span>.<span style="color:#a6e22e">Next</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

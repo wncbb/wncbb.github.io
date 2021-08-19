@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,64 +52,55 @@
     <div class="post">
   <h1>0048.rotate-image</h1>
   <time datetime=2021-03-12T17:08:41&#43;0800 class="post-date">2021-03-12 17:08:41</time>
-  
-
-<h2 id="主对角线对折">主对角线对折</h2>
-
-<pre><code class="language-go">    for i := 0; i &lt; n; i++ {
-        for j := i+1; j &lt; n; j++ {
-            // fmt.Printf(&quot;i,j: %d,%d\n&quot;, i, j)
-            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+  <h2 id="主对角线对折">主对角线对折</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#75715e">// fmt.Printf(&#34;i,j: %d,%d\n&#34;, i, j)
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]
         }
     }
-</code></pre>
-
-<h2 id="副对角线对折">副对角线对折</h2>
-
-<pre><code class="language-go">    for i := 0; i &lt; n; i++ {
-        for j := 0; j &lt; n-i-1; j++ {
-            matrix[i][j], matrix[n-1-j][n-1-i] = matrix[n-1-j][n-1-i], matrix[i][j]
+</code></pre></div><h2 id="副对角线对折">副对角线对折</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]
         }
     }
 
-</code></pre>
-
-<pre><code class="language-go">func rotate(matrix [][]int) {
-    n := len(matrix)
-    // 水平翻转
-    for i := 0; i &lt; n/2; i++ {
-        matrix[i], matrix[n-1-i] = matrix[n-1-i], matrix[i]
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">rotate</span>(<span style="color:#a6e22e">matrix</span> [][]<span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">matrix</span>)
+    <span style="color:#75715e">// 水平翻转
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>]
     }
-    // 主对角线翻转
-    // (i, j)跟(j, i)互换
-    // 但是i，j的循环上限不能都是n，否则(i,j)与(j,i)换了两次，相当于没有换
-    // (0, 1)跟(1, 0)换，
-    for i := 0; i &lt; n; i++ {
-        for j := 0; j &lt; i; j++ {
-            // fmt.Printf(&quot;i,j: %d,%d\n&quot;, i, j)
-            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    <span style="color:#75715e">// 主对角线翻转
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// (i, j)跟(j, i)互换
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 但是i，j的循环上限不能都是n，否则(i,j)与(j,i)换了两次，相当于没有换
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// (0, 1)跟(1, 0)换，
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#75715e">// fmt.Printf(&#34;i,j: %d,%d\n&#34;, i, j)
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>]
         }
     }
 }
 
-/*
-a b c
-d e f 
-g h i
-
-=&gt;
-
-a d g
-b e h
-c f i
-
-交换的元素:
-(0, 1), (0, 2), (1, 2)
-可以看出，i从0开始计数
-j从i+1开始计数
-*/
-</code></pre>
-
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">a b c
+</span><span style="color:#75715e">d e f 
+</span><span style="color:#75715e">g h i
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">=&gt;
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">a d g
+</span><span style="color:#75715e">b e h
+</span><span style="color:#75715e">c f i
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">交换的元素:
+</span><span style="color:#75715e">(0, 1), (0, 2), (1, 2)
+</span><span style="color:#75715e">可以看出，i从0开始计数
+</span><span style="color:#75715e">j从i+1开始计数
+</span><span style="color:#75715e">*/</span>
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

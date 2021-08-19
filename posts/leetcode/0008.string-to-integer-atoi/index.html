@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,64 +52,63 @@
     <div class="post">
   <h1>0008.string-to-integer-atoi</h1>
   <time datetime=2021-03-10T17:27:19&#43;0800 class="post-date">2021-03-10 17:27:19</time>
-  <pre><code class="language-go">func myAtoi(str string) int {
-	return convert(clean(str))
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myAtoi</span>(<span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">convert</span>(<span style="color:#a6e22e">clean</span>(<span style="color:#a6e22e">str</span>))
 }
 
-func clean(s string) (sign int, abs string) {
-	// 先去除首尾空格
-	s = strings.TrimSpace(s)
-	if s == &quot;&quot; {
-		return
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">clean</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">sign</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">abs</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#75715e">// 先去除首尾空格
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSpace</span>(<span style="color:#a6e22e">s</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#66d9ef">return</span>
 	}
-	// 判断第一个字符
-	switch s[0] {
-	// 有效的
-	case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-		sign, abs = 1, s
-	// 有效的，正号
-	case '+':
-		sign, abs = 1, s[1:]
-	// 有效的，负号
-	case '-':
-		sign, abs = -1, s[1:]
-	// 无效的，当空字符处理，并且直接返回
-	default:
-		abs = &quot;&quot;
-		return
+	<span style="color:#75715e">// 判断第一个字符
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] {
+	<span style="color:#75715e">// 有效的
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;0&#39;</span>, <span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;4&#39;</span>, <span style="color:#e6db74">&#39;5&#39;</span>, <span style="color:#e6db74">&#39;6&#39;</span>, <span style="color:#e6db74">&#39;7&#39;</span>, <span style="color:#e6db74">&#39;8&#39;</span>, <span style="color:#e6db74">&#39;9&#39;</span>:
+		<span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>
+	<span style="color:#75715e">// 有效的，正号
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;+&#39;</span>:
+		<span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>:]
+	<span style="color:#75715e">// 有效的，负号
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;-&#39;</span>:
+		<span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>:]
+	<span style="color:#75715e">// 无效的，当空字符处理，并且直接返回
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">default</span>:
+		<span style="color:#a6e22e">abs</span> = <span style="color:#e6db74">&#34;&#34;</span>
+		<span style="color:#66d9ef">return</span>
 	}
-	for i, b := range abs {
-		// 遍历第一波处理过的字符，如果直到第i个位置有效，那就取s[:i]，从头到这个有效的字符，剩下的就不管了，也就是break掉
-		// 比如 s=123abc，那么就取123，也就是s[:3]
-		if b &lt; '0' || '9' &lt; b {
-			abs = abs[:i]
-			// 一定要break，因为后面的就没用了
-			break
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">abs</span> {
+		<span style="color:#75715e">// 遍历第一波处理过的字符，如果直到第i个位置有效，那就取s[:i]，从头到这个有效的字符，剩下的就不管了，也就是break掉
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 比如 s=123abc，那么就取123，也就是s[:3]
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span> &lt; <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;9&#39;</span> &lt; <span style="color:#a6e22e">b</span> {
+			<span style="color:#a6e22e">abs</span> = <span style="color:#a6e22e">abs</span>[:<span style="color:#a6e22e">i</span>]
+			<span style="color:#75715e">// 一定要break，因为后面的就没用了
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">break</span>
 		}
 	}
-	return
+	<span style="color:#66d9ef">return</span>
 }
 
-// 接收的输入是已经处理过的纯数字
-func convert(sign int, absStr string) int {
-	absNum := 0
-	for _, b := range absStr {
-		// b - '0' ==&gt; 得到这个字符类型的数字的真实数值的绝对值
-		absNum = absNum*10 + int(b-'0')
-		// 检查溢出
-		switch {
-		case sign == 1 &amp;&amp; absNum &gt; math.MaxInt32:
-			return math.MaxInt32
-		// 这里和正数不一样的是，必须和负号相乘，也就是变成负数，否则永远走不到里面
-		case sign == -1 &amp;&amp; absNum*sign &lt; math.MinInt32:
-			return math.MinInt32
+<span style="color:#75715e">// 接收的输入是已经处理过的纯数字
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">convert</span>(<span style="color:#a6e22e">sign</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">absStr</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">absNum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">absStr</span> {
+		<span style="color:#75715e">// b - &#39;0&#39; ==&gt; 得到这个字符类型的数字的真实数值的绝对值
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">absNum</span> = <span style="color:#a6e22e">absNum</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> int(<span style="color:#a6e22e">b</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>)
+		<span style="color:#75715e">// 检查溢出
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">switch</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">absNum</span> &gt; <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>:
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>
+		<span style="color:#75715e">// 这里和正数不一样的是，必须和负号相乘，也就是变成负数，否则永远走不到里面
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">absNum</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sign</span> &lt; <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>:
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>
 		}
 	}
-	return sign * absNum
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">absNum</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

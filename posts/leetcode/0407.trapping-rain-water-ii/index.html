@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +54,6 @@
   <time datetime=2021-03-06T15:11:56&#43;0800 class="post-date">2021-03-06 15:11:56</time>
   <p>有youtue视频，讲解的很好
 <a href="https://happygirlzt.com/code/407.html">https://happygirlzt.com/code/407.html</a></p>
-
 <pre><code>a b c d
 e f g h
 i j k l
@@ -63,146 +62,144 @@ i j k l
 
 
 
-</code></pre>
-
-<pre><code class="language-go">import(
-    &quot;container/heap&quot;
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span>(
+    <span style="color:#e6db74">&#34;container/heap&#34;</span>
 )
 
-/*
-a b c d
-e f g h
-i j k l
-对于矩阵， a b c d e i h l i j k l 等边界位置，不可能存住水
-我们把边界的情况压入优先队列，那么pop出的第一个元素，一定是height最小的，记作curCell
-因为一个位置的存水量，取决于四周最矮的高度
-因此可以算curCell四个方向的结果，遍历4次，每次的target记作tRow, tCol, tVal
-target的值为 max(0, curCell.Val-tVal)
-然后将target存到优先队列里，因为这个位置的水已经存上去了，高度就变成 max(curVal, tVal)
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">a b c d
+</span><span style="color:#75715e">e f g h
+</span><span style="color:#75715e">i j k l
+</span><span style="color:#75715e">对于矩阵， a b c d e i h l i j k l 等边界位置，不可能存住水
+</span><span style="color:#75715e">我们把边界的情况压入优先队列，那么pop出的第一个元素，一定是height最小的，记作curCell
+</span><span style="color:#75715e">因为一个位置的存水量，取决于四周最矮的高度
+</span><span style="color:#75715e">因此可以算curCell四个方向的结果，遍历4次，每次的target记作tRow, tCol, tVal
+</span><span style="color:#75715e">target的值为 max(0, curCell.Val-tVal)
+</span><span style="color:#75715e">然后将target存到优先队列里，因为这个位置的水已经存上去了，高度就变成 max(curVal, tVal)
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">如果担心某个target位置的存水量会变化，比如
+</span><span style="color:#75715e">4 4 4 4 4
+</span><span style="color:#75715e">4 3 3 3 4
+</span><span style="color:#75715e">4 3 2 3 4
+</span><span style="color:#75715e">4 3 3 3 4
+</span><span style="color:#75715e">4 4 4 4 4
+</span><span style="color:#75715e">担心2第一次存水量算作1，因为周围是3，但是最外层是4，所以应该是2
+</span><span style="color:#75715e">但是实际上，2不会比3先弹出来，
+</span><span style="color:#75715e">因为优先队列里存的都是边界，从边界开始向内计算，会先算3的存水量，然后更新成4，
+</span><span style="color:#75715e">所以2的存水量是正确的
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">*/</span>
+ <span style="color:#f92672">*/</span>
 
-如果担心某个target位置的存水量会变化，比如
-4 4 4 4 4
-4 3 3 3 4
-4 3 2 3 4
-4 3 3 3 4
-4 4 4 4 4
-担心2第一次存水量算作1，因为周围是3，但是最外层是4，所以应该是2
-但是实际上，2不会比3先弹出来，
-因为优先队列里存的都是边界，从边界开始向内计算，会先算3的存水量，然后更新成4，
-所以2的存水量是正确的
-
-*/
- */
-
-type Cell struct{
-    row int
-    col int
-    val int
-}
-
-type PQ struct{
-    cells []Cell
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Cell</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">row</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">col</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>
 }
 
-func(p *PQ)Len()int{
-    return len(p.cells)
-}
-func(p *PQ)Less(i, j int)bool{
-    return p.cells[i].val&lt;p.cells[j].val
-}
-func(p *PQ)Swap(i, j int){
-    p.cells[i], p.cells[j]=p.cells[j], p.cells[i]
-}
-func(p *PQ)Push(x interface{}){
-    p.cells=append(p.cells, x.(Cell))
-}
-func(p *PQ)Pop()interface{}{
-    ret:=p.cells[len(p.cells)-1]
-    p.cells=p.cells[:len(p.cells)-1]
-    return ret
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PQ</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">cells</span> []<span style="color:#a6e22e">Cell</span>
 }
 
-func trapRainWater(heightMap [][]int) int {
-    m:=len(heightMap)
-    n:=len(heightMap[0])
-    dirs:=[][]int{
-        {0, 1},
-        {0, -1},
-        {1, 0},
-        {-1, 0},
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PQ</span>)<span style="color:#a6e22e">Len</span>()<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>)
+}
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PQ</span>)<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>{
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">val</span>&lt;<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">val</span>
+}
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PQ</span>)<span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>){
+    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[<span style="color:#a6e22e">i</span>]
+}
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PQ</span>)<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">interface</span>{}){
+    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>=append(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>, <span style="color:#a6e22e">x</span>.(<span style="color:#a6e22e">Cell</span>))
+}
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PQ</span>)<span style="color:#a6e22e">Pop</span>()<span style="color:#66d9ef">interface</span>{}{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[len(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>=<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>[:len(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">cells</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">trapRainWater</span>(<span style="color:#a6e22e">heightMap</span> [][]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">m</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">heightMap</span>)
+    <span style="color:#a6e22e">n</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">heightMap</span>[<span style="color:#ae81ff">0</span>])
+    <span style="color:#a6e22e">dirs</span><span style="color:#f92672">:=</span>[][]<span style="color:#66d9ef">int</span>{
+        {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>},
+        {<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>},
+        {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>},
+        {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>},
     }
-    visited:=make([][]bool, 0, m)
-    for i:=0; i&lt;m; i++{
-        visited=append(visited, make([]bool, n))
+    <span style="color:#a6e22e">visited</span><span style="color:#f92672">:=</span>make([][]<span style="color:#66d9ef">bool</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">m</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">m</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">visited</span>=append(<span style="color:#a6e22e">visited</span>, make([]<span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">n</span>))
     }
 
-    pq:=&amp;PQ{
-        cells: make([]Cell, 0),
+    <span style="color:#a6e22e">pq</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">PQ</span>{
+        <span style="color:#a6e22e">cells</span>: make([]<span style="color:#a6e22e">Cell</span>, <span style="color:#ae81ff">0</span>),
     }
-    heap.Init(pq)
+    <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">pq</span>)
 
-    for i:=0; i&lt;m; i++{
-        visited[i][0]=true
-        visited[i][n-1]=true
-        heap.Push(pq, Cell{
-            row: i,
-            col: 0,
-            val: heightMap[i][0],
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">m</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>]=<span style="color:#66d9ef">true</span>
+        <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]=<span style="color:#66d9ef">true</span>
+        <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">pq</span>, <span style="color:#a6e22e">Cell</span>{
+            <span style="color:#a6e22e">row</span>: <span style="color:#a6e22e">i</span>,
+            <span style="color:#a6e22e">col</span>: <span style="color:#ae81ff">0</span>,
+            <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">heightMap</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>],
         })
-        heap.Push(pq, Cell{
-            row: i,
-            col: n-1,
-            val: heightMap[i][n-1],
-        })
-    }
-
-    for j:=0; j&lt;n; j++{
-        visited[0][j]=true
-        visited[m-1][j]=true
-        heap.Push(pq, Cell{
-            row: 0,
-            col: j,
-            val: heightMap[0][j],
-        })
-        heap.Push(pq, Cell{
-            row: m-1,
-            col: j,
-            val: heightMap[m-1][j],
+        <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">pq</span>, <span style="color:#a6e22e">Cell</span>{
+            <span style="color:#a6e22e">row</span>: <span style="color:#a6e22e">i</span>,
+            <span style="color:#a6e22e">col</span>: <span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+            <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">heightMap</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>],
         })
     }
 
-    rst:=0
-    for pq.Len()&gt;0{
-        // !!!! pop 必须用heap.Pop(pq) 犯两次错误了
-        curCell:=heap.Pop(pq).(Cell)
-        for _, dir:=range dirs{
-            // tRow， not tCol
-            tRow:=curCell.row+dir[0]
-            tCol:=curCell.col+dir[1]
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span>&lt;<span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">visited</span>[<span style="color:#ae81ff">0</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">true</span>
+        <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">m</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][<span style="color:#a6e22e">j</span>]=<span style="color:#66d9ef">true</span>
+        <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">pq</span>, <span style="color:#a6e22e">Cell</span>{
+            <span style="color:#a6e22e">row</span>: <span style="color:#ae81ff">0</span>,
+            <span style="color:#a6e22e">col</span>: <span style="color:#a6e22e">j</span>,
+            <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">heightMap</span>[<span style="color:#ae81ff">0</span>][<span style="color:#a6e22e">j</span>],
+        })
+        <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">pq</span>, <span style="color:#a6e22e">Cell</span>{
+            <span style="color:#a6e22e">row</span>: <span style="color:#a6e22e">m</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+            <span style="color:#a6e22e">col</span>: <span style="color:#a6e22e">j</span>,
+            <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">heightMap</span>[<span style="color:#a6e22e">m</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][<span style="color:#a6e22e">j</span>],
+        })
+    }
+
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">pq</span>.<span style="color:#a6e22e">Len</span>()&gt;<span style="color:#ae81ff">0</span>{
+        <span style="color:#75715e">// !!!! pop 必须用heap.Pop(pq) 犯两次错误了
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">curCell</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Pop</span>(<span style="color:#a6e22e">pq</span>).(<span style="color:#a6e22e">Cell</span>)
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">dir</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dirs</span>{
+            <span style="color:#75715e">// tRow， not tCol
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">tRow</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">curCell</span>.<span style="color:#a6e22e">row</span><span style="color:#f92672">+</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">0</span>]
+            <span style="color:#a6e22e">tCol</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">curCell</span>.<span style="color:#a6e22e">col</span><span style="color:#f92672">+</span><span style="color:#a6e22e">dir</span>[<span style="color:#ae81ff">1</span>]
         
-            if tRow&gt;0 &amp;&amp; tRow&lt;m-1 &amp;&amp; tCol&gt;0 &amp;&amp; tCol&lt;n-1 &amp;&amp; !visited[tRow][tCol]{
-                curVal:=heightMap[tRow][tCol]
-                visited[tRow][tCol]=true
-                rst+=getMax(0, curCell.val-curVal)
-                heap.Push(pq, Cell{
-                    row: tRow,
-                    col: tCol,
-                    val: getMax(curCell.val, curVal),
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">tRow</span>&gt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">tRow</span>&lt;<span style="color:#a6e22e">m</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">tCol</span>&gt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">tCol</span>&lt;<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">tRow</span>][<span style="color:#a6e22e">tCol</span>]{
+                <span style="color:#a6e22e">curVal</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">heightMap</span>[<span style="color:#a6e22e">tRow</span>][<span style="color:#a6e22e">tCol</span>]
+                <span style="color:#a6e22e">visited</span>[<span style="color:#a6e22e">tRow</span>][<span style="color:#a6e22e">tCol</span>]=<span style="color:#66d9ef">true</span>
+                <span style="color:#a6e22e">rst</span><span style="color:#f92672">+=</span><span style="color:#a6e22e">getMax</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">curCell</span>.<span style="color:#a6e22e">val</span><span style="color:#f92672">-</span><span style="color:#a6e22e">curVal</span>)
+                <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">pq</span>, <span style="color:#a6e22e">Cell</span>{
+                    <span style="color:#a6e22e">row</span>: <span style="color:#a6e22e">tRow</span>,
+                    <span style="color:#a6e22e">col</span>: <span style="color:#a6e22e">tCol</span>,
+                    <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">curCell</span>.<span style="color:#a6e22e">val</span>, <span style="color:#a6e22e">curVal</span>),
                 })
             }
         }
 
     }
 
-    return rst
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
 
-func getMax(a, b int)int{
-    if a&gt;b{
-        return a
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getMax</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>&gt;<span style="color:#a6e22e">b</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
     }
-    return b
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
 }
 
 
@@ -214,8 +211,7 @@ func getMax(a, b int)int{
 
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

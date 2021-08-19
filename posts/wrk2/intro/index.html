@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,21 +53,16 @@
   <h1>Intro</h1>
   <time datetime=2020-06-15T21:10:28&#43;0800 class="post-date">2020-06-15 21:10:28</time>
   <p><a href="https://github.com/giltene/wrk2">https://github.com/giltene/wrk2</a></p>
-
 <pre><code>wrk -t2 -c100 -d30s -R2000 http://127.0.0.1:8080/index.html
 # This runs a benchmark for 30 seconds, 
 # using 2 threads, keeping 100 HTTP connections open, 
 # and a constant throughput of 2000 requests per second 
 # (total, across all connections combined).
  
-</code></pre>
-
-<p>With script</p>
-
+</code></pre><p>With script</p>
 <pre><code>./wrk -c2 -t2 -L -R6 -d600s -s ./scripts/lookup.lua http://127.0.0.1:8080
 
 </code></pre>
-
 </div>
 
 <h2>Comments</h2>

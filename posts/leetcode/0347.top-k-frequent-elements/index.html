@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,68 +52,67 @@
     <div class="post">
   <h1>0347.top-k-frequent-elements</h1>
   <time datetime=2021-03-10T17:06:38&#43;0800 class="post-date">2021-03-10 17:06:38</time>
-  <pre><code class="language-go">func topKFrequent(nums []int, k int) []int {
-    value2Num:=make(map[int]int, len(nums))
-    for _, v:=range nums{
-        value2Num[v]++
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">topKFrequent</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">value2Num</span><span style="color:#f92672">:=</span>make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">nums</span>))
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span>{
+        <span style="color:#a6e22e">value2Num</span>[<span style="color:#a6e22e">v</span>]<span style="color:#f92672">++</span>
     }
-    elems:=make([]*Elem, 0, len(nums))
-    for value, num:=range value2Num{
-        elems=append(elems, &amp;Elem{
-            Value: value,
-            Num: num,
+    <span style="color:#a6e22e">elems</span><span style="color:#f92672">:=</span>make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">nums</span>))
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">num</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">value2Num</span>{
+        <span style="color:#a6e22e">elems</span>=append(<span style="color:#a6e22e">elems</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Elem</span>{
+            <span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">value</span>,
+            <span style="color:#a6e22e">Num</span>: <span style="color:#a6e22e">num</span>,
         })
     }
-    qsort(elems, 0, len(elems)-1, k)
-    rst:=make([]int, 0, k)
-    for i:=0; i&lt;k; i++{
-        rst=append(rst, elems[i].Value)
+    <span style="color:#a6e22e">qsort</span>(<span style="color:#a6e22e">elems</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">elems</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">k</span>)
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">k</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Value</span>)
     }
-    return rst
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-type Elem struct{
-    Value int
-    Num int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Elem</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Num</span> <span style="color:#66d9ef">int</span>
 }
 
-func qsort(elems []*Elem, left, right, k int){
-    //fmt.Printf(&quot;left:%d, right:%d, k:%d\n&quot;, left, right, k)
-    if left&lt;right{
-        p:=partition(elems, left, right)
-        if p==k-1{
-            return
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">qsort</span>(<span style="color:#a6e22e">elems</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>){
+    <span style="color:#75715e">//fmt.Printf(&#34;left:%d, right:%d, k:%d\n&#34;, left, right, k)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">left</span>&lt;<span style="color:#a6e22e">right</span>{
+        <span style="color:#a6e22e">p</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">partition</span>(<span style="color:#a6e22e">elems</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">p</span><span style="color:#f92672">==</span><span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>{
+            <span style="color:#66d9ef">return</span>
         }
-        // 这里是快排，p已经在位置上了，需要解决[left, p)与(p, right]俩子问题
-        // 如果k-1&lt;p， 也就是想要的数在左边，就只处理左边的数据
-        if k-1&lt;p{
-            qsort(elems, left, p-1, k)
-        }else{
-            qsort(elems, p+1, right, k)
+        <span style="color:#75715e">// 这里是快排，p已经在位置上了，需要解决[left, p)与(p, right]俩子问题
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 如果k-1&lt;p， 也就是想要的数在左边，就只处理左边的数据
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>&lt;<span style="color:#a6e22e">p</span>{
+            <span style="color:#a6e22e">qsort</span>(<span style="color:#a6e22e">elems</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">p</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">k</span>)
+        }<span style="color:#66d9ef">else</span>{
+            <span style="color:#a6e22e">qsort</span>(<span style="color:#a6e22e">elems</span>, <span style="color:#a6e22e">p</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">k</span>)
         }
         
         
     }
 }
 
-func partition(elems []*Elem, left, right int)int{
-    pivot:=elems[right]
-    i:=left-1
-    j:=left
-    for ;j&lt;right; j++{
-        if elems[j].Num&gt;=pivot.Num{
-            i=i+1
-            elems[i], elems[j]=elems[j], elems[i]
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">partition</span>(<span style="color:#a6e22e">elems</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>, <span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">pivot</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">right</span>]
+    <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">left</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">left</span>
+    <span style="color:#66d9ef">for</span> ;<span style="color:#a6e22e">j</span>&lt;<span style="color:#a6e22e">right</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">Num</span><span style="color:#f92672">&gt;=</span><span style="color:#a6e22e">pivot</span>.<span style="color:#a6e22e">Num</span>{
+            <span style="color:#a6e22e">i</span>=<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+            <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">i</span>]
         }
     }
-    i++
-    elems[i], elems[j]=elems[j], elems[i]
-    return i
+    <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+    <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">elems</span>[<span style="color:#a6e22e">i</span>]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">i</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,66 +52,65 @@
     <div class="post">
   <h1>Kmp</h1>
   <time datetime=2021-03-04T11:26:13&#43;0800 class="post-date">2021-03-04 11:26:13</time>
-  <pre><code class="language-go">package main
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import (
-	&quot;fmt&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
 )
 
-func main() {
-	s := &quot;atoddasdfasdtodd&quot;
-	p := &quot;abab&quot;
-	rst := match(s, p)
-	fmt.Printf(&quot;rst: %+v\n&quot;, rst)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;atoddasdfasdtodd&#34;</span>
+	<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;abab&#34;</span>
+	<span style="color:#a6e22e">rst</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">p</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;rst: %+v\n&#34;</span>, <span style="color:#a6e22e">rst</span>)
 }
 
-func match(s, p string) []int {
-	nxt := build(p)
-	ret := make([]int, 0)
-	// j是p的索引，i是s的索引
-	for i, j := 0, 0; i &lt; len(s); i++ {
-		for j &gt; 0 &amp;&amp; s[i] != p[j] {
-			j = nxt[j]
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">p</span> <span style="color:#66d9ef">string</span>) []<span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">nxt</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">build</span>(<span style="color:#a6e22e">p</span>)
+	<span style="color:#a6e22e">ret</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#75715e">// j是p的索引，i是s的索引
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> &gt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">!=</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>] {
+			<span style="color:#a6e22e">j</span> = <span style="color:#a6e22e">nxt</span>[<span style="color:#a6e22e">j</span>]
 		}
-		if s[i] == p[j] {
-			j++
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>] {
+			<span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>
 		}
-		if j == len(p) {
-			ret = append(ret, i-len(p)+1)
-			j = nxt[j]
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">p</span>) {
+			<span style="color:#a6e22e">ret</span> = append(<span style="color:#a6e22e">ret</span>, <span style="color:#a6e22e">i</span><span style="color:#f92672">-</span>len(<span style="color:#a6e22e">p</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+			<span style="color:#a6e22e">j</span> = <span style="color:#a6e22e">nxt</span>[<span style="color:#a6e22e">j</span>]
 		}
 	}
-	return ret
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
 
-// build would build the next array
-// a b a b
-// 0 0 0 1 2
-// nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度
-// 比如nxt[3], p[:3]=&quot;aba&quot;,  前缀a，跟后缀a
-// 比如nxt[4], p[:4]=&quot;abab&quot;, 前缀ab，跟后缀ab
-func build(p string) []int {
-	ret := make([]int, 0, len(p))
-	ret = append(ret, 0)
-	ret = append(ret, 0)
+<span style="color:#75715e">// build would build the next array
+</span><span style="color:#75715e">// a b a b
+</span><span style="color:#75715e">// 0 0 0 1 2
+</span><span style="color:#75715e">// nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度
+</span><span style="color:#75715e">// 比如nxt[3], p[:3]=&#34;aba&#34;,  前缀a，跟后缀a
+</span><span style="color:#75715e">// 比如nxt[4], p[:4]=&#34;abab&#34;, 前缀ab，跟后缀ab
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">build</span>(<span style="color:#a6e22e">p</span> <span style="color:#66d9ef">string</span>) []<span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">ret</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">p</span>))
+	<span style="color:#a6e22e">ret</span> = append(<span style="color:#a6e22e">ret</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#a6e22e">ret</span> = append(<span style="color:#a6e22e">ret</span>, <span style="color:#ae81ff">0</span>)
 
-	for i, j := 1, 0; i &lt; len(p); i++ {
-		for j &gt; 0 &amp;&amp; p[i] != p[j] {
-			j = ret[j]
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">p</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> &gt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">!=</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>] {
+			<span style="color:#a6e22e">j</span> = <span style="color:#a6e22e">ret</span>[<span style="color:#a6e22e">j</span>]
 		}
-		if p[i] == p[j] {
-			j++
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>] {
+			<span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>
 		}
-		// 看的是[0:i]闭区间，也就是i+1位置之前的最长前后缀长度
-		ret = append(ret, j)
+		<span style="color:#75715e">// 看的是[0:i]闭区间，也就是i+1位置之前的最长前后缀长度
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">ret</span> = append(<span style="color:#a6e22e">ret</span>, <span style="color:#a6e22e">j</span>)
 	}
-	fmt.Printf(&quot;nxt: %+v\n&quot;, ret)
-	return ret
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;nxt: %+v\n&#34;</span>, <span style="color:#a6e22e">ret</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

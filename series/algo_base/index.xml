@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>algo_base on WNCBB&#39;s blog</title>
@@ -6,18 +6,14 @@
     <description>Recent content in algo_base on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Mar 2021 11:26:13 +0800</lastBuildDate>
-    
-	<atom:link href="https://wncbb.github.io/series/algo_base/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 04 Mar 2021 11:26:13 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/algo_base/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kmp</title>
       <link>https://wncbb.github.io/posts/algo/kmp/</link>
       <pubDate>Thu, 04 Mar 2021 11:26:13 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/kmp/</guid>
-      <description>package main import ( &amp;quot;fmt&amp;quot; ) func main() { s := &amp;quot;atoddasdfasdtodd&amp;quot; p := &amp;quot;abab&amp;quot; rst := match(s, p) fmt.Printf(&amp;quot;rst: %+v\n&amp;quot;, rst) } func match(s, p string) []int { nxt := build(p) ret := make([]int, 0) // j是p的索引，i是s的索引 for i, j := 0, 0; i &amp;lt; len(s); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; s[i] != p[j] { j = nxt[j] } if s[i] == p[j] { j++ } if j == len(p) { ret = append(ret, i-len(p)+1) j = nxt[j] } } return ret } // build would build the next array // a b a b // 0 0 0 1 2 // nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度 // 比如nxt[3], p[:3]=&amp;quot;aba&amp;quot;, 前缀a，跟后缀a // 比如nxt[4], p[:4]=&amp;quot;abab&amp;quot;, 前缀ab，跟后缀ab func build(p string) []int { ret := make([]int, 0, len(p)) ret = append(ret, 0) ret = append(ret, 0) for i, j := 1, 0; i &amp;lt; len(p); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; p[i] !</description>
+      <description>package main import ( &amp;#34;fmt&amp;#34; ) func main() { s := &amp;#34;atoddasdfasdtodd&amp;#34; p := &amp;#34;abab&amp;#34; rst := match(s, p) fmt.Printf(&amp;#34;rst: %+v\n&amp;#34;, rst) } func match(s, p string) []int { nxt := build(p) ret := make([]int, 0) // j是p的索引，i是s的索引 	for i, j := 0, 0; i &amp;lt; len(s); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; s[i] != p[j] { j = nxt[j] } if s[i] == p[j] { j++ } if j == len(p) { ret = append(ret, i-len(p)+1) j = nxt[j] } } return ret } // build would build the next array // a b a b // 0 0 0 1 2 // nxt[i]表示，p[:i]字符串，最长的相同的前缀跟后缀的长度 // 比如nxt[3], p[:3]=&amp;#34;aba&amp;#34;, 前缀a，跟后缀a // 比如nxt[4], p[:4]=&amp;#34;abab&amp;#34;, 前缀ab，跟后缀ab func build(p string) []int { ret := make([]int, 0, len(p)) ret = append(ret, 0) ret = append(ret, 0) for i, j := 1, 0; i &amp;lt; len(p); i++ { for j &amp;gt; 0 &amp;amp;&amp;amp; p[i] !</description>
     </item>
     
     <item>
@@ -26,7 +22,7 @@
       <pubDate>Tue, 02 Mar 2021 15:14:44 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/segment-tree/</guid>
-      <description>n(i) represents the node number of binary tree having i child/s sum = n(0)+n(1)+n(2) 另一个角度，所有节点分两类： 孩子节点， 非孩子节点(有且只有一个，就是root节点) n(1)*1就是有一个孩子节点的所有节点的孩子总数 n(2)*2就是有两个孩子节点的所有节点的孩子总数 sum = sum(孩子节点) + sum(非孩子节点) =n(1)+2*n(2) + 1 因此n(0)+n(1)+n(2)=n(1)+2*n(2)+1 =&amp;gt; n(0)=n(2)+1 对于线段树，n(1)=0 然后对于输入的原始数组，长度为N，也就是n(0)=N， n(2)=n(0)-1=N-1 最好情况，满二叉树： sum = n(0)+n(2)=N+N-1=2N-1 最坏情况: x / \ a x // 倒数第二层 / \ a a // 倒数第一层 倒数第二层的a类型的节点个数:(N-2) 倒数第二层以及上面的节点个数: sum(倒数第二层以及以上) = 2(N-2)+1=2N-4+1=2N-3 sum(倒数第二层节点个数, 虽有只有两个，但是因为是数组，前面全部填空) = (N-2)*2=2N-4 所以sum=2N-3+2N-4=4N-7 所以4N个肯定够用了  package main import &amp;quot;fmt&amp;quot; var merge func(v1, v2 int) int type Node struct { start int end int value int left *Node right *Node } func buildTree(start, end int, vals []int) *Node { if start == end { return &amp;amp;Node{ start: start, end: end, value: vals[start], } } mid := start + (end-start)/2 leftChild := buildTree(start, mid, vals) rightChild := buildTree(mid+1, end, vals) return &amp;amp;Node{ start: start, end: end, value: merge(leftChild.</description>
+      <description>n(i) represents the node number of binary tree having i child/s sum = n(0)+n(1)+n(2) 另一个角度，所有节点分两类： 孩子节点， 非孩子节点(有且只有一个，就是root节点) n(1)*1就是有一个孩子节点的所有节点的孩子总数 n(2)*2就是有两个孩子节点的所有节点的孩子总数 sum = sum(孩子节点) + sum(非孩子节点) =n(1)+2*n(2) + 1 因此n(0)+n(1)+n(2)=n(1)+2*n(2)+1 =&amp;gt; n(0)=n(2)+1 对于线段树，n(1)=0 然后对于输入的原始数组，长度为N，也就是n(0)=N， n(2)=n(0)-1=N-1 最好情况，满二叉树： sum = n(0)+n(2)=N+N-1=2N-1 最坏情况: x / \ a x // 倒数第二层 / \ a a // 倒数第一层 倒数第二层的a类型的节点个数:(N-2) 倒数第二层以及上面的节点个数: sum(倒数第二层以及以上) = 2(N-2)+1=2N-4+1=2N-3 sum(倒数第二层节点个数, 虽有只有两个，但是因为是数组，前面全部填空) = (N-2)*2=2N-4 所以sum=2N-3+2N-4=4N-7 所以4N个肯定够用了 package main import &amp;#34;fmt&amp;#34; var merge func(v1, v2 int) int type Node struct { start int end int value int left *Node right *Node } func buildTree(start, end int, vals []int) *Node { if start == end { return &amp;amp;Node{ start: start, end: end, value: vals[start], } } mid := start + (end-start)/2 leftChild := buildTree(start, mid, vals) rightChild := buildTree(mid+1, end, vals) return &amp;amp;Node{ start: start, end: end, value: merge(leftChild.</description>
     </item>
     
     <item>
@@ -35,7 +31,7 @@
       <pubDate>Tue, 02 Mar 2021 13:53:38 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/binary-index-tree/</guid>
-      <description>package main import &amp;quot;fmt&amp;quot; type BinaryIndexTree struct { raw []int } // lowbit的作用： // x的二进制表示： xxxx...10...0 // 返回 10...0 // 换句话说，返回二进制表示形式中，最低位1所组成的数字 func lowbit(x int) int { return x &amp;amp; (-1 * x) } // Build创建 假设原始数组是s, 新的数组是a 为了方便，全部假设下标从1开始计数 // 1 第三层root // 1 5 第二层root // 1 3 5 7 第一层root // 1 2 3 4 5 6 7 8 新数组的下标，为了方便，从1开始计数，浪费下标0 // // 对于给定一个下标， // 对于奇数2i+1，a[2i+1]=s[2i+1] // // 换个角度，算下s[i]会影响数组a的哪些数值 // 答案：a[i]一定会被影响，然后影响右侧的包含s[i]的树 // 如何求i的右侧的第一棵树？ i+lowbit(i) 可以把i的二进制形式看做一颗树 // 1表示树，那么右侧第一棵树，就是i的最低位的1，这一位加1，就是右边第一棵树的索引 // 创建的时候，从左到右依次处理，那么每个元素只需要处理自己右侧最近的一棵树tree1即可(后面的树tree2,再计算tree1的时候，会修改tree2, 依次传递下去) func (b *BinaryIndexTree) Build(s []int) { b.</description>
+      <description>package main import &amp;#34;fmt&amp;#34; type BinaryIndexTree struct { raw []int } // lowbit的作用： // x的二进制表示： xxxx...10...0 // 返回 10...0 // 换句话说，返回二进制表示形式中，最低位1所组成的数字 func lowbit(x int) int { return x &amp;amp; (-1 * x) } // Build创建 假设原始数组是s, 新的数组是a 为了方便，全部假设下标从1开始计数 // 1 第三层root // 1 5 第二层root // 1 3 5 7 第一层root // 1 2 3 4 5 6 7 8 新数组的下标，为了方便，从1开始计数，浪费下标0 // // 对于给定一个下标， // 对于奇数2i+1，a[2i+1]=s[2i+1] // // 换个角度，算下s[i]会影响数组a的哪些数值 // 答案：a[i]一定会被影响，然后影响右侧的包含s[i]的树 // 如何求i的右侧的第一棵树？ i+lowbit(i) 可以把i的二进制形式看做一颗树 // 1表示树，那么右侧第一棵树，就是i的最低位的1，这一位加1，就是右边第一棵树的索引 // 创建的时候，从左到右依次处理，那么每个元素只需要处理自己右侧最近的一棵树tree1即可(后面的树tree2,再计算tree1的时候，会修改tree2, 依次传递下去) func (b *BinaryIndexTree) Build(s []int) { b.</description>
     </item>
     
     <item>
@@ -62,7 +58,7 @@
       <pubDate>Sun, 03 May 2020 21:04:31 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/backtrack/</guid>
-      <description>result = [] def backtrack(路径, 选择列表): if 满足结束条件: result.add(路径) return for 选择 in 选择列表: 做选择 backtrack(路径, 选择列表(抠掉这次选择)) 撤销选择  </description>
+      <description>result = [] def backtrack(路径, 选择列表): if 满足结束条件: result.add(路径) return for 选择 in 选择列表: 做选择 backtrack(路径, 选择列表(抠掉这次选择)) 撤销选择 </description>
     </item>
     
     <item>
@@ -80,7 +76,7 @@
       <pubDate>Sat, 25 Apr 2020 14:59:29 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/reservoir_sampling/</guid>
-      <description>array result for i=0; i&amp;lt;n; i++{ if i&amp;lt;k{ result[i]=array[i] }else{ r=random(0, i) if r&amp;gt;=k{ continue } result[r]=array[i] } }  </description>
+      <description>array result for i=0; i&amp;lt;n; i++{ if i&amp;lt;k{ result[i]=array[i] }else{ r=random(0, i) if r&amp;gt;=k{ continue } result[r]=array[i] } } </description>
     </item>
     
     <item>
@@ -125,7 +121,7 @@
       <pubDate>Sun, 19 Jan 2020 18:16:32 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/quick_sort/</guid>
-      <description>QuickSort(A, p, r) if p&amp;lt;r mid=Partition(A, p, r) QuickSort(A, p, mid-1) QuickSort(A, mid+1, r) Partition(A, p, r) x=A[r] i=p-1 for j=p to r-1 if A[j]&amp;lt;=x i=i+1 exchange A[i] with A[j] i=i+1 exchange A[i] with A[r] // r==j return i  </description>
+      <description>QuickSort(A, p, r) if p&amp;lt;r mid=Partition(A, p, r) QuickSort(A, p, mid-1) QuickSort(A, mid+1, r) Partition(A, p, r) x=A[r] i=p-1 for j=p to r-1 if A[j]&amp;lt;=x i=i+1 exchange A[i] with A[j] i=i+1 exchange A[i] with A[r] // r==j return i </description>
     </item>
     
     <item>
@@ -134,7 +130,7 @@
       <pubDate>Sun, 19 Jan 2020 17:53:40 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/dfs/</guid>
-      <description>DFS(G) for each u in G.V u.color=WHITE u.parent=nil time=0 for each u in G.V if u.color==WHITE DFS-Visit(G, u) DFS-Visit(G, u) time=time+1 u.displayTime=time u.color=GRAY for each v in G.Adj[u] if v.color==WHITE v.parent=u DFS-Visit(G, v) u.color=BLACK time=time+1 u.finishTime=time  </description>
+      <description>DFS(G) for each u in G.V u.color=WHITE u.parent=nil time=0 for each u in G.V if u.color==WHITE DFS-Visit(G, u) DFS-Visit(G, u) time=time+1 u.displayTime=time u.color=GRAY for each v in G.Adj[u] if v.color==WHITE v.parent=u DFS-Visit(G, v) u.color=BLACK time=time+1 u.finishTime=time </description>
     </item>
     
     <item>
@@ -144,7 +140,7 @@
       
       <guid>https://wncbb.github.io/posts/algo/bfs/</guid>
       <description>WHITE: before join the queue GRAY: in the queue BLACK: pop from queue, and after visit all the children
-BFS(G, s) for each u in (G.V-{s}) u.color=WHITE u.d=inf u.parent=nil s.color=GRAY s.d=0 s.parent=nil ENQUEUE(Q, s) while Q is not empty: u=DEQUEUE(Q) for each v in G.Adj(u) if v.color=WHITE v.color=GRAY v.d=u.d+1 v.parent=u ENQUEUE(Q, v) u.color=BLACK  </description>
+BFS(G, s) for each u in (G.V-{s}) u.color=WHITE u.d=inf u.parent=nil s.color=GRAY s.d=0 s.parent=nil ENQUEUE(Q, s) while Q is not empty: u=DEQUEUE(Q) for each v in G.Adj(u) if v.color=WHITE v.color=GRAY v.d=u.d+1 v.parent=u ENQUEUE(Q, v) u.color=BLACK </description>
     </item>
     
     <item>
@@ -154,8 +150,7 @@ BFS(G, s) for each u in (G.V-{s}) u.color=WHITE u.d=inf u.parent=nil s.color=GRA
       
       <guid>https://wncbb.github.io/posts/algo/bellman_ford/</guid>
       <description>References:
- https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
-从A出发是否存在到达各个节点的路径(有计算出值当然就可以到达)； 从A出发到达各个节点最短路径(时间最少、或者路径最少等) 图中是否存在负环路（权重之和为负数）   Example: k-flight
+ https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/  从A出发是否存在到达各个节点的路径(有计算出值当然就可以到达)； 从A出发到达各个节点最短路径(时间最少、或者路径最少等) 图中是否存在负环路（权重之和为负数） Example: k-flight
 time: O(|V|*|E|)
 1package main 2 3import ( 4	&amp;#34;fmt&amp;#34; 5	&amp;#34;math&amp;#34; 6) 7 8// Edge means the edge in graph 9type Edge struct { 10	src string 11	dst string 12	weight int 13} 14 15func bf(edges []Edge, fromV string) map[string]int { 16 // key为点，value为目前位置到达key点的距离，刚开始全是无限大 17	distMap := make(map[string]int, 0) 18	for _, v := range edges { 19	distMap[v.src] = math.</description>
     </item>
@@ -175,7 +170,7 @@ time: O(|V|*|E|)
       <pubDate>Sun, 19 Jan 2020 15:05:01 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/algo/dijkstra/</guid>
-      <description>可以处理有环 无法处理包含有负数权值的边的图 (dijkastra是中间可以确定一部分点的最短距离，后面如果可以加上一个负数，那前面的确定的就不对了)  1from collections import defaultdict 2from heapq import * 3 4def dijkstra(edges, fromV, toV): 5 g=defaultdict(list) 6 for src, dst, cost in edges: 7 g[src].append((cost, dst)) 8 9 q, seen, mins=[(0, fromV, [])], set(), {fromV: 0} 10 while q: 11 (cost, src, path)=heappop(q) 12 if src not in seen: 13 seen.add(src) 14 path.append(src) 15 if src==toV: 16 return (cost, path) 17 for w, dst in g.get(src, []): 18 if dst in seen: 19 continue 20 oldCostForDst=mins.</description>
+      <description>可以处理有环 无法处理包含有负数权值的边的图 (dijkastra是中间可以确定一部分点的最短距离，后面如果可以加上一个负数，那前面的确定的就不对了) 1from collections import defaultdict 2from heapq import * 3 4def dijkstra(edges, fromV, toV): 5 g=defaultdict(list) 6 for src, dst, cost in edges: 7 g[src].append((cost, dst)) 8 9 q, seen, mins=[(0, fromV, [])], set(), {fromV: 0} 10 while q: 11 (cost, src, path)=heappop(q) 12 if src not in seen: 13 seen.add(src) 14 path.append(src) 15 if src==toV: 16 return (cost, path) 17 for w, dst in g.get(src, []): 18 if dst in seen: 19 continue 20 oldCostForDst=mins.</description>
     </item>
     
   </channel>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,34 +53,32 @@
   <h1>0039.combination-sum</h1>
   <time datetime=2021-03-11T10:39:04&#43;0800 class="post-date">2021-03-11 10:39:04</time>
   <p><a href="https://leetcode-cn.com/problems/combination-sum/solution/zu-he-zong-he-by-leetcode-solution/">https://leetcode-cn.com/problems/combination-sum/solution/zu-he-zong-he-by-leetcode-solution/</a></p>
-
-<pre><code class="language-go">func combinationSum(candidates []int, target int) (ans [][]int) {
-	comb := []int{}
-	var dfs func(target, idx int)
-	dfs = func(target, idx int) {
-		if idx == len(candidates) {
-			return
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">combinationSum</span>(<span style="color:#a6e22e">candidates</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">ans</span> [][]<span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">comb</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{}
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">dfs</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">idx</span> <span style="color:#66d9ef">int</span>)
+	<span style="color:#a6e22e">dfs</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">idx</span> <span style="color:#66d9ef">int</span>) {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">candidates</span>) {
+			<span style="color:#66d9ef">return</span>
 		}
-		if target == 0 {
-			ans = append(ans, append([]int(nil), comb...))
-			return
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">ans</span> = append(<span style="color:#a6e22e">ans</span>, append([]int(<span style="color:#66d9ef">nil</span>), <span style="color:#a6e22e">comb</span><span style="color:#f92672">...</span>))
+			<span style="color:#66d9ef">return</span>
 		}
-		// 直接跳过
-		dfs(target, idx+1)
-		// 选择当前数
-		if target-candidates[idx] &gt;= 0 {
-			comb = append(comb, candidates[idx])
-			dfs(target-candidates[idx], idx)
-			comb = comb[:len(comb)-1]
+		<span style="color:#75715e">// 直接跳过
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">idx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+		<span style="color:#75715e">// 选择当前数
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">-</span><span style="color:#a6e22e">candidates</span>[<span style="color:#a6e22e">idx</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#a6e22e">comb</span> = append(<span style="color:#a6e22e">comb</span>, <span style="color:#a6e22e">candidates</span>[<span style="color:#a6e22e">idx</span>])
+			<span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">target</span><span style="color:#f92672">-</span><span style="color:#a6e22e">candidates</span>[<span style="color:#a6e22e">idx</span>], <span style="color:#a6e22e">idx</span>)
+			<span style="color:#a6e22e">comb</span> = <span style="color:#a6e22e">comb</span>[:len(<span style="color:#a6e22e">comb</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 		}
 	}
-	dfs(target, 0)
-	return
+	<span style="color:#a6e22e">dfs</span>(<span style="color:#a6e22e">target</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#66d9ef">return</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

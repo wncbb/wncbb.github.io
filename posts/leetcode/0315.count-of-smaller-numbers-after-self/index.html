@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,113 +53,111 @@
   <h1>0315.count-of-smaller-numbers-after-self</h1>
   <time datetime=2021-03-12T12:50:33&#43;0800 class="post-date">2021-03-12 12:50:33</time>
   <p><a href="https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/solution/ji-suan-you-ce-xiao-yu-dang-qian-yuan-su-de-ge-s-7/">https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/solution/ji-suan-you-ce-xiao-yu-dang-qian-yuan-su-de-ge-s-7/</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// 一个数右侧比他小的数的个数
+</span><span style="color:#75715e">// 数组reverse一下，就是一个数左侧比他小的数的个数
+</span><span style="color:#75715e">// 比如: 1, 7, 2, 2, 3 ,4
+</span><span style="color:#75715e">// 遍历一遍，当看到1时，左侧没有数，所以是0
+</span><span style="color:#75715e">// 等遍历到3的时候，比他小的数是1的个数跟2的个数
+</span><span style="color:#75715e">// 我们把数组从小到大排序，然后记录遍历一个数字之后，数字的个数
+</span><span style="color:#75715e">// 就像下图: 遍历到3的时候，已经看到一个1，2个2，一个7，以及本身的一个三
+</span><span style="color:#75715e">// 只需要把3前面的个数加起来即可
+</span><span style="color:#75715e">// 跟binray-index-tree的使用场景一样，同意一个前缀和，且支持随时修改数据
+</span><span style="color:#75715e">// 1 2 1 0 1
+</span><span style="color:#75715e">// 1 2 3 4 7
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">countSmaller</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">num2Idx</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">getSortedUnique</span>(<span style="color:#a6e22e">nums</span>)
 
-<pre><code class="language-go">// 一个数右侧比他小的数的个数
-// 数组reverse一下，就是一个数左侧比他小的数的个数
-// 比如: 1, 7, 2, 2, 3 ,4
-// 遍历一遍，当看到1时，左侧没有数，所以是0
-// 等遍历到3的时候，比他小的数是1的个数跟2的个数
-// 我们把数组从小到大排序，然后记录遍历一个数字之后，数字的个数
-// 就像下图: 遍历到3的时候，已经看到一个1，2个2，一个7，以及本身的一个三
-// 只需要把3前面的个数加起来即可
-// 跟binray-index-tree的使用场景一样，同意一个前缀和，且支持随时修改数据
-// 1 2 1 0 1
-// 1 2 3 4 7
-
-func countSmaller(nums []int) []int {
-    num2Idx:=getSortedUnique(nums)
-
-    tree:=&amp;BinaryIndexTree{}
-    tree.Build(make([]int, len(num2Idx), len(num2Idx)))
-    rst:=make([]int, 0)
-    for i:=len(nums)-1; i&gt;=0; i--{
-        // fmt.Printf(&quot;i;&quot;)
-        v:=nums[i]
-        idx:=num2Idx[v]
-        tree.Update(idx, 1)
-        rst=append(rst, tree.PrefixSum(idx-1))
+    <span style="color:#a6e22e">tree</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">BinaryIndexTree</span>{}
+    <span style="color:#a6e22e">tree</span>.<span style="color:#a6e22e">Build</span>(make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">num2Idx</span>), len(<span style="color:#a6e22e">num2Idx</span>)))
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>{
+        <span style="color:#75715e">// fmt.Printf(&#34;i;&#34;)
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
+        <span style="color:#a6e22e">idx</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">num2Idx</span>[<span style="color:#a6e22e">v</span>]
+        <span style="color:#a6e22e">tree</span>.<span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">idx</span>, <span style="color:#ae81ff">1</span>)
+        <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">tree</span>.<span style="color:#a6e22e">PrefixSum</span>(<span style="color:#a6e22e">idx</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
     }
-    return reverseInts(rst)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reverseInts</span>(<span style="color:#a6e22e">rst</span>)
 }
 
-func reverseInts(s []int)[]int{
-    left:=0
-    right:=len(s)-1
-    for left&lt;right{
-        s[left], s[right]=s[right], s[left]
-        left++
-        right--
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">reverseInts</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">int</span>)[]<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">left</span>&lt;<span style="color:#a6e22e">right</span>{
+        <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">left</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">right</span>]=<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">right</span>], <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">left</span>]
+        <span style="color:#a6e22e">left</span><span style="color:#f92672">++</span>
+        <span style="color:#a6e22e">right</span><span style="color:#f92672">--</span>
     }
-    return s
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>
 }
 
-func getSortedUnique(nums []int)map[int]int{
-    unique:=make([]int, 0, len(nums))
-    seen:=make(map[int]struct{})
-    for _, v:=range nums{
-        seen[v]=struct{}{}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getSortedUnique</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">unique</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">nums</span>))
+    <span style="color:#a6e22e">seen</span><span style="color:#f92672">:=</span>make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#66d9ef">struct</span>{})
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span>{
+        <span style="color:#a6e22e">seen</span>[<span style="color:#a6e22e">v</span>]=<span style="color:#66d9ef">struct</span>{}{}
     }
-    for k, _:=range seen{
-        unique=append(unique, k)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">_</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">seen</span>{
+        <span style="color:#a6e22e">unique</span>=append(<span style="color:#a6e22e">unique</span>, <span style="color:#a6e22e">k</span>)
     }
-    sort.Ints(unique)
-    ret:=make(map[int]int)
-    for idx, v:=range unique{
-        ret[v]=idx
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">unique</span>)
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span>make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#66d9ef">int</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">unique</span>{
+        <span style="color:#a6e22e">ret</span>[<span style="color:#a6e22e">v</span>]=<span style="color:#a6e22e">idx</span>
     }
-    return ret
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
 
-type BinaryIndexTree struct{
-    raw []int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BinaryIndexTree</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">raw</span> []<span style="color:#66d9ef">int</span>
 
 }
 
-func(b *BinaryIndexTree)Update(idx, v int){
-    idx=idx+1
-    for idx&lt;len(b.raw){
-        b.raw[idx]+=v
-        idx+=lowbit(idx)
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>)<span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">int</span>){
+    <span style="color:#a6e22e">idx</span>=<span style="color:#a6e22e">idx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>&lt;len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>){
+        <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">idx</span>]<span style="color:#f92672">+=</span><span style="color:#a6e22e">v</span>
+        <span style="color:#a6e22e">idx</span><span style="color:#f92672">+=</span><span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">idx</span>)
     }
 }
 
-func(b *BinaryIndexTree)PrefixSum(idx int)int{
-    idx+=1
-    rst:=0
-    // idx是从1开始计数的
-    for idx&gt;0{
-        // fmt.Printf(&quot;idx:%+v\n&quot;, idx)
-        rst+=b.raw[idx]
-        idx-=lowbit(idx)
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>)<span style="color:#a6e22e">PrefixSum</span>(<span style="color:#a6e22e">idx</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">idx</span><span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#75715e">// idx是从1开始计数的
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>&gt;<span style="color:#ae81ff">0</span>{
+        <span style="color:#75715e">// fmt.Printf(&#34;idx:%+v\n&#34;, idx)
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">rst</span><span style="color:#f92672">+=</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">idx</span>]
+        <span style="color:#a6e22e">idx</span><span style="color:#f92672">-=</span><span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">idx</span>)
     }
-    return rst
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
-func(b *BinaryIndexTree)Query(from, to int)int{
-    from=from+1
-    to=to+1
-    return b.PrefixSum(to)-b.PrefixSum(from-1)
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>)<span style="color:#a6e22e">Query</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">from</span>=<span style="color:#a6e22e">from</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">to</span>=<span style="color:#a6e22e">to</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">PrefixSum</span>(<span style="color:#a6e22e">to</span>)<span style="color:#f92672">-</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">PrefixSum</span>(<span style="color:#a6e22e">from</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 }
 
-func(b *BinaryIndexTree)Build(nums []int){
-    b.raw=make([]int, len(nums)+1, len(nums)+1)
-    for idx, v:=range nums{
-        b.raw[idx+1]=v
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>)<span style="color:#a6e22e">Build</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>){
+    <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>=make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span>{
+        <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">idx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]=<span style="color:#a6e22e">v</span>
     }
 
-    for i:=1; i&lt;len(b.raw); i++{
-        j:=lowbit(i)
-        if j&lt;len(b.raw){
-            b.raw[j]+=b.raw[i]
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">j</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">i</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">j</span>&lt;len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>){
+            <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>]<span style="color:#f92672">+=</span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>]
         }
     }
 }
 
-func lowbit(x int)int{
-    return x&amp;(-1*x)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span><span style="color:#f92672">&amp;</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">x</span>)
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

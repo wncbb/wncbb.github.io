@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,44 +55,42 @@
   <p>需要区分二叉树的这一层下一层，准备俩queue，一个当前处理的curQ，
 一个q存放从curQ里出来的node的孩子节点
 然后curQ=q; q=nil 继续下一次循环</p>
-
-<pre><code class="language-go">/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-func rightSideView(root *TreeNode) []int {
-    if root==nil{
-        return nil
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for a binary tree node.
+</span><span style="color:#75715e"> * type TreeNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Left *TreeNode
+</span><span style="color:#75715e"> *     Right *TreeNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">rightSideView</span>(<span style="color:#a6e22e">root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">root</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
     }
-    ret:=make([]int, 0)
-    q:=make([]*TreeNode, 0)
-    q=append(q, root)
-    for len(q)!=0{
-        curRst:=0
-        curQ:=q 
-        q=nil
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#a6e22e">q</span><span style="color:#f92672">:=</span>make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#a6e22e">q</span>=append(<span style="color:#a6e22e">q</span>, <span style="color:#a6e22e">root</span>)
+    <span style="color:#66d9ef">for</span> len(<span style="color:#a6e22e">q</span>)<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>{
+        <span style="color:#a6e22e">curRst</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+        <span style="color:#a6e22e">curQ</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">q</span> 
+        <span style="color:#a6e22e">q</span>=<span style="color:#66d9ef">nil</span>
 
-        for i:=0; i&lt;len(curQ); i++{
-            curNode:=curQ[i]
-            curRst=curNode.Val
-            if curNode.Left!=nil{
-                q=append(q, curNode.Left)
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">curQ</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+            <span style="color:#a6e22e">curNode</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">curQ</span>[<span style="color:#a6e22e">i</span>]
+            <span style="color:#a6e22e">curRst</span>=<span style="color:#a6e22e">curNode</span>.<span style="color:#a6e22e">Val</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">curNode</span>.<span style="color:#a6e22e">Left</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+                <span style="color:#a6e22e">q</span>=append(<span style="color:#a6e22e">q</span>, <span style="color:#a6e22e">curNode</span>.<span style="color:#a6e22e">Left</span>)
             }
-            if curNode.Right!=nil{
-                q=append(q, curNode.Right)
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">curNode</span>.<span style="color:#a6e22e">Right</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+                <span style="color:#a6e22e">q</span>=append(<span style="color:#a6e22e">q</span>, <span style="color:#a6e22e">curNode</span>.<span style="color:#a6e22e">Right</span>)
             }
         }
-        ret=append(ret, curRst)
+        <span style="color:#a6e22e">ret</span>=append(<span style="color:#a6e22e">ret</span>, <span style="color:#a6e22e">curRst</span>)
     }
 
-    return ret
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

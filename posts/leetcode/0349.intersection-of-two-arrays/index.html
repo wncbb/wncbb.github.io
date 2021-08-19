@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,29 +52,28 @@
     <div class="post">
   <h1>0349.intersection-of-two-arrays</h1>
   <time datetime=2021-03-12T16:14:18&#43;0800 class="post-date">2021-03-12 16:14:18</time>
-  <pre><code class="language-go">func intersection(nums1 []int, nums2 []int) (res []int) {
-    sort.Ints(nums1)
-    sort.Ints(nums2)
-    for i, j := 0, 0; i &lt; len(nums1) &amp;&amp; j &lt; len(nums2); {
-        x, y := nums1[i], nums2[j]
-        if x == y {
-            if res == nil || x &gt; res[len(res)-1] {
-                res = append(res, x)
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">intersection</span>(<span style="color:#a6e22e">nums1</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">nums2</span> []<span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">res</span> []<span style="color:#66d9ef">int</span>) {
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">nums1</span>)
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">nums2</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">nums1</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">nums2</span>); {
+        <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">nums1</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">nums2</span>[<span style="color:#a6e22e">j</span>]
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">y</span> {
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">x</span> &gt; <span style="color:#a6e22e">res</span>[len(<span style="color:#a6e22e">res</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] {
+                <span style="color:#a6e22e">res</span> = append(<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">x</span>)
             }
-            i++
-            j++
-        } else if x &lt; y {
-            i++
-        } else {
-            j++
+            <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+            <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span> &lt; <span style="color:#a6e22e">y</span> {
+            <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>
         }
     }
-    return
+    <span style="color:#66d9ef">return</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

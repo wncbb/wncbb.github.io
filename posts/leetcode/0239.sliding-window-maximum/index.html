@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,128 +52,120 @@
     <div class="post">
   <h1>0239.sliding-window-maximum</h1>
   <time datetime=2021-03-11T19:08:44&#43;0800 class="post-date">2021-03-11 19:08:44</time>
-  
-
-<h2 id="heap">heap</h2>
-
-<pre><code class="language-go">import(
-    &quot;container/heap&quot;
+  <h2 id="heap">heap</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span>(
+    <span style="color:#e6db74">&#34;container/heap&#34;</span>
 )
 
-func maxSlidingWindow(nums []int, k int) []int {
-    myHeap:=&amp;Heap{
-        raw: make([]*Elem, 0),
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxSlidingWindow</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">myHeap</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">Heap</span>{
+        <span style="color:#a6e22e">raw</span>: make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>, <span style="color:#ae81ff">0</span>),
     }
-    for i:=0; i&lt;k; i++{
-        heap.Push(myHeap, &amp;Elem{
-            Value: nums[i],
-            Index: i,
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">myHeap</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Elem</span>{
+            <span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>],
+            <span style="color:#a6e22e">Index</span>: <span style="color:#a6e22e">i</span>,
         })
     }
-    ans:=make([]int, 0)
-    ans=append(ans, myHeap.raw[0].Value)
-    for i:=k; i&lt;len(nums); i++{
-        heap.Push(myHeap, &amp;Elem{
-            Value: nums[i],
-            Index: i,
+    <span style="color:#a6e22e">ans</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#a6e22e">ans</span>=append(<span style="color:#a6e22e">ans</span>, <span style="color:#a6e22e">myHeap</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Value</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">nums</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">myHeap</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Elem</span>{
+            <span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>],
+            <span style="color:#a6e22e">Index</span>: <span style="color:#a6e22e">i</span>,
         })
-        for myHeap.raw[0].Index&lt;=i-k{
-            heap.Pop(myHeap)
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">myHeap</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Index</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#a6e22e">k</span>{
+            <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Pop</span>(<span style="color:#a6e22e">myHeap</span>)
         }
-        ans=append(ans, myHeap.raw[0].Value)
+        <span style="color:#a6e22e">ans</span>=append(<span style="color:#a6e22e">ans</span>, <span style="color:#a6e22e">myHeap</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Value</span>)
 
     }
-    return ans
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
 }
 
-type Elem struct{
-    Value int
-    Index int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Elem</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Index</span> <span style="color:#66d9ef">int</span>
 }
 
-type Heap struct{
-    raw [] *Elem
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Heap</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">raw</span> [] <span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>
 }
 
-func (h *Heap)Len()int{
-    return len(h.raw)
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Heap</span>)<span style="color:#a6e22e">Len</span>()<span style="color:#66d9ef">int</span>{
+    <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>)
 }
-func (h *Heap)Less(i, j int)bool{
-    return h.raw[i].Value&gt;h.raw[j].Value
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Heap</span>)<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)<span style="color:#66d9ef">bool</span>{
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">Value</span>&gt;<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">Value</span>
 }
-func (h *Heap)Swap(i, j int){
-    h.raw[i], h.raw[j]=h.raw[j], h.raw[i]
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Heap</span>)<span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>){
+    <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>]=<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>]
 }
-func (h *Heap)Push(x interface{}){
-    h.raw=append(h.raw, x.(*Elem))
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Heap</span>)<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">interface</span>{}){
+    <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>=append(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>, <span style="color:#a6e22e">x</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">Elem</span>))
 }
-func (h *Heap)Pop()interface{}{
-    ret:=h.raw[len(h.raw)-1]
-    h.raw=h.raw[:len(h.raw)-1]
-    return ret
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Heap</span>)<span style="color:#a6e22e">Pop</span>()<span style="color:#66d9ef">interface</span>{}{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>=<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>[:len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
-</code></pre>
-
-<h2 id="队列">队列</h2>
-
+</code></pre></div><h2 id="队列">队列</h2>
 <p>队列里装的是索引
 加入队列的时候，for循环：如果当前索引的值大于等于队列尾部的索引的值，那么把队列的最后一个索引pop出来，
 这么做没问题的原因是: 新加入的索引一定比老的索引新，因此老索引一定不会在后面的答案中出现</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
 
-<pre><code class="language-go">
-
-func maxSlidingWindow(nums []int, k int) []int {
-    myList:=&amp;List{
-        raw: make([]int, 0),
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxSlidingWindow</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">myList</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">List</span>{
+        <span style="color:#a6e22e">raw</span>: make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>),
     }
-    for i:=0; i&lt;k; i++{
-        myList.Append(i, nums)
-        // fmt.Printf(&quot;i:%d myList.raw:%+v\n&quot;, i, myList.raw)
-    }
-    ans:=make([]int, 0)
-    ans=append(ans, nums[myList.raw[0]])
-    for i:=k; i&lt;len(nums); i++{
-        myList.Append(i, nums)
-        for myList.raw[0]&lt;=i-k{
-            myList.LeftPop()
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">myList</span>.<span style="color:#a6e22e">Append</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">nums</span>)
+        <span style="color:#75715e">// fmt.Printf(&#34;i:%d myList.raw:%+v\n&#34;, i, myList.raw)
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#a6e22e">ans</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+    <span style="color:#a6e22e">ans</span>=append(<span style="color:#a6e22e">ans</span>, <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">myList</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>]])
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span>&lt;len(<span style="color:#a6e22e">nums</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#a6e22e">myList</span>.<span style="color:#a6e22e">Append</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">nums</span>)
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">myList</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#a6e22e">k</span>{
+            <span style="color:#a6e22e">myList</span>.<span style="color:#a6e22e">LeftPop</span>()
         }
-        ans=append(ans, nums[myList.raw[0]])
+        <span style="color:#a6e22e">ans</span>=append(<span style="color:#a6e22e">ans</span>, <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">myList</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>]])
 
     }
-    return ans
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
 }
 
-type List struct{
-    raw []int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">List</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">raw</span> []<span style="color:#66d9ef">int</span>
 }
 
-func (l *List)LeftPop()int{
-    ret:=l.raw[0]
-    l.raw=l.raw[1:]
-    return ret
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">List</span>)<span style="color:#a6e22e">LeftPop</span>()<span style="color:#66d9ef">int</span>{
+    <span style="color:#a6e22e">ret</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">0</span>]
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>=<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#ae81ff">1</span>:]
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ret</span>
 }
 
-func (l *List)Append(idx int, nums []int){
-    if len(l.raw)==0{
-        l.raw=append(l.raw, idx)
-        return
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">l</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">List</span>)<span style="color:#a6e22e">Append</span>(<span style="color:#a6e22e">idx</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>){
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>=append(<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>, <span style="color:#a6e22e">idx</span>)
+        <span style="color:#66d9ef">return</span>
     }
-    curLen:=len(l.raw)
-    // fmt.Printf(&quot;curLen:%d idx:%d l.raw:%+v, nums[l.raw[curLen-1]]:%d, nums[idx]:%d\n&quot;, curLen, idx, l.raw, nums[l.raw[curLen-1]], nums[idx])
-    for curLen&gt;0{
-        if nums[l.raw[curLen-1]]&gt;nums[idx]{
-            break
+    <span style="color:#a6e22e">curLen</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>)
+    <span style="color:#75715e">// fmt.Printf(&#34;curLen:%d idx:%d l.raw:%+v, nums[l.raw[curLen-1]]:%d, nums[idx]:%d\n&#34;, curLen, idx, l.raw, nums[l.raw[curLen-1]], nums[idx])
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">curLen</span>&gt;<span style="color:#ae81ff">0</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">curLen</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]]&gt;<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">idx</span>]{
+            <span style="color:#66d9ef">break</span>
         }
-        l.raw=l.raw[:len(l.raw)-1]
-        curLen--
+        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>=<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>[:len(<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+        <span style="color:#a6e22e">curLen</span><span style="color:#f92672">--</span>
     }
 
-    l.raw=append(l.raw, idx)
+    <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>=append(<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">raw</span>, <span style="color:#a6e22e">idx</span>)
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

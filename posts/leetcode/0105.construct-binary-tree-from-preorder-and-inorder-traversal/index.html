@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,44 +52,43 @@
     <div class="post">
   <h1>0105.construct-binary-tree-from-preorder-and-inorder-traversal</h1>
   <time datetime=2021-02-26T15:37:56&#43;0800 class="post-date">2021-02-26 15:37:56</time>
-  <pre><code class="language-go">/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-func buildTree(preorder []int, inorder []int) *TreeNode {
-    if len(preorder)==0{
-        return nil
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for a binary tree node.
+</span><span style="color:#75715e"> * type TreeNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Left *TreeNode
+</span><span style="color:#75715e"> *     Right *TreeNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">buildTree</span>(<span style="color:#a6e22e">preorder</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">inorder</span> []<span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span> {
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">preorder</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
     }
 
-    curNode:=&amp;TreeNode{
-        Val: preorder[0],
+    <span style="color:#a6e22e">curNode</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">TreeNode</span>{
+        <span style="color:#a6e22e">Val</span>: <span style="color:#a6e22e">preorder</span>[<span style="color:#ae81ff">0</span>],
     }
 
-    rootValIdxInInorder:=0
-    for idx, v:=range inorder{
-        if v==preorder[0]{
-            rootValIdxInInorder=idx
-            break
+    <span style="color:#a6e22e">rootValIdxInInorder</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">:=</span><span style="color:#66d9ef">range</span> <span style="color:#a6e22e">inorder</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">==</span><span style="color:#a6e22e">preorder</span>[<span style="color:#ae81ff">0</span>]{
+            <span style="color:#a6e22e">rootValIdxInInorder</span>=<span style="color:#a6e22e">idx</span>
+            <span style="color:#66d9ef">break</span>
         }
     }
     
-    // 难在构建左子树、右子树函数的参数
-    // preorder: root A B
-    // inorder: A root B
-    // 所以找到A与B在preorder/inorder里的起始位置，再将A/B part作为参数即可
-    curNode.Left=buildTree(preorder[1:len(inorder[:rootValIdxInInorder])+1], inorder[:rootValIdxInInorder])
-    curNode.Right=buildTree(preorder[len(inorder[:rootValIdxInInorder])+1:], inorder[rootValIdxInInorder+1:])
+    <span style="color:#75715e">// 难在构建左子树、右子树函数的参数
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// preorder: root A B
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// inorder: A root B
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 所以找到A与B在preorder/inorder里的起始位置，再将A/B part作为参数即可
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">curNode</span>.<span style="color:#a6e22e">Left</span>=<span style="color:#a6e22e">buildTree</span>(<span style="color:#a6e22e">preorder</span>[<span style="color:#ae81ff">1</span>:len(<span style="color:#a6e22e">inorder</span>[:<span style="color:#a6e22e">rootValIdxInInorder</span>])<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">inorder</span>[:<span style="color:#a6e22e">rootValIdxInInorder</span>])
+    <span style="color:#a6e22e">curNode</span>.<span style="color:#a6e22e">Right</span>=<span style="color:#a6e22e">buildTree</span>(<span style="color:#a6e22e">preorder</span>[len(<span style="color:#a6e22e">inorder</span>[:<span style="color:#a6e22e">rootValIdxInInorder</span>])<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:], <span style="color:#a6e22e">inorder</span>[<span style="color:#a6e22e">rootValIdxInInorder</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:])
 
-    return curNode
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">curNode</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

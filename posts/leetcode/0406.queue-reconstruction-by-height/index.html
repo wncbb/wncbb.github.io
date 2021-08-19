@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,21 +52,20 @@
     <div class="post">
   <h1>0406.queue-reconstruction-by-height</h1>
   <time datetime=2021-03-11T15:15:46&#43;0800 class="post-date">2021-03-11 15:15:46</time>
-  <pre><code class="language-go">func reconstructQueue(input [][]int) [][]int {
-	sort.Slice(input, func(i, j int) bool {
-		return input[i][0] &gt; input[j][0] || (input[i][0] == input[j][0] &amp;&amp; input[i][1] &lt; input[j][1])
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">reconstructQueue</span>(<span style="color:#a6e22e">input</span> [][]<span style="color:#66d9ef">int</span>) [][]<span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Slice</span>(<span style="color:#a6e22e">input</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>] &gt; <span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">j</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">||</span> (<span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">j</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">1</span>] &lt; <span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">j</span>][<span style="color:#ae81ff">1</span>])
 	})
-	for from, p := range input {
-		to := p[1]
-        // ---to---from---
-        // to跟from整体后移一位，然后把p放到to上
-		copy(input[to+1:from+1], input[to:from])
-		input[to] = p
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">input</span> {
+		<span style="color:#a6e22e">to</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>[<span style="color:#ae81ff">1</span>]
+        <span style="color:#75715e">// ---to---from---
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// to跟from整体后移一位，然后把p放到to上
+</span><span style="color:#75715e"></span>		copy(<span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">to</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:<span style="color:#a6e22e">from</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">to</span>:<span style="color:#a6e22e">from</span>])
+		<span style="color:#a6e22e">input</span>[<span style="color:#a6e22e">to</span>] = <span style="color:#a6e22e">p</span>
 	}
-	return input
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">input</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,49 +52,48 @@
     <div class="post">
   <h1>0016.3sum-closest</h1>
   <time datetime=2021-03-12T19:53:23&#43;0800 class="post-date">2021-03-12 19:53:23</time>
-  <pre><code class="language-go">import(
-    &quot;math&quot;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span>(
+    <span style="color:#e6db74">&#34;math&#34;</span>
 )
 
-func threeSumClosest(nums []int, target int) int {
-    sort.Ints(nums)
-    best:=math.MaxInt32
-    n:=len(nums)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">threeSumClosest</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">nums</span>)
+    <span style="color:#a6e22e">best</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>
+    <span style="color:#a6e22e">n</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">nums</span>)
 
-    for i:=0; i&lt;n-2;i++{
-        if i&gt;0 &amp;&amp; nums[i]==nums[i-1]{
-            continue
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span>&gt;<span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">==</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]{
+            <span style="color:#66d9ef">continue</span>
         }
-        left:=i+1
-        right:=n-1
+        <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+        <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
         
-        for left&lt;right{
-            curSum:=nums[left]+nums[right]+nums[i]
-            if curSum==target{
-                return target
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">left</span>&lt;<span style="color:#a6e22e">right</span>{
+            <span style="color:#a6e22e">curSum</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">left</span>]<span style="color:#f92672">+</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">right</span>]<span style="color:#f92672">+</span><span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>]
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">curSum</span><span style="color:#f92672">==</span><span style="color:#a6e22e">target</span>{
+                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>
             }
-            if curSum&lt;target{
-                left++
-            }else{
-                right--
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">curSum</span>&lt;<span style="color:#a6e22e">target</span>{
+                <span style="color:#a6e22e">left</span><span style="color:#f92672">++</span>
+            }<span style="color:#66d9ef">else</span>{
+                <span style="color:#a6e22e">right</span><span style="color:#f92672">--</span>
             }
-            if abs(best-target)&gt;abs(curSum-target){
-                best=curSum
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">best</span><span style="color:#f92672">-</span><span style="color:#a6e22e">target</span>)&gt;<span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">curSum</span><span style="color:#f92672">-</span><span style="color:#a6e22e">target</span>){
+                <span style="color:#a6e22e">best</span>=<span style="color:#a6e22e">curSum</span>
             }
         }
     }
-    return best
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">best</span>
 }
 
-func abs(x int) int {
-    if x &lt; 0 {
-        return -1 * x
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span> &lt; <span style="color:#ae81ff">0</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">x</span>
     }
-    return x
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>
 }
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

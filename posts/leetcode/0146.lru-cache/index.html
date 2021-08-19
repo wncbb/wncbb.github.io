@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,107 +52,106 @@
     <div class="post">
   <h1>0146.lru-cache</h1>
   <time datetime=2021-03-13T18:47:42&#43;0800 class="post-date">2021-03-13 18:47:42</time>
-  <pre><code class="language-go">type Node struct{
-    val int
-    key int
-    prev *Node
-    next *Node
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">prev</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">next</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
 }
 
-type LRUCache struct {
-    head *Node
-    tail *Node
-    length int
-    capacity int
-    key2Node map[int]*Node
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LRUCache</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">tail</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+    <span style="color:#a6e22e">length</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">capacity</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">key2Node</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
 
 }
 
 
-func Constructor(capacity int) LRUCache {
-    head:=&amp;Node{}
-    tail:=&amp;Node{}
-    head.next=tail
-    tail.prev=head
-    return LRUCache{
-        head: head, 
-        tail: tail,
-        capacity: capacity,
-        key2Node: make(map[int]*Node, capacity),
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Constructor</span>(<span style="color:#a6e22e">capacity</span> <span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">LRUCache</span> {
+    <span style="color:#a6e22e">head</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">Node</span>{}
+    <span style="color:#a6e22e">tail</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">Node</span>{}
+    <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">next</span>=<span style="color:#a6e22e">tail</span>
+    <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">prev</span>=<span style="color:#a6e22e">head</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">LRUCache</span>{
+        <span style="color:#a6e22e">head</span>: <span style="color:#a6e22e">head</span>, 
+        <span style="color:#a6e22e">tail</span>: <span style="color:#a6e22e">tail</span>,
+        <span style="color:#a6e22e">capacity</span>: <span style="color:#a6e22e">capacity</span>,
+        <span style="color:#a6e22e">key2Node</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">capacity</span>),
     }
 }
 
 
-func (this *LRUCache) Get(key int) int {
-    targetNode, ok:=this.key2Node[key]
-    if !ok || targetNode==nil{
-        return -1
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LRUCache</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">targetNode</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Node</span>[<span style="color:#a6e22e">key</span>]
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">targetNode</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
     }
-    // Get操作， 需要将当前node放到最前面
-    this.Delete(key)
-    this.addToHead(key, targetNode.val)
-    return targetNode.val
+    <span style="color:#75715e">// Get操作， 需要将当前node放到最前面
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Delete</span>(<span style="color:#a6e22e">key</span>)
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">addToHead</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">targetNode</span>.<span style="color:#a6e22e">val</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">targetNode</span>.<span style="color:#a6e22e">val</span>
 }
 
 
-func (this *LRUCache) Put(key int, value int)  {
-    this.Delete(key)
-    // 加新的元素前，先判断下是否已经满了
-    if this.capacity==this.length{
-        this.deleteTail()
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LRUCache</span>) <span style="color:#a6e22e">Put</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">int</span>)  {
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">Delete</span>(<span style="color:#a6e22e">key</span>)
+    <span style="color:#75715e">// 加新的元素前，先判断下是否已经满了
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">capacity</span><span style="color:#f92672">==</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">length</span>{
+        <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">deleteTail</span>()
     }
-    this.addToHead(key, value)
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">addToHead</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
 }
 
-func (this *LRUCache)Delete(key int)*Node{
-    delNode, ok:=this.key2Node[key]
-    if !ok || delNode==nil{
-        return nil
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LRUCache</span>)<span style="color:#a6e22e">Delete</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">int</span>)<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>{
+    <span style="color:#a6e22e">delNode</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Node</span>[<span style="color:#a6e22e">key</span>]
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">delNode</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
     }
-    this.deleteNode(delNode)
-    return delNode
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">deleteNode</span>(<span style="color:#a6e22e">delNode</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">delNode</span>
 }
 
-func(this *LRUCache)deleteNode(node *Node){
-    prevNode:=node.prev
-    nextNode:=node.next
-    prevNode.next=nextNode
-    nextNode.prev=prevNode
-    delete(this.key2Node, node.key)
-    this.length--
+<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LRUCache</span>)<span style="color:#a6e22e">deleteNode</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>){
+    <span style="color:#a6e22e">prevNode</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">prev</span>
+    <span style="color:#a6e22e">nextNode</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">next</span>
+    <span style="color:#a6e22e">prevNode</span>.<span style="color:#a6e22e">next</span>=<span style="color:#a6e22e">nextNode</span>
+    <span style="color:#a6e22e">nextNode</span>.<span style="color:#a6e22e">prev</span>=<span style="color:#a6e22e">prevNode</span>
+    delete(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Node</span>, <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">key</span>)
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">length</span><span style="color:#f92672">--</span>
 }
 
-func (this *LRUCache)deleteTail()*Node{
-    delNode:=this.tail.prev
-    this.deleteNode(delNode)
-    return delNode
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LRUCache</span>)<span style="color:#a6e22e">deleteTail</span>()<span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>{
+    <span style="color:#a6e22e">delNode</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">prev</span>
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">deleteNode</span>(<span style="color:#a6e22e">delNode</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">delNode</span>
 }
 
-func (this *LRUCache) addToHead(key int, value int){
-    node:=&amp;Node{
-        val: value,
-        key: key,
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LRUCache</span>) <span style="color:#a6e22e">addToHead</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">int</span>){
+    <span style="color:#a6e22e">node</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">Node</span>{
+        <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">value</span>,
+        <span style="color:#a6e22e">key</span>: <span style="color:#a6e22e">key</span>,
     }
-    this.key2Node[key]=node
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Node</span>[<span style="color:#a6e22e">key</span>]=<span style="color:#a6e22e">node</span>
 
-    // 其实是add到this.head的后面，而不是this.head的前面
-    oldFirstNode:=this.head.next
-    this.head.next=node
-    node.prev=this.head
-    node.next=oldFirstNode
-    oldFirstNode.prev=node
-    this.length++
+    <span style="color:#75715e">// 其实是add到this.head的后面，而不是this.head的前面
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">oldFirstNode</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">next</span>
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">next</span>=<span style="color:#a6e22e">node</span>
+    <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">prev</span>=<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">head</span>
+    <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">next</span>=<span style="color:#a6e22e">oldFirstNode</span>
+    <span style="color:#a6e22e">oldFirstNode</span>.<span style="color:#a6e22e">prev</span>=<span style="color:#a6e22e">node</span>
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">length</span><span style="color:#f92672">++</span>
 }
 
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * obj := Constructor(capacity);
- * param_1 := obj.Get(key);
- * obj.Put(key,value);
- */
-</code></pre>
-
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Your LRUCache object will be instantiated and called as such:
+</span><span style="color:#75715e"> * obj := Constructor(capacity);
+</span><span style="color:#75715e"> * param_1 := obj.Get(key);
+</span><span style="color:#75715e"> * obj.Put(key,value);
+</span><span style="color:#75715e"> */</span>
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

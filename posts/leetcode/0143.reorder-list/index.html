@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,66 +52,65 @@
     <div class="post">
   <h1>0143.reorder-list</h1>
   <time datetime=2021-03-10T11:56:29&#43;0800 class="post-date">2021-03-10 11:56:29</time>
-  <pre><code class="language-go">/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func reorderList(head *ListNode)  {
-    if head==nil || head.Next==nil{
-        return
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * type ListNode struct {
+</span><span style="color:#75715e"> *     Val int
+</span><span style="color:#75715e"> *     Next *ListNode
+</span><span style="color:#75715e"> * }
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">reorderList</span>(<span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>)  {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">head</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">Next</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span>
     }
     
-    firstPart, secondPart:=cutMid(head)
-    secondPart=reverseList(secondPart)
-    dummy:=&amp;ListNode{}
-    tail:=dummy
-    for firstPart!=nil &amp;&amp; secondPart!=nil{
-        tail.Next=firstPart
-        firstPart=firstPart.Next
-        tail=tail.Next
+    <span style="color:#a6e22e">firstPart</span>, <span style="color:#a6e22e">secondPart</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">cutMid</span>(<span style="color:#a6e22e">head</span>)
+    <span style="color:#a6e22e">secondPart</span>=<span style="color:#a6e22e">reverseList</span>(<span style="color:#a6e22e">secondPart</span>)
+    <span style="color:#a6e22e">dummy</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">ListNode</span>{}
+    <span style="color:#a6e22e">tail</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">dummy</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">firstPart</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">secondPart</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">firstPart</span>
+        <span style="color:#a6e22e">firstPart</span>=<span style="color:#a6e22e">firstPart</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#a6e22e">tail</span>=<span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>
         
-        tail.Next=secondPart
-        secondPart=secondPart.Next
-        tail=tail.Next
+        <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">secondPart</span>
+        <span style="color:#a6e22e">secondPart</span>=<span style="color:#a6e22e">secondPart</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#a6e22e">tail</span>=<span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>
     }
-    if firstPart!=nil{
-        tail.Next=firstPart
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">firstPart</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">tail</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">firstPart</span>
     }
     
 }
 
-// 1 2 3 4 5
-//     s
-//         f       
-func cutMid(head *ListNode)(*ListNode, *ListNode){
-    fast:=head
-    slow:=head
-    for fast!=nil &amp;&amp; fast.Next!=nil &amp;&amp; fast.Next.Next!=nil{
-        fast=fast.Next.Next
-        slow=slow.Next
+<span style="color:#75715e">// 1 2 3 4 5
+</span><span style="color:#75715e">//     s
+</span><span style="color:#75715e">//         f       
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">cutMid</span>(<span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>)(<span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>){
+    <span style="color:#a6e22e">fast</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">head</span>
+    <span style="color:#a6e22e">slow</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">head</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">fast</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">fast</span>.<span style="color:#a6e22e">Next</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">fast</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Next</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">fast</span>=<span style="color:#a6e22e">fast</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#a6e22e">slow</span>=<span style="color:#a6e22e">slow</span>.<span style="color:#a6e22e">Next</span>
     }
-    secondPartHead:=slow.Next
-    slow.Next=nil
-    return head, secondPartHead
+    <span style="color:#a6e22e">secondPartHead</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">slow</span>.<span style="color:#a6e22e">Next</span>
+    <span style="color:#a6e22e">slow</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#66d9ef">nil</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">head</span>, <span style="color:#a6e22e">secondPartHead</span>
 }
 
-func reverseList(head *ListNode)*ListNode{
-    var newHead *ListNode
-    cur:=head
-    var next *ListNode
-    for cur!=nil{
-        next=cur.Next
-        cur.Next=newHead
-        newHead=cur
-        cur=next
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">reverseList</span>(<span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>)<span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>{
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">newHead</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>
+    <span style="color:#a6e22e">cur</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">head</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">next</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ListNode</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">cur</span><span style="color:#f92672">!=</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">next</span>=<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>
+        <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">Next</span>=<span style="color:#a6e22e">newHead</span>
+        <span style="color:#a6e22e">newHead</span>=<span style="color:#a6e22e">cur</span>
+        <span style="color:#a6e22e">cur</span>=<span style="color:#a6e22e">next</span>
     }
-    return newHead
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">newHead</span>
 }
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

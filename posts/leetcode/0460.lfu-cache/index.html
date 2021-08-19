@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,144 +52,143 @@
     <div class="post">
   <h1>0460.lfu-cache</h1>
   <time datetime=2021-03-12T11:50:24&#43;0800 class="post-date">2021-03-12 11:50:24</time>
-  <pre><code class="language-go">import(
-    &quot;container/list&quot;
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span>(
+    <span style="color:#e6db74">&#34;container/list&#34;</span>
 )
 
-type Data struct{
-    Key int
-    Value int
-    Count int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Data</span> <span style="color:#66d9ef">struct</span>{
+    <span style="color:#a6e22e">Key</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">Count</span> <span style="color:#66d9ef">int</span>
 }
 
-type LFUCache struct {
-    key2Elem map[int]*list.Element
-    count2List map[int]*list.List
-    minCount int
-    capacity int
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LFUCache</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">key2Elem</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">Element</span>
+    <span style="color:#a6e22e">count2List</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">List</span>
+    <span style="color:#a6e22e">minCount</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">capacity</span> <span style="color:#66d9ef">int</span>
 }
 
 
-func Constructor(capacity int) LFUCache {
-    return LFUCache{
-        key2Elem: make(map[int]*list.Element),
-        count2List: make(map[int]*list.List),
-        minCount: 0,
-        capacity: capacity,
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Constructor</span>(<span style="color:#a6e22e">capacity</span> <span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">LFUCache</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">LFUCache</span>{
+        <span style="color:#a6e22e">key2Elem</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">Element</span>),
+        <span style="color:#a6e22e">count2List</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">List</span>),
+        <span style="color:#a6e22e">minCount</span>: <span style="color:#ae81ff">0</span>,
+        <span style="color:#a6e22e">capacity</span>: <span style="color:#a6e22e">capacity</span>,
     }
 }
 
 
-func (this *LFUCache) Get(key int) int {
-    // fmt.Printf(&quot;[GET] ---------- START\n&quot;)
-    // fmt.Printf(&quot;[GET] BEFORE this.count2List: %+v \n&quot;, this.count2List)
-    // fmt.Printf(&quot;[GET] %d\n&quot;, key)
-    elem, ok:=this.key2Elem[key]
-    if !ok{
-        return -1
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LFUCache</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#75715e">// fmt.Printf(&#34;[GET] ---------- START\n&#34;)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// fmt.Printf(&#34;[GET] BEFORE this.count2List: %+v \n&#34;, this.count2List)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// fmt.Printf(&#34;[GET] %d\n&#34;, key)
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">elem</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Elem</span>[<span style="color:#a6e22e">key</span>]
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
     }
-    data:=elem.Value.(*Data)
-    this.update(elem)
-    // fmt.Printf(&quot;[GET] AFTER this.count2List: %+v \n&quot;, this.count2List)
-    return data.Value
+    <span style="color:#a6e22e">data</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">Value</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">Data</span>)
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">elem</span>)
+    <span style="color:#75715e">// fmt.Printf(&#34;[GET] AFTER this.count2List: %+v \n&#34;, this.count2List)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Value</span>
 }
 
-func (this *LFUCache) update(elem *list.Element){
-    data:=elem.Value.(*Data)
-    elemList:=this.count2List[data.Count]
-    // fmt.Printf(&quot;this.count2List: %+v data:%+v\n&quot;, this.count2List, data)
-
-    elemList.Remove(elem)
-    if elemList.Len()==0{
-        if data.Count==this.minCount{
-            this.minCount++
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LFUCache</span>) <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">elem</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">Element</span>){
+    <span style="color:#a6e22e">data</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">Value</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">Data</span>)
+    <span style="color:#a6e22e">elemList</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">count2List</span>[<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Count</span>]
+    <span style="color:#75715e">// fmt.Printf(&#34;this.count2List: %+v data:%+v\n&#34;, this.count2List, data)
+</span><span style="color:#75715e"></span>
+    <span style="color:#a6e22e">elemList</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">elem</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">elemList</span>.<span style="color:#a6e22e">Len</span>()<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>{
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Count</span><span style="color:#f92672">==</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minCount</span>{
+            <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minCount</span><span style="color:#f92672">++</span>
         }
     }
 
-    data.Count++
+    <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Count</span><span style="color:#f92672">++</span>
 
-    targetList:=this.count2List[data.Count]
-    if targetList==nil{
-        targetList=list.New()
+    <span style="color:#a6e22e">targetList</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">count2List</span>[<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Count</span>]
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">targetList</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#a6e22e">targetList</span>=<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">New</span>()
     }
-    newElem:=targetList.PushFront(data)
-    // 别忘了把list加进去
-    this.count2List[data.Count]=targetList
-    this.key2Elem[data.Key]=newElem
+    <span style="color:#a6e22e">newElem</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">targetList</span>.<span style="color:#a6e22e">PushFront</span>(<span style="color:#a6e22e">data</span>)
+    <span style="color:#75715e">// 别忘了把list加进去
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">count2List</span>[<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Count</span>]=<span style="color:#a6e22e">targetList</span>
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Elem</span>[<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Key</span>]=<span style="color:#a6e22e">newElem</span>
 }
 
-func (this *LFUCache)deleteMin()bool{
-    elemList, ok:=this.count2List[this.minCount]
-    if !ok{
-        return false
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LFUCache</span>)<span style="color:#a6e22e">deleteMin</span>()<span style="color:#66d9ef">bool</span>{
+    <span style="color:#a6e22e">elemList</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">count2List</span>[<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minCount</span>]
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
     }
 
-    elem:=elemList.Back()
-    if elem==nil{
-        return false
+    <span style="color:#a6e22e">elem</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">elemList</span>.<span style="color:#a6e22e">Back</span>()
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">elem</span><span style="color:#f92672">==</span><span style="color:#66d9ef">nil</span>{
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
     }
 
-    _ = elemList.Remove(elem)
+    <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">elemList</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">elem</span>)
 
-    data:=elem.Value.(*Data)
-    delete(this.key2Elem, data.Key)
-    return true
+    <span style="color:#a6e22e">data</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">Value</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">Data</span>)
+    delete(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Elem</span>, <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Key</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
 }
 
-func (this *LFUCache) Put(key int, value int)  {
-    // fmt.Printf(&quot;[PUT] ---------- START\n&quot;)
-    // fmt.Printf(&quot;[PUT] BEFORE this.count2List: %+v \n&quot;, this.count2List)
-    // fmt.Printf(&quot;[PUT] key:%d vaue:%d\n&quot;, key, value)
-    // fmt.Printf(&quot;[PUT] BEFORE key2Elem: %+v\n&quot;, this.key2Elem)
-    defer func(){
-        // fmt.Printf(&quot;[PUT] AFTER key2Elem: %+v\n&quot;, this.key2Elem)
-    }()
-    elem, ok:=this.key2Elem[key]
-    if ok{
-        data:=elem.Value.(*Data)
-        data.Value=value
-        // update函数里，需要原始的count来获取list，count++后，再加入新的list里，所以count需要在update里做
-        // data.Count++
-        this.update(elem)
-        return
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">this</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LFUCache</span>) <span style="color:#a6e22e">Put</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">int</span>)  {
+    <span style="color:#75715e">// fmt.Printf(&#34;[PUT] ---------- START\n&#34;)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// fmt.Printf(&#34;[PUT] BEFORE this.count2List: %+v \n&#34;, this.count2List)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// fmt.Printf(&#34;[PUT] key:%d vaue:%d\n&#34;, key, value)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// fmt.Printf(&#34;[PUT] BEFORE key2Elem: %+v\n&#34;, this.key2Elem)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>(){
+        <span style="color:#75715e">// fmt.Printf(&#34;[PUT] AFTER key2Elem: %+v\n&#34;, this.key2Elem)
+</span><span style="color:#75715e"></span>    }()
+    <span style="color:#a6e22e">elem</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Elem</span>[<span style="color:#a6e22e">key</span>]
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span>{
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">Value</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">Data</span>)
+        <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">Value</span>=<span style="color:#a6e22e">value</span>
+        <span style="color:#75715e">// update函数里，需要原始的count来获取list，count++后，再加入新的list里，所以count需要在update里做
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// data.Count++
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">elem</span>)
+        <span style="color:#66d9ef">return</span>
     }
-    // 如果之前不存在，需要新加入一个element，需要看看当前capacity
-    if len(this.key2Elem)==this.capacity{
-        if !this.deleteMin(){
-            return
+    <span style="color:#75715e">// 如果之前不存在，需要新加入一个element，需要看看当前capacity
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Elem</span>)<span style="color:#f92672">==</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">capacity</span>{
+        <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">deleteMin</span>(){
+            <span style="color:#66d9ef">return</span>
         }
     }
-    if len(this.key2Elem)==this.capacity{
-        return
+    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Elem</span>)<span style="color:#f92672">==</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">capacity</span>{
+        <span style="color:#66d9ef">return</span>
     }
-    newData:=&amp;Data{
-        Key: key, 
-        Value: value,
-        Count: 1,
+    <span style="color:#a6e22e">newData</span><span style="color:#f92672">:=&amp;</span><span style="color:#a6e22e">Data</span>{
+        <span style="color:#a6e22e">Key</span>: <span style="color:#a6e22e">key</span>, 
+        <span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">value</span>,
+        <span style="color:#a6e22e">Count</span>: <span style="color:#ae81ff">1</span>,
     }
-    // fmt.Printf(&quot;[PUT] newData:%+v\n&quot;, newData)
-    targetList, ok:=this.count2List[newData.Count]
-    if !ok{
-        targetList=list.New()
-        this.count2List[newData.Count]=targetList
+    <span style="color:#75715e">// fmt.Printf(&#34;[PUT] newData:%+v\n&#34;, newData)
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">targetList</span>, <span style="color:#a6e22e">ok</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">count2List</span>[<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">Count</span>]
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span>{
+        <span style="color:#a6e22e">targetList</span>=<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">New</span>()
+        <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">count2List</span>[<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">Count</span>]=<span style="color:#a6e22e">targetList</span>
     }
-    newElem:=targetList.PushFront(newData)
-    this.key2Elem[newData.Key]=newElem
-    this.minCount=newData.Count
+    <span style="color:#a6e22e">newElem</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">targetList</span>.<span style="color:#a6e22e">PushFront</span>(<span style="color:#a6e22e">newData</span>)
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">key2Elem</span>[<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">Key</span>]=<span style="color:#a6e22e">newElem</span>
+    <span style="color:#a6e22e">this</span>.<span style="color:#a6e22e">minCount</span>=<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">Count</span>
 
-    // fmt.Printf(&quot;[PUT] AFTER this.count2List: %+v \n&quot;, this.count2List)
-}
+    <span style="color:#75715e">// fmt.Printf(&#34;[PUT] AFTER this.count2List: %+v \n&#34;, this.count2List)
+</span><span style="color:#75715e"></span>}
 
 
 
-/**
- * Your LFUCache object will be instantiated and called as such:
- * obj := Constructor(capacity);
- * param_1 := obj.Get(key);
- * obj.Put(key,value);
- */
-</code></pre>
-
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Your LFUCache object will be instantiated and called as such:
+</span><span style="color:#75715e"> * obj := Constructor(capacity);
+</span><span style="color:#75715e"> * param_1 := obj.Get(key);
+</span><span style="color:#75715e"> * obj.Put(key,value);
+</span><span style="color:#75715e"> */</span>
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

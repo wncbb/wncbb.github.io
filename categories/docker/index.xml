@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docker on WNCBB&#39;s blog</title>
@@ -6,18 +6,14 @@
     <description>Recent content in docker on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 Nov 2019 15:41:03 +0800</lastBuildDate>
-    
-	<atom:link href="https://wncbb.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 15 Nov 2019 15:41:03 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Volume</title>
       <link>https://wncbb.github.io/posts/docker/volume/</link>
       <pubDate>Fri, 15 Nov 2019 15:41:03 +0800</pubDate>
       
       <guid>https://wncbb.github.io/posts/docker/volume/</guid>
-      <description>docker volume create &amp;lt;volume name&amp;gt; docker volume ls docker volume inspect &amp;lt;volume name&amp;gt;  </description>
+      <description>docker volume create &amp;lt;volume name&amp;gt; docker volume ls docker volume inspect &amp;lt;volume name&amp;gt; </description>
     </item>
     
   </channel>

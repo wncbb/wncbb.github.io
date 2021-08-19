@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
+  <meta name="generator" content="Hugo 0.87.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,46 +52,45 @@
     <div class="post">
   <h1>0054.spiral-matrix</h1>
   <time datetime=2021-03-10T11:46:17&#43;0800 class="post-date">2021-03-10 11:46:17</time>
-  <pre><code class="language-go">func spiralOrder(matrix [][]int) []int {
-    allNums:=len(matrix)*len(matrix[0])
-    left:=0
-    right:=len(matrix[0])-1
-    top:=0
-    bottom:=len(matrix)-1
-    rst:=make([]int, 0, allNums)
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">spiralOrder</span>(<span style="color:#a6e22e">matrix</span> [][]<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">allNums</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">matrix</span>)<span style="color:#f92672">*</span>len(<span style="color:#a6e22e">matrix</span>[<span style="color:#ae81ff">0</span>])
+    <span style="color:#a6e22e">left</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">right</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">matrix</span>[<span style="color:#ae81ff">0</span>])<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">top</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>
+    <span style="color:#a6e22e">bottom</span><span style="color:#f92672">:=</span>len(<span style="color:#a6e22e">matrix</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#a6e22e">rst</span><span style="color:#f92672">:=</span>make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">allNums</span>)
 
-    for allNums&gt;0{
-        for i:=left; i&lt;=right &amp;&amp;allNums&gt;0; i++{
-            rst=append(rst, matrix[top][i])
-            allNums--
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">allNums</span>&gt;<span style="color:#ae81ff">0</span>{
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">left</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">right</span> <span style="color:#f92672">&amp;&amp;</span><span style="color:#a6e22e">allNums</span>&gt;<span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+            <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">top</span>][<span style="color:#a6e22e">i</span>])
+            <span style="color:#a6e22e">allNums</span><span style="color:#f92672">--</span>
         }
-        top++
+        <span style="color:#a6e22e">top</span><span style="color:#f92672">++</span>
 
-        for i:=top; i&lt;=bottom &amp;&amp;allNums&gt;0; i++{
-            rst=append(rst, matrix[i][right])
-            allNums--
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">top</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">bottom</span> <span style="color:#f92672">&amp;&amp;</span><span style="color:#a6e22e">allNums</span>&gt;<span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>{
+            <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">right</span>])
+            <span style="color:#a6e22e">allNums</span><span style="color:#f92672">--</span>
         }
-        right--
+        <span style="color:#a6e22e">right</span><span style="color:#f92672">--</span>
 
-        // i的左边界是left，不是0
-        for i:=right; i&gt;=left &amp;&amp;allNums&gt;0; i--{
-            rst=append(rst, matrix[bottom][i])
-            allNums--
+        <span style="color:#75715e">// i的左边界是left，不是0
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">right</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&gt;=</span><span style="color:#a6e22e">left</span> <span style="color:#f92672">&amp;&amp;</span><span style="color:#a6e22e">allNums</span>&gt;<span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>{
+            <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">bottom</span>][<span style="color:#a6e22e">i</span>])
+            <span style="color:#a6e22e">allNums</span><span style="color:#f92672">--</span>
         }
-        bottom--
+        <span style="color:#a6e22e">bottom</span><span style="color:#f92672">--</span>
 
-        for i:=bottom; i&gt;=top &amp;&amp;allNums&gt;0; i--{
-            rst=append(rst, matrix[i][left])
-            allNums--
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">bottom</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&gt;=</span><span style="color:#a6e22e">top</span> <span style="color:#f92672">&amp;&amp;</span><span style="color:#a6e22e">allNums</span>&gt;<span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>{
+            <span style="color:#a6e22e">rst</span>=append(<span style="color:#a6e22e">rst</span>, <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">left</span>])
+            <span style="color:#a6e22e">allNums</span><span style="color:#f92672">--</span>
         }
-        left++
+        <span style="color:#a6e22e">left</span><span style="color:#f92672">++</span>
     }
-    return rst
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rst</span>
 }
 
 
-</code></pre>
-
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>
