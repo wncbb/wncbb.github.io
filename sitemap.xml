@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://wncbb.github.io/ctf/</loc>
+    <lastmod>2021-08-19T21:54:55+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/ctf/mysql/</loc>
+    <lastmod>2021-08-19T21:54:55+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/</loc>
+    <lastmod>2021-08-19T21:54:55+08:00</lastmod>
+  </url><url>
     <loc>https://wncbb.github.io/series/designpattern/</loc>
     <lastmod>2021-08-19T16:31:13+08:00</lastmod>
   </url><url>
@@ -12,9 +21,6 @@
     <lastmod>2021-08-19T16:31:13+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/designpattern/solid/</loc>
-    <lastmod>2021-08-19T16:31:13+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/</loc>
     <lastmod>2021-08-19T16:31:13+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/posts/leetcode/0173.binary-search-tree-iterator/</loc>
