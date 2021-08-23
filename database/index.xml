@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Databases on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/database/</link>
+    <description>Recent content in Databases on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Aug 2021 18:11:26 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Transaction</title>
+      <link>https://wncbb.github.io/database/transaction/</link>
+      <pubDate>Mon, 23 Aug 2021 18:11:26 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/transaction/</guid>
+      <description>ACID 强事务
+A: Atomicity 原子性
+C: Consistency 一致性
+I: Isolation 隔离性
+D: Durability 持久性
+CAP 理论 C: Consistency 一致性
+A: Availability 可用性
+P: Partition tolerance 分区容错性
+BASE 弱事务
+BA: Basically Available
+S: Soft state
+E: Eventually consistent</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -8,8 +8,8 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>WNCBB&#39;s blog</title>
-  <meta name="description" content="A man is only as good as what he loves" />
+  <title>Transaction &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
 
   
   <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
@@ -24,7 +24,6 @@
   <link rel="shortcut icon" href="/favicon.png">
 
   
-  <link href="https://wncbb.github.io/index.xml" rel="alternate" type="application/rss+xml" title="WNCBB's blog" />
   
 </head>
 
@@ -50,44 +49,48 @@
 </aside>
 
     <main class="content container">
-    <div class="posts">
-<article class="post">
-  <h1 class="post-title">
-    <a href="https://wncbb.github.io/uml/">Umls</a>
-  </h1>
-  <time datetime="2021-08-23T19:41:33&#43;0800" class="post-date">2021-08-23 19:41:33</time>
-  
-  
-</article><article class="post">
-  <h1 class="post-title">
-    <a href="https://wncbb.github.io/database/">Databases</a>
-  </h1>
-  <time datetime="2021-08-23T18:11:26&#43;0800" class="post-date">2021-08-23 18:11:26</time>
-  
-  
-</article><article class="post">
-  <h1 class="post-title">
-    <a href="https://wncbb.github.io/ctf/">CTFs</a>
-  </h1>
-  <time datetime="2021-08-19T21:54:55&#43;0800" class="post-date">2021-08-19 21:54:55</time>
-  
-  
-</article><article class="post">
-  <h1 class="post-title">
-    <a href="https://wncbb.github.io/designpattern/">DesignPatterns</a>
-  </h1>
-  <time datetime="2021-08-19T16:31:13&#43;0800" class="post-date">2021-08-19 16:31:13</time>
-  
-  
-</article><article class="post">
-  <h1 class="post-title">
-    <a href="https://wncbb.github.io/posts/">Posts</a>
-  </h1>
-  <time datetime="2021-03-28T17:18:28&#43;0800" class="post-date">2021-03-28 17:18:28</time>
-  
-  
-</article>
+    <div class="post">
+  <h1>Transaction</h1>
+  <time datetime=2021-08-23T18:11:26&#43;0800 class="post-date">2021-08-23 18:11:26</time>
+  <h2 id="acid">ACID</h2>
+<p>强事务</p>
+<p>A: Atomicity 原子性</p>
+<p>C: Consistency 一致性</p>
+<p>I: Isolation 隔离性</p>
+<p>D: Durability 持久性</p>
+<h2 id="cap-理论">CAP 理论</h2>
+<p>C: Consistency 一致性</p>
+<p>A: Availability 可用性</p>
+<p>P: Partition tolerance 分区容错性</p>
+<h2 id="base">BASE</h2>
+<p>弱事务</p>
+<p>BA: Basically Available</p>
+<p>S: Soft state</p>
+<p>E: Eventually consistent</p>
+
 </div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </main>
 
     

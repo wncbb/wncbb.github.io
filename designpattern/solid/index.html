@@ -53,24 +53,72 @@
   <h1>SOLID</h1>
   <time datetime=2021-08-19T16:31:13&#43;0800 class="post-date">2021-08-19 16:31:13</time>
   <h3 id="single-responsibility-principle">Single-responsibility principle</h3>
+<p>单一职责原则</p>
+<blockquote>
+<p>A class should have one, and only one, reason to change.</p>
+</blockquote>
 <blockquote>
 <p>Every class should have only one responsibility.</p>
 </blockquote>
 <h3 id="open-closed-principle">Open-closed principle</h3>
+<p>开闭原则</p>
+<blockquote>
+<p>You should be able to extend a classes behavior, without modifying it.</p>
+</blockquote>
 <blockquote>
 <p>Be open for extension, but closed for modification.</p>
 </blockquote>
 <h3 id="liskov-substitution-principle">Liskov substitution principle</h3>
+<p>里氏替换原则</p>
+<blockquote>
+<p>Derived classes must be substitutable for their base classes.</p>
+</blockquote>
 <blockquote>
 <p>Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.</p>
 </blockquote>
 <h3 id="interface-segregation-principle">Interface segregation principle</h3>
+<p>接口隔离原则</p>
+<blockquote>
+<p>Make fine grained interfaces that are client specific.
+创建特定于客户端的细粒度接口。</p>
+</blockquote>
 <blockquote>
 <p>Many client-specific interfaces are better than one general-purpose interface.</p>
 </blockquote>
 <h3 id="dependency-inversion-principle">Dependency inversion principle</h3>
+<p>依赖倒置原则</p>
 <blockquote>
 <p>Depend upon abstractions, not concretions.</p>
+</blockquote>
+<h2 id="package-cohesion">Package Cohesion</h2>
+<h3 id="rep-the-release-reuse-equivalency-principle">REP The Release Reuse Equivalency Principle</h3>
+<blockquote>
+<p>The granule of reuse is the granule of release.
+重用的粒度就是release的力度</p>
+</blockquote>
+<h3 id="ccp-the-common-closure-principle">CCP The Common Closure Principle</h3>
+<blockquote>
+<p>Classes that change together are packaged together.</p>
+</blockquote>
+<h3 id="crp-the-common-reuse-principle">CRP The Common Reuse Principle</h3>
+<blockquote>
+<p>Classes taht are used together are packaged together.</p>
+</blockquote>
+<h2 id="couplings-between-packages">Couplings between packages.</h2>
+<p>包之间的结合</p>
+<h3 id="adp-the-acyclic-dependencies-principle">ADP The Acyclic Dependencies Principle</h3>
+<blockquote>
+<p>The dependency graph of packages must have no cycles.
+包的依赖关系图不能有循环</p>
+</blockquote>
+<h3 id="sdp-the-stable-dependencies-principle">SDP The Stable Dependencies Principle</h3>
+<blockquote>
+<p>Depend in the direction of stability.</p>
+</blockquote>
+<h3 id="sap-the-stable-abstractions-principle">SAP The Stable Abstractions Principle</h3>
+<blockquote>
+<p>Abstractness increases with stability.
+抽象性随着稳定性增加而增加</p>
 </blockquote>
 
 </div>
