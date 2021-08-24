@@ -17,8 +17,8 @@
 实现 虚线空心三角箭头 Dog-&amp;gt;IDog
 关联 实线箭头 B(B.A)-&amp;gt;A
 依赖 虚线箭头 B(B.Method(A))-&amp;gt;A
-聚合 has a 尾部为空心菱形的实线 Teacher(Teacher.Students)-&amp;gt;Student
-组合 contains a 尾部为实心菱形的箭头 Human-&amp;gt;Head</description>
+组合 contains a 尾部为实心菱形的箭头 Human-&amp;gt;Head
+聚合 has a 尾部为空心菱形的实线 Teacher(Teacher.Students)-&amp;gt;Student</description>
     </item>
     
   </channel>
