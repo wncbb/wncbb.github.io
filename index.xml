@@ -6,7 +6,67 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Aug 2021 19:41:33 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Sep 2021 20:20:54 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Io</title>
+      <link>https://wncbb.github.io/io/io/</link>
+      <pubDate>Wed, 08 Sep 2021 20:20:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/io/io/</guid>
+      <description>阻塞IO 非阻塞IO IO多路复用 异步IO </description>
+    </item>
+    
+    <item>
+      <title>Lock</title>
+      <link>https://wncbb.github.io/mysql/lock/</link>
+      <pubDate>Wed, 08 Sep 2021 19:24:01 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/mysql/lock/</guid>
+      <description>死锁条件  互斥条件(Mutual exclusion) 一个资源每次只能被一个进程使用。 请求与保持条件(Hold and wait or resource holding) 一个进程因请求资源而阻塞时，对已获得的资源保持不放。 不剥夺条件(No preemption) 进程已获得的资源，在末使用完之前，不能强行剥夺。 循环等待条件(Circular wait) 若干进程之间形成一种头尾相接的循环等待资源关系。  MySQL/InnoDB定义的4种隔离级别：   Read Uncommited 可以读取未提交记录
+  Read Committed (RC) 当前读操作RC隔离级别保证对读取到的记录加锁 (记录锁)，存在幻读现象。使用MVCC，但读取数据时读取自身版本和最新版本，以最新为主，可以读已提交记录，存在不可重复读现象。
+  Repeatable Read (RR) 当前读操作RR隔离级别保证对读取到的记录加锁 (记录锁)，同时保证对读取的范围加锁，新的满足查询条件的记录不能够插入 (间隙锁)，不存在幻读现象。使用MVCC保存两个事物操作的数据互相隔离，不存在不可重复读现象。
+  Serializable 从MVCC并发控制退化为基于锁的并发控制。不区别快照读与当前读，所有的读操作均为当前读，读加读锁 (S锁)，写加写锁 (X锁)。 Serializable隔离级别下，读写冲突，因此并发度急剧下降，在MySQL/InnoDB下不建议使用。
+  数据可见性 活跃事务列表： RC隔离级别下，在语句开始时从全局事务表中获取活跃（未提交）事务构造Read View， RR隔离级别下，在事务开始时从全局事务表中获取活跃事务构造Read View
+1.取当前行的修改事务ID，和Read View中的事务ID做比较，若小于最小的ID或小于最大ID但不在列表中，转2步骤，若大于最大ID，转3步骤 2.满足进入此步骤的条件，即可说明，最后更新当前行的事务，在构造Read View时已经提交，则返回当前行的数据 3.满足进入此步骤的条件，即可说明，最后更新当前行的事务，在构造Read View时还未创建或者还未提交，则取undo log中的记录的事务ID，重新进入步骤1，重复此操作
+表级意向锁，作用：如果没有表级意向锁，如果想获取表锁，就得查每一条的record上的锁。
+主从同步模式 异步复制（Asynchronous replication）
+MySQL默认的复制即是异步的，主库在执行完客户端提交的事务后会立即将结果返给给客户端，并不关心从库是否已经接收并处理，这样就会有一个问题，主如果crash掉了，此时主上已经提交的事务可能并没有传到从上，如果此时，强行将从提升为主，可能导致新主上的数据不完整。
+全同步复制（Fully synchronous replication）</description>
+    </item>
+    
+    <item>
+      <title>Sql</title>
+      <link>https://wncbb.github.io/sql/sql/</link>
+      <pubDate>Tue, 31 Aug 2021 10:35:35 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/sql/sql/</guid>
+      <description>RBO: Rule-Based Optimization 比如： 索引的优先级大于全表扫描。
+CBO: Cost-Based Optimization 根据统计信息(Statistics)和代价模型(Cost Model)计算各种可能“执行计划”的“代价”，即COST，从中选用COST最低的执行方案，作为实际运行方案。</description>
+    </item>
+    
+    <item>
+      <title>Note</title>
+      <link>https://wncbb.github.io/cloudnative/note/</link>
+      <pubDate>Fri, 27 Aug 2021 14:14:34 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/cloudnative/note/</guid>
+      <description>云开发/云交付
+不可变基础设施（Immutable Infrastructure）</description>
+    </item>
+    
+    <item>
+      <title>Deadlock</title>
+      <link>https://wncbb.github.io/database/deadlock/</link>
+      <pubDate>Wed, 25 Aug 2021 15:16:59 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/deadlock/</guid>
+      <description>事务四要素ACID  Atomicity Consistency Isolaction Durability  问题 1. dirty read 事务二，读到事务一未提交的修改
+// balance = 1000 T1: UPDATE account SET balance = balance - 100 WHERE name = &#39;A&#39;; # 900 T2: SELECT balance FROM account WHERE name = &#39;A&#39;; # 900 2. unrepeatable read 事务二，读到事务一提交的修改
+3. phantom read(幻读) 4. lost update(丢失更新) 1,2,3都是一个事务读，一个事务写；如果两个事务一起写。 例子(丢失更新，提交覆盖，read-modify-write)：
+T1读出balance是1000， T2读出balance是1000， T1减掉100，balance-&amp;gt;1000-100 T2增加100，balance-&amp;gt;1000+100 T2 commit，balacnce=1100 T1 commit，balance=900 回滚覆盖例子
+T1读出balance是1000， T2读出balance是1000， T2 +100, balance-&amp;gt;1000+100 T2 commit T1 rollback, balance-&amp;gt;1000 隔离级别 1.</description>
+    </item>
+    
     <item>
       <title>Uml</title>
       <link>https://wncbb.github.io/uml/uml/</link>

@@ -6,7 +6,20 @@
     <description>Recent content in Databases on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Aug 2021 18:11:26 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 25 Aug 2021 15:16:59 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deadlock</title>
+      <link>https://wncbb.github.io/database/deadlock/</link>
+      <pubDate>Wed, 25 Aug 2021 15:16:59 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/deadlock/</guid>
+      <description>事务四要素ACID  Atomicity Consistency Isolaction Durability  问题 1. dirty read 事务二，读到事务一未提交的修改
+// balance = 1000 T1: UPDATE account SET balance = balance - 100 WHERE name = &#39;A&#39;; # 900 T2: SELECT balance FROM account WHERE name = &#39;A&#39;; # 900 2. unrepeatable read 事务二，读到事务一提交的修改
+3. phantom read(幻读) 4. lost update(丢失更新) 1,2,3都是一个事务读，一个事务写；如果两个事务一起写。 例子(丢失更新，提交覆盖，read-modify-write)：
+T1读出balance是1000， T2读出balance是1000， T1减掉100，balance-&amp;gt;1000-100 T2增加100，balance-&amp;gt;1000+100 T2 commit，balacnce=1100 T1 commit，balance=900 回滚覆盖例子
+T1读出balance是1000， T2读出balance是1000， T2 +100, balance-&amp;gt;1000+100 T2 commit T1 rollback, balance-&amp;gt;1000 隔离级别 1.</description>
+    </item>
+    
     <item>
       <title>Transaction</title>
       <link>https://wncbb.github.io/database/transaction/</link>
