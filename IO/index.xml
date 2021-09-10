@@ -13,7 +13,7 @@
       <pubDate>Wed, 08 Sep 2021 20:20:54 +0800</pubDate>
       
       <guid>https://wncbb.github.io/io/io/</guid>
-      <description>阻塞IO 非阻塞IO IO多路复用 异步IO </description>
+      <description>阻塞IO 非阻塞IO IO多路复用 信号驱动IO 异步IO </description>
     </item>
     
   </channel>

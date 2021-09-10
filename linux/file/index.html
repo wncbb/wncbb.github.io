@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Io &middot; WNCBB&#39;s blog</title>
+  <title>File &middot; WNCBB&#39;s blog</title>
   <meta name="description" content="" />
 
   
@@ -50,19 +50,18 @@
 
     <main class="content container">
     <div class="post">
-  <h1>Io</h1>
-  <time datetime=2021-09-08T20:20:54&#43;0800 class="post-date">2021-09-08 20:20:54</time>
-  <h2 id="阻塞io">阻塞IO</h2>
-<p><img src="/IO/Block_IO.jpeg" alt="阻塞IO"></p>
-<h2 id="非阻塞io">非阻塞IO</h2>
-<p><img src="/IO/NonBlock_IO.jpeg" alt="非阻塞IO"></p>
-<h2 id="io多路复用">IO多路复用</h2>
-<p><img src="/IO/Multi_IO.jpeg" alt="IO多路复用"></p>
-<h2 id="信号驱动io">信号驱动IO</h2>
-<p><img src="/IO/Sig_IO.jpeg" alt="信号驱动IO"></p>
-<h2 id="异步io">异步IO</h2>
-<p><img src="/IO/Async_IO.jpeg" alt="异步IO"></p>
+  <h1>File</h1>
+  <time datetime=2021-09-09T16:38:56&#43;0800 class="post-date">2021-09-09 16:38:56</time>
+  <pre><code>文件名-&gt;inode(权限等信息)-&gt;block(真实数据)
 
+硬链接会使用相同的inode
+
+软连接会使用不同的inode，因此如果源文件删除了，软连接文件也就失效了
+
+多个进程打开相同的文件，每个文件会有个内存计数器，也会有磁盘计数器。
+如果一个进程删掉文件，内存计数器依然大于0，所以可以继续访问。
+
+</code></pre>
 </div>
 
 <h2>Comments</h2>

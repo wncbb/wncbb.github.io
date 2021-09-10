@@ -6,14 +6,35 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Sep 2021 20:20:54 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Sep 2021 13:35:21 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1. Max Collatz</title>
+      <link>https://wncbb.github.io/airbnb/collatz/</link>
+      <pubDate>Fri, 10 Sep 2021 13:35:21 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/airbnb/collatz/</guid>
+      <description>References  https://pe.metaquant.org/pe014.html  problem 对于所有正整数，考虑如下迭代序列：
+if n%2==0{ n=n/2 }else{ n=n*3+1 } 经过有限次步骤，一定能到1
+现在给定一个数n，求[1, n]中，步骤最大的数
+key  用缓存存储中间结果，方便后面数字使用 对于3*n+1，一定是偶数，可以一次算两步  codes golang package main import &amp;#34;fmt&amp;#34; func maxCollatz(n int64) (int64, int64) { if n == 1 { return 1, 0 } num2Step := make(map[int64]int64) num2Step[1] = 0 rstStep := int64(0) rstNum := int64(0) for i := int64(1); i &amp;lt;= n; i++ { curNum := i curStep := int64(0) for curNum !</description>
+    </item>
+    
+    <item>
+      <title>File</title>
+      <link>https://wncbb.github.io/linux/file/</link>
+      <pubDate>Thu, 09 Sep 2021 16:38:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/linux/file/</guid>
+      <description>文件名-&amp;gt;inode(权限等信息)-&amp;gt;block(真实数据) 硬链接会使用相同的inode 软连接会使用不同的inode，因此如果源文件删除了，软连接文件也就失效了 多个进程打开相同的文件，每个文件会有个内存计数器，也会有磁盘计数器。 如果一个进程删掉文件，内存计数器依然大于0，所以可以继续访问。 </description>
+    </item>
+    
     <item>
       <title>Io</title>
       <link>https://wncbb.github.io/io/io/</link>
       <pubDate>Wed, 08 Sep 2021 20:20:54 +0800</pubDate>
       
       <guid>https://wncbb.github.io/io/io/</guid>
-      <description>阻塞IO 非阻塞IO IO多路复用 异步IO </description>
+      <description>阻塞IO 非阻塞IO IO多路复用 信号驱动IO 异步IO </description>
     </item>
     
     <item>
