@@ -13,10 +13,10 @@
       <pubDate>Fri, 10 Sep 2021 13:35:21 +0800</pubDate>
       
       <guid>https://wncbb.github.io/airbnb/collatz/</guid>
-      <description>References  https://pe.metaquant.org/pe014.html  problem 对于所有正整数，考虑如下迭代序列：
+      <description>References  https://pe.metaquant.org/pe014.html  Problem 对于所有正整数，考虑如下迭代序列：
 if n%2==0{ n=n/2 }else{ n=n*3+1 } 经过有限次步骤，一定能到1
 现在给定一个数n，求[1, n]中，步骤最大的数
-key  用缓存存储中间结果，方便后面数字使用 对于3*n+1，一定是偶数，可以一次算两步  codes golang package main import &amp;#34;fmt&amp;#34; func maxCollatz(n int64) (int64, int64) { if n == 1 { return 1, 0 } num2Step := make(map[int64]int64) num2Step[1] = 0 rstStep := int64(0) rstNum := int64(0) for i := int64(1); i &amp;lt;= n; i++ { curNum := i curStep := int64(0) for curNum !</description>
+Key  用缓存存储中间结果，方便后面数字使用 对于3*n+1，一定是偶数，可以一次算两步  Codes Golang package main import &amp;#34;fmt&amp;#34; func maxCollatz(n int64) (int64, int64) { if n == 1 { return 1, 0 } num2Step := make(map[int64]int64) num2Step[1] = 0 rstStep := int64(0) rstNum := int64(0) for i := int64(1); i &amp;lt;= n; i++ { curNum := i curStep := int64(0) for curNum !</description>
     </item>
     
   </channel>

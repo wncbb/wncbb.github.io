@@ -56,7 +56,7 @@
 <ol>
 <li><a href="https://pe.metaquant.org/pe014.html">https://pe.metaquant.org/pe014.html</a></li>
 </ol>
-<h2 id="problem">problem</h2>
+<h2 id="problem">Problem</h2>
 <p>对于所有正整数，考虑如下迭代序列：</p>
 <pre><code>if n%2==0{
     n=n/2
@@ -66,13 +66,13 @@
 
 </code></pre><p>经过有限次步骤，一定能到1</p>
 <p>现在给定一个数n，求[1, n]中，步骤最大的数</p>
-<h2 id="key">key</h2>
+<h2 id="key">Key</h2>
 <ol>
 <li>用缓存存储中间结果，方便后面数字使用</li>
 <li>对于3*n+1，一定是偶数，可以一次算两步</li>
 </ol>
-<h2 id="codes">codes</h2>
-<h3 id="golang">golang</h3>
+<h2 id="codes">Codes</h2>
+<h3 id="golang">Golang</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
