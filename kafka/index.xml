@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kafkas on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/kafka/</link>
+    <description>Recent content in Kafkas on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Sep 2021 11:11:07 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kafka</title>
+      <link>https://wncbb.github.io/kafka/kafka/</link>
+      <pubDate>Tue, 14 Sep 2021 11:11:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/kafka/kafka/</guid>
+      <description>ACK配置 ack等于0：意味着producer不等待broker同步完成的确认，继续发送下一条(批)信息 提供了最低的延迟。但是最弱的持久性，当服务器发生故障时，就很可能发生数据丢失。例如leader已经死亡，producer不知情，还会继续发送消息broker接收不到数据就会数据丢失。
+ack等于1（默认）：意味着producer要等待leader成功收到数据并得到确认，才发送下一条message。此选项提供了较好的持久性较低的延迟性。 Partition的Leader死亡，follwer尚未复制，数据就会丢失。
+ack等于-1：意味着producer得到follwer确认，才发送下一条数据 持久性最好，延时性最差。</description>
+    </item>
+    
+  </channel>
+</rss>

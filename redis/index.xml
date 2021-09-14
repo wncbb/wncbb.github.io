@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/redis/</link>
+    <description>Recent content in Redis on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Sep 2021 20:56:49 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis</title>
+      <link>https://wncbb.github.io/redis/redis/</link>
+      <pubDate>Fri, 10 Sep 2021 20:56:49 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/redis/redis/</guid>
+      <description>References https://qiankunli.github.io/2020/08/04/redis_practice.html
+https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA</description>
+    </item>
+    
+  </channel>
+</rss>

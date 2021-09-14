@@ -6,7 +6,103 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Sep 2021 13:35:21 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Sep 2021 15:08:26 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Memory</title>
+      <link>https://wncbb.github.io/shell/memory/</link>
+      <pubDate>Tue, 14 Sep 2021 15:08:26 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/shell/memory/</guid>
+      <description>1. top 内容分析： PID：进程的ID USER：进程所有者 PR：进程的优先级别，越小越优先被执行 NI：进程Nice值，代表这个进程的优先值 VIRT：进程占用的虚拟内存 RES：进程占用的物理内存 SHR：进程使用的共享内存 S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态 %CPU：进程占用CPU的使用 %MEM：进程使用的物理内存和总内存的百分 TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值 COMMAND：启动该进程的命令名称 2. free free 用KB为单位展示数据 free -m 用MB为单位展示数据 free -h 用GB为单位展示数据 3. cat /proc/meminfo /proc//statm 和 /proc//status 4. ps ps aux ：按照 pid 显示内容 （默认排序方式） ps aux --sort -rss : 按照 rss 排序显示内容 5. vmstat -s </description>
+    </item>
+    
+    <item>
+      <title>Ls</title>
+      <link>https://wncbb.github.io/shell/ls/</link>
+      <pubDate>Tue, 14 Sep 2021 15:06:03 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/shell/ls/</guid>
+      <description>ls -lS -l: use a long listing format -S: sort by file size, largest first -r: reverse order while sorting Usage: ls [OPTION]... [FILE]... List information about the FILEs (the current directory by default). Sort entries alphabetically if none of -cftuvSUX nor --sort is specified. Mandatory arguments to long options are mandatory for short options too. -a, --all do not ignore entries starting with . -A, --almost-all do not list implied .</description>
+    </item>
+    
+    <item>
+      <title>Drop_truncate_delete</title>
+      <link>https://wncbb.github.io/mysql/drop_truncate_delete/</link>
+      <pubDate>Tue, 14 Sep 2021 14:59:49 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/mysql/drop_truncate_delete/</guid>
+      <description>drop直接删掉表； truncate删除表中数据，再插入时自增长id又从1开始 ；delete删除表中数据，可以加where字句。
+TRUNCATE不记录日志，DELETE记录日志，所以TRUNCATE要快于DELETE；
+但是一旦用TRUNCATE进行删除就不能进行恢复,TRUNCATE是删除整张表的数据，不能加where条件。
+（1） DELETE语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
+（2）表和索引所占空间。当表被TRUNCATE 后，这个表和索引所占用的空间会恢复到初始大小，而DELETE操作不会减少表或索引所占用的空间。drop语句将表所占用的空间全释放掉。
+（3）一般而言，drop &amp;gt; truncate &amp;gt; delete
+（4）应用范围。TRUNCATE 只能对TABLE；DELETE可以是table和view
+（5） TRUNCATE 和DELETE只删除数据，而DROP则删除整个表（结构和数据）。
+（6） truncate与不带where的delete ：只删除数据，而不删除表的结构（定义）drop语句将删除表的结构被依赖的约束（constrain),触发器（trigger)索引（index);依赖于该表的存储过程/函数将被保留，但其状态会变为：invalid。
+（7） delete语句为DML（data maintain Language),这个操作会被放到 rollback segment中,事务提交后才生效。如果有相应的 trigger,执行的时候将被触发。
+（8） truncate、drop是DLL（data define language),操作立即生效，原数据不放到 rollback segment中，不能回滚
+（9）在没有备份情况下，谨慎使用 drop 与 truncate。要删除部分数据行采用delete且注意结合where来约束影响范围。回滚段要足够大。要删除表用drop;若想保留表而将表中数据删除，如果于事务无关，用truncate即可实现。如果和事务有关，或老师想触发trigger,还是用delete。
+（10） Truncate table 表名速度快,而且效率高,因为: truncate table 在功能上与不带 WHERE 子句的 DELETE 语句相同：二者均删除表中的全部行。但 TRUNCATE TABLE 比DELETE 速度快，且使用的系统和事务日志资源少。DELETE 语句每次删除一行，并在事务日志中为所删除的每行记录一项。TRUNCATE TABLE 通过释放存储表数据所用的数据页来删除数据，并且只在事务日志中记录页的释放。
+（11） TRUNCATE TABLE 删除表中的所有行，但表结构及其列、约束、索引等保持不变。新行标识所用的计数值重置为该列的种子。如果想保留标识计数值，请改用 DELETE。如果要删除表定义及其数据，请使用 DROP TABLE 语句。
+（12）对于由 FOREIGN KEY 约束引用的表，不能使用 TRUNCATE TABLE，而应使用不带 WHERE 子句的 DELETE 语句。由于 TRUNCATE TABLE 不记录在日志中，所以它不能激活触发器。</description>
+    </item>
+    
+    <item>
+      <title>Tcp</title>
+      <link>https://wncbb.github.io/tcp/tcp/</link>
+      <pubDate>Tue, 14 Sep 2021 14:07:31 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/tcp/tcp/</guid>
+      <description>流量控制 发送窗口，接收窗口
+发送窗口数据分四类：
+ 已发送已确认(Sent and Acknowledged) 已发送未确认(Send But Not Yet Acknowledged) 未发送但是可以发送(Not Sent，Recipient Ready to Receive) 未发送且不允许发送(Not Sent，Recipient Not Ready to Receive)  接收窗口数据分三类：
+ Received and ACK Not Send to Process Received Not ACK 有空位，还没有被接收的数据(Not Received)  拥塞控制 TCP的四种拥塞控制算法 拥塞窗口(cwnd) 1.慢开始 2.拥塞控制 3.快重传 4.快恢复
+有一个ssthreash(slow start thresh) cwnd&amp;lt;ssthresh 慢开始算法，每次窗口加倍 cwnd=ssthresh 慢开始算法/拥塞避免算法 都可以 cwnd&amp;gt;ssthresh 拥塞避免算法，每次窗口加一
+快重传：首先要求接收方每收到一个失序的报文段就立即发出重复确认（为的是使发送方及早的知道有报文段没有到达对方）而不要等到自己发送数据时才捎带确认。 快重传算法规定，发送方只要一连收到三个重复确认就应当立即重传对方尚未收到的报文段，而不必继续等待为其设置的重传计时器到期。
+快恢复：如果发生超时，cwnd窗口减半，然后使用拥塞避免算法 </description>
+    </item>
+    
+    <item>
+      <title>Kafka</title>
+      <link>https://wncbb.github.io/kafka/kafka/</link>
+      <pubDate>Tue, 14 Sep 2021 11:11:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/kafka/kafka/</guid>
+      <description>ACK配置 ack等于0：意味着producer不等待broker同步完成的确认，继续发送下一条(批)信息 提供了最低的延迟。但是最弱的持久性，当服务器发生故障时，就很可能发生数据丢失。例如leader已经死亡，producer不知情，还会继续发送消息broker接收不到数据就会数据丢失。
+ack等于1（默认）：意味着producer要等待leader成功收到数据并得到确认，才发送下一条message。此选项提供了较好的持久性较低的延迟性。 Partition的Leader死亡，follwer尚未复制，数据就会丢失。
+ack等于-1：意味着producer得到follwer确认，才发送下一条数据 持久性最好，延时性最差。</description>
+    </item>
+    
+    <item>
+      <title>Stack_queue</title>
+      <link>https://wncbb.github.io/algo/stack_queue/</link>
+      <pubDate>Mon, 13 Sep 2021 11:45:09 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/algo/stack_queue/</guid>
+      <description>两个栈模拟队列 搞两个栈，stack1,stack2 入队列时，把数据放入stack1， 出队列时，如果stack2非空，stack2出栈；如果stack2为空，把stack1里所有数据放到stack2，然后stack出栈。 判空时，stack1/stack2都为空，则为空 peek时，先pop出数据，再放到stack2(或者跟出队一样的逻辑，最后知识不出栈，只是stack2.top)
+两个队列模拟栈 搞两个队列，que1, que2 入栈时把数据放入que1 出栈时，也就是获取que1里最新的数据，把que1里除了最新的数据，全部输入到que2，然后从que1里输出最后一个元素，然后que1,que2互换。 判空时，判断que1是否为空</description>
+    </item>
+    
+    <item>
+      <title>Lock</title>
+      <link>https://wncbb.github.io/golang_language/lock/</link>
+      <pubDate>Sat, 11 Sep 2021 20:39:33 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/golang_language/lock/</guid>
+      <description>减少锁的持有时间 减小锁的粒度 读写分离 使用原子操作  mutex是不可重入锁</description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>https://wncbb.github.io/redis/redis/</link>
+      <pubDate>Fri, 10 Sep 2021 20:56:49 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/redis/redis/</guid>
+      <description>References https://qiankunli.github.io/2020/08/04/redis_practice.html
+https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA</description>
+    </item>
+    
     <item>
       <title>1. Max Collatz</title>
       <link>https://wncbb.github.io/airbnb/collatz/</link>

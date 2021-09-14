@@ -2,6 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://wncbb.github.io/shell/memory/</loc>
+    <lastmod>2021-09-14T15:08:26+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/shell/</loc>
+    <lastmod>2021-09-14T15:08:26+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/</loc>
+    <lastmod>2021-09-14T15:08:26+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/shell/ls/</loc>
+    <lastmod>2021-09-14T15:06:03+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/mysql/drop_truncate_delete/</loc>
+    <lastmod>2021-09-14T14:59:49+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/mysql/</loc>
+    <lastmod>2021-09-14T14:59:49+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/tcp/tcp/</loc>
+    <lastmod>2021-09-14T14:07:31+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/tcp/</loc>
+    <lastmod>2021-09-14T14:07:31+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/kafka/kafka/</loc>
+    <lastmod>2021-09-14T11:11:07+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/kafka/</loc>
+    <lastmod>2021-09-14T11:11:07+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/algo/</loc>
+    <lastmod>2021-09-13T11:45:09+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/algo/stack_queue/</loc>
+    <lastmod>2021-09-13T11:45:09+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/golang_language/</loc>
+    <lastmod>2021-09-11T20:39:33+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/golang_language/lock/</loc>
+    <lastmod>2021-09-11T20:39:33+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/redis/</loc>
+    <lastmod>2021-09-10T20:56:49+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/redis/redis/</loc>
+    <lastmod>2021-09-10T20:56:49+08:00</lastmod>
+  </url><url>
     <loc>https://wncbb.github.io/airbnb/collatz/</loc>
     <lastmod>2021-09-10T13:35:21+08:00</lastmod>
   </url><url>
@@ -12,9 +60,6 @@
     <lastmod>2021-09-10T13:35:21+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/categories/</loc>
-    <lastmod>2021-09-10T13:35:21+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/</loc>
     <lastmod>2021-09-10T13:35:21+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/linux/file/</loc>
@@ -30,9 +75,6 @@
     <lastmod>2021-09-08T20:20:54+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/mysql/lock/</loc>
-    <lastmod>2021-09-08T19:24:01+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/mysql/</loc>
     <lastmod>2021-09-08T19:24:01+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/sql/sql/</loc>
