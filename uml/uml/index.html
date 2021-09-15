@@ -64,7 +64,13 @@
 <p><code>contains a</code> 尾部为实心菱形的箭头 Human-&gt;Head</p>
 <h4 id="聚合">聚合</h4>
 <p><code>has a</code> 尾部为空心菱形的实线 Teacher(Teacher.Students)-&gt;Student</p>
+<h2 id="golang">golang</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 从golang代码里生成plantuml代码</span>
+goplantuml -aggregate-private-members -show-aggregations -show-compositions -show-connection-labels -show-implementations -title &lt;title&gt; &lt;golang path&gt; &gt; output.txt
+<span style="color:#75715e"># 生成uml图</span>
+java -jar ~/plantuml.jar ./output.txt
 
+</code></pre></div>
 </div>
 
 <h2>Comments</h2>

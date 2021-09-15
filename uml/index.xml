@@ -18,7 +18,8 @@
 关联 实线箭头 B(B.A)-&amp;gt;A
 依赖 虚线箭头 B(B.Method(A))-&amp;gt;A
 组合 contains a 尾部为实心菱形的箭头 Human-&amp;gt;Head
-聚合 has a 尾部为空心菱形的实线 Teacher(Teacher.Students)-&amp;gt;Student</description>
+聚合 has a 尾部为空心菱形的实线 Teacher(Teacher.Students)-&amp;gt;Student
+golang # 从golang代码里生成plantuml代码 goplantuml -aggregate-private-members -show-aggregations -show-compositions -show-connection-labels -show-implementations -title &amp;lt;title&amp;gt; &amp;lt;golang path&amp;gt; &amp;gt; output.txt # 生成uml图 java -jar ~/plantuml.jar ./output.txt </description>
     </item>
     
   </channel>

@@ -119,6 +119,24 @@ RR隔离级别下，在事务开始时从全局事务表中获取活跃事务构
 <p>插入意向锁，只要不是同一行，就相容</p>
 <h2 id="表连接">表连接</h2>
 <p><img src="/mysql/join.png" alt="join"></p>
+<p>inner join 公共部分</p>
+<p>left join 左边一定有，右边如果没有就是null
+right join 右边一定有，左边如果没有就是null</p>
+<h2 id="主从同步">主从同步</h2>
+<ol>
+<li>
+<p>异步复制
+master不需要关注slave，直接继续执行</p>
+</li>
+<li>
+<p>半同步复制
+master只需要等一个slave commit就可以继续执行</p>
+</li>
+<li>
+<p>全同步复制
+master需要等所有的slave都commit才能继续执行</p>
+</li>
+</ol>
 
 </div>
 
