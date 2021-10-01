@@ -6,7 +6,20 @@
     <description>Recent content in Databases on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 Aug 2021 15:16:59 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Sep 2021 15:10:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>范式</title>
+      <link>https://wncbb.github.io/database/nf/</link>
+      <pubDate>Tue, 28 Sep 2021 15:10:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/nf/</guid>
+      <description>第一范式(1NF)（每一列不可再分）  An attribute (column) of a table cannot hold multiple values. It should hold only atomic values.
+ 1NF是对属性的原子性，要求属性具有原子性，不可再分解；
+表：字段1、 字段2(字段2.1、字段2.2)、字段3 &amp;hellip;&amp;hellip; 如学生（学号，姓名，性别，出生年月日），如果认为最后一列还可以再分成（出生年，出生月，出生日），它就不是一范式了，否则就是。
+第二范式(2NF) 要有唯一主键  A relation will be in 2NF if it is in 1NF and all non-key attributes are fully functional dependent on the primary key.
+ 第三范式(3NF) 非主键唯一依赖主键(不存在传递依赖)  A relation will be in 3NF if it is in 2NF and no transition dependency exists.</description>
+    </item>
+    
     <item>
       <title>Deadlock</title>
       <link>https://wncbb.github.io/database/deadlock/</link>

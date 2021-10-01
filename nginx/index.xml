@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nginxes on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/nginx/</link>
+    <description>Recent content in Nginxes on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Sep 2021 15:07:45 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1</title>
+      <link>https://wncbb.github.io/nginx/1/</link>
+      <pubDate>Thu, 30 Sep 2021 15:07:45 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/nginx/1/</guid>
+      <description>SO_REUSEPORT (since Linux 3.9) Permits multiple AF_INET or AF_INET6 sockets to be bound to an identical(同一的) socket address(允许多个socket绑定到同一个地址). This option must be set on each socket (including the first socket) prior(优先的) to calling bind(2) on the socket. To prevent port hijacking, all of the processes binding to the same address must have the same effective UID. This option can be employed with both TCP and UDP sockets. For TCP sockets, this option allows accept(2) load distribution in a multi-threaded server to be improved by using a distinct listener socket for each thread.</description>
+    </item>
+    
+  </channel>
+</rss>

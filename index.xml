@@ -6,7 +6,84 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Sep 2021 15:08:26 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Oct 2021 19:06:56 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mvcc</title>
+      <link>https://wncbb.github.io/mysql/mvcc/</link>
+      <pubDate>Fri, 01 Oct 2021 19:06:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/mysql/mvcc/</guid>
+      <description>背景 想要彻底搞清楚mysql的mvcc等机制，博客鱼龙混杂，因此决定以源码为依据，提高自身的认识水平。 代码版本为mysql8.0。
+MVCC 基本概念 多版本控制（Multiversion Concurrency Control）
+MVCC在 Read Committed 和 Repeatable Read两个隔离级别下工作。
+依赖：隐藏字段、Read View、Undo log。
+隐藏字段  Internally, InnoDB adds three fields to each row stored in the database:
+  DB_TRX_ID   A 6-byte DB_TRX_ID field indicates the transaction identifier for the last transaction that inserted or updated the row. Also, a deletion is treated internally as an update where a special bit in the row is set to mark it as deleted.</description>
+    </item>
+    
+    <item>
+      <title>Raft</title>
+      <link>https://wncbb.github.io/distributed-consensus-algorithm/raft/</link>
+      <pubDate>Fri, 01 Oct 2021 15:41:55 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/distributed-consensus-algorithm/raft/</guid>
+      <description>etcd raft golang实现： https://github.com/etcd-io/etcd/tree/main/raft
+hashicorp公司的raft golang实现： https://github.com/hashicorp/raft
+coreos CTO raft golang实现： https://github.com/goraft/raft
+pingcap的tikv里的raft rust实现： https://github.com/tikv/raft-rs
+raft算法动画： http://www.kailing.pub/raft/index.html
+相关文档： https://mp.weixin.qq.com/s/HZ728ylDsa4U6qY_hvKsZQ</description>
+    </item>
+    
+    <item>
+      <title>Structure</title>
+      <link>https://wncbb.github.io/kafka/kafka_structure/</link>
+      <pubDate>Fri, 01 Oct 2021 15:21:06 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/kafka/kafka_structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>1</title>
+      <link>https://wncbb.github.io/ray/1/</link>
+      <pubDate>Thu, 30 Sep 2021 19:47:59 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/ray/1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>1</title>
+      <link>https://wncbb.github.io/nginx/1/</link>
+      <pubDate>Thu, 30 Sep 2021 15:07:45 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/nginx/1/</guid>
+      <description>SO_REUSEPORT (since Linux 3.9) Permits multiple AF_INET or AF_INET6 sockets to be bound to an identical(同一的) socket address(允许多个socket绑定到同一个地址). This option must be set on each socket (including the first socket) prior(优先的) to calling bind(2) on the socket. To prevent port hijacking, all of the processes binding to the same address must have the same effective UID. This option can be employed with both TCP and UDP sockets. For TCP sockets, this option allows accept(2) load distribution in a multi-threaded server to be improved by using a distinct listener socket for each thread.</description>
+    </item>
+    
+    <item>
+      <title>1</title>
+      <link>https://wncbb.github.io/rust/1/</link>
+      <pubDate>Wed, 29 Sep 2021 20:59:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/rust/1/</guid>
+      <description>1 cargo doc --open 命令来构建所有本地依赖提供的文档，并在浏览器中打开 </description>
+    </item>
+    
+    <item>
+      <title>范式</title>
+      <link>https://wncbb.github.io/database/nf/</link>
+      <pubDate>Tue, 28 Sep 2021 15:10:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/nf/</guid>
+      <description>第一范式(1NF)（每一列不可再分）  An attribute (column) of a table cannot hold multiple values. It should hold only atomic values.
+ 1NF是对属性的原子性，要求属性具有原子性，不可再分解；
+表：字段1、 字段2(字段2.1、字段2.2)、字段3 &amp;hellip;&amp;hellip; 如学生（学号，姓名，性别，出生年月日），如果认为最后一列还可以再分成（出生年，出生月，出生日），它就不是一范式了，否则就是。
+第二范式(2NF) 要有唯一主键  A relation will be in 2NF if it is in 1NF and all non-key attributes are fully functional dependent on the primary key.
+ 第三范式(3NF) 非主键唯一依赖主键(不存在传递依赖)  A relation will be in 3NF if it is in 2NF and no transition dependency exists.</description>
+    </item>
+    
     <item>
       <title>Memory</title>
       <link>https://wncbb.github.io/shell/memory/</link>
@@ -69,9 +146,15 @@ TRUNCATE不记录日志，DELETE记录日志，所以TRUNCATE要快于DELETE；
       <pubDate>Tue, 14 Sep 2021 11:11:07 +0800</pubDate>
       
       <guid>https://wncbb.github.io/kafka/kafka/</guid>
-      <description>ACK配置 ack等于0：意味着producer不等待broker同步完成的确认，继续发送下一条(批)信息 提供了最低的延迟。但是最弱的持久性，当服务器发生故障时，就很可能发生数据丢失。例如leader已经死亡，producer不知情，还会继续发送消息broker接收不到数据就会数据丢失。
-ack等于1（默认）：意味着producer要等待leader成功收到数据并得到确认，才发送下一条message。此选项提供了较好的持久性较低的延迟性。 Partition的Leader死亡，follwer尚未复制，数据就会丢失。
-ack等于-1：意味着producer得到follwer确认，才发送下一条数据 持久性最好，延时性最差。</description>
+      <description>References:  https://kafka.apache.org/documentation/#gettingStarted  保证数据不丢失措施 1. kafka配置参数 1.1 unclean.leader.election.enable = false 保证不在ISR(In-Sync-Replica)中replicas不被设置为leader
+1.2 replication.factor = 3 设置多份replica
+2.生产者 2.1 acks=all acks：此配置实际上代表了数据备份的可用性。
+acks=0： 设置为0表示producer不需要等待任何确认收到的信息。副本将立即加到socket buffer并认为已经发送。没有任何保障可以保证此种情况下server已经成功接收数据，同时重试配置不会发生作用
+acks=1： 这意味着至少要等待leader已经成功将数据写入本地log，但是并没有等待所有follower是否成功写入。这种情况下，如果follower没有成功备份数据，而此时leader又挂掉，则消息会丢失。
+acks=all： 这意味着leader需要等待所有备份都成功写入日志，这种策略会保证只要有一个备份存活就不会丢失数据。这是最强的保证。
+min.insync.replicas: When a producer sets acks to &amp;ldquo;all&amp;rdquo; (or &amp;ldquo;-1&amp;rdquo;), min.insync.replicas specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful.(这个值要小于等于replica的数量)
+2.2 producer.send(msg, callback) producer端使用producer.send(msg, callback)带有回调的send方法，如果失败有回调处理。
+2.3 set retires with a big number 设置retries为一个较大的值。同样是Producer的参数。当出现网络抖动时，消息发送可能会失败，此时配置了retries的Producer能够自动重试发送消息，尽量避免消息丢失。</description>
     </item>
     
     <item>

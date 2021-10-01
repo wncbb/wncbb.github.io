@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Distributed-consensus-algorithms on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/distributed-consensus-algorithm/</link>
+    <description>Recent content in Distributed-consensus-algorithms on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Oct 2021 15:41:55 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/distributed-consensus-algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Raft</title>
+      <link>https://wncbb.github.io/distributed-consensus-algorithm/raft/</link>
+      <pubDate>Fri, 01 Oct 2021 15:41:55 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/distributed-consensus-algorithm/raft/</guid>
+      <description>etcd raft golang实现： https://github.com/etcd-io/etcd/tree/main/raft
+hashicorp公司的raft golang实现： https://github.com/hashicorp/raft
+coreos CTO raft golang实现： https://github.com/goraft/raft
+pingcap的tikv里的raft rust实现： https://github.com/tikv/raft-rs
+raft算法动画： http://www.kailing.pub/raft/index.html
+相关文档： https://mp.weixin.qq.com/s/HZ728ylDsa4U6qY_hvKsZQ</description>
+    </item>
+    
+  </channel>
+</rss>

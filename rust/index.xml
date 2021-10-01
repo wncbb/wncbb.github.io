@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rusts on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/rust/</link>
+    <description>Recent content in Rusts on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 29 Sep 2021 20:59:07 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1</title>
+      <link>https://wncbb.github.io/rust/1/</link>
+      <pubDate>Wed, 29 Sep 2021 20:59:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/rust/1/</guid>
+      <description>1 cargo doc --open 命令来构建所有本地依赖提供的文档，并在浏览器中打开 </description>
+    </item>
+    
+  </channel>
+</rss>

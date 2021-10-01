@@ -6,7 +6,21 @@
     <description>Recent content in Mysqls on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Sep 2021 14:59:49 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Oct 2021 19:06:56 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mvcc</title>
+      <link>https://wncbb.github.io/mysql/mvcc/</link>
+      <pubDate>Fri, 01 Oct 2021 19:06:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/mysql/mvcc/</guid>
+      <description>背景 想要彻底搞清楚mysql的mvcc等机制，博客鱼龙混杂，因此决定以源码为依据，提高自身的认识水平。 代码版本为mysql8.0。
+MVCC 基本概念 多版本控制（Multiversion Concurrency Control）
+MVCC在 Read Committed 和 Repeatable Read两个隔离级别下工作。
+依赖：隐藏字段、Read View、Undo log。
+隐藏字段  Internally, InnoDB adds three fields to each row stored in the database:
+  DB_TRX_ID   A 6-byte DB_TRX_ID field indicates the transaction identifier for the last transaction that inserted or updated the row. Also, a deletion is treated internally as an update where a special bit in the row is set to mark it as deleted.</description>
+    </item>
+    
     <item>
       <title>Drop_truncate_delete</title>
       <link>https://wncbb.github.io/mysql/drop_truncate_delete/</link>
