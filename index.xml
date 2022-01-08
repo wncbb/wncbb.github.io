@@ -52,5 +52,14 @@ struct task_struct{ ... /* namespaces */ struct nsproxy *nsproxy; ... } nsproxy�
 /* * A structure to contain pointers to all per-process * namespaces - fs (mount), uts, network, sysvipc, etc. * * The pid namespace is an exception -- it&amp;#39;s accessed using * task_active_pid_ns. The pid namespace here is the * namespace that children will use. * * &amp;#39;count&amp;#39; is the number of tasks holding a reference.</description>
     </item>
     
+    <item>
+      <title>About me</title>
+      <link>https://wncbb.github.io/about/</link>
+      <pubDate>Thu, 01 Jan 1970 00:00:00 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/about/</guid>
+      <description>多看多读多写多总结</description>
+    </item>
+    
   </channel>
 </rss>
