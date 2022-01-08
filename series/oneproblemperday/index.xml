@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>oneProblemPerDay on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/series/oneproblemperday/</link>
+    <description>Recent content in oneProblemPerDay on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Jan 2022 22:14:50 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/oneproblemperday/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_08</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</link>
+      <pubDate>Sat, 08 Jan 2022 22:14:50 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</guid>
+      <description>leetcode.cn 89.格雷编码
+[最棒题解][https://leetcode-cn.com/problems/gray-code/solution/gray-code-jing-xiang-fan-she-fa-by-jyd/]
+func grayCode(n int) []int { ans:=make([]int, 1, 1&amp;lt;&amp;lt;n) head:=1 for i:=0; i&amp;lt;n; i++{ for j:=len(ans)-1; j&amp;gt;=0; j--{ ans=append(ans, head+ans[j]) } head=head&amp;lt;&amp;lt;1 } return ans } leetcode.com 1463.Cherry Pickup II
+最棒题解
+func cherryPickup(grid [][]int) int { n:=len(grid) m:=len(grid[0]) dp:=make([][][]int,n) for k,_:=range dp{ dp[k]=make([][]int,m) for i,_:=range dp[k]{ dp[k][i]=make([]int,m) for j,_:=range dp[k][i]{ dp[k][i][j]=-1 } } } dp[0][0][len(grid[0])-1]=grid[0][0]+grid[0][len(grid[0])-1] for i:=0;i&amp;lt;n-1;i++{ for j:=0;j&amp;lt;m;j++{ for k:=0;k&amp;lt;m;k++{ if dp[i][j][k]!=-1{ for s:=-1;s&amp;lt;=1;s++{ for u:=-1;u&amp;lt;=1;u++{ if j+s&amp;gt;=0&amp;amp;&amp;amp;j+s&amp;lt;m&amp;amp;&amp;amp;k+u&amp;gt;=0&amp;amp;&amp;amp;k+u&amp;lt;m{ t:=grid[i+1][j+s] if j+s!</description>
+    </item>
+    
+  </channel>
+</rss>

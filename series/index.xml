@@ -6,7 +6,16 @@
     <description>Recent content in Series on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Jan 2022 18:12:48 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Jan 2022 22:14:50 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>oneProblemPerDay</title>
+      <link>https://wncbb.github.io/series/oneproblemperday/</link>
+      <pubDate>Sat, 08 Jan 2022 22:14:50 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/series/oneproblemperday/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>kubernetes</title>
       <link>https://wncbb.github.io/series/kubernetes/</link>
