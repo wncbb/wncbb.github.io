@@ -14,7 +14,7 @@
       
       <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</guid>
       <description>leetcode.cn 89.格雷编码
-[最棒题解][https://leetcode-cn.com/problems/gray-code/solution/gray-code-jing-xiang-fan-she-fa-by-jyd/]
+最棒题解
 1func grayCode(n int) []int { 2 // n=0时，就是一个数0 3 ans:=make([]int, 1, 1&amp;lt;&amp;lt;n) 4 // a=上一行的数据 5 // b=上一行的数据翻转，然后每个元素前面加1(比如10， 变成110) 6 // 这一行的数据=a+b(数组连接) 7 // curRow=prevRow+Reverse(prevRow).map(v=&amp;gt;v+head) 8 head:=1 9 for i:=0; i&amp;lt;n; i++{ 10 for j:=len(ans)-1; j&amp;gt;=0; j--{ 11 ans=append(ans, head+ans[j]) 12 } 13 head=head&amp;lt;&amp;lt;1 14 } 15 return ans 16} leetcode.com 1463.Cherry Pickup II
 最棒题解
 1func cherryPickup(grid [][]int) int { 2	n:=len(grid) 3	m:=len(grid[0]) 4 // dp[i][j][k]表示，机器人1在位置(i, j),机器人2在位置(i, k)时，最大值。 5	dp:=make([][][]int,n) 6	for k,_:=range dp{ 7	dp[k]=make([][]int,m) 8	for i,_:=range dp[k]{ 9	dp[k][i]=make([]int,m) 10	for j,_:=range dp[k][i]{ 11 // -1 表示这个位置还没有计算 12	dp[k][i][j]=-1 13	} 14	} 15	} 16 // 当i=0时，刚开始机器人1在(0, 0)， 机器人2在(0， n-1)，不需要计算。 17	dp[0][0][len(grid[0])-1]=grid[0][0]+grid[0][len(grid[0])-1] 18	for i:=0;i&amp;lt;n-1;i++{ 19	for j:=0;j&amp;lt;m;j++{ 20	for k:=0;k&amp;lt;m;k++{ 21	if dp[i][j][k]!</description>
