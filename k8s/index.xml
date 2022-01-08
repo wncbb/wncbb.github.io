@@ -17,7 +17,7 @@
  因此，先从网络开始学习。
  基础知识视频： https://www.youtube.com/watch?v=6v_BDHIgOY8 基础知识视频的代码地址：https://github.com/kristenjacobs/container-networking  1 k8s网络要求  All containers can communicate with all other containers without NAT. All nodes can communicate with all containers(and vice-verse) without NAT. The IP that a container sees itself as is the same IP that others see it as.  2 网络 2.1 Single network namespace. 整体示意图：根据本地网络环境，设置IP env.sh
 CON=&amp;#34;con&amp;#34; NODE_IP=&amp;#34;10.0.2.15&amp;#34; IP=&amp;#34;172.16.0.1&amp;#34; 下面对setup.sh每条命令，进行解释
- 设置CON/NODE_IP/IP环境变量  #!/bin/bash -e  .</description>
+2.1.1 设置CON/NODE_IP/IP环境变量 #!/bin/bash -e  .</description>
     </item>
     
   </channel>
