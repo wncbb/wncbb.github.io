@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/series/docker/</link>
+    <description>Recent content in docker on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Jan 2022 17:30:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker学习笔记(一) namespace</title>
+      <link>https://wncbb.github.io/docker/namespace/</link>
+      <pubDate>Wed, 05 Jan 2022 17:30:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/docker/namespace/</guid>
+      <description>1 概述 不同container运行需要做资源隔离，使用linux namespace功能。
+Namespace是linux kernel提供的一种资源隔离方案。
+系统可以位进程分配不同的Namespace，并保证不同的Namespace资源独立分配，进程彼此隔离。不同Namespace下的进程，互不干扰。
+Linux内核通过进程描述符task_struct结构体来管理进程。
+进程数据结构
+struct task_struct{ ... /* namespaces */ struct nsproxy *nsproxy; ... } nsproxy具体定义：
+/* * A structure to contain pointers to all per-process * namespaces - fs (mount), uts, network, sysvipc, etc. * * The pid namespace is an exception -- it&amp;#39;s accessed using * task_active_pid_ns. The pid namespace here is the * namespace that children will use. * * &amp;#39;count&amp;#39; is the number of tasks holding a reference.</description>
+    </item>
+    
+  </channel>
+</rss>

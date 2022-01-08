@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -52,7 +52,22 @@
     <div class="post">
   <h1>Io</h1>
   <time datetime=2021-09-08T20:20:54&#43;0800 class="post-date">2021-09-08 20:20:54</time>
-  <h2 id="阻塞io">阻塞IO</h2>
+  <h2 id="references">References</h2>
+<p><img src="https://strikefreedom.top/go-netpoll-io-multiplexing-reactor" alt="https://strikefreedom.top/go-netpoll-io-multiplexing-reactor"></p>
+<h2 id="对比">对比</h2>
+<p>阻塞 I/O (Blocking I/O)
+非阻塞 I/O (Nonblocking I/O)
+I/O 多路复用 (I/O multiplexing)
+信号驱动 I/O (Signal driven I/O)
+异步 I/O (Asynchronous I/O)</p>
+<p><img src="/IO/io5.jpeg" alt="对比"></p>
+<p>操作系统上的I/O是用户空间与内核空间的数据交互，I/O主要包含以下两个步骤：</p>
+<ol>
+<li>等待网络数据到达网卡(读就绪)/等待网卡可写(写就绪) –&gt; 读取/写入到内核缓冲区</li>
+<li>从内核缓冲区复制数据 –&gt; 用户空间(读)/从用户空间复制数据 -&gt; 内核缓冲区(写)</li>
+</ol>
+<p>判断I/O模型是同步还是异步，主要是看步骤2执行时，是否会阻塞当前进程。</p>
+<h2 id="阻塞io">阻塞IO</h2>
 <p><img src="/IO/Block_IO.jpeg" alt="阻塞IO"></p>
 <h2 id="非阻塞io">非阻塞IO</h2>
 <p><img src="/IO/NonBlock_IO.jpeg" alt="非阻塞IO"></p>

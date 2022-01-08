@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -53,7 +53,7 @@
   <h1>0155.min-stack</h1>
   <time datetime=2021-03-11T21:12:23&#43;0800 class="post-date">2021-03-11 21:12:23</time>
   <h2 id="double-stack">double stack</h2>
-<pre><code>拿两个栈，一个正常存数据stack，一个存最小值minStack
+<pre tabindex="0"><code>拿两个栈，一个正常存数据stack，一个存最小值minStack
 minStack里放一个math.MaxInt64来初始化
 对于push一个数据x
 x被push到stack后，更新minStack:
@@ -121,7 +121,7 @@ x被push到stack后，更新minStack:
 </span><span style="color:#75715e"> * param_4 := obj.GetMin();
 </span><span style="color:#75715e"> */</span>
 </code></pre></div><h2 id="one-stack-storing-diff">one stack storing diff</h2>
-<pre><code>diffStack里存差值
+<pre tabindex="0"><code>diffStack里存差值
 初始化minValue=-1
 当差值大于0时，栈顶元素= minValue+diff
 当差值小于0时，栈顶元素= minValue

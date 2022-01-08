@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -91,14 +91,14 @@
 <li>m_low_limit_id
 相关源码：</li>
 </ol>
-<pre><code>  /** The read should not see any transaction with trx id &gt;= this
+<pre tabindex="0"><code>  /** The read should not see any transaction with trx id &gt;= this
   value. In other words, this is the &quot;high water mark&quot;. */
   trx_id_t m_low_limit_id;
 </code></pre><p>read操作不能看到事务id 大于等于 m_low_limit_id 的事务。</p>
 <p>这个字段的初始化代码：</p>
-<pre><code>  m_low_limit_id = trx_sys_get_next_trx_id_or_no();
+<pre tabindex="0"><code>  m_low_limit_id = trx_sys_get_next_trx_id_or_no();
 </code></pre><p>函数trx_sys_get_next_trx_id_or_no的定义：</p>
-<pre><code>/** Retrieves a next value that will be allocated if trx_sys_allocate_trx_id()
+<pre tabindex="0"><code>/** Retrieves a next value that will be allocated if trx_sys_allocate_trx_id()
 or trx_sys_allocate_trx_id_trx_no() was called.
 @return the next trx-&gt;id or trx-&gt;no that will be allocated */
 </code></pre><p>该函数会返回，下一个将要被创建的事务的id。如果事务大于等于这个id，就是当前未创建的事务id，自然不可见。</p>
@@ -106,13 +106,13 @@ or trx_sys_allocate_trx_id_trx_no() was called.
 <li>m_up_limit_id
 定义源码：</li>
 </ol>
-<pre><code>  /** The read should see all trx ids which are strictly
+<pre tabindex="0"><code>  /** The read should see all trx ids which are strictly
   smaller (&lt;) than this value.  In other words, this is the
   low water mark&quot;. */
   trx_id_t m_up_limit_id;
 </code></pre><p>read操作可以看到事务id严格小于m_up_limit_id的事务。</p>
 <p>查看事务初始化代码：</p>
-<pre><code>  /* The first active transaction has the smallest id. */
+<pre tabindex="0"><code>  /* The first active transaction has the smallest id. */
   m_up_limit_id = !m_ids.empty() ? m_ids.front() : m_low_limit_id;
 </code></pre><p>注释：活跃事务的最小 transaction id.</p>
 <p>也就是说，如果事务id小于m_up_limit_id，那么事务已经提交，自然可以被看见。</p>
@@ -120,12 +120,12 @@ or trx_sys_allocate_trx_id_trx_no() was called.
 <li>m_ids
 源码：</li>
 </ol>
-<pre><code>  /** Set of RW transactions that was active when this snapshot
+<pre tabindex="0"><code>  /** Set of RW transactions that was active when this snapshot
   was taken */
   ids_t m_ids;
 </code></pre><p>表示产生快照时，处于活跃状态的事务s。</p>
 <p>初始化代码：</p>
-<pre><code>  if (!trx_sys-&gt;rw_trx_ids.empty()) {
+<pre tabindex="0"><code>  if (!trx_sys-&gt;rw_trx_ids.empty()) {
     copy_trx_ids(trx_sys-&gt;rw_trx_ids);
   } else {
     m_ids.clear();
@@ -134,7 +134,7 @@ or trx_sys_allocate_trx_id_trx_no() was called.
 <ol start="4">
 <li>检查可见性函数</li>
 </ol>
-<pre><code>  /** Check whether the changes by id are visible.
+<pre tabindex="0"><code>  /** Check whether the changes by id are visible.
   @param[in]	id	transaction id to check against the view
   @param[in]	name	table name
   @return whether the view sees the modifications of id. */

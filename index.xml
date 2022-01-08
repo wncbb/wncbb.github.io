@@ -6,7 +6,146 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Oct 2021 19:06:56 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Jan 2022 16:25:55 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lucene学习笔记(一) 官方demo</title>
+      <link>https://wncbb.github.io/lucene/lucene_1/</link>
+      <pubDate>Sat, 08 Jan 2022 16:25:55 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/lucene/lucene_1/</guid>
+      <description>官方demo地址： https://lucene.apache.org/core/9_0_0/demo/index.html#About_the_Demo
+1 主要步骤 1.1 下载lucene 下载地址: https://lucene.apache.org/
+jar包目录：lucene-9.0.0/modules
+1.2 配置java环境 官方下载安装
+# 执行如下命令，可以看到安装地址 /usr/libexec/java_home # source以下内容 JAVA_HOME=&amp;quot;&amp;lt;/usr/libexec/java_home的结果&amp;gt;&amp;quot; export JAVA_HOME PATH=$JAVA_HOME/bin:$PATH export PATH CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:. export CLASSPATH 1.3 运行demo 例子文件 ./docs/alice.txt
+watch movie listen music ./docs/todd.txt
+watch movie bodybuilding 1.3.1 indexing 运行indexing
+java -cp ./lucene-core-9.0.0.jar:./lucene-queryparser-9.0.0.jar:./lucene-analysis-common-9.0.0.jar:./lucene-demo-9.0.0.jar org.apache.lucene.demo.IndexFiles -docs ./docs Indexing to directory &amp;#39;index&amp;#39;... adding ./docs/alice.txt adding ./docs/todd.txt Indexed 2 documents in 524 milliseconds index目录被创建
+index ├── _0.cfe ├── _0.cfs ├── _0.si ├── segments_1 └── write.</description>
+    </item>
+    
+    <item>
+      <title>docker学习笔记(一) namespace</title>
+      <link>https://wncbb.github.io/docker/namespace/</link>
+      <pubDate>Wed, 05 Jan 2022 17:30:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/docker/namespace/</guid>
+      <description>1 概述 不同container运行需要做资源隔离，使用linux namespace功能。
+Namespace是linux kernel提供的一种资源隔离方案。
+系统可以位进程分配不同的Namespace，并保证不同的Namespace资源独立分配，进程彼此隔离。不同Namespace下的进程，互不干扰。
+Linux内核通过进程描述符task_struct结构体来管理进程。
+进程数据结构
+struct task_struct{ ... /* namespaces */ struct nsproxy *nsproxy; ... } nsproxy具体定义：
+/* * A structure to contain pointers to all per-process * namespaces - fs (mount), uts, network, sysvipc, etc. * * The pid namespace is an exception -- it&amp;#39;s accessed using * task_active_pid_ns. The pid namespace here is the * namespace that children will use. * * &amp;#39;count&amp;#39; is the number of tasks holding a reference.</description>
+    </item>
+    
+    <item>
+      <title>LoadBalance</title>
+      <link>https://wncbb.github.io/loadbalance/loadbalance/</link>
+      <pubDate>Tue, 16 Nov 2021 21:59:45 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/loadbalance/loadbalance/</guid>
+      <description>轮询法
+  加权轮询法
+  平滑加权轮询法(smooth weighted round robin algorithm)
+  before: c:(0, 0, 0) w:(5, 1, 1) mid: c:(5, 1, 1) w:(5, 1, 1) select_by_current: a sum_of_weight: 7 after: c:(-2, 1, 1) w:(5, 1, 1) ---------------------- before: c:(-2, 1, 1) w:(5, 1, 1) mid: c:(3, 2, 2) w:(5, 1, 1) select_by_current: a sum_of_weight: 7 after: c:(-4, 2, 2) w:(5, 1, 1) ---------------------- before: c:(-4, 2, 2) w:(5, 1, 1) mid: c:(1, 3, 3) w:(5, 1, 1) select_by_current: b sum_of_weight: 7 after: c:(1, -4, 3) w:(5, 1, 1) ---------------------- before: c:(1, -4, 3) w:(5, 1, 1) mid: c:(6, -3, 4) w:(5, 1, 1) select_by_current: a sum_of_weight: 7 after: c:(-1, -3, 4) w:(5, 1, 1) ---------------------- before: c:(-1, -3, 4) w:(5, 1, 1) mid: c:(4, -2, 5) w:(5, 1, 1) select_by_current: c sum_of_weight: 7 after: c:(4, -2, -2) w:(5, 1, 1) ---------------------- before: c:(4, -2, -2) w:(5, 1, 1) mid: c:(9, -1, -1) w:(5, 1, 1) select_by_current: a sum_of_weight: 7 after: c:(2, -1, -1) w:(5, 1, 1) ---------------------- before: c:(2, -1, -1) w:(5, 1, 1) mid: c:(7, 0, 0) w:(5, 1, 1) select_by_current: a sum_of_weight: 7 after: c:(0, 0, 0) w:(5, 1, 1)  随机法</description>
+    </item>
+    
+    <item>
+      <title>Command</title>
+      <link>https://wncbb.github.io/designpattern/command/</link>
+      <pubDate>Mon, 15 Nov 2021 21:25:11 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/designpattern/command/</guid>
+      <description>命令模式 Demo 每个button内部含有一个command(实现了execute方法)
+package main type button struct { command command } func (b *button) press() { b.command.execute() } command实现了execute方法
+package main type command interface { execute() } 一个command的具体实现
+package main type onCommand struct { device device } func (c *onCommand) execute() { c.device.on() } 整体代码
+package main func main() { tv := &amp;amp;tv{} onCommand := &amp;amp;onCommand{ device: tv, } offCommand := &amp;amp;offCommand{ device: tv, } onButton := &amp;amp;button{ command: onCommand, } onButton.</description>
+    </item>
+    
+    <item>
+      <title>Chain of Responsibility</title>
+      <link>https://wncbb.github.io/designpattern/list/</link>
+      <pubDate>Mon, 15 Nov 2021 21:17:55 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/designpattern/list/</guid>
+      <description>责任链 demo 医院场景，前台-&amp;gt;看医生-&amp;gt;取药
+// 对医院场景(前台/看医生/取药)的抽象 type department interface { execute(*patient) setNext(department) } 前台接待实现
+package main import &amp;#34;fmt&amp;#34; type reception struct { next department } func (r *reception) execute(p *patient) { if p.registrationDone { fmt.Println(&amp;#34;Patient registration already done&amp;#34;) r.next.execute(p) return } fmt.Println(&amp;#34;Reception registering patient&amp;#34;) p.registrationDone = true r.next.execute(p) } func (r *reception) setNext(next department) { r.next = next } 整体调用
+package main func main() { cashier := &amp;amp;cashier{} //Set next for medical department  medical := &amp;amp;medical{} medical.</description>
+    </item>
+    
+    <item>
+      <title>List</title>
+      <link>https://wncbb.github.io/designpattern/chain-of-responsibility/</link>
+      <pubDate>Mon, 15 Nov 2021 21:17:55 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/designpattern/chain-of-responsibility/</guid>
+      <description>责任链 demo 医院场景，前台-&amp;gt;看医生-&amp;gt;取药
+// 对医院场景(前台/看医生/取药)的抽象 type department interface { execute(*patient) setNext(department) } 前台接待实现
+package main import &amp;#34;fmt&amp;#34; type reception struct { next department } func (r *reception) execute(p *patient) { if p.registrationDone { fmt.Println(&amp;#34;Patient registration already done&amp;#34;) r.next.execute(p) return } fmt.Println(&amp;#34;Reception registering patient&amp;#34;) p.registrationDone = true r.next.execute(p) } func (r *reception) setNext(next department) { r.next = next } 整体调用
+package main func main() { cashier := &amp;amp;cashier{} //Set next for medical department  medical := &amp;amp;medical{} medical.</description>
+    </item>
+    
+    <item>
+      <title>Lockfree_queue</title>
+      <link>https://wncbb.github.io/lockfree/lockfree_queue/</link>
+      <pubDate>Mon, 01 Nov 2021 21:35:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/lockfree/lockfree_queue/</guid>
+      <description>John D. Valois 1994年10月在拉斯维加斯的并行和分布系统系统国际大会上的一篇论文——《Implementing Lock-Free Queues》
+美国纽约罗切斯特大学 Maged M. Michael 和 Michael L. Scott 在1996年3月发表的一篇论文 《Simple, Fast, and Practical Non-Blocking and Blocking ConcurrentQueue Algorithms》
+Code Project 上的雄文 《Yet another implementation of a lock-free circular array queue》
+Herb Sutter的《Writing Lock-Free Code: A Corrected Queue》– 用C++11的std::atomic模板。
+IBM developerWorks的《设计不使用互斥锁的并发数据结构》</description>
+    </item>
+    
+    <item>
+      <title>Main</title>
+      <link>https://wncbb.github.io/youhua/main/</link>
+      <pubDate>Thu, 14 Oct 2021 20:27:43 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/youhua/main/</guid>
+      <description>SPSC：单个生产者对单个消费者（无等待、有界和无界都有实现） MPSC：多个生产者对单个消费者（无锁、有界和无界都有实现） SPMC：单生产者对多个消费者（无锁 有界） MPMC：多生产者对多个消费者（无锁、有界）
+如何优化服务性能：
+ 资源不足型 CPU/MEM占用过高  解决方案： 扩展 检查异常逻辑或流量 使用pprof-cpurofile&amp;amp;memprofile检查服务
+资源利用率不足型  时延高
+检查异常逻辑 pprof-blockprofile</description>
+    </item>
+    
+    <item>
+      <title>3color</title>
+      <link>https://wncbb.github.io/golang/3color/</link>
+      <pubDate>Fri, 08 Oct 2021 11:26:13 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/golang/3color/</guid>
+      <description>三色 强三色不变性: 任何黑色对象不能指向白色对象。
+弱三色不变性: Any white object pointed to by a black object is reachable from a grey object via a chain of white pointers (it is grey-protected). 任何被黑色对象指向的白色对象，可以从一个灰色对象，沿着白色对象引用到。 举个例子：A(Black)-&amp;gt;B(Grey)-&amp;gt;C(White) =&amp;gt; A(Black)-&amp;gt;C(White) 如果C(White)没有其他引用，那么不会被重新扫描，会被误删(C其实还有用，A还需要C)。 假设有个灰色对象通过白色链路指向C,比如 D(Grey)-&amp;gt;E(White)-&amp;gt;F(White)&amp;hellip;(White)&amp;hellip;-&amp;gt;G(White)-&amp;gt;C(White)， 那么C还可以在扫描D的子孙节点时被重新染色。
+Any write barrier has to prohibit a mutator from &amp;ldquo;hiding&amp;rdquo; an object; that is, rearranging the heap graph to violate the weak tricolor invariant so the garbage collector fails to mark a reachable object. For example, in a sense, the Dijkstra barrier allows a mutator to hide a white object by moving the sole pointer to it to a stack that has already been scanned.</description>
+    </item>
+    
+    <item>
+      <title>Select_poll_epoll</title>
+      <link>https://wncbb.github.io/io/select_poll_epoll/</link>
+      <pubDate>Fri, 08 Oct 2021 10:51:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/io/select_poll_epoll/</guid>
+      <description>select 监听的file discriptor长度有限制，需要遍历fd查看哪个fd有事件 每次select需要重复拷贝fd到内核 每次select需要在内核遍历传递进来的所有fd
+poll 使用链表存储file discriptor，长度没有限制，其他跟poll基本一致
+epoll(event poll) 使用红黑树存储，长度无限制 每个fd在整个过程中只会拷贝一次 设备就绪时调用回调函数（select/poll是主动轮询），放入就绪队列，wait就是查看就绪队列是否为空</description>
+    </item>
+    
+    <item>
+      <title>Find_target_index_using_binary_search</title>
+      <link>https://wncbb.github.io/algo/find_target_index_using_binary_search/</link>
+      <pubDate>Fri, 08 Oct 2021 10:33:18 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/algo/find_target_index_using_binary_search/</guid>
+      <description>在从小到大排好序的数组中，查找某个数字应该插入的位置
+func SearchInts(a []int, x int) int { return Search(len(a), func(i int) bool { return a[i] &amp;gt;= x }) } func Search(n int, f func(int) bool) int { // Define f(-1) == false and f(n) == true.  // Invariant: f(i-1) == false, f(j) == true.  i, j := 0, n for i &amp;lt; j { h := int(uint(i+j) &amp;gt;&amp;gt; 1) // avoid overflow when computing h  // i ≤ h &amp;lt; j  if !</description>
+    </item>
+    
     <item>
       <title>Mvcc</title>
       <link>https://wncbb.github.io/mysql/mvcc/</link>
@@ -50,7 +189,7 @@ raft算法动画： http://www.kailing.pub/raft/index.html
       <pubDate>Thu, 30 Sep 2021 19:47:59 +0800</pubDate>
       
       <guid>https://wncbb.github.io/ray/1/</guid>
-      <description></description>
+      <description>The next generation of AI applications will continuously interact with the environment and learn from these interactions. These applications impose new and demanding systems requirements, both in terms of performance and flexibility. In this paper, we consider these requirements and present Ray—a distributed system to address them. Ray implements a unified interface that can express both task-parallel and actor-based computations, supported by a single dynamic execution engine. To meet the performance requirements, Ray employs a distributed scheduler and a distributed and fault-tolerant store to manage the system’s control state.</description>
     </item>
     
     <item>
@@ -108,7 +247,12 @@ raft算法动画： http://www.kailing.pub/raft/index.html
       <pubDate>Tue, 14 Sep 2021 14:59:49 +0800</pubDate>
       
       <guid>https://wncbb.github.io/mysql/drop_truncate_delete/</guid>
-      <description>drop直接删掉表； truncate删除表中数据，再插入时自增长id又从1开始 ；delete删除表中数据，可以加where字句。
+      <description>drop DDL 删除数据与表
+truncate DDL 删除数据
+delete DML 删除数据，有日志，能回滚，不会缩小表、索引所占的空间(可以使用optimize 命令)
+alter table t engine = InnoDB（也就是recreate），而 optimize table t 等于 recreate+analyze delete，drop，truncate 都有删除表的作用，区别在于：
+1、delete 和 truncate 仅仅删除表数据，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。 2、delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。 3、执行的速度上，drop&amp;gt;truncate&amp;gt;delete，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。
+drop直接删掉表； truncate删除表中数据，再插入时自增长id又从1开始 ；delete删除表中数据，可以加where字句。
 TRUNCATE不记录日志，DELETE记录日志，所以TRUNCATE要快于DELETE；
 但是一旦用TRUNCATE进行删除就不能进行恢复,TRUNCATE是删除整张表的数据，不能加where条件。
 （1） DELETE语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
@@ -116,13 +260,7 @@ TRUNCATE不记录日志，DELETE记录日志，所以TRUNCATE要快于DELETE；
 （3）一般而言，drop &amp;gt; truncate &amp;gt; delete
 （4）应用范围。TRUNCATE 只能对TABLE；DELETE可以是table和view
 （5） TRUNCATE 和DELETE只删除数据，而DROP则删除整个表（结构和数据）。
-（6） truncate与不带where的delete ：只删除数据，而不删除表的结构（定义）drop语句将删除表的结构被依赖的约束（constrain),触发器（trigger)索引（index);依赖于该表的存储过程/函数将被保留，但其状态会变为：invalid。
-（7） delete语句为DML（data maintain Language),这个操作会被放到 rollback segment中,事务提交后才生效。如果有相应的 trigger,执行的时候将被触发。
-（8） truncate、drop是DLL（data define language),操作立即生效，原数据不放到 rollback segment中，不能回滚
-（9）在没有备份情况下，谨慎使用 drop 与 truncate。要删除部分数据行采用delete且注意结合where来约束影响范围。回滚段要足够大。要删除表用drop;若想保留表而将表中数据删除，如果于事务无关，用truncate即可实现。如果和事务有关，或老师想触发trigger,还是用delete。
-（10） Truncate table 表名速度快,而且效率高,因为: truncate table 在功能上与不带 WHERE 子句的 DELETE 语句相同：二者均删除表中的全部行。但 TRUNCATE TABLE 比DELETE 速度快，且使用的系统和事务日志资源少。DELETE 语句每次删除一行，并在事务日志中为所删除的每行记录一项。TRUNCATE TABLE 通过释放存储表数据所用的数据页来删除数据，并且只在事务日志中记录页的释放。
-（11） TRUNCATE TABLE 删除表中的所有行，但表结构及其列、约束、索引等保持不变。新行标识所用的计数值重置为该列的种子。如果想保留标识计数值，请改用 DELETE。如果要删除表定义及其数据，请使用 DROP TABLE 语句。
-（12）对于由 FOREIGN KEY 约束引用的表，不能使用 TRUNCATE TABLE，而应使用不带 WHERE 子句的 DELETE 语句。由于 TRUNCATE TABLE 不记录在日志中，所以它不能激活触发器。</description>
+（6） truncate与不带where的delete ：只删除数据，而不删除表的结构（定义）drop语句将删除表的结构被依赖的约束（constrain),触发器（trigger)索引（index);依赖于该表的存储过程/函数将被保留，但其状态会变为：invalid。</description>
     </item>
     
     <item>
@@ -183,7 +321,20 @@ min.insync.replicas: When a producer sets acks to &amp;ldquo;all&amp;rdquo; (or 
       
       <guid>https://wncbb.github.io/redis/redis/</guid>
       <description>References https://qiankunli.github.io/2020/08/04/redis_practice.html
-https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA</description>
+https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA
+数据结构 对外数据结构 1. string 数字: int
+长度小于39: embstr(SDS，meta数据与value连续存储)
+长度大于39: raw(SDS)
+2. list ziplist: 1.元素长度小于64字节，2.元素个数小于512
+双向链表:
+3. hash ziplist: 1.元素长度小于64字节，2.元素个数小于512
+hash表
+4. set intset: 1.元素都是int，2.元素个数小于512
+hash表:
+5. zset ziplist: 1. 元素小于64 3. 元素个数小于128
+skiplist+hash：
+6. geo 7. hyperloglog 8. pub/sub 内部数据结构 1. 简单动态字符串（SDS） 2. 链表 3. 字典 4. 跳跃表 5. 整数集合 6。 压缩列表 redis为啥快？  单进程单线程模型的 KV 数据库，不存在进程线程切换导致的开销，不存在锁 完全基于内存，数据结构简单 采用IO多路复用  相关问题  多核系统，浪费资源？  单机开多个redis实例
+数据持久化方式 RDB 过程：</description>
     </item>
     
     <item>
@@ -208,12 +359,38 @@ Key  用缓存存储中间结果，方便后面数字使用 对于3*n+1，一定
     </item>
     
     <item>
+      <title>inner-process-communication</title>
+      <link>https://wncbb.github.io/linux/inner-process-communication/</link>
+      <pubDate>Thu, 09 Sep 2021 16:38:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/linux/inner-process-communication/</guid>
+      <description>进程间通信 传统unix通信机制 1. 管道/匿名管道  半双工，单方向 只能用于父子进程或者兄弟进程之间  管道的实质是一个内核缓冲区，进程以先进先出的方式从缓冲区存取数据，管道一端的进程顺序的将数据写入缓冲区，另一端的进程则顺序的读出数据。 该缓冲区可以看做是一个循环队列，读和写的位置都是自动增长的，不能随意改变，一个数据只能被读一次，读出来以后在缓冲区就不复存在了。 当缓冲区读空或者写满时，有一定的规则控制相应的读进程或者写进程进入等待队列，当空的缓冲区有新数据写入或者满的缓冲区有数据读出来时，就唤醒等待队列中的进程继续读写。
+2. 命名管道(FIFO) 提供了一个路径名与之关联，以有名管道的文件形式存在于文件系统中，内容存放在内存中
+匿名管道和有名管道总结：
+（1）管道是特殊类型的文件，在满足先入先出的原则条件下可以进行读写，但不能进行定位读写。
+（2）匿名管道是单向的，只能在有亲缘关系的进程间通信；有名管道以磁盘文件的方式存在，可以实现本机任意两个进程通信。
+（3）无名管道阻塞问题：无名管道无需显示打开，创建时直接返回文件描述符，在读写时需要确定对方的存在，否则将退出。如果当前进程向无名管道的一端写数据，必须确定另一端有某一进程。如果写入无名管道的数据超过其最大值，写操作将阻塞，如果管道中没有数据，读操作将阻塞，如果管道发现另一端断开，将自动退出。
+（4）有名管道阻塞问题：有名管道在打开时需要确实对方的存在，否则将阻塞。即以读方式打开某管道，在此之前必须一个进程以写方式打开管道，否则阻塞。此外，可以以读写（O_RDWR）模式打开有名管道，即当前进程读，当前进程写，不会阻塞。
+3. 信号(Signal) 信号是Linux系统中用于进程间互相通信或者操作的一种机制，信号可以在任何时候发给某一进程，而无需知道该进程的状态。
+如果该进程当前并未处于执行状态，则该信号就有内核保存起来，知道该进程回复执行并传递给它为止。
+如果一个信号被进程设置为阻塞，则该信号的传递被延迟，直到其阻塞被取消是才被传递给进程。
+Linux系统中常用信号： （1）SIGHUP：用户从终端注销，所有已启动进程都将收到该进程。系统缺省状态下对该信号的处理是终止进程。 （2）SIGINT：程序终止信号。程序运行过程中，按Ctrl+C键将产生该信号。 （3）SIGQUIT：程序退出信号。程序运行过程中，按Ctrl+\键将产生该信号。 （4）SIGBUS和SIGSEGV：进程访问非法地址。 （5）SIGFPE：运算中出现致命错误，如除零操作、数据溢出等。 （6）SIGKILL：用户终止进程执行信号。shell下执行kill -9发送该信号。 （7）SIGTERM：结束进程信号。shell下执行kill 进程pid发送该信号。 （8）SIGALRM：定时器信号。 （9）SIGCLD：子进程退出信号。如果其父进程没有忽略该信号也没有处理该信号，则子进程退出后将形成僵尸进程。
+4. 消息(Message)队列 消息队列是存放在内核中的消息链表，每个消息队列由消息队列标识符表示。 与管道（无名管道：只存在于内存中的文件；命名管道：存在于实际的磁盘介质或者文件系统）不同的是消息队列存放在内核中，只有在内核重启(即，操作系统重启)或者显示地删除一个消息队列时，该消息队列才会被真正的删除。 另外与管道不同的是，消息队列在某个进程往一个队列写入消息之前，并不需要另外某个进程在该队列上等待消息的到达。延伸阅读：消息队列C语言的实践 消息队列特点总结： （1）消息队列是消息的链表,具有特定的格式,存放在内存中并由消息队列标识符标识. （2）消息队列允许一个或多个进程向它写入与读取消息. （3）管道和消息队列的通信数据都是先进先出的原则。 （4）消息队列可以实现消息的随机查询,消息不一定要以先进先出的次序读取,也可以按消息的类型读取.比FIFO更有优势。 （5）消息队列克服了信号承载信息量少，管道只能承载无格式字 节流以及缓冲区大小受限等缺。 （6）目前主要有两种类型的消息队列：POSIX消息队列以及System V消息队列，系统V消息队列目前被大量使用。系统V消息队列是随内核持续的，只有在内核重起或者人工删除时，该消息队列才会被删除。
+5. 共享内存 使得多个进程可以可以直接读写同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。 为了在多个进程间交换信息，内核专门留出了一块内存区，可以由需要访问的进程将其映射到自己的私有地址空间。进程就可以直接读写这一块内存而不需要进行数据的拷贝，从而大大提高效率。 由于多个进程共享一段内存，因此需要依靠某种同步机制（如信号量）来达到进程间的同步及互斥。
+6. 信号量(semaphore) 信号量是一个计数器，用于多进程对共享数据的访问，信号量的意图在于进程间同步。 为了获得共享资源，进程需要执行下列操作： （1）创建一个信号量：这要求调用者指定初始值，对于二值信号量来说，它通常是1，也可是0。 （2）等待一个信号量：该操作会测试这个信号量的值，如果小于0，就阻塞。也称为P操作。 （3）挂出一个信号量：该操作将信号量的值加1，也称为V操作。
+信号量与互斥量之间的区别： （1）互斥量用于线程的互斥，信号量用于线程的同步。这是互斥量和信号量的根本区别，也就是互斥和同步之间的区别。 互斥：是指某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。 同步：是指在互斥的基础上（大多数情况），通过其它机制实现访问者对资源的有序访问。 在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。少数情况是指可以允许多个访问者同时访问资源 （2）互斥量值只能为0/1，信号量值可以为非负整数。 也就是说，一个互斥量只能用于一个资源的互斥访问，它不能实现多个资源的多线程互斥问题。信号量可以实现多个同类资源的多线程互斥和同步。当信号量为单值信号量是，也可以完成一个资源的互斥访问。 （3）互斥量的加锁和解锁必须由同一线程分别对应使用，信号量可以由一个线程释放，另一个线程得到。</description>
+    </item>
+    
+    <item>
       <title>Io</title>
       <link>https://wncbb.github.io/io/io/</link>
       <pubDate>Wed, 08 Sep 2021 20:20:54 +0800</pubDate>
       
       <guid>https://wncbb.github.io/io/io/</guid>
-      <description>阻塞IO 非阻塞IO IO多路复用 信号驱动IO 异步IO </description>
+      <description>References 对比 阻塞 I/O (Blocking I/O) 非阻塞 I/O (Nonblocking I/O) I/O 多路复用 (I/O multiplexing) 信号驱动 I/O (Signal driven I/O) 异步 I/O (Asynchronous I/O)
+操作系统上的I/O是用户空间与内核空间的数据交互，I/O主要包含以下两个步骤：
+ 等待网络数据到达网卡(读就绪)/等待网卡可写(写就绪) –&amp;gt; 读取/写入到内核缓冲区 从内核缓冲区复制数据 –&amp;gt; 用户空间(读)/从用户空间复制数据 -&amp;gt; 内核缓冲区(写)  判断I/O模型是同步还是异步，主要是看步骤2执行时，是否会阻塞当前进程。
+阻塞IO 非阻塞IO IO多路复用 信号驱动IO 异步IO </description>
     </item>
     
     <item>
@@ -330,10 +507,10 @@ import requests url = &amp;#34;http://host:port/&amp;#34; params = { &amp;#34;�
       <description>Single-responsibility principle 单一职责原则
  A class should have one, and only one, reason to change.
   Every class should have only one responsibility.
- Open-closed principle 开闭原则
+ Open-closed principle ======= 开闭原则
  You should be able to extend a classes behavior, without modifying it.
   Be open for extension, but closed for modification.
- Liskov substitution principle 里氏替换原则
+ Liskov substitution principle ======= 里氏替换原则
  Derived classes must be substitutable for their base classes.
   Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.</description>
     </item>
@@ -423,7 +600,7 @@ morris算法 0173 https://leetcode-cn.com/submissions/detail/160931755/
       <guid>https://wncbb.github.io/posts/golang/gc/</guid>
       <description>https://zhuanlan.zhihu.com/p/92210761
 https://segmentfault.com/a/1190000022030353
-   Stop the world</description>
+   </description>
     </item>
     
     <item>
@@ -2188,6 +2365,15 @@ model_config_list:{ config:{ name:&amp;quot;hello-world&amp;quot;, base_path:&am
       
       <guid>https://wncbb.github.io/posts/how_to_create/</guid>
       <description>0x00 basic commands 1go get -u -v github.com/spf13/hugo 2hugo new site &amp;lt;directory&amp;gt; 3git init 4git submodule add https://github.com/spf13/hyde.git themes/hyde 5hugo new posts/how-to-create.md 0x01 config.toml 1baseURL = &amp;#34;http://wncbb.github.io/&amp;#34; 2languageCode = &amp;#34;en-us&amp;#34; 3title = &amp;#34;WNCBB&amp;#39;s blog&amp;#34; 4theme = &amp;#34;hyde&amp;#34; 5 6[Menus] 7 main = [ 8 {Name = &amp;#34;Github&amp;#34;, URL = &amp;#34;https://github.com/wncbb/&amp;#34;}, 9 ] 10[params] 11 description = &amp;#34;A man is only as good as what he loves&amp;#34; 12 themeColor = &amp;#34;theme-base-0c&amp;#34; 13 layoutReverse = true 0x02 codes highlight https://gohugo.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://wncbb.github.io/about/</link>
+      <pubDate>Mon, 05 Jan 1970 17:34:36 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/about/</guid>
+      <description>多读，多看，多总结</description>
     </item>
     
   </channel>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lockfrees on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/lockfree/</link>
+    <description>Recent content in Lockfrees on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Nov 2021 21:35:54 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/lockfree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lockfree_queue</title>
+      <link>https://wncbb.github.io/lockfree/lockfree_queue/</link>
+      <pubDate>Mon, 01 Nov 2021 21:35:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/lockfree/lockfree_queue/</guid>
+      <description>John D. Valois 1994年10月在拉斯维加斯的并行和分布系统系统国际大会上的一篇论文——《Implementing Lock-Free Queues》
+美国纽约罗切斯特大学 Maged M. Michael 和 Michael L. Scott 在1996年3月发表的一篇论文 《Simple, Fast, and Practical Non-Blocking and Blocking ConcurrentQueue Algorithms》
+Code Project 上的雄文 《Yet another implementation of a lock-free circular array queue》
+Herb Sutter的《Writing Lock-Free Code: A Corrected Queue》– 用C++11的std::atomic模板。
+IBM developerWorks的《设计不使用互斥锁的并发数据结构》</description>
+    </item>
+    
+  </channel>
+</rss>

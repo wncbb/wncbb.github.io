@@ -14,7 +14,20 @@
       
       <guid>https://wncbb.github.io/redis/redis/</guid>
       <description>References https://qiankunli.github.io/2020/08/04/redis_practice.html
-https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA</description>
+https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA
+数据结构 对外数据结构 1. string 数字: int
+长度小于39: embstr(SDS，meta数据与value连续存储)
+长度大于39: raw(SDS)
+2. list ziplist: 1.元素长度小于64字节，2.元素个数小于512
+双向链表:
+3. hash ziplist: 1.元素长度小于64字节，2.元素个数小于512
+hash表
+4. set intset: 1.元素都是int，2.元素个数小于512
+hash表:
+5. zset ziplist: 1. 元素小于64 3. 元素个数小于128
+skiplist+hash：
+6. geo 7. hyperloglog 8. pub/sub 内部数据结构 1. 简单动态字符串（SDS） 2. 链表 3. 字典 4. 跳跃表 5. 整数集合 6。 压缩列表 redis为啥快？  单进程单线程模型的 KV 数据库，不存在进程线程切换导致的开销，不存在锁 完全基于内存，数据结构简单 采用IO多路复用  相关问题  多核系统，浪费资源？  单机开多个redis实例
+数据持久化方式 RDB 过程：</description>
     </item>
     
   </channel>

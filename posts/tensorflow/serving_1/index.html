@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -54,7 +54,7 @@
   <time datetime=2019-11-15T14:34:39&#43;0800 class="post-date">2019-11-15 14:34:39</time>
   <h2 id="install-tensorflow">Install tensorflow</h2>
 <p><a href="https://docs.python.org/3/library/venv.html">https://docs.python.org/3/library/venv.html</a></p>
-<pre><code>python3 -m venv &lt;path&gt;
+<pre tabindex="0"><code>python3 -m venv &lt;path&gt;
 source &lt;path&gt;/bin/activate
 
 pip install tensorflow==&lt;version&gt;
@@ -63,12 +63,12 @@ pip install tensorflow==&lt;version&gt;
 <p>git: <a href="https://github.com/tensorflow/serving">https://github.com/tensorflow/serving</a></p>
 <p>doc: <a href="https://www.tensorflow.org/tfx/serving/docker">https://www.tensorflow.org/tfx/serving/docker</a></p>
 <h2 id="multi-versionhot-reload-multi-modelcold-reload">Multi Version(hot reload), Multi Model(cold reload)</h2>
-<pre><code>docker run -t --rm -p 8501:8501 \
+<pre tabindex="0"><code>docker run -t --rm -p 8501:8501 \
     -v &quot;$TESTDATA:/models&quot;  -d  \
     -t tensorflow/serving --model_config_file=/models/models.config
 
 </code></pre><p>models.config</p>
-<pre><code>model_config_list:{
+<pre tabindex="0"><code>model_config_list:{
     config:{
       name:&quot;hello-world&quot;,
       base_path:&quot;/models/hello-world&quot;,

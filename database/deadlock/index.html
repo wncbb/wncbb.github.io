@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -62,7 +62,7 @@
 <h2 id="问题">问题</h2>
 <h3 id="1-dirty-read">1. dirty read</h3>
 <p>事务二，读到事务一未提交的修改</p>
-<pre><code>// balance = 1000
+<pre tabindex="0"><code>// balance = 1000
 T1: UPDATE account SET balance = balance - 100 WHERE name = 'A'; # 900
 T2: SELECT balance FROM account WHERE name = 'A'; # 900
 
@@ -72,14 +72,14 @@ T2: SELECT balance FROM account WHERE name = 'A'; # 900
 <h3 id="4-lost-update丢失更新">4. lost update(丢失更新)</h3>
 <p>1,2,3都是一个事务读，一个事务写；如果两个事务一起写。
 例子(丢失更新，提交覆盖，read-modify-write)：</p>
-<pre><code>T1读出balance是1000，
+<pre tabindex="0"><code>T1读出balance是1000，
 T2读出balance是1000，
 T1减掉100，balance-&gt;1000-100
 T2增加100，balance-&gt;1000+100
 T2 commit，balacnce=1100
 T1 commit，balance=900
 </code></pre><p>回滚覆盖例子</p>
-<pre><code>T1读出balance是1000，
+<pre tabindex="0"><code>T1读出balance是1000，
 T2读出balance是1000，
 T2 +100, balance-&gt;1000+100
 T2 commit

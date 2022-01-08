@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -52,7 +52,15 @@
     <div class="post">
   <h1>Drop_truncate_delete</h1>
   <time datetime=2021-09-14T14:59:49&#43;0800 class="post-date">2021-09-14 14:59:49</time>
-  <p>drop直接删掉表； truncate删除表中数据，再插入时自增长id又从1开始 ；delete删除表中数据，可以加where字句。</p>
+  <p>drop      DDL  删除数据与表</p>
+<p>truncate  DDL  删除数据</p>
+<p>delete    DML  删除数据，有日志，能回滚，不会缩小表、索引所占的空间(可以使用optimize <!-- raw HTML omitted -->命令)</p>
+<pre tabindex="0"><code>alter table t engine = InnoDB（也就是recreate），而 optimize table t 等于 recreate+analyze
+</code></pre><p>delete，drop，truncate 都有删除表的作用，区别在于：</p>
+<p>1、delete 和 truncate 仅仅删除表数据，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。
+2、delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。
+3、执行的速度上，drop&gt;truncate&gt;delete，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。</p>
+<p>drop直接删掉表； truncate删除表中数据，再插入时自增长id又从1开始 ；delete删除表中数据，可以加where字句。</p>
 <p>TRUNCATE不记录日志，DELETE记录日志，所以TRUNCATE要快于DELETE；</p>
 <p>但是一旦用TRUNCATE进行删除就不能进行恢复,TRUNCATE是删除整张表的数据，不能加where条件。</p>
 <p>（1） DELETE语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。</p>

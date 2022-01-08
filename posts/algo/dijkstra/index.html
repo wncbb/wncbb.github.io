@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -52,7 +52,7 @@
     <div class="post">
   <h1>dijkstra</h1>
   <time datetime=2020-01-19T15:05:01&#43;0800 class="post-date">2020-01-19 15:05:01</time>
-  <pre><code>可以处理有环
+  <pre tabindex="0"><code>可以处理有环
 无法处理包含有负数权值的边的图 (dijkastra是中间可以确定一部分点的最短距离，后面如果可以加上一个负数，那前面的确定的就不对了)
 
 </code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
@@ -93,7 +93,7 @@
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36</span>    print <span style="color:#e6db74">&#34;=== dijkstra ===&#34;</span>
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37</span>    print edges
 <span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38</span>    print dijkstra(edges, <span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;D&#34;</span>)</code></pre></div>
-<pre><code>=== dijkstra ===
+<pre tabindex="0"><code>=== dijkstra ===
 [('A', 'B', 4), ('A', 'C', 3), ('B', 'C', 2), ('B', 'D', 5), ('C', 'D', 1)]
 (4, ['A', 'C', 'D'])
 </code></pre>

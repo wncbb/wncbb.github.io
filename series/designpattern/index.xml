@@ -16,10 +16,10 @@
       <description>Single-responsibility principle 单一职责原则
  A class should have one, and only one, reason to change.
   Every class should have only one responsibility.
- Open-closed principle 开闭原则
+ Open-closed principle ======= 开闭原则
  You should be able to extend a classes behavior, without modifying it.
   Be open for extension, but closed for modification.
- Liskov substitution principle 里氏替换原则
+ Liskov substitution principle ======= 里氏替换原则
  Derived classes must be substitutable for their base classes.
   Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.</description>
     </item>
