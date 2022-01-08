@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kubernetes学习笔记(一) 网络基础part1 &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Kubernetes学习笔记(一) 网络基础part1</h1>
+  <time datetime=2022-01-08T18:12:48&#43;0800 class="post-date">2022-01-08 18:12:48</time>
+  <blockquote>
+<p>Kubernetes is All about Networking.</p>
+</blockquote>
+<p>因此，先从网络开始学习。</p>
+<ul>
+<li>基础知识视频： <a href="https://www.youtube.com/watch?v=6v_BDHIgOY8">https://www.youtube.com/watch?v=6v_BDHIgOY8</a></li>
+<li>基础知识视频的代码地址：<a href="https://github.com/kristenjacobs/container-networking">https://github.com/kristenjacobs/container-networking</a></li>
+</ul>
+<h2 id="1-k8s网络要求">1 k8s网络要求</h2>
+<ul>
+<li>All containers can communicate with all other containers without NAT.</li>
+<li>All nodes can communicate with all containers(and vice-verse) without NAT.</li>
+<li>The IP that a container sees itself as is the same IP that others see it as.</li>
+</ul>
+<h2 id="2-网络">2 网络</h2>
+<h2 id="21-single-network-namespace">2.1 Single network namespace.</h2>
+<p>整体示意图：<img src="/k8s/k8s_network_1.png" alt="Single network namespace"></p>
+<p>根据本地网络环境，设置IP
+env.sh</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">CON<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;con&#34;</span>
+NODE_IP<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10.0.2.15&#34;</span>
+IP<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;172.16.0.1&#34;</span>
+</code></pre></div><p>下面对setup.sh每条命令，进行解释</p>
+<ol>
+<li>设置CON/NODE_IP/IP环境变量</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash -e 
+</span><span style="color:#75715e"></span>
+. env.sh
+</code></pre></div><ol start="2">
+<li>创建network namespace $CON</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Creating the namespace&#34;</span>
+sudo ip netns add $CON
+</code></pre></div><ol>
+<li>创建一对veth，可以看做是一根网线，一端是veth1，一端是veth2.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Creating the veth pair&#34;</span>
+sudo ip link add veth1 type veth peer name veth2
+</code></pre></div><ol start="4">
+<li>veth2加入$CON(把veth2这一端插入到$CON)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Adding one end of the veth pair to the namespace&#34;</span>
+sudo ip link set veth2 netns $CON
+</code></pre></div><ol start="5">
+<li>在$CON Network Namespace里面执行一条命令。命令是<code>ip addr add $IP dev veth2</code>，相当于在$CON内，给veth2加上IP地址，地址是$IP.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Configuring the interface in the network namespace with an IP address&#34;</span>
+sudo ip netns exec $CON ip addr add $IP dev veth2
+</code></pre></div><ol start="6">
+<li>将$CON内部的veth2设备启动</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Enabling the interface inside the network namespace&#34;</span>
+sudo ip netns exec $CON ip link set dev veth2 up
+</code></pre></div><ol start="7">
+<li>将veth1启动</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Enabling the interface on the node&#34;</span>
+sudo ip link set dev veth1 up
+</code></pre></div><ol start="8">
+<li>将$CON的lo启动</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Setting the loopback interface in the network namespace&#34;</span>
+sudo ip netns exec $CON ip link set lo up
+</code></pre></div><ol start="9">
+<li>在宿主机上添加路由规则，目标ip是$IP/32的请求，全部发给veth1(veth1是网线的一端，另一端是$CON内部的veth2)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Setting the routes on the node&#34;</span>
+sudo ip route add $IP/32 dev veth1
+</code></pre></div><ol start="10">
+<li>给$CON内添加路由规则，网络数据默认使用$IP地址，发给veth2。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Setting the default route in the network namespaces&#34;</span>
+sudo ip netns exec $CON ip route add default via $IP dev veth2
+
+</code></pre></div><p>如此操作，那么宿主机10.0.2.15与con172.16.0.1便可以互相pingi通。</p>
+<h2 id="22-single-node-2-network-namespaces">2.2 Single node, 2 network namespaces.</h2>
+<p>env.sh</p>
+<pre tabindex="0"><code>CON1=&quot;con1&quot;
+CON2=&quot;con2&quot;
+NODE_IP=&quot;10.0.2.15&quot;
+BRIDGE_IP=&quot;172.16.0.1&quot;
+IP1=&quot;172.16.0.2&quot;
+IP2=&quot;172.16.0.3&quot;
+</code></pre><p>代码本身的注释已经比较清晰，通过图来说明</p>
+<ol>
+<li>设置环境变量
+setup.sh</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash -e 
+</span><span style="color:#75715e"></span>
+. env.sh
+</code></pre></div><ol start="2">
+<li>创建network namespace $CON1 $CON2
+<img src="/k8s/k8s_network_2_2.png" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Creating the namespaces&#34;</span>
+sudo ip netns add $CON1
+sudo ip netns add $CON2
+</code></pre></div><ol start="3">
+<li>创建veth pairs。
+<img src="/k8s/k8s_network_2_3.png" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Creating the veth pairs&#34;</span>
+sudo ip link add veth10 type veth peer name veth11
+sudo ip link add veth20 type veth peer name veth21
+</code></pre></div><ol start="4">
+<li>将veth11 veth21分别放入$CON1 $CON2
+<img src="/k8s/k8s_network_2_4.png" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Adding the veth pairs to the namespaces&#34;</span>
+sudo ip link set veth11 netns $CON1
+sudo ip link set veth21 netns $CON2
+</code></pre></div><ol start="5">
+<li>给veth11 veth22分别添加IP地址 $IP1/24 $IP2/24
+<img src="/k8s/k8s_network_2_5.jpg" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Configuring the interfaces in the network namespaces with IP address&#34;</span>
+sudo ip netns exec $CON1 ip addr add $IP1/24 dev veth11 
+sudo ip netns exec $CON2 ip addr add $IP2/24 dev veth21
+</code></pre></div><ol start="6">
+<li>veth1 veth2启动
+<img src="/k8s/k8s_network_2_6.jpg" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Enabling the interfaces inside the network namespaces&#34;</span>
+sudo ip netns exec $CON1 ip link set dev veth11 up
+sudo ip netns exec $CON2 ip link set dev veth21 up
+</code></pre></div><ol start="7">
+<li>创建br0网桥，并把veth10 veth20放到br0, 给br0添加ip
+<img src="/k8s/k8s_network_2_7.jpg" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Creating the bridge&#34;</span>
+sudo ip link add name br0 type bridge
+
+echo <span style="color:#e6db74">&#34;Adding the network namespaces interfaces to the bridge&#34;</span>
+sudo ip link set dev veth10 master br0
+sudo ip link set dev veth20 master br0
+
+echo <span style="color:#e6db74">&#34;Assigning the IP address to the bridge&#34;</span>
+sudo ip addr add $BRIDGE_IP/24 dev br0
+</code></pre></div><ol start="8">
+<li>br0 veth10 veth20启动
+<img src="/k8s/k8s_network_2_8.jpg" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Enabling the bridge&#34;</span>
+sudo ip link set dev br0 up
+
+echo <span style="color:#e6db74">&#34;Enabling the interfaces connected to the bridge&#34;</span>
+sudo ip link set dev veth10 up
+sudo ip link set dev veth20 up
+</code></pre></div><ol start="9">
+<li>给$CON1 $CON2启动lo</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Setting the loopback interfaces in the network namespaces&#34;</span>
+sudo ip netns exec $CON1 ip link set lo up
+sudo ip netns exec $CON2 ip link set lo up
+</code></pre></div><ol start="10">
+<li>$CON1里添加默认路由
+<img src="/k8s/k8s_network_2_10.jpg" alt=""></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;Setting the default route in the network namespaces&#34;</span>
+sudo ip netns exec $CON1 ip route add default via $BRIDGE_IP dev veth11
+sudo ip netns exec $CON2 ip route add default via $BRIDGE_IP dev veth21
+
+</code></pre></div><p>经过上述操作，con1 con2 宿主机之间，可以互相通信。</p>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

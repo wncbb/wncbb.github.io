@@ -6,11 +6,11 @@
     <description>Recent content in docker on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Jan 2022 17:30:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jan 2022 17:30:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker学习笔记(一) namespace</title>
       <link>https://wncbb.github.io/docker/namespace/</link>
-      <pubDate>Wed, 05 Jan 2022 17:30:14 +0800</pubDate>
+      <pubDate>Sat, 01 Jan 2022 17:30:14 +0800</pubDate>
       
       <guid>https://wncbb.github.io/docker/namespace/</guid>
       <description>1 概述 不同container运行需要做资源隔离，使用linux namespace功能。
