@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>algorithm on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/tags/algorithm/</link>
+    <description>Recent content in algorithm on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Jan 2022 15:35:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_09</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</link>
+      <pubDate>Sun, 09 Jan 2022 15:35:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</guid>
+      <description>leetcode-cn.com 1629. 按键持续时间最长的键
+keys_pressed: A B C D release_times: a b c d 求a, b-a, c-b, d-c的最大值对应的key(如果相同，采用字典序最大值) impl Solution { pub fn slowest_key(release_times: Vec&amp;lt;i32&amp;gt;, keys_pressed: String) -&amp;gt; char { let keys : Vec&amp;lt;char&amp;gt; = keys_pressed.chars().collect(); let mut max = release_times[0]; let mut key = keys[0]; let l = keys_pressed.len(); for i in 1..l { let t = release_times[i] - release_times[i - 1]; if t &amp;gt; max || (max == t &amp;amp;&amp;amp; key &amp;lt; keys[i]) { max = t; key = keys[i]; } } key } } leetcode.</description>
+    </item>
+    
+  </channel>
+</rss>

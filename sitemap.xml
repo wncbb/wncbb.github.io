@@ -2,13 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://wncbb.github.io/series/oneproblemperday/</loc>
+    <loc>https://wncbb.github.io/tags/algorithm/</loc>
+    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/categories/algorithm/</loc>
+    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/categories/</loc>
+    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/series/one_problem_per_day/</loc>
     <lastmod>2022-01-09T15:35:14+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/oneproblemperday/</loc>
     <lastmod>2022-01-09T15:35:14+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/series/</loc>
+    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/tags/</loc>
     <lastmod>2022-01-09T15:35:14+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/</loc>
@@ -52,9 +64,5 @@
   </url><url>
     <loc>https://wncbb.github.io/comment_policy/</loc>
     <lastmod>1970-01-01T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/categories/</loc>
-  </url><url>
-    <loc>https://wncbb.github.io/tags/</loc>
   </url>
 </urlset>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>one_problem_per_day on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/series/one_problem_per_day/</link>
+    <description>Recent content in one_problem_per_day on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Jan 2022 15:35:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/one_problem_per_day/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_09</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</link>
+      <pubDate>Sun, 09 Jan 2022 15:35:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</guid>
+      <description>leetcode-cn.com 1629. 按键持续时间最长的键
+keys_pressed: A B C D release_times: a b c d 求a, b-a, c-b, d-c的最大值对应的key(如果相同，采用字典序最大值) impl Solution { pub fn slowest_key(release_times: Vec&amp;lt;i32&amp;gt;, keys_pressed: String) -&amp;gt; char { let keys : Vec&amp;lt;char&amp;gt; = keys_pressed.chars().collect(); let mut max = release_times[0]; let mut key = keys[0]; let l = keys_pressed.len(); for i in 1..l { let t = release_times[i] - release_times[i - 1]; if t &amp;gt; max || (max == t &amp;amp;&amp;amp; key &amp;lt; keys[i]) { max = t; key = keys[i]; } } key } } leetcode.</description>
+    </item>
+    
+    <item>
+      <title>每日一题 2022_01_08</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</link>
+      <pubDate>Sat, 08 Jan 2022 22:14:50 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</guid>
+      <description>leetcode-cn.com 89.格雷编码
+最棒题解
+1func grayCode(n int) []int { 2 // n=0时，就是一个数0 3 ans:=make([]int, 1, 1&amp;lt;&amp;lt;n) 4 // a=上一行的数据 5 // b=上一行的数据翻转，然后每个元素前面加1(比如10， 变成110) 6 // 这一行的数据=a+b(数组连接) 7 // curRow=prevRow+Reverse(prevRow).map(v=&amp;gt;v+head) 8 head:=1 9 for i:=0; i&amp;lt;n; i++{ 10 for j:=len(ans)-1; j&amp;gt;=0; j--{ 11 ans=append(ans, head+ans[j]) 12 } 13 head=head&amp;lt;&amp;lt;1 14 } 15 return ans 16} leetcode.com 1463.Cherry Pickup II
+最棒题解
+1func cherryPickup(grid [][]int) int { 2	n:=len(grid) 3	m:=len(grid[0]) 4 // dp[i][j][k]表示，机器人1在位置(i, j),机器人2在位置(i, k)时，最大值。 5	dp:=make([][][]int,n) 6	for k,_:=range dp{ 7	dp[k]=make([][]int,m) 8	for i,_:=range dp[k]{ 9	dp[k][i]=make([]int,m) 10	for j,_:=range dp[k][i]{ 11 // -1 表示这个位置还没有计算 12	dp[k][i][j]=-1 13	} 14	} 15	} 16 // 当i=0时，刚开始机器人1在(0, 0)， 机器人2在(0， n-1)，不需要计算。 17	dp[0][0][len(grid[0])-1]=grid[0][0]+grid[0][len(grid[0])-1] 18	for i:=0;i&amp;lt;n-1;i++{ 19	for j:=0;j&amp;lt;m;j++{ 20	for k:=0;k&amp;lt;m;k++{ 21	if dp[i][j][k]!</description>
+    </item>
+    
+  </channel>
+</rss>
