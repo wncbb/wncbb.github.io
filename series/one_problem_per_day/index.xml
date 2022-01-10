@@ -6,7 +6,17 @@
     <description>Recent content in one_problem_per_day on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jan 2022 15:35:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/one_problem_per_day/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jan 2022 09:09:50 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/one_problem_per_day/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_10</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</link>
+      <pubDate>Mon, 10 Jan 2022 09:09:50 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</guid>
+      <description>github-cn.com 306. 累加数
+func addBinary(a string, b string) string { ans := &amp;#34;&amp;#34; carry := 0 lenA, lenB := len(a), len(b) n := max(lenA, lenB) for i := 0; i &amp;lt; n; i++ { if i &amp;lt; lenA { carry += int(a[lenA-i-1] - &amp;#39;0&amp;#39;) } if i &amp;lt; lenB { carry += int(b[lenB-i-1] - &amp;#39;0&amp;#39;) } // 这里ans放在后面，正好就是结果  ans = strconv.Itoa(carry%2) + ans carry /= 2 } // 最后需要查看下，是否有进位  if carry &amp;gt; 0 { ans = &amp;#34;1&amp;#34; + ans } return ans } func max(x, y int) int { if x &amp;gt; y { return x } return y } </description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_09</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</link>

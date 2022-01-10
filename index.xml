@@ -6,7 +6,17 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jan 2022 15:35:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jan 2022 09:09:50 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_10</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</link>
+      <pubDate>Mon, 10 Jan 2022 09:09:50 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</guid>
+      <description>github-cn.com 306. 累加数
+func addBinary(a string, b string) string { ans := &amp;#34;&amp;#34; carry := 0 lenA, lenB := len(a), len(b) n := max(lenA, lenB) for i := 0; i &amp;lt; n; i++ { if i &amp;lt; lenA { carry += int(a[lenA-i-1] - &amp;#39;0&amp;#39;) } if i &amp;lt; lenB { carry += int(b[lenB-i-1] - &amp;#39;0&amp;#39;) } // 这里ans放在后面，正好就是结果  ans = strconv.Itoa(carry%2) + ans carry /= 2 } // 最后需要查看下，是否有进位  if carry &amp;gt; 0 { ans = &amp;#34;1&amp;#34; + ans } return ans } func max(x, y int) int { if x &amp;gt; y { return x } return y } </description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_09</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</link>
@@ -15,6 +25,16 @@
       <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</guid>
       <description>leetcode-cn.com 1629. 按键持续时间最长的键
 keys_pressed: A B C D release_times: a b c d 求a, b-a, c-b, d-c的最大值对应的key(如果相同，采用字典序最大值) impl Solution { pub fn slowest_key(release_times: Vec&amp;lt;i32&amp;gt;, keys_pressed: String) -&amp;gt; char { let keys : Vec&amp;lt;char&amp;gt; = keys_pressed.chars().collect(); let mut max = release_times[0]; let mut key = keys[0]; let l = keys_pressed.len(); for i in 1..l { let t = release_times[i] - release_times[i - 1]; if t &amp;gt; max || (max == t &amp;amp;&amp;amp; key &amp;lt; keys[i]) { max = t; key = keys[i]; } } key } } leetcode.</description>
+    </item>
+    
+    <item>
+      <title>400.nth_digit</title>
+      <link>https://wncbb.github.io/leetcode/400_nth_digit/</link>
+      <pubDate>Sun, 09 Jan 2022 10:32:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/leetcode/400_nth_digit/</guid>
+      <description>400.第 N 位数字
+func findNthDigit(n int) int { // 题目计数是从1开始，代码里是从0开始  n=n-1 // 个位数 每个数值转化为字符串长度为1  // 两位数 每个数值转化为字符串长度为2  // len保存当前n位数的长度  curLen:=1 // first表示，从n里不停的减掉 一位数 两位数 。。。 个数，不够减得时候，  // 假设目前是n位数，标识n位数的第一个数  first:=1 count:=9 for n&amp;gt;curLen*count{ n=n-curLen*count curLen++ first*=10 count*=10 } // n-1是因为，计数都是从0开始计数  // 比如说，对于 1 2 3 4 5 6 7 8 9 10 查找第11个数字，是10的个位数0  // n先减去个位数的个数9, 11-9=2  // 然后确定第二个数在第几个二位数里  first+=n/curLen s:=fmt.Sprintf(&amp;#34;%d&amp;#34;, first) return int(s[n%curLen]-&amp;#39;0&amp;#39;) } </description>
     </item>
     
     <item>

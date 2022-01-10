@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://wncbb.github.io/series/one_problem_per_day/</loc>
+    <lastmod>2022-01-10T09:09:50+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/oneproblemperday/</loc>
+    <lastmod>2022-01-10T09:09:50+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/series/</loc>
+    <lastmod>2022-01-10T09:09:50+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/</loc>
+    <lastmod>2022-01-10T09:09:50+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</loc>
+    <lastmod>2022-01-10T09:09:50+08:00</lastmod>
+  </url><url>
     <loc>https://wncbb.github.io/tags/algorithm/</loc>
     <lastmod>2022-01-09T15:35:14+08:00</lastmod>
   </url><url>
@@ -11,23 +26,20 @@
     <loc>https://wncbb.github.io/categories/</loc>
     <lastmod>2022-01-09T15:35:14+08:00</lastmod>
   </url><url>
-    <loc>https://wncbb.github.io/series/one_problem_per_day/</loc>
-    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/oneproblemperday/</loc>
-    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
-  </url><url>
     <loc>https://wncbb.github.io/tags/</loc>
-    <lastmod>2022-01-09T15:35:14+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/</loc>
     <lastmod>2022-01-09T15:35:14+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</loc>
     <lastmod>2022-01-09T15:35:14+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/leetcode/400_nth_digit/</loc>
+    <lastmod>2022-01-09T10:32:07+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/series/leetcode/</loc>
+    <lastmod>2022-01-09T10:32:07+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/leetcode/</loc>
+    <lastmod>2022-01-09T10:32:07+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</loc>
     <lastmod>2022-01-08T22:14:50+08:00</lastmod>

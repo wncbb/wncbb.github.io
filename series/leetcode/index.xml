@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>leetcode on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/series/leetcode/</link>
+    <description>Recent content in leetcode on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Jan 2022 10:32:07 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>400.nth_digit</title>
+      <link>https://wncbb.github.io/leetcode/400_nth_digit/</link>
+      <pubDate>Sun, 09 Jan 2022 10:32:07 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/leetcode/400_nth_digit/</guid>
+      <description>400.第 N 位数字
+func findNthDigit(n int) int { // 题目计数是从1开始，代码里是从0开始  n=n-1 // 个位数 每个数值转化为字符串长度为1  // 两位数 每个数值转化为字符串长度为2  // len保存当前n位数的长度  curLen:=1 // first表示，从n里不停的减掉 一位数 两位数 。。。 个数，不够减得时候，  // 假设目前是n位数，标识n位数的第一个数  first:=1 count:=9 for n&amp;gt;curLen*count{ n=n-curLen*count curLen++ first*=10 count*=10 } // n-1是因为，计数都是从0开始计数  // 比如说，对于 1 2 3 4 5 6 7 8 9 10 查找第11个数字，是10的个位数0  // n先减去个位数的个数9, 11-9=2  // 然后确定第二个数在第几个二位数里  first+=n/curLen s:=fmt.Sprintf(&amp;#34;%d&amp;#34;, first) return int(s[n%curLen]-&amp;#39;0&amp;#39;) } </description>
+    </item>
+    
+  </channel>
+</rss>
