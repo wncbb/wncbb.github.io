@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Arc: Adaptive Replacement Cache &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Arc: Adaptive Replacement Cache</h1>
+  <time datetime=2022-01-10T19:49:48&#43;0800 class="post-date">2022-01-10 19:49:48</time>
+  <a href="/series/cache">#cache</a>
+  <h2 id="介绍">介绍</h2>
+<p><a href="https://en.wikipedia.org/wiki/Adaptive_replacement_cache">wiki地址</a></p>
+<p>ARC是一种比LRU表现更好的缓存算法。该算法会综合利用recency与frequency以及两者最近逐出的数据，来做缓存逐出。</p>
+<p>ARC会把cache directory分为两部分，T1与T2，分别对应recency与frequency。T1与T2分别对应两个ghost listB1与B2,分别存储T1与T2逐出的entry的key。</p>
+<p>Ghost lists可以追踪最近那些被逐出的entry的是从recency还是frquency被逐出的，从而动态调整T1与T2的值。</p>
+<p>T1: 存储LRU
+T2: 存储LFU
+B1: 存储从T1中逐出的entry
+B2: 存储从T2中逐出的entry</p>
+<p>T1与B1结合起来是L1;
+T2与B2结合起来是L2.</p>
+<p>整个L1与L2可以表示成如下所示的结构</p>
+<pre tabindex="0"><code>. . . [   B1  &lt;-[     T1    &lt;-!-&gt;      T2   ]-&gt;  B2   ] . .
+      [ . . . . [ . . . . . . ! . .^. . . . ] . . . . ]
+                [   fixed cache size (c)    ]
+</code></pre><p>里面的中括号存储的数据，是实实在在的cache数据。T1与T2的整体的长度是固定长度size。可以在B1与B2之间移动。</p>
+<p>L1是从右向左展示，比如<code>!</code>左侧的第一个数据，是LRU的最新的数据。
+<code>^</code>是期望的T1的长度，这个长度可以大于等于小于实际的长度。</p>
+<p>进入T1的新的entry，会从<code>!</code>左侧加入，慢慢被push到left，最后会被驱除出T1,放到B1里，最后会被彻底删除。</p>
+<p>如果L1里的数据，被再次访问，就会被加入到L2中。也就是<code>!</code>右侧第一个位置。如果L2中的数据被再次访问，会再次放到<code>!</code>右侧第一个位置。</p>
+<p>被加入T1 T2的entry,会导致<code>!</code>慢慢向<code>^</code>靠近。如果在cache中已经没有空闲位置了，<code>^</code>会决定从T1里还是T2里驱逐entry。</p>
+<p>如果查找命中B1，会增加T1的长度，让<code>^</code>向右边移动。T2里的最后一个entry会被驱逐到B2里。
+如果查找命中B2，会减少T1的长度，让<code>^</code>向左边移动。T1里的最后一个entry会被驱逐到B1里。</p>
+<p>Cache Miss不会影响<code>^</code>，但是会让<code>!</code>向着<code>^</code>方向移动。</p>
+<h2 id="代码实现">代码实现</h2>
+<p>hashicorp实现代码地址：<a href="https://github.com/hashicorp/golang-lru">https://github.com/hashicorp/golang-lru</a></p>
+<p>只有Add函数不好理解，加了部分注释，如下所示</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Add adds a value to the cache.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ARCCache</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">interface</span>{}) {
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">lock</span>.<span style="color:#a6e22e">Unlock</span>()
+
+	<span style="color:#75715e">// Check if the value is contained in T1 (recent), and potentially
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// promote it to frequent T2
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t1</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">key</span>) {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t1</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">key</span>)
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+
+	<span style="color:#75715e">// Check if the value is already in T2 (frequent) and update it
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">key</span>) {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+
+	<span style="color:#75715e">// Check if this value was recently evicted as part of the
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// recently used list
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b1</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">key</span>) {
+		<span style="color:#75715e">// T1 set is too small, increase P appropriately
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">delta</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+		<span style="color:#a6e22e">b1Len</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b1</span>.<span style="color:#a6e22e">Len</span>()
+		<span style="color:#a6e22e">b2Len</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b2</span>.<span style="color:#a6e22e">Len</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b2Len</span> &gt; <span style="color:#a6e22e">b1Len</span> {
+			<span style="color:#a6e22e">delta</span> = <span style="color:#a6e22e">b2Len</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">b1Len</span>
+		}
+		<span style="color:#75715e">// 期望的容量，不可能超过整体cache的最大容量
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span><span style="color:#f92672">+</span><span style="color:#a6e22e">delta</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">size</span> {
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">size</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">delta</span>
+		}
+
+		<span style="color:#75715e">// 当前有效缓存个数已经大于等于最大容量，但是这个key需要被加到t2
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 因此需要驱逐其他的key
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Potentially need to make room in the cache
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t1</span>.<span style="color:#a6e22e">Len</span>()<span style="color:#f92672">+</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Len</span>() <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">size</span> {
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#66d9ef">false</span>)
+		}
+
+		<span style="color:#75715e">// b1中的key已经被处理了，所以需要从b1中删除
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Remove from B1
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b1</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">key</span>)
+
+		<span style="color:#75715e">// 只要是落在了l1(t1+b1)里的数据，都会被升级到t2
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Add the key to the frequently used list
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+
+	<span style="color:#75715e">// Check if this value was recently evicted as part of the
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// frequently used list
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b2</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">key</span>) {
+		<span style="color:#75715e">// T2 set is too small, decrease P appropriately
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">delta</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+		<span style="color:#a6e22e">b1Len</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b1</span>.<span style="color:#a6e22e">Len</span>()
+		<span style="color:#a6e22e">b2Len</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b2</span>.<span style="color:#a6e22e">Len</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b1Len</span> &gt; <span style="color:#a6e22e">b2Len</span> {
+			<span style="color:#a6e22e">delta</span> = <span style="color:#a6e22e">b1Len</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">b2Len</span>
+		}
+		<span style="color:#75715e">// 期望的他t1的长度，不可能是负数
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">delta</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span> {
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span> = <span style="color:#ae81ff">0</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span> <span style="color:#f92672">-=</span> <span style="color:#a6e22e">delta</span>
+		}
+
+		<span style="color:#75715e">// 当前缓存容量大于等于最大值，后面要加这个key，
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 需要驱逐数据，
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Potentially need to make room in the cache
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t1</span>.<span style="color:#a6e22e">Len</span>()<span style="color:#f92672">+</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Len</span>() <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">size</span> {
+			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#66d9ef">true</span>)
+		}
+
+		<span style="color:#75715e">// key会被升级到t2，因此从b2中删掉
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Remove from B2
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b2</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">key</span>)
+
+		<span style="color:#75715e">// Add the key to the frequently used list
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+
+	<span style="color:#75715e">// 这个key不在t1 b1 t2 b2，新加一个key，
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 但是当前容量大于等于最大值
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 因此需要驱逐其他的key
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Potentially need to make room in the cache
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t1</span>.<span style="color:#a6e22e">Len</span>()<span style="color:#f92672">+</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t2</span>.<span style="color:#a6e22e">Len</span>() <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">size</span> {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#66d9ef">false</span>)
+	}
+
+	<span style="color:#75715e">// Keep the size of the ghost buffers trim
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b1</span>.<span style="color:#a6e22e">Len</span>() &gt; <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">size</span><span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span> {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b1</span>.<span style="color:#a6e22e">RemoveOldest</span>()
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b2</span>.<span style="color:#a6e22e">Len</span>() &gt; <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">p</span> {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">b2</span>.<span style="color:#a6e22e">RemoveOldest</span>()
+	}
+
+	<span style="color:#75715e">// Add to the recently seen list
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">t1</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+}
+</code></pre></div>
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Caches on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/cache/</link>
+    <description>Recent content in Caches on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Jan 2022 19:49:48 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/cache/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arc: Adaptive Replacement Cache</title>
+      <link>https://wncbb.github.io/cache/arc/</link>
+      <pubDate>Mon, 10 Jan 2022 19:49:48 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/cache/arc/</guid>
+      <description>介绍 wiki地址
+ARC是一种比LRU表现更好的缓存算法。该算法会综合利用recency与frequency以及两者最近逐出的数据，来做缓存逐出。
+ARC会把cache directory分为两部分，T1与T2，分别对应recency与frequency。T1与T2分别对应两个ghost listB1与B2,分别存储T1与T2逐出的entry的key。
+Ghost lists可以追踪最近那些被逐出的entry的是从recency还是frquency被逐出的，从而动态调整T1与T2的值。
+T1: 存储LRU T2: 存储LFU B1: 存储从T1中逐出的entry B2: 存储从T2中逐出的entry
+T1与B1结合起来是L1; T2与B2结合起来是L2.
+整个L1与L2可以表示成如下所示的结构
+. . . [ B1 &amp;lt;-[ T1 &amp;lt;-!-&amp;gt; T2 ]-&amp;gt; B2 ] . . [ . . . . [ . . . . . . ! . .^. . . . ] . . . . ] [ fixed cache size (c) ] 里面的中括号存储的数据，是实实在在的cache数据。T1与T2的整体的长度是固定长度size。可以在B1与B2之间移动。
+L1是从右向左展示，比如!左侧的第一个数据，是LRU的最新的数据。 ^是期望的T1的长度，这个长度可以大于等于小于实际的长度。
+进入T1的新的entry，会从!左侧加入，慢慢被push到left，最后会被驱除出T1,放到B1里，最后会被彻底删除。
+如果L1里的数据，被再次访问，就会被加入到L2中。也就是!右侧第一个位置。如果L2中的数据被再次访问，会再次放到!右侧第一个位置。
+被加入T1 T2的entry,会导致!慢慢向^靠近。如果在cache中已经没有空闲位置了，^会决定从T1里还是T2里驱逐entry。</description>
+    </item>
+    
+  </channel>
+</rss>
