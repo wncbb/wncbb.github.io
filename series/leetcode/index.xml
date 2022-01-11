@@ -6,7 +6,17 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jan 2022 10:32:07 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Jan 2022 08:50:22 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mst_1724_max_submatrix_lcci</title>
+      <link>https://wncbb.github.io/leetcode/mst_1724_max_submatrix_lcci/</link>
+      <pubDate>Tue, 11 Jan 2022 08:50:22 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/leetcode/mst_1724_max_submatrix_lcci/</guid>
+      <description>面试题 17.24. 最大子矩阵
+/* . . . . . . . . i . . . . j . . . . i，j为两行的索引，然后每一列数据做求和，得到一维数字 那么，就转变成了求一维数组的最大连续子序列和 */ func getMaxMatrix(matrix [][]int) []int { res:=make([]int,4) m:=len(matrix) n:=len(matrix[0]) total:=math.MinInt32 // i标识上边界 	for i:=0;i&amp;lt;m;i++{ // j标识下边界 	for j:=i;j&amp;lt;m;j++{ // 把上下边界内部的数据，按照列求和 	var sumColumn = make([]int,n) for k:=0;k&amp;lt;n;k++{ for u:=i;u&amp;lt;=j;u++{ sumColumn[k]+=matrix[u][k] } } // 求一维数字连续子序列和的最大值 	l,r,max:=searchMaxSubsequence(sumColumn) //fmt.Println(l,r,max)  if max&amp;gt;total{ total=max res=[]int{i,l,j,r} //fmt.Println(&amp;#34;res:&amp;#34;,res) 	} } } return res } func searchMaxSubsequence(sc []int )(left int,right int,max int ){ left,right=0,0 tmpbegin:=left max=sc[0] dpi:=sc[0] for i:=1;i&amp;lt;len(sc);i++{ if dpi&amp;gt;0{ dpi+=sc[i] }else{ dpi=sc[i] tmpbegin=i } if dpi&amp;gt;max{ max=dpi left=tmpbegin right=i } } return } </description>
+    </item>
+    
     <item>
       <title>400.nth_digit</title>
       <link>https://wncbb.github.io/leetcode/400_nth_digit/</link>
