@@ -6,7 +6,18 @@
     <description>Recent content in OneProblemPerDays on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Jan 2022 09:09:50 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/oneproblemperday/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Jan 2022 09:33:13 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/oneproblemperday/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_11</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_11/</link>
+      <pubDate>Tue, 11 Jan 2022 09:33:13 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_11/</guid>
+      <description>leetcode-cn.com 1036.逃离大迷宫
+最佳题解
+type pair struct{ x, y int } var dirs = []pair{{-1, 0}, {1, 0}, {0, -1}, {0, 1}} // 因为表格很大，但是block不大，可以判断source/destination是否被block围起来，如果没有围起来，一定可以联通。 // 当然source destination被围在一起也可以  func isEscapePossible(block [][]int, source, target []int) bool { const ( blocked = -1 // 在包围圈中  valid = 0 // 不在包围圈中  found = 1 // 无论在不在包围圈中，但在 n(n-1)/2 步搜索的过程中经过了 target  boundary int = 1e6 ) n := len(block) if n &amp;lt; 2 { return true } blockSet := map[pair]bool{} for _, b := range block { blockSet[pair{b[0], b[1]}] = true } check := func(start, finish []int) int { sx, sy := start[0], start[1] fx, fy := finish[0], finish[1] // 对于n个block格子，能够围起来的空间最多是n*(n-1)/2  // 比如n=3  // .</description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_10</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</link>
