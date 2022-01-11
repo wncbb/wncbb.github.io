@@ -19,7 +19,7 @@ type pair struct{ x, y int } var dirs = []pair{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
     </item>
     
     <item>
-      <title>Mst_1724_max_submatrix_lcci</title>
+      <title>面试题 17.24. 最大子矩阵</title>
       <link>https://wncbb.github.io/leetcode/mst_1724_max_submatrix_lcci/</link>
       <pubDate>Tue, 11 Jan 2022 08:50:22 +0800</pubDate>
       
