@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>binary index tree on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/binary-index-tree/</link>
+    <description>Recent content in binary index tree on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Mar 2021 13:53:38 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/binary-index-tree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Binary Index Tree</title>
+      <link>https://wncbb.github.io/posts/algo/binary-index-tree/</link>
+      <pubDate>Tue, 02 Mar 2021 13:53:38 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/algo/binary-index-tree/</guid>
+      <description>package main import &amp;#34;fmt&amp;#34; type BinaryIndexTree struct { raw []int } // lowbit的作用： // x的二进制表示： xxxx...10...0 // 返回 10...0 // 换句话说，返回二进制表示形式中，最低位1所组成的数字 func lowbit(x int) int { return x &amp;amp; (-1 * x) } // Build创建 假设原始数组是s, 新的数组是a 为了方便，全部假设下标从1开始计数 // 1 第三层root // 1 5 第二层root // 1 3 5 7 第一层root // 1 2 3 4 5 6 7 8 新数组的下标，为了方便，从1开始计数，浪费下标0 // // 对于给定一个下标， // 对于奇数2i+1，a[2i+1]=s[2i+1] // // 换个角度，算下s[i]会影响数组a的哪些数值 // 答案：a[i]一定会被影响，然后影响右侧的包含s[i]的树 // 如何求i的右侧的第一棵树？ i+lowbit(i) 可以把i的二进制形式看做一颗树 // 1表示树，那么右侧第一棵树，就是i的最低位的1，这一位加1，就是右边第一棵树的索引 // 创建的时候，从左到右依次处理，那么每个元素只需要处理自己右侧最近的一棵树tree1即可(后面的树tree2,再计算tree1的时候，会修改tree2, 依次传递下去) func (b *BinaryIndexTree) Build(s []int) { b.</description>
+    </item>
+    
+  </channel>
+</rss>

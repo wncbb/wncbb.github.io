@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>3color &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>3color</h1>
+  <time datetime=2021-10-08T11:26:13&#43;0800 class="post-date">2021-10-08 11:26:13</time>
+  
+  <h2 id="三色">三色</h2>
+<p>强三色不变性: 任何黑色对象不能指向白色对象。</p>
+<p>弱三色不变性: Any white object pointed to by a black object is reachable from a grey object via a chain of white pointers (it is grey-protected). 任何被黑色对象指向的白色对象，可以从一个灰色对象，沿着白色对象引用到。
+举个例子：A(Black)-&gt;B(Grey)-&gt;C(White) =&gt; A(Black)-&gt;C(White)
+如果C(White)没有其他引用，那么不会被重新扫描，会被误删(C其实还有用，A还需要C)。
+假设有个灰色对象通过白色链路指向C,比如 D(Grey)-&gt;E(White)-&gt;F(White)&hellip;(White)&hellip;-&gt;G(White)-&gt;C(White)，
+那么C还可以在扫描D的子孙节点时被重新染色。</p>
+<p>Any write barrier has to prohibit a mutator from &ldquo;hiding&rdquo; an object; that is, rearranging the heap graph to violate the weak tricolor invariant so the garbage collector fails to mark a reachable object. For example, in a sense, the Dijkstra barrier allows a mutator to hide a white object by moving the sole pointer to it to a stack that has already been scanned. The Dijkstra barrier addresses this by making stacks permagray and re-scanning them during STW.
+任何写凭证需要防止muator hiding一个object。也就是，重新整理heap graph违反弱三色不变性会导致GC无法标记一个可达的对象。举个例子，Dijkstra屏障允许变异子通过将指向白色对象的唯一指针移动到已扫描的堆栈来隐藏白色对象。Dijstra barrier通过标记stack永远灰色，以及在STW期间重新扫描来达到这个目的。</p>
+<h3 id="过程">过程</h3>
+<p>开始所有都是白色
+从根开始，标记为灰色，放到灰色队列
+从灰色队列中遍历，将灰色节点的所有白色子节点标记为灰色放入灰色队列，本节点标记为黑色
+最后把白色的节点全部删除</p>
+<h3 id="问题">问题</h3>
+<p>如果标记过程中，A(Black)-&gt;B(Gray)-&gt;C(White)， 此时如果：</p>
+<ol>
+<li>修改A(Black)-&gt;C(White)</li>
+<li>删除B-&gt;C的指向
+那么最终变成  A(Black)-&gt;C(White) B(Gray)
+此时C不会再被标色了，那么C节点就会被错误的删除</li>
+</ol>
+<pre tabindex="0"><code>writePointer(slot, ptr):
+    shade(ptr)
+    *slot = ptr
+</code></pre><p>shade(ptr) 会将ptr涂成灰色(如果ptr不是灰色/黑色). 这保证了强三色不变，通过保证slot如果是黑色，ptr是白色的情况下，ptr不会被删除(ptr如果是白色，且父节点是黑色，那么黑色节点不会扫描孩子节点，白色节点永远是白色，会被误删)。</p>
+<p>Dijkstra插入屏障：破坏条件1，即如果要将A指向C，那么会把C标记为灰色。
+导致的问题：</p>
+<ol>
+<li>可能部分应该被回收的节点，此次GC无法被回收</li>
+<li>每次插入新的边，都要调用标灰逻辑</li>
+</ol>
+<p>对于栈上数据，本来栈上数据操作很快，加入标灰逻辑可能变慢
+golang采取如果栈上数据插入新的边，不触发写屏障(堆上数据会触发)，最后再STW rescan一遍</p>
+<p>删除屏障 （Yuasa）
+被删除对象被标记为灰色
+最终这个被删除对象会被标记为黑色，但是有可能这个被删除节点最后也没有被新的边引用，导致这个应该被删除的节点继续存活
+标记结束不需要STW，但是回收精度低，GC 开始时STW 扫描堆栈记录初始快照，保护开始时刻的所有存活对象；且容易产生“冗余”扫描；</p>
+<pre tabindex="0"><code>// 黑色赋值器 Yuasa 屏障
+func YuasaWritePointer(slot *unsafe.Pointer, ptr unsafe.Pointer) {
+    shade(*slot) 先将*slot标记为灰色
+    *slot = ptr
+}
+
+//说明：
+添加下游对象(当前下游对象slot， 新下游对象ptr) {
+  //step 1
+  if (当前下游对象slot是灰色 || 当前下游对象slot是白色) {
+          标记灰色(当前下游对象slot)     //slot为被删除对象， 标记为灰色
+  }  
+  //step 2
+  当前下游对象slot = 新下游对象ptr
+}
+
+//场景
+A.添加下游对象(B, nil)   //A对象，删除B对象的引用。B被A删除，被标记为灰(如果B之前为白)
+A.添加下游对象(B, C)     //A对象，更换下游B变成C。B被A删除，被标记为灰(如果B之前为白)
+</code></pre><h2 id="混合屏障">混合屏障</h2>
+<p>大大缩短了 STW 时间</p>
+<p>GC 开始将栈上的对象全部扫描并标记为黑色；
+GC 期间，任何在栈上创建的新对象，均为黑色；
+被删除的堆对象标记为灰色；
+被添加的堆对象标记为灰色；</p>
+<h2 id="gc触发时机">GC触发时机</h2>
+<p>主动触发（runtime.GC()）
+被动触发 （GC百分比、定时）</p>
+<h2 id="golang">golang</h2>
+<pre tabindex="0"><code>-gcflags '-m'
+
+go tool compile -S
+
+</code></pre>
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

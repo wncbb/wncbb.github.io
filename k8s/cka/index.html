@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CKA &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>CKA</h1>
+  <time datetime=2022-01-11T16:59:35&#43;0800 class="post-date">2022-01-11 16:59:35</time>
+  
+  <pre tabindex="0"><code>source &lt;(kubectl completion bash)
+kubectl config use-context k8s
+</code></pre><h2 id="1rbac-4">1.RBAC 4%</h2>
+<h3 id="context">Context</h3>
+<p>为部署管道创建一个新的ClusterRole并将其绑定到范围为特定的namespace的他特定ServiceAccount.</p>
+<h3 id="task">Task</h3>
+<p>创建一个名为deployment-clusterrole且仅允许创建以下资源类型的ClusterRole:</p>
+<p>Deployment StatefulSet DaemonSet</p>
+<p>在现有的namespace app-team1中创建一个名为cicd-token的新的ServiceAccount</p>
+<p>限于namespace app-team1,将新的ClusterRole deployment-clusterrole绑定到新的ServiceAccountt cicd-token.</p>
+<pre tabindex="0"><code>kubectl create clusterrole -h
+kubectl create clusterrole deployment-clusterrrole --verbe=create --resource=deployments,statefulsets,daemonsets
+
+kubectl -n app-team1 create serviceaccount -h
+kubectl -n app-team1 create serviceccount cicd-token
+# rolebinding clusterrolebinding
+kubectl -n app-team1 create rolebinding -h
+kubectl -n app-team1 create rolebinding cicd-token-binding --clusterrole=deployment-clusterinfo --serviceaccount=app-team1:cicd-token
+
+kubectl describe -n app-team1 rolebindings.rbac.authorization.k8s.io cicd-token-binding
+
+</code></pre><h2 id="2驱逐节点4">2.驱逐节点4%</h2>
+<h3 id="task-1">Task</h3>
+<p>将名为ek8s-node-1的节点设置为不可用，并重新调度在其上运行的所有pod(被调度到其他机器).</p>
+<pre tabindex="0"><code>kubectl get nodes
+kubectl -h
+// cordon 封锁线
+// drain 排干
+kubectl drain ek8s-node-1 --ignore-daemonsets
+
+kubectl get nodes
+</code></pre><h2 id="3集群升级7">3.集群升级7%</h2>
+<h3 id="task-2">Task</h3>
+<p>现有的kubernetes集群正在运行版本1.18.8，仅将主节点上的所有kubernetes控制平面与节点组件升级到版本1.19.0</p>
+<p>另外，在主节点上升级kubelet与kubectl</p>
+<p>确定在升级之前drain主节点，并在升级后uncordon主节点，请不要升级工作节点，etcd,container管理器，CNI插件，DNS服务或其他插件。</p>
+<pre tabindex="0"><code>kubectl get nodes
+ssh master-1
+sudo -i
+source &lt;(kubectl completion bash)
+kubectl drain master-1 --ignore-daemonsets
+apt-cache show kubeadm | grep 1.19.0
+apt-get install kubeadm=1.19.0-00
+kubeadm version
+kubeadm upgrade -h
+kubeadm upgrade apply -h
+kubeadm upgrade apply 1.19.0 --etcd-upgrade=false
+apt-get install kubelet=1.19.0-00
+kubelet --version
+kubectl version
+kubectl uncordon master-1
+kubectl get nodes
+
+
+</code></pre><h2 id="4etcd备份恢复7">4.ETCD备份恢复7%</h2>
+<h3 id="task-3">Task</h3>
+<p>首先，为运行在https://127.0.0.1:2379上的现有etcd实例创建快照并将快照保存到/var/lib/backup/etcd-snapshot.db</p>
+<p>然后还原位于/var/lib/backup/etcd-snapshot-previous.db</p>
+<p>提供了以下TLS证书与密钥，已通过etcdctl连接到服务器</p>
+<p>CA证书：/opt/KUIN00601/ca.crt
+客户端证书：/opt/KUIN00601/etcd-client.crt
+客户端密钥：/opt/KUIN00601/etcd-client.key</p>
+<p>先指定etcdctl的版本为3</p>
+<pre tabindex="0"><code>// on master-1
+export ETCDCTL_API=3
+etcdctl -h
+etcdctl --endpoints=https://127.0.0.1:2379 --cacert=&quot;/opt/KUIN00601/ca.crrt&quot; --cert=&quot;/opt/KUIN00601/server.crt&quot; --key=&quot;/opt/KUIN00601/server.key&quot; snapshot save  /var/lib/backup/etcd-snapshot.db 
+mkdir -p /var/lib/backup/
+etcdctl --endpoints=https://127.0.0.1:2379 --cacert=&quot;/opt/KUIN00601/ca.crrt&quot; --cert=&quot;/opt/KUIN00601/server.crt&quot; --key=&quot;/opt/KUIN00601/server.key&quot; snapshot status  /var/lib/backup/etcd-snapshot.db -wtable
+# 恢复不需要证书
+etcdctl -snapshot restore  /var/lib/backup/etcd-snapshot.db 
+exit
+exit
+# 注意所在的位置
+
+
+</code></pre><h2 id="5网络策略4">5.网络策略4%</h2>
+<h3 id="task-4">Task</h3>
+<p>在已有的命名空间foobar，创建一个名为allow-port-from-namespace的新NetworkPolicy，以允许namespace corp-bar访问其pods的端口9200</p>
+<p>copy from <a href="https://kubernetes.io/zh/docs/concepts/services-networking/network-policies/">https://kubernetes.io/zh/docs/concepts/services-networking/network-policies/</a>
+vim:
+set paste
+5.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">NetworkPolicy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">allow-port-from-namespace</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">foobar</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#ae81ff">podSelector:[]</span>
+  <span style="color:#f92672">policyTypes</span>:
+  - <span style="color:#ae81ff">Ingress</span>
+  <span style="color:#f92672">ingress</span>:
+  - <span style="color:#f92672">from</span>:
+    - <span style="color:#f92672">namespaceSelector</span>:
+        <span style="color:#f92672">matchLabels</span>:
+          <span style="color:#f92672">project</span>: <span style="color:#ae81ff">corp-bar</span>
+    <span style="color:#f92672">ports</span>:
+    - <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">9200</span> <span style="color:#75715e">#foobar里pods的9200</span>
+
+</code></pre></div><pre tabindex="0"><code>kubectl apply -f 5.yaml
+kubectl get networkpolicies.networking.k8s.io -n foobar allow-port-from-namespace
+</code></pre><p>有的题目是：</p>
+<pre tabindex="0"><code>相同命名空间的，用到pod-selector
+</code></pre><p>5.1.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">NetworkPolicy</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">allow-port-from-namespace</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">foobar</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">podSelector</span>: []
+  <span style="color:#f92672">policyTypes</span>:
+  - <span style="color:#ae81ff">Ingress</span>
+  <span style="color:#f92672">ingress</span>:
+  - <span style="color:#f92672">from</span>:
+    - <span style="color:#f92672">podSelector</span>: []
+    <span style="color:#f92672">ports</span>:
+    - <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">9200</span>
+</code></pre></div><pre tabindex="0"><code>kubectl apply -f 5.1.yaml
+</code></pre><h2 id="6svc-4">6.SVC 4%</h2>
+<p>重新配置现有的deployment font-end, 并添加名为HTTP的端口规范，以暴露现有容器nginx的端口80/TCP.</p>
+<p>创建一个名为font-end-svc的新服务，以暴露容器端口HTTP</p>
+<p>配置新服务以通过调度他们的节点上的NodePort暴露各个pod.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get deployments.apps
+kubectl edit deployments.apps front-end 
+<span style="color:#75715e"># 在name nginx下面加</span>
+name: nginx
+ports:
+- containerPort: <span style="color:#ae81ff">80</span>
+  name: http
+
+kubectl get pod
+
+<span style="color:#75715e">#创建svc </span>
+kubectl create svc -h
+kubectl create svc nodeport -h
+kubectl create svc nodeport front-end-svc --tcp<span style="color:#f92672">=</span>80:80
+kubectl get svc
+kubectl get deployemnts.apps front-end --show-labels
+
+kubectl get svc front-end-svc --show-labels
+</code></pre></div><h2 id="7ingrress-7">7.Ingrress 7%</h2>
+<h3 id="task-5">Task</h3>
+<p>创建一个名为nginx的ingress，并遵守以下规则</p>
+<p>Name: pong
+Namespace: ing-internal
+Exposing service hello on path /hello,使用端口5678
+验证
+curl -kL &lt;INTERNAL_IP&gt;/hello
+7.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pong</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">ing-internal</span>
+  <span style="color:#f92672">annotations</span>:
+    <span style="color:#f92672">nginx.ingress.kubernetes.io/rewrite-target</span>: <span style="color:#ae81ff">/</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">rules</span>:
+  - <span style="color:#f92672">http</span>:
+      <span style="color:#f92672">paths</span>:
+      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/hello</span>
+        <span style="color:#f92672">pathType</span>: <span style="color:#ae81ff">Prefix</span>
+        <span style="color:#f92672">backend</span>:
+          <span style="color:#f92672">service</span>:
+            <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello</span>
+            <span style="color:#f92672">port</span>:
+              <span style="color:#f92672">number</span>: <span style="color:#ae81ff">5678</span>
+
+
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f 7.yaml
+kubectl get ingress -n ing-internal
+kubectl edit ingress -n ing-intternal
+</code></pre></div><h2 id="8扩容4">8.扩容4%</h2>
+<h3 id="task-6">Task</h3>
+<p>将deployment web-server扩容到4个pods</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get deployments.apps
+kubectl scale deployment web-server --replicas<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>
+kubectl get get pods
+</code></pre></div><h2 id="9通过node标签调度pod-4">9.通过node标签调度pod 4%</h2>
+<h3 id="task-7">Task</h3>
+<p>按照以下规则调度pod
+name: nginx-kusc00401
+image: nginx
+Node selector: disk=ssd</p>
+<pre tabindex="0"><code>kubectl get nodes --show-labels
+kubectl run nginx-kusc00401 -h
+kubectl run nginx-kusc00401 --image=nginx --dry-run=client -oyaml &gt; 9.yaml
+
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">spec</span>:
+    <span style="color:#f92672">nodeSelector</span>:
+        <span style="color:#f92672">disk</span>: <span style="color:#ae81ff">ssd</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f 9.yaml
+kubectl get pod -o wide
+</code></pre></div><h2 id="10节点数量-4">10.节点数量 4%</h2>
+<h3 id="task-8">Task</h3>
+<p>检查并查看有多少节点准备就绪(不包括已经获得NoSchedule的节点)并将其西而入
+/opt/KUSC00402/kusc00503.txt</p>
+<pre tabindex="0"><code>kubectl describe node | grep -i Taint
+echo 2 &gt; /opt/KUSC00402/kusc00503.txt
+</code></pre><h2 id="11创建多容器pod-4">11.创建多容器pod 4%</h2>
+<h3 id="task-9">Task</h3>
+<p>创建一个名为kucc8的pod，并且使用以下镜像（可能指定了1到4个镜像）
+nginx+redis+memcached+consul</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl run kucc8 --image<span style="color:#f92672">=</span>nginx --dry-run<span style="color:#f92672">=</span>client  -oyaml &gt; 11.yaml
+
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">spec</span>:
+    <span style="color:#f92672">containers</span>:
+    - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx</span>
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+    - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis</span>
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+    - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">memcached</span>
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">memcached</span>
+    - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">consul</span>
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">consul</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f 11.yaml
+</code></pre></div><h2 id="12pv-4">12.pv 4%</h2>
+<h3 id="task-10">Task</h3>
+<p>创建一个名为app-config的pv，1G大小，权限为ReadOnlyMany使用hostPath类型挂载到本地位置为/srv/app-config</p>
+<p><a href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">search k8s pv</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">PersistentVolume</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">app-config</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">capacity</span>:
+    <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">1Gi</span>
+  <span style="color:#f92672">accessModes</span>:
+    - <span style="color:#ae81ff">ReadOnlyMane</span>
+  <span style="color:#f92672">hostPath</span>:
+    <span style="color:#f92672">patth</span>: <span style="color:#e6db74">&#34;/srv/app-config&#34;</span>
+</code></pre></div><h2 id="13pvc-7">13.pvc 7%</h2>
+<h3 id="task-11">Task</h3>
+<p>创建一个pvc，满足如下要求：
+Name: pv-volumne
+Class: csi-hostpath-sc
+Capacity: 10Mi
+创建一个pod并挂载PVC:
+name: test
+image: nginx
+Mount path: /usr/share/nginx/html
+编辑pod volume权限为ReadWriteOnce
+最后，使用kubectl edit或者kubectl patch将pvc大小改为70Mi</p>
+<p><a href="https://kubernetes.io/zh/docs/concepts/storage/dynamic-provisioning/">pvc</a>
+13.yaml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">PersistentVolumeClaim</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pv-volumne</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">accessModes</span>:
+    - <span style="color:#ae81ff">ReadWriteOnce</span>
+  <span style="color:#f92672">storageClassName</span>: <span style="color:#ae81ff">csi-hostpath-sc</span>
+  <span style="color:#f92672">resources</span>:
+    <span style="color:#f92672">requests</span>:
+      <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">10Mi</span>
+
+</code></pre></div><pre tabindex="0"><code>kubectl apply -f 13.yaml
+</code></pre><p>13.pod.yaml
+<a href="https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-persistent-volume-storage/">create pod with pvc</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">volumes</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pv-volumne</span>
+      <span style="color:#f92672">persistentVolumeClaim</span>:
+        <span style="color:#f92672">claimName</span>: <span style="color:#ae81ff">pv-volumne</span>
+  <span style="color:#f92672">containers</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx</span>
+      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx</span>
+      <span style="color:#f92672">ports</span>:
+        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">80</span>
+          <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;http-server&#34;</span>
+      <span style="color:#f92672">volumeMounts</span>:
+        - <span style="color:#f92672">mountPath</span>: <span style="color:#e6db74">&#34;/usr/share/nginx/html&#34;</span>
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pv-volum</span>
+
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f 13.pod.yaml
+
+kubectl edit pv-volum --record
+</code></pre></div><h2 id="14-输出日志5">14. 输出日志5%</h2>
+<h3 id="task-12">Task</h3>
+<p>监控bar的日志
+并将error字段内容输出到/opt/error.log</p>
+<pre tabindex="0"><code>kubectl get pod
+kubectl logs bar | grep errror &gt;&gt; /opt/error.log
+</code></pre><h2 id="15-sidecar-13">15. sidecar 13%</h2>
+<h3 id="task-13">Task</h3>
+<p>在pod big-corp-app中，增加一个busybox的sidecar，新的sidecar容器使用以下命令：
+/bin/sh -c tail -n+1 -f /var/log/big-corp-app.log
+挂载一个卷的名字叫logs，并确保/var/log/big-corp-app.log文件在sidecar中可达
+不要修改已经存在的容器
+不要修改日志路径与文件
+<a href="https://kubernetes.io/zh/docs/concepts/cluster-administration/logging/#sidecar-container-with-logging-agent">sidecar container with logging agent</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">   <span style="color:#f92672">volumeMounts</span>:
+   - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">logs</span>
+     <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/var/log</span>
+ - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">busybox</span>
+   <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox</span>
+   <span style="color:#f92672">args</span>: [<span style="color:#ae81ff">/bin/sh, -c, &#39;tail -n+1 -f /var/log/big-corp-app.log&#39;]</span>
+   <span style="color:#f92672">volumeMounts</span>:
+   - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">logs</span>
+     <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/var/log</span>
+ <span style="color:#f92672">volumes</span>:
+ - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">logs</span>
+   <span style="color:#f92672">emptyDir</span>: {}
+
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get pod big-corp-app -oyaml &gt; 15.yaml
+kubectl delete -f 15.yaml
+kubectl apply -f 15.yaml
+kubectl exec biig-corp-app -c busybox -- tail /var/log/big-corp-app.log
+</code></pre></div><h2 id="16top-5">16.top 5%</h2>
+<h3 id="task-14">Task</h3>
+<p>从pod标签为name=cpu-loader中找到CPU负载最大的pod的名称，并输出到/opt/KUT/K401.txt(该文件已经存在)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl top pod -A -l app<span style="color:#f92672">=</span>flannel --sort-by<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cpu&#39;</span>
+</code></pre></div><h2 id="17kubelet-13">17.kubelet 13%</h2>
+<h3 id="task-15">Task</h3>
+<p>名为wk8s-node-0的工作节点状态爱为notReady,找到并解决问题。</p>
+<pre tabindex="0"><code>ssh wk8s-node-0
+sudo -i
+systemctl status kubelet
+systemctl start kubelet
+systemctl enable kubelet
+exit
+exit
+kubectl get pods
+
+</code></pre>
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

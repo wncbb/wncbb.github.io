@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Redis &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Redis</h1>
+  <time datetime=2021-09-10T20:56:49&#43;0800 class="post-date">2021-09-10 20:56:49</time>
+  
+  <h2 id="references">References</h2>
+<p><a href="https://qiankunli.github.io/2020/08/04/redis_practice.html">https://qiankunli.github.io/2020/08/04/redis_practice.html</a></p>
+<p><a href="https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA">https://mp.weixin.qq.com/s/b7Qnzh1EIM4wbExwmIkJyA</a></p>
+<h2 id="数据结构">数据结构</h2>
+<h3 id="对外数据结构">对外数据结构</h3>
+<h4 id="1-string">1. string</h4>
+<p>数字: int</p>
+<p>长度小于39: embstr(SDS，meta数据与value连续存储)</p>
+<p>长度大于39: raw(SDS)</p>
+<h4 id="2-list">2. list</h4>
+<p>ziplist: 1.元素长度小于64字节，2.元素个数小于512</p>
+<p>双向链表:</p>
+<h4 id="3-hash">3. hash</h4>
+<p>ziplist: 1.元素长度小于64字节，2.元素个数小于512</p>
+<p>hash表</p>
+<h4 id="4-set">4. set</h4>
+<p>intset: 1.元素都是int，2.元素个数小于512</p>
+<p>hash表:</p>
+<h4 id="5-zset">5. zset</h4>
+<p>ziplist: 1. 元素小于64 3. 元素个数小于128</p>
+<p>skiplist+hash：</p>
+<h4 id="6-geo">6. geo</h4>
+<h4 id="7-hyperloglog">7. hyperloglog</h4>
+<h4 id="8-pubsub">8. pub/sub</h4>
+<h3 id="内部数据结构">内部数据结构</h3>
+<h5 id="1-简单动态字符串sds">1. 简单动态字符串（SDS）</h5>
+<h5 id="2-链表">2. 链表</h5>
+<h5 id="3-字典">3. 字典</h5>
+<h5 id="4-跳跃表">4. 跳跃表</h5>
+<h5 id="5-整数集合">5. 整数集合</h5>
+<h5 id="6-压缩列表">6。 压缩列表</h5>
+<h2 id="redis为啥快">redis为啥快？</h2>
+<ol>
+<li>单进程单线程模型的 KV 数据库，不存在进程线程切换导致的开销，不存在锁</li>
+<li>完全基于内存，数据结构简单</li>
+<li>采用IO多路复用</li>
+</ol>
+<h3 id="相关问题">相关问题</h3>
+<ol>
+<li>多核系统，浪费资源？</li>
+</ol>
+<p>单机开多个redis实例</p>
+<h2 id="数据持久化方式">数据持久化方式</h2>
+<h3 id="rdb">RDB</h3>
+<p>过程：</p>
+<ol>
+<li>当redis需要做持久化时，redis会fork一个子进程。</li>
+<li>父进程继续处理client请求，子进程负责将内存内容写入到临时RDB文件。由于os的写时复制机制（copy on write)父子进程会共享相同的物理页面，当父进程处理写请求时os会为父进程要修改的页面创建副本，而不是写共享的页面。所以子进程的地址空间（地址空间（address space）表示任何一个计算机实体所占用的内存大小）内的数据是fork时刻整个数据库的一个快照。</li>
+<li>当子进程完成写临时文件后，将原来的RDB替换掉，这样的好处就是可以copy-on-write（Copy-on-write 写时复制在对数据进行修改的时候，不会直接在原来的数据位置上进行操作，而是重新找个位置修改，这样的好处是一旦系统突然断电，重启之后不需要做Fsck.）</li>
+</ol>
+<h3 id="aof-append-only-file">AOF: Append-only File</h3>
+<h3 id="问题">问题</h3>
+<ol>
+<li>同事开启rdb/aof，会使用谁？</li>
+</ol>
+<p>aof，数据更新频率比rdb高；丢失的数据应该比rdb少</p>
+<h2 id="主从同步">主从同步</h2>
+<ol>
+<li>slave -&gt; master psync</li>
+<li>master dump 一个rdb，在此期间master处理的线上请求会同时写到缓存中</li>
+<li>master把rdb发给slave，slave写到本地磁盘，再加载到内存</li>
+<li>master把在此期间缓存的命令发给slave</li>
+</ol>
+<h2 id="哨兵集群">哨兵/集群</h2>
+<ol>
+<li>
+<p>哨兵</p>
+</li>
+<li>
+<p>集群</p>
+</li>
+</ol>
+<h2 id="缓存相关问题">缓存相关问题</h2>
+<h3 id="缓存雪崩">缓存雪崩</h3>
+<p>大量key在同一时间失效</p>
+<p>key的过期时间加一个随机值，防止同一时间大量key失效</p>
+<h3 id="缓存穿透">缓存穿透</h3>
+<p>某个数据不在缓存中，也不在数据库中</p>
+<ol>
+<li>检查请求参数，尽量过滤不合法请求</li>
+<li>请求加频控</li>
+<li>给不存在的数据加一个占位符</li>
+<li>bloom过滤器</li>
+</ol>
+<h3 id="缓存击穿">缓存击穿</h3>
+<p>单个热点key，突然失效，导致大量请求同时打到数据库</p>
+<ol>
+<li>热点key永不过期，主动刷新缓存方式更新</li>
+<li>加互斥锁，key不存在时只放一个请求去数据库load数据</li>
+</ol>
+<h2 id="缓存逐出算法">缓存逐出算法</h2>
+<ol>
+<li>noeviction</li>
+</ol>
+<blockquote>
+<p>Returns an error if the memory limit has been reached when trying to insert more data</p>
+</blockquote>
+<p>返回错误当内存限制达到并且客户端尝试执行会让更多内存被使用的命令（大部分的写入指令，但DEL和几个例外）</p>
+<ol start="2">
+<li>allkeys-lru</li>
+</ol>
+<blockquote>
+<p>Evicts the least recently used keys out of all keys</p>
+</blockquote>
+<ol start="3">
+<li>allkeys-lfu</li>
+</ol>
+<blockquote>
+<p>Evicts the least frequently used keys out of all keys</p>
+</blockquote>
+<ol start="4">
+<li>allkeys-random</li>
+</ol>
+<blockquote>
+<p>Randomly evicts keys out of all keys</p>
+</blockquote>
+<ol start="5">
+<li>volatile-lru</li>
+</ol>
+<blockquote>
+<p>Evicts the least recently used keys out of all keys with an “expire” field set</p>
+</blockquote>
+<ol start="6">
+<li>volatile-lfu</li>
+</ol>
+<blockquote>
+<p>Evicts the least frequently used keys out of all keys with an “expire” field set</p>
+</blockquote>
+<ol start="7">
+<li>volatile-random</li>
+</ol>
+<blockquote>
+<p>Randomly evicts keys with an “expire” field set</p>
+</blockquote>
+<ol start="8">
+<li>volatile-ttl</li>
+</ol>
+<blockquote>
+<p>Evicts the shortest time-to-live keys out of all keys with an “expire” field set.</p>
+</blockquote>
+<h2 id="缓存更新模式">缓存更新模式</h2>
+<p>Cache Aside Pattern</p>
+<p>读的时候，先读缓存，缓存没有的话，就读数据库，然后取出数据后放入缓存，同时返回响应。
+更新的时候，先更新数据库，然后再删除缓存</p>
+<h3 id="问题-1">问题</h3>
+<ol>
+<li>为什么是删除缓存，而不是更新缓存？</li>
+</ol>
+<p>如果QPS低，立即更新缓存收益不大；有的场景为了更新缓存需要再从数据库中读取一次数据</p>
+<h2 id="memcache-redis区别">memcache redis区别</h2>
+<ol>
+<li>redis支持集群策略</li>
+<li>redis拥有丰富的数据类型</li>
+<li>对于大文件的存储，memcache效率更高(&gt;100kB);对于小文件，redis效率更高</li>
+</ol>
+<h2 id="redis线程模型">redis线程模型</h2>
+<p>Redis 内部使用文件事件处理器 file event handler，这个文件事件处理器是单线程的，所以 Redis 才叫做单线程的模型。它采用 IO 多路复用机制同时监听多个 Socket，根据 Socket 上的事件来选择对应的事件处理器进行处理。
+文件事件处理器的结构包含 4 个部分：</p>
+<ol>
+<li>多个 Socket</li>
+<li>IO 多路复用程序</li>
+<li>文件事件分派器</li>
+<li>事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）</li>
+</ol>
+<p>多个 Socket 可能会并发产生不同的操作，每个操作对应不同的文件事件，但是 IO 多路复用程序会监听多个 Socket，会将 Socket 产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应的事件处理器进行处理。</p>
+<h2 id="分片为什么是16384">分片为什么是16384？</h2>
+<p>The reason is:</p>
+<p>Normal heartbeat packets carry the full configuration of a node, that can be replaced in an idempotent way with the old in order to update an old config. This means they contain the slots configuration for a node, in raw form, that uses 2k of space with16k slots, but would use a prohibitive 8k of space using 65k slots.
+At the same time it is unlikely that Redis Cluster would scale to more than 1000 mater nodes because of other design tradeoffs.
+So 16k was in the right range to ensure enough slots per master with a max of 1000 maters, but a small enough number to propagate the slot configuration as a raw bitmap easily. Note that in small clusters the bitmap would be hard to compress because when N is small the bitmap would have slots/N bits set that is a large percentage of bits set.</p>
+<p>(1)如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大。
+如上所述，在消息头中，最占空间的是myslots[CLUSTER_SLOTS/8]。
+当槽位为65536时，这块的大小是:
+65536÷8÷1024=8kb
+因为每秒钟，redis节点需要发送一定数量的ping消息作为心跳包，如果槽位为65536，这个ping消息的消息头太大了，浪费带宽。
+(2)redis的集群主节点数量基本不可能超过1000个。
+如上所述，集群节点越多，心跳包的消息体内携带的数据越多。如果节点过1000个，也会导致网络拥堵。因此redis作者，不建议redis cluster节点数量超过1000个。
+那么，对于节点数在1000以内的redis cluster集群，16384个槽位够用了。没有必要拓展到65536个。
+(3)槽位越小，节点少的情况下，压缩比高
+Redis主节点的配置信息中，它所负责的哈希槽是通过一张bitmap的形式来保存的，在传输过程中，会对bitmap进行压缩，但是如果bitmap的填充率slots / N很高的话(N表示节点数)，bitmap的压缩率就很低。
+如果节点数很少，而哈希槽数量很多的话，bitmap的压缩率就很低。</p>
+<p>ps：文件压缩率指的是，文件压缩前后的大小比。</p>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

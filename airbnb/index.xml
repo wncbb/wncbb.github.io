@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Airbnbs on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/airbnb/</link>
+    <description>Recent content in Airbnbs on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Sep 2021 13:35:21 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/airbnb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1. Max Collatz</title>
+      <link>https://wncbb.github.io/airbnb/collatz/</link>
+      <pubDate>Fri, 10 Sep 2021 13:35:21 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/airbnb/collatz/</guid>
+      <description>References  https://pe.metaquant.org/pe014.html  Problem 对于所有正整数，考虑如下迭代序列：
+if n%2==0{ n=n/2 }else{ n=n*3+1 } 经过有限次步骤，一定能到1
+现在给定一个数n，求[1, n]中，步骤最大的数
+Key  用缓存存储中间结果，方便后面数字使用 对于3*n+1，一定是偶数，可以一次算两步  Codes Golang package main import &amp;#34;fmt&amp;#34; func maxCollatz(n int64) (int64, int64) { if n == 1 { return 1, 0 } num2Step := make(map[int64]int64) num2Step[1] = 0 rstStep := int64(0) rstNum := int64(0) for i := int64(1); i &amp;lt;= n; i++ { curNum := i curStep := int64(0) for curNum !</description>
+    </item>
+    
+  </channel>
+</rss>

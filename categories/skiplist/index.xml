@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>skiplist on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/skiplist/</link>
+    <description>Recent content in skiplist on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 30 Dec 2020 16:37:20 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/skiplist/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1206.design-skiplist</title>
+      <link>https://wncbb.github.io/posts/leetcode/1206.design-skiplist/</link>
+      <pubDate>Wed, 30 Dec 2020 16:37:20 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/1206.design-skiplist/</guid>
+      <description>1import ( 2	&amp;#34;math/rand&amp;#34; 3) 4 5const ( 6	maxLevel = 16 7	skipListPVal = 0.5 8) 9 10// randomLevel 返回一个Next数组的高度, 高度不能超过最大值 11func randomLevel() int { 12	retLevel := 1 13	for retLevel &amp;lt; maxLevel &amp;amp;&amp;amp; rand.Float32() &amp;lt; skipListPVal { 14	retLevel++ 15	} 16	return retLevel 17} 18 19type Node struct { 20	Val int 21	Next [maxLevel]*Node 22} 23 24func NewNode(val int, next [maxLevel]*Node) *Node { 25	return &amp;amp;Node{ 26	Val: val, 27	Next: next, 28	} 29} 30 31type Skiplist struct { 32	head *Node 33	maxLevel int 34} 35 36func Constructor() Skiplist { 37	return Skiplist{ 38	// head 里的值是最小值,这里取-1 39	head: NewNode(-1, [maxLevel]*Node{}), 40	maxLevel: 1, 41	} 42} 43 44func (this *Skiplist) search(target int) [maxLevel]*Node { 45	cur := this.</description>
+    </item>
+    
+  </channel>
+</rss>

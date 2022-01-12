@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Binary Index Tree &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Binary Index Tree</h1>
+  <time datetime=2021-03-02T13:53:38&#43;0800 class="post-date">2021-03-02 13:53:38</time>
+  <a href="/series/algo_base">#algo_base</a>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BinaryIndexTree</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">raw</span> []<span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#75715e">// lowbit的作用：
+</span><span style="color:#75715e">// x的二进制表示： xxxx...10...0
+</span><span style="color:#75715e">// 返回  10...0 
+</span><span style="color:#75715e">// 换句话说，返回二进制表示形式中，最低位1所组成的数字
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">&amp;</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">x</span>)
+}
+
+<span style="color:#75715e">// Build创建  假设原始数组是s, 新的数组是a  为了方便，全部假设下标从1开始计数
+</span><span style="color:#75715e">//               1  第三层root
+</span><span style="color:#75715e">//       1       5  第二层root
+</span><span style="color:#75715e">//   1   3   5   7  第一层root
+</span><span style="color:#75715e">// 1 2 3 4 5 6 7 8  新数组的下标，为了方便，从1开始计数，浪费下标0
+</span><span style="color:#75715e">// 
+</span><span style="color:#75715e">// 对于给定一个下标，
+</span><span style="color:#75715e">// 对于奇数2i+1，a[2i+1]=s[2i+1]
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">// 换个角度，算下s[i]会影响数组a的哪些数值
+</span><span style="color:#75715e">// 答案：a[i]一定会被影响，然后影响右侧的包含s[i]的树
+</span><span style="color:#75715e">// 如何求i的右侧的第一棵树？   i+lowbit(i) 可以把i的二进制形式看做一颗树
+</span><span style="color:#75715e">// 1表示树，那么右侧第一棵树，就是i的最低位的1，这一位加1，就是右边第一棵树的索引
+</span><span style="color:#75715e">// 创建的时候，从左到右依次处理，那么每个元素只需要处理自己右侧最近的一棵树tree1即可(后面的树tree2,再计算tree1的时候，会修改tree2, 依次传递下去)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>) <span style="color:#a6e22e">Build</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span> = make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, len(<span style="color:#a6e22e">s</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s</span> {
+		<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">idx</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">v</span>
+	}
+
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">i</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>) {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;line22 i:%d lowbit(i):%d j:%d\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">j</span>)
+			<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">i</span>]
+		}
+	}
+}
+
+<span style="color:#75715e">// idx+lowbit(idx)算右侧的第一棵树
+</span><span style="color:#75715e">// idx-lowbit(idx)算左侧的第一棵树
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>) <span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">delta</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">idx</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span> &lt; len(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>) {
+		<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">idx</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">delta</span>
+		<span style="color:#a6e22e">idx</span> = <span style="color:#a6e22e">idx</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">idx</span>)
+	}
+}
+
+<span style="color:#75715e">// PrefixSum 计算[0, idx]区间的和
+</span><span style="color:#75715e">// 只需要计算idx本身的值，再加上左侧的没包含在a[idx]里的树的root值
+</span><span style="color:#75715e">// 如何计算idx左侧的树的root值在数组a里的索引？ 答案: idx-lowbit(idx)
+</span><span style="color:#75715e">// 然后一次传递下去
+</span><span style="color:#75715e">//               1  第三层root
+</span><span style="color:#75715e">//       1       5  第二层root
+</span><span style="color:#75715e">//   1   3   5   7  第一层root
+</span><span style="color:#75715e">// 1 2 3 4 5 6 7 8  新数组的下标，为了方便，从1开始计数，浪费下标0
+</span><span style="color:#75715e">// 比如idx=7， 7=0b111, 左边树所在a的索引依次是0b110=6, 0b100=4, 可以看做是依次减去lowbit(i)， 6=7-lowbit(7) 4=6-lowbit(6) 0=4-lowbit(4)(0不用处理) 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>) <span style="color:#a6e22e">PrefixSum</span>(<span style="color:#a6e22e">idx</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">idx</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span> &gt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">raw</span>[<span style="color:#a6e22e">idx</span>]
+		<span style="color:#a6e22e">idx</span> = <span style="color:#a6e22e">idx</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">lowbit</span>(<span style="color:#a6e22e">idx</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BinaryIndexTree</span>) <span style="color:#a6e22e">RangeSum</span>(<span style="color:#a6e22e">fromIdx</span>, <span style="color:#a6e22e">toIdx</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#75715e">// 闭区间[fromIdx, toIdx]
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// x x x ... fromIdx ... toIdx ... x
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// ---------------------------  这一行减去下一行
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// ----------
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 所以是prefixSum(toIdx)-prefixSum(fromIdx-1)
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">PrefixSum</span>(<span style="color:#a6e22e">toIdx</span>) <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">PrefixSum</span>(<span style="color:#a6e22e">fromIdx</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">9</span>}
+	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">BinaryIndexTree</span>{}
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Build</span>(<span style="color:#a6e22e">s</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;s: %+v\n&#34;</span>, <span style="color:#a6e22e">s</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;b: %+v\n&#34;</span>, <span style="color:#a6e22e">b</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;b: %v\n&#34;</span>, <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">RangeSum</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>))
+}
+</code></pre></div><h2 id="references">References</h2>
+<p><a href="https://www.cnblogs.com/hsd-/p/6139376.html">https://www.cnblogs.com/hsd-/p/6139376.html</a></p>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>list on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/list/</link>
+    <description>Recent content in list on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Feb 2021 15:58:28 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/list/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>0025.reverse-nodes-in-k-group</title>
+      <link>https://wncbb.github.io/posts/leetcode/0025.reverse-nodes-in-k-group/</link>
+      <pubDate>Thu, 25 Feb 2021 15:58:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0025.reverse-nodes-in-k-group/</guid>
+      <description>1package main 2 3import &amp;#34;fmt&amp;#34; 4 5// Definition for singly-linked list. 6type ListNode struct { 7	Val int 8	Next *ListNode 9} 10 11func reverseKGroup(head *ListNode, k int) *ListNode { 12	if head==nil || head.Next==nil{ 13	return head 14	} 15	if k&amp;lt;=1{ 16	return head 17	} 18 19	lastNode:=head 20	for i:=0; i &amp;lt; k-1; i++ { 21	lastNode = lastNode.Next 22	if lastNode==nil{ 23	return head 24	} 25	} 26 27	// nextPartHead是下一段的开始节点 28	nextPartHead := lastNode.</description>
+    </item>
+    
+  </channel>
+</rss>

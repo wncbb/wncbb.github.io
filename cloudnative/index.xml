@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CloudNatives on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/cloudnative/</link>
+    <description>Recent content in CloudNatives on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Aug 2021 14:14:34 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/cloudnative/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Note</title>
+      <link>https://wncbb.github.io/cloudnative/note/</link>
+      <pubDate>Fri, 27 Aug 2021 14:14:34 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/cloudnative/note/</guid>
+      <description>云开发/云交付
+不可变基础设施（Immutable Infrastructure）</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Databases on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/database/</link>
+    <description>Recent content in Databases on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Sep 2021 15:10:14 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>范式</title>
+      <link>https://wncbb.github.io/database/nf/</link>
+      <pubDate>Tue, 28 Sep 2021 15:10:14 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/nf/</guid>
+      <description>第一范式(1NF)（每一列不可再分）  An attribute (column) of a table cannot hold multiple values. It should hold only atomic values.
+ 1NF是对属性的原子性，要求属性具有原子性，不可再分解；
+表：字段1、 字段2(字段2.1、字段2.2)、字段3 &amp;hellip;&amp;hellip; 如学生（学号，姓名，性别，出生年月日），如果认为最后一列还可以再分成（出生年，出生月，出生日），它就不是一范式了，否则就是。
+第二范式(2NF) 要有唯一主键  A relation will be in 2NF if it is in 1NF and all non-key attributes are fully functional dependent on the primary key.
+ 第三范式(3NF) 非主键唯一依赖主键(不存在传递依赖)  A relation will be in 3NF if it is in 2NF and no transition dependency exists.</description>
+    </item>
+    
+    <item>
+      <title>Deadlock</title>
+      <link>https://wncbb.github.io/database/deadlock/</link>
+      <pubDate>Wed, 25 Aug 2021 15:16:59 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/deadlock/</guid>
+      <description>事务四要素ACID  Atomicity Consistency Isolaction Durability  问题 1. dirty read 事务二，读到事务一未提交的修改
+// balance = 1000 T1: UPDATE account SET balance = balance - 100 WHERE name = &#39;A&#39;; # 900 T2: SELECT balance FROM account WHERE name = &#39;A&#39;; # 900 2. unrepeatable read 事务二，读到事务一提交的修改
+3. phantom read(幻读) 4. lost update(丢失更新) 1,2,3都是一个事务读，一个事务写；如果两个事务一起写。 例子(丢失更新，提交覆盖，read-modify-write)：
+T1读出balance是1000， T2读出balance是1000， T1减掉100，balance-&amp;gt;1000-100 T2增加100，balance-&amp;gt;1000+100 T2 commit，balacnce=1100 T1 commit，balance=900 回滚覆盖例子
+T1读出balance是1000， T2读出balance是1000， T2 +100, balance-&amp;gt;1000+100 T2 commit T1 rollback, balance-&amp;gt;1000 隔离级别 1.</description>
+    </item>
+    
+    <item>
+      <title>Transaction</title>
+      <link>https://wncbb.github.io/database/transaction/</link>
+      <pubDate>Mon, 23 Aug 2021 18:11:26 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/database/transaction/</guid>
+      <description>刚性事务 柔性事务
+ACID A: Atomicity 原子性
+C: Consistency 一致性
+I: Isolation 隔离性
+D: Durability 持久性
+CAP 理论 C: Consistency 一致性
+A: Availability 可用性
+P: Partition tolerance 分区容错性
+ CP: 如果选择CP，发生网络故障，追求一致性会有数据请求延迟阻塞，可用性无法满足
+AP: 如果选择CP，发生网络故障，追求可用性，会有数据延迟备份，一致性无法满足
+BASE BA: Basically Available
+S: Soft state
+E: Eventually consistent
+TCC Try Commit Cancel
+Try: 资源锁定
+Commit: 资源使用正式提交
+Cancel: 资源释放
+SAGA T1 -&amp;gt; T2 -&amp;gt; T3 -&amp;gt; T4 C1 C2 C3 C4
+执行T1,T2,T3，如果T3失败了，就回退执行C2，C1
+协同式 编排式 SAGA/TCC 对 ACID的保证情况 原子性（Atomicity）：正常情况下保证。 full atomicity is not provided.</description>
+    </item>
+    
+  </channel>
+</rss>

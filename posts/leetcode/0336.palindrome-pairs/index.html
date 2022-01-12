@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>0336.palindrome-pairs &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>0336.palindrome-pairs</h1>
+  <time datetime=2020-12-18T19:36:38&#43;0800 class="post-date">2020-12-18 19:36:38</time>
+  <a href="/series/leetcode">#leetcode</a>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1"> 1</a></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">palindromePairs</span>(<span style="color:#a6e22e">words</span> []<span style="color:#66d9ef">string</span>) [][]<span style="color:#66d9ef">int</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2"> 2</a></span>	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">words</span>))
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="3"><a style="outline: none; text-decoration:none; color:inherit" href="#3"> 3</a></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">words</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="4"><a style="outline: none; text-decoration:none; color:inherit" href="#4"> 4</a></span>		<span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">v</span>] = <span style="color:#a6e22e">idx</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="5"><a style="outline: none; text-decoration:none; color:inherit" href="#5"> 5</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="6"><a style="outline: none; text-decoration:none; color:inherit" href="#6"> 6</a></span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="7"><a style="outline: none; text-decoration:none; color:inherit" href="#7"> 7</a></span>	<span style="color:#a6e22e">res</span> <span style="color:#f92672">:=</span> make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="8"><a style="outline: none; text-decoration:none; color:inherit" href="#8"> 8</a></span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="9"><a style="outline: none; text-decoration:none; color:inherit" href="#9"> 9</a></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">words</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="10"><a style="outline: none; text-decoration:none; color:inherit" href="#10">10</a></span>		<span style="color:#75715e">// 如果非空字符串v是回文串，且字符数组中包含空字符串，那么  v+&#34;&#34; 与 &#34;&#34;+v 都是回文串
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="11"><a style="outline: none; text-decoration:none; color:inherit" href="#11">11</a></span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">emptyStrIdx</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>[<span style="color:#e6db74">&#34;&#34;</span>]; <span style="color:#a6e22e">ok</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isPalindrome</span>(<span style="color:#a6e22e">v</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="12"><a style="outline: none; text-decoration:none; color:inherit" href="#12">12</a></span>			<span style="color:#a6e22e">res</span> = append(<span style="color:#a6e22e">res</span>, []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">emptyStrIdx</span>, <span style="color:#a6e22e">idx</span>})
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="13"><a style="outline: none; text-decoration:none; color:inherit" href="#13">13</a></span>			<span style="color:#a6e22e">res</span> = append(<span style="color:#a6e22e">res</span>, []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">emptyStrIdx</span>})
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="14"><a style="outline: none; text-decoration:none; color:inherit" href="#14">14</a></span>		}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="15"><a style="outline: none; text-decoration:none; color:inherit" href="#15">15</a></span>		<span style="color:#75715e">// v的逆序字符串存在的话，那么这俩一拼也是回文串，注意这里只加一次(
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="16"><a style="outline: none; text-decoration:none; color:inherit" href="#16">16</a></span><span style="color:#75715e"></span>		<span style="color:#75715e">//  比如A的逆序是B, 遍历到A的话，加入A,B;
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="17"><a style="outline: none; text-decoration:none; color:inherit" href="#17">17</a></span><span style="color:#75715e"></span>		<span style="color:#75715e">//  遍历到B的时候，加入B,A，就不会重复
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="18"><a style="outline: none; text-decoration:none; color:inherit" href="#18">18</a></span><span style="color:#75715e"></span>		<span style="color:#75715e">// )
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="19"><a style="outline: none; text-decoration:none; color:inherit" href="#19">19</a></span><span style="color:#75715e"></span>        <span style="color:#75715e">// 其实v != getReverse(v) 也可以换成 idx!=reverseIdx, 自己如果是回文串，那么一定找不到不是自己的逆序，
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="20"><a style="outline: none; text-decoration:none; color:inherit" href="#20">20</a></span><span style="color:#75715e"></span>        <span style="color:#75715e">// 因为回文串的逆序就是它自己
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="21"><a style="outline: none; text-decoration:none; color:inherit" href="#21">21</a></span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">reverseIdx</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">getReverse</span>(<span style="color:#a6e22e">v</span>)]; <span style="color:#a6e22e">ok</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">getReverse</span>(<span style="color:#a6e22e">v</span>) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="22"><a style="outline: none; text-decoration:none; color:inherit" href="#22">22</a></span>			<span style="color:#a6e22e">res</span> = append(<span style="color:#a6e22e">res</span>, []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">reverseIdx</span>})
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="23"><a style="outline: none; text-decoration:none; color:inherit" href="#23">23</a></span>		}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="24"><a style="outline: none; text-decoration:none; color:inherit" href="#24">24</a></span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">v</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="25"><a style="outline: none; text-decoration:none; color:inherit" href="#25">25</a></span>			<span style="color:#75715e">// 这里直接肢解v，且肢解的两部分不能包含空字符串
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="26"><a style="outline: none; text-decoration:none; color:inherit" href="#26">26</a></span><span style="color:#75715e"></span>			<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">divideStr</span>(<span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">i</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="27"><a style="outline: none; text-decoration:none; color:inherit" href="#27">27</a></span>			<span style="color:#75715e">// 想要拼一个  s1 s2 x, 那么要求就是s2是回文串，x是s1的逆序，且自己不能跟自己连接
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="28"><a style="outline: none; text-decoration:none; color:inherit" href="#28">28</a></span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">anotherIdx</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">getReverse</span>(<span style="color:#a6e22e">s1</span>)]; <span style="color:#a6e22e">ok</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isPalindrome</span>(<span style="color:#a6e22e">s2</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">anotherIdx</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="29"><a style="outline: none; text-decoration:none; color:inherit" href="#29">29</a></span>				<span style="color:#a6e22e">tmp</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">anotherIdx</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="30"><a style="outline: none; text-decoration:none; color:inherit" href="#30">30</a></span>				<span style="color:#a6e22e">res</span> = append(<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">tmp</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="31"><a style="outline: none; text-decoration:none; color:inherit" href="#31">31</a></span>			}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="32"><a style="outline: none; text-decoration:none; color:inherit" href="#32">32</a></span>			<span style="color:#75715e">// 想要拼一个  x s1 s2，那么要求s1是回文串，且x是s2的逆序，且自己不能跟自己连接
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="33"><a style="outline: none; text-decoration:none; color:inherit" href="#33">33</a></span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">anotherIdx</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">getReverse</span>(<span style="color:#a6e22e">s2</span>)]; <span style="color:#a6e22e">ok</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isPalindrome</span>(<span style="color:#a6e22e">s1</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">anotherIdx</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="34"><a style="outline: none; text-decoration:none; color:inherit" href="#34">34</a></span>				<span style="color:#a6e22e">tmp</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">anotherIdx</span>, <span style="color:#a6e22e">idx</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="35"><a style="outline: none; text-decoration:none; color:inherit" href="#35">35</a></span>				<span style="color:#a6e22e">res</span> = append(<span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">tmp</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="36"><a style="outline: none; text-decoration:none; color:inherit" href="#36">36</a></span>			}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="37"><a style="outline: none; text-decoration:none; color:inherit" href="#37">37</a></span>		}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="38"><a style="outline: none; text-decoration:none; color:inherit" href="#38">38</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="39"><a style="outline: none; text-decoration:none; color:inherit" href="#39">39</a></span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="40"><a style="outline: none; text-decoration:none; color:inherit" href="#40">40</a></span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="41"><a style="outline: none; text-decoration:none; color:inherit" href="#41">41</a></span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="42"><a style="outline: none; text-decoration:none; color:inherit" href="#42">42</a></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isPalindrome</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="43"><a style="outline: none; text-decoration:none; color:inherit" href="#43">43</a></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="44"><a style="outline: none; text-decoration:none; color:inherit" href="#44">44</a></span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="45"><a style="outline: none; text-decoration:none; color:inherit" href="#45">45</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="46"><a style="outline: none; text-decoration:none; color:inherit" href="#46">46</a></span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="47"><a style="outline: none; text-decoration:none; color:inherit" href="#47">47</a></span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="48"><a style="outline: none; text-decoration:none; color:inherit" href="#48">48</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="49"><a style="outline: none; text-decoration:none; color:inherit" href="#49">49</a></span>	<span style="color:#a6e22e">sRune</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">s</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="50"><a style="outline: none; text-decoration:none; color:inherit" href="#50">50</a></span>	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="51"><a style="outline: none; text-decoration:none; color:inherit" href="#51">51</a></span>	<span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">sRune</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="52"><a style="outline: none; text-decoration:none; color:inherit" href="#52">52</a></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">j</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="53"><a style="outline: none; text-decoration:none; color:inherit" href="#53">53</a></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sRune</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">!=</span> <span style="color:#a6e22e">sRune</span>[<span style="color:#a6e22e">j</span>] {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="54"><a style="outline: none; text-decoration:none; color:inherit" href="#54">54</a></span>			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="55"><a style="outline: none; text-decoration:none; color:inherit" href="#55">55</a></span>		}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="56"><a style="outline: none; text-decoration:none; color:inherit" href="#56">56</a></span>		<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="57"><a style="outline: none; text-decoration:none; color:inherit" href="#57">57</a></span>		<span style="color:#a6e22e">j</span><span style="color:#f92672">--</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="58"><a style="outline: none; text-decoration:none; color:inherit" href="#58">58</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="59"><a style="outline: none; text-decoration:none; color:inherit" href="#59">59</a></span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="60"><a style="outline: none; text-decoration:none; color:inherit" href="#60">60</a></span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="61"><a style="outline: none; text-decoration:none; color:inherit" href="#61">61</a></span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="62"><a style="outline: none; text-decoration:none; color:inherit" href="#62">62</a></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getReverse</span>(<span style="color:#a6e22e">input</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="63"><a style="outline: none; text-decoration:none; color:inherit" href="#63">63</a></span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">input</span>) &lt; <span style="color:#ae81ff">2</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="64"><a style="outline: none; text-decoration:none; color:inherit" href="#64">64</a></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">input</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="65"><a style="outline: none; text-decoration:none; color:inherit" href="#65">65</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="66"><a style="outline: none; text-decoration:none; color:inherit" href="#66">66</a></span>	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="67"><a style="outline: none; text-decoration:none; color:inherit" href="#67">67</a></span>	<span style="color:#66d9ef">rune</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">rune</span>, len(<span style="color:#a6e22e">input</span>))
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="68"><a style="outline: none; text-decoration:none; color:inherit" href="#68">68</a></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">input</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="69"><a style="outline: none; text-decoration:none; color:inherit" href="#69">69</a></span>		<span style="color:#66d9ef">rune</span>[<span style="color:#a6e22e">n</span>] = <span style="color:#a6e22e">r</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="70"><a style="outline: none; text-decoration:none; color:inherit" href="#70">70</a></span>		<span style="color:#a6e22e">n</span><span style="color:#f92672">++</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="71"><a style="outline: none; text-decoration:none; color:inherit" href="#71">71</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="72"><a style="outline: none; text-decoration:none; color:inherit" href="#72">72</a></span>	<span style="color:#66d9ef">rune</span> = <span style="color:#66d9ef">rune</span>[<span style="color:#ae81ff">0</span>:<span style="color:#a6e22e">n</span>]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="73"><a style="outline: none; text-decoration:none; color:inherit" href="#73">73</a></span>	<span style="color:#75715e">// Reverse
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="74"><a style="outline: none; text-decoration:none; color:inherit" href="#74">74</a></span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="75"><a style="outline: none; text-decoration:none; color:inherit" href="#75">75</a></span>		<span style="color:#66d9ef">rune</span>[<span style="color:#a6e22e">i</span>], <span style="color:#66d9ef">rune</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>] = <span style="color:#66d9ef">rune</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>], <span style="color:#66d9ef">rune</span>[<span style="color:#a6e22e">i</span>]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="76"><a style="outline: none; text-decoration:none; color:inherit" href="#76">76</a></span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="77"><a style="outline: none; text-decoration:none; color:inherit" href="#77">77</a></span>	<span style="color:#75715e">// Convert back to UTF-8.
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="78"><a style="outline: none; text-decoration:none; color:inherit" href="#78">78</a></span><span style="color:#75715e"></span>	<span style="color:#a6e22e">output</span> <span style="color:#f92672">:=</span> string(<span style="color:#66d9ef">rune</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="79"><a style="outline: none; text-decoration:none; color:inherit" href="#79">79</a></span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">output</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="80"><a style="outline: none; text-decoration:none; color:inherit" href="#80">80</a></span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="81"><a style="outline: none; text-decoration:none; color:inherit" href="#81">81</a></span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="82"><a style="outline: none; text-decoration:none; color:inherit" href="#82">82</a></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">divideStr</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#66d9ef">int</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="83"><a style="outline: none; text-decoration:none; color:inherit" href="#83">83</a></span>	<span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">s</span>[:<span style="color:#a6e22e">c</span>]), string(<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">c</span>:])
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="84"><a style="outline: none; text-decoration:none; color:inherit" href="#84">84</a></span>}</code></pre></div>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

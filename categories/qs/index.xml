@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>qs on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/categories/qs/</link>
+    <description>Recent content in qs on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Mar 2021 20:00:04 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/categories/qs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>0215</title>
+      <link>https://wncbb.github.io/posts/leetcode/0215.kth-largest-element-in-an-array/</link>
+      <pubDate>Mon, 01 Mar 2021 20:00:04 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/posts/leetcode/0215.kth-largest-element-in-an-array/</guid>
+      <description>func findKthLargest(nums []int, k int) int { // kth内部从0开始算，第0大的数  return kth(nums, 0, len(nums)-1, k-1) } func kth(s []int, left, right, k int) int { if left &amp;lt;= right { // 这里的m一定是s里的元素的索引 	m := partition(s, left, right) if m == k { return s[m] } if m &amp;lt; k { // 最后一个参数k 	return kth(s, m+1, right, k) } else { // 最后一个参数k 	return kth(s, left, m-1, k) } } return -1 } func partition(s []int, left, right int) int { i := left - 1 j := left pivot := s[right] for ; j &amp;lt; right; j++ { if s[j] &amp;gt; pivot { i = i + 1 s[i], s[j] = s[j], s[i] } } i = i + 1 s[i], s[j] = s[j], s[i] return i } </description>
+    </item>
+    
+  </channel>
+</rss>

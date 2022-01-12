@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sqls on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/sql/</link>
+    <description>Recent content in Sqls on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Aug 2021 10:35:35 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/sql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sql</title>
+      <link>https://wncbb.github.io/sql/sql/</link>
+      <pubDate>Tue, 31 Aug 2021 10:35:35 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/sql/sql/</guid>
+      <description>RBO: Rule-Based Optimization 比如： 索引的优先级大于全表扫描。
+CBO: Cost-Based Optimization 根据统计信息(Statistics)和代价模型(Cost Model)计算各种可能“执行计划”的“代价”，即COST，从中选用COST最低的执行方案，作为实际运行方案。</description>
+    </item>
+    
+  </channel>
+</rss>

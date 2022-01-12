@@ -6,7 +6,17 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jan 2022 09:25:15 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Jan 2022 11:20:33 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>300_longest Increasing Subsequence</title>
+      <link>https://wncbb.github.io/leetcode/300_longest-increasing-subsequence/</link>
+      <pubDate>Wed, 12 Jan 2022 11:20:33 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/leetcode/300_longest-increasing-subsequence/</guid>
+      <description>300. 最长递增子序列
+解法一 动态规划 dp[i]标识，以s[i]结尾的，最长的递增子序列长度 dp[i]=Max(dp[j])+1 // 0&amp;lt;=j&amp;lt;i &amp;amp;&amp;amp; s[j]&amp;lt;s[i] func lengthOfLIS(nums []int) int { dp := make([]int, len(nums)) // 必须初始化为1，以nums[i]结尾的LIS最小长度也是1 	for i := range dp { dp[i] = 1 } for i := 1; i &amp;lt; len(nums); i++ { for j := 0; j &amp;lt; i; j++ { if nums[j] &amp;lt; nums[i] { dp[i] = getMax(dp[i], dp[j]+1) } } } ret := dp[0] for i := 1; i &amp;lt; len(dp); i++ { ret = getMax(ret, dp[i]) } return ret } func getMax(a, b int) int { if a &amp;gt; b { return a } return b } 解法二 二分查找 func lengthOfLIS(nums []int) int { // d[i]标识，长度为len(d[:i+1])的最长递增子序列的最后一个元素 	d := make([]int, 0) for _, v := range nums { // 如果len(d)==0, 那么直接把当前值放入数组  // 如果d[len(d)-1]&amp;lt;v, 比如说d[3]=10, v是11，  // 长度为3的最长递增子序列的最后一个元素是10，那么11正好可以拼接在这个长度为3的LIS后面，构成一个长度为4的LIS 	if len(d) == 0 || d[len(d)-1] &amp;lt; v { d = append(d, v) continue } // 在有序数组d中，找到第一个&amp;gt;=d的索引，因为题目要求LIS严格递增  // 如果d=[4, 10]，而没有等于条件，会返回idx=1，那么d=[4, 4]，那么长度为2的LIS的俩元素都是4，与题目不符合 	idx := firstGreaterOrEqualIndex(v, d) // 下面的逻辑不可能执行到，因为d[len(d)-1]一定大于等于v，否则会走到上面的逻辑  // 因此在d里面找大于等于v的数据，一定是能找到 	// if idx == -1 {  // // 如果找不到，举个例子,d=[4, 10], v=10,  // fmt.</description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_12</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_12/</link>

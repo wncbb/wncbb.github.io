@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Basic &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Basic</h1>
+  <time datetime=2021-03-13T14:29:30&#43;0800 class="post-date">2021-03-13 14:29:30</time>
+  
+  <h2 id="1-tcp">1. TCP</h2>
+<h3 id="11-三次握手四次挥手">1.1 三次握手四次挥手</h3>
+<h3 id="12-time_wait的作用">1，2 TIME_WAIT的作用</h3>
+<p>原因1：为了保证客户端发送的最后一个ack报文段能够到达服务器。因为这最后一个ack确认包可能会丢失，然后服务器就会超时重传第三次挥手的fin信息报，然后客户端再重传一次第四次挥手的ack报文。如果没有这2msl，客户端发送完最后一个ack数据报后直接关闭连接，那么就接收不到服务器超时重传的fin信息报(此处应该是客户端收到一个非法的报文段，而返回一个RST的数据报，表明拒绝此次通信，然后双方就产生异常，而不是收不到。)，那么服务器就不能按正常步骤进入close状态。那么就会耗费服务器的资源。当网络中存在大量的timewait状态，那么服务器的压力可想而知。</p>
+<p>原因2：在第四次挥手后，经过2msl的时间足以让本次连接产生的所有报文段都从网络中消失，这样下一次新的连接中就肯定不会出现旧连接的报文段了。也就是防止我们上一篇文章 为什么tcp是三次握手而不是两次握手？ 中说的：已经失效的连接请求报文段出现在本次连接中。如果没有的话就可能这样：这次连接一挥手完马上就结束了，没有timewait。这次连接中有个迷失在网络中的syn包，然后下次连接又马上开始，下个连接发送syn包，迷失的syn包忽然又到达了对面，所以对面可能同时收到或者不同时间收到请求连接的syn包，然后就出现问题了。</p>
+<h3 id="13-tcp如何保证可靠">1.3 TCP如何保证可靠</h3>
+<ol>
+<li>应用数据被分割成 TCP 认为最适合发送的数据块。</li>
+<li>TCP 给发送的每一个包进行编号，接收方对数据包进行排序，把有序数据传送给应用层。</li>
+<li>校验和：TCP 将保持它首部和数据的检验和。这是一个端到端的检验和，目的是检测数据在传输过程中的任何变化。如果收到段的检验和有差错，TCP 将丢弃这个报文段和不确认收到此报文段。</li>
+<li>TCP 的接收端会丢弃重复的数据。</li>
+<li>流量控制：TCP 连接的每一方都有固定大小的缓冲空间，TCP的接收端只允许发送端发送接收端缓冲区能接纳的数据。当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。TCP 使用的流量控制协议是可变大小的滑动窗口协议。 （TCP 利用滑动窗口实现流量控制）</li>
+<li>拥塞控制：当网络拥塞时，减少数据的发送。</li>
+<li>ARQ协议：也是为了实现可靠传输的，它的基本原理就是每发完一个分组就停止发送，等待对方确认。在收到确认后再发下一个分组。</li>
+<li>超时重传：当 TCP 发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。</li>
+</ol>
+<h3 id="14-流量控制">1.4 流量控制</h3>
+<p>滑动窗口</p>
+<h3 id="15-拥塞控制">1.5 拥塞控制</h3>
+<p>慢开始
+拥塞避免
+快重传与快恢复</p>
+<h3 id="16-syn-dos">1.6 SYN DoS</h3>
+<p>解决办法:</p>
+<ol>
+<li>SYN Cookie
+精心构造SYN序号，通过ip/port四元组与秘密值等构造SYN序号，下次客户端发送ACK时校验下</li>
+<li>SYN Cache
+收到SYN包后，并不分配传输控制块，而是存起来，等正式建立再分配</li>
+</ol>
+<h2 id="20-http">2.0 HTTP</h2>
+<h3 id="21-101120区别">2.1 1.0/1.1/2.0区别</h3>
+<p>1.0/1.1</p>
+<ol>
+<li>
+<p>缓存处理
+1.0用if-modified-since/expires来判断
+1.1引入更多策略，比如entity tag, if-unmodified-since, if-match, if-none-match等
+提供更多的缓存头来控制缓存策略</p>
+</li>
+<li>
+<p>带宽优化及网络连接的使用
+HTTP1.0中，存在一些浪费带宽的现象，
+例如客户端只是需要某个对象的一部分，
+而服务器却将整个对象送过来了，并且不支持断点续传功能，
+HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，
+即返回码是206（Partial Content），
+这样就方便了开发者自由的选择以便于充分利用带宽和连接。</p>
+</li>
+<li>
+<p>错误通知的管理
+在HTTP1.1中新增了24个错误状态响应码，
+如409（Conflict）表示请求的资源与资源的当前状态发生冲突；
+410（Gone）表示服务器上的某个资源被永久性的删除。</p>
+</li>
+<li>
+<p>Host头处理
+在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，
+因此，请求消息中的URL并没有传递主机名（hostname）。
+但随着虚拟主机技术的发展，
+在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），
+并且它们共享一个IP地址。
+HTTP1.1的请求消息和响应消息都应支持Host头域，
+且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）</p>
+</li>
+<li>
+<p>长连接
+HTTP 1.1支持长连接（PersistentConnection） 和请求的流水线（Pipelining）处理，
+在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，
+在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。</p>
+</li>
+</ol>
+<p>1.1/2.0</p>
+<ol>
+<li>
+<p>2.0是二进制格式</p>
+</li>
+<li>
+<p>多路复用
+即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面。</p>
+</li>
+<li>
+<p>header压缩
+HTTP2.0使用encoder来减少需要传输的header大小，
+通讯双方各自cache一份header fields表，
+既避免了重复header的传输，又减小了需要传输的大小。</p>
+</li>
+<li>
+<p>服务端推送（server push）
+同SPDY一样，HTTP2.0也具有server push功能。</p>
+</li>
+</ol>
+<h3 id="22-https">2.2 https</h3>
+<p>HTTPS加密过程：</p>
+<ol>
+<li>客户端请求服务器获取 证书公钥</li>
+<li>客户端(SSL/TLS)解析证书（无效会弹出警告）
+生成随机值
+用 公钥加密 随机值生成密钥
+客户端将 秘钥 发送给服务器</li>
+<li>服务端用 私钥 解密 秘钥 得到随机值
+将信息和随机值混合在一起 进行对称加密
+将加密的内容发送给客户端</li>
+</ol>
+<h3 id="23-如何判断一个请求是否已经结束">2.3 如何判断一个请求是否已经结束</h3>
+<p>1、如果是短连接，没有启用keepalive，则可以通过是否关闭了连接来判断是否传输结束，即在读取时可判断 read() != -1。</p>
+<p>2、如果时长连接，那么一个socket（tcp）可能发送和接收多次请求，那么如何判断每次的响应已经接收?</p>
+<p>2-1、先读请求头，一直到\r\n\r\n说明请求头结束，然后解析http头，如果Content-Length=x存在，则知道http响应的长度为x。直接读取x字节就是响应内容。</p>
+<p>2-2、如果Content-Length=x不存在，那么头类型为Transfer-Encoding: chunked说明响应的长度不固定，则在响应头结束后标记第一段流的长度
+然后客户端读取2000个字节，在接下来如果后续还有数据，那么会接着标记下一个段流的长度，
+然后接着读，最后会用\r\n0\r\n\r\n表示结束。</p>
+<h3 id="24-http常见状态码意义">2.4 http常见状态码意义</h3>
+<p>1xx(临时响应)表示临时响应并需要请求者继续执行操作的状态代码。
+100 (继续) 请求者应当继续提出请求。 服务器返回此代码表示已收到请求的第一部分，正在等待其余部分。
+101 (切换协议) 请求者已要求服务器切换协议，服务器已确认并准备切换。</p>
+<p>2xx (成功)表示成功处理了请求的状态代码。代码 说明
+200 (成功) 服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。
+201 (已创建) 请求成功并且服务器创建了新的资源。
+202 (已接受) 服务器已接受请求，但尚未处理。
+203 (非授权信息) 服务器已成功处理了请求，但返回的信息可能来自另一来源。
+204 (无内容) 服务器成功处理了请求，但没有返回任何内容。
+205 (重置内容) 服务器成功处理了请求，但没有返回任何内。
+206 (部分内容) 服务器成功处理了部分 GET 请求。</p>
+<p>3xx (重定向) 表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向。代码 说明
+300 (多种选择) 针对请求，服务器可执行多种操作。 服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。
+301 (永久移动) 请求的网页已永久移动到新位置。 服务器返回此响应(对 GET 或 HEAD 请求的响应)时，会自动将请求者转到新位置。
+302 (临时移动) 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。
+303 (查看其他位置) 请求者应当对不同的位置使用单独的 GET 请求来检索响应时，服务器返回此代码。
+304 (未修改) 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。
+305 (使用代理) 请求者只能使用代理访问请求的网页。 如果服务器返回此响应，还表示请求者应使用代理。
+307 (临时重定向) 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。</p>
+<p>5xx(服务器错误)这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错。代码 说明
+500 (服务器内部错误) 服务器遇到错误，无法完成请求。
+501 (尚未实施) 服务器不具备完成请求的功能。 例如，服务器无法识别请求方法时可能会返回此代码。
+502 (错误网关) 服务器作为网关或代理，从上游服务器收到无效响应。
+503 (服务不可用) 服务器目前无法使用(由于超载或停机维护)。 通常，这只是暂时状态。
+504 (网关超时) 服务器作为网关或代理，但是没有及时从上游服务器收到请求。
+505 (HTTP 版本不受支持) 服务器不支持请求中所用的 HTTP 协议版本。</p>
+<h2 id="协议与安全">协议与安全</h2>
+<h3 id="arp攻击">ARP攻击</h3>
+<p>ARP协议是“Address Resolution Protocol”（地址解析协议）的缩写。
+其作用是在以太网环境中，数据的传输所依懒的是MAC地址而非IP地址，
+而将已知IP地址转换为MAC地址的工作是由ARP协议来完成的。</p>
+<h3 id="nat">NAT</h3>
+<p>NAT英文全称是“Network Address Translation”，中文意思是“网络地址转换”
+允许一个整体机构以一个公用IP（Internet Protocol）地址出现在Internet上。
+顾名思义，它是一种把内部私有网络地址（IP地址）翻译成合法网络IP地址的技术</p>
+<p>NAT有三种类型：
+静态NAT(Static NAT)、</p>
+<p>动态地址NAT(Pooled NAT)、
+动态地址NAT只是转换IP地址，它为每一个内部的IP地址分配一个临时的外部IP地址</p>
+<p>网络地址端口转换NAPT（Port-Level NAT）。
+把内部地址映射到外部网络的一个IP地址的不同端口上</p>
+<h3 id="加密算法">加密算法</h3>
+<p>对称: DES AES RC5
+非对称: RSA DSA ECC</p>
+<h2 id="linux-commands">linux commands</h2>
+<p>查看端口占用情况
+lsof -i:端口号</p>
+<p>netstat
+ss</p>
+<h2 id="selectpollepoll">select/poll/epoll</h2>
+<p>select的几大缺点：</p>
+<p>（1）每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大</p>
+<p>（2）同时每次调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大</p>
+<p>（3）select支持的文件描述符数量太小了，默认是1024</p>
+<p>1、ET和LT简介
+ET 模式即 Edge Triggered 工作模式，边沿触发，缓冲区剩余未读尽的数据不会导致epoll_wait返回，新的事件满足才会导致epoll_wait返回，边缘触发只有数据到来才触发，不管缓存区中是否还有数据。</p>
+<p>LT 模式即 Level Triggered 工作模式，水平触发，默认，水平触发只要有数据都会触发，缓冲区剩余未读尽的数据会导致epoll_wait返回。默认情况下为LT触发模式。</p>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

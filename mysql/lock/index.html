@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lock &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Lock</h1>
+  <time datetime=2021-09-08T19:24:01&#43;0800 class="post-date">2021-09-08 19:24:01</time>
+  
+  <h2 id="死锁条件">死锁条件</h2>
+<ol>
+<li>互斥条件(Mutual exclusion)
+一个资源每次只能被一个进程使用。</li>
+<li>请求与保持条件(Hold and wait or resource holding)
+一个进程因请求资源而阻塞时，对已获得的资源保持不放。</li>
+<li>不剥夺条件(No preemption)
+进程已获得的资源，在末使用完之前，不能强行剥夺。</li>
+<li>循环等待条件(Circular wait)
+若干进程之间形成一种头尾相接的循环等待资源关系。</li>
+</ol>
+<h2 id="mysqlinnodb定义的4种隔离级别">MySQL/InnoDB定义的4种隔离级别：</h2>
+<ol>
+<li>
+<p>Read Uncommited
+可以读取未提交记录</p>
+</li>
+<li>
+<p>Read Committed (RC)
+当前读操作RC隔离级别保证对读取到的记录加锁 (记录锁)，存在幻读现象。使用MVCC，但读取数据时读取自身版本和最新版本，以最新为主，可以读已提交记录，存在不可重复读现象。</p>
+</li>
+<li>
+<p>Repeatable Read (RR)
+当前读操作RR隔离级别保证对读取到的记录加锁 (记录锁)，同时保证对读取的范围加锁，新的满足查询条件的记录不能够插入 (间隙锁)，不存在幻读现象。使用MVCC保存两个事物操作的数据互相隔离，不存在不可重复读现象。</p>
+</li>
+<li>
+<p>Serializable
+从MVCC并发控制退化为基于锁的并发控制。不区别快照读与当前读，所有的读操作均为当前读，读加读锁 (S锁)，写加写锁 (X锁)。
+Serializable隔离级别下，读写冲突，因此并发度急剧下降，在MySQL/InnoDB下不建议使用。</p>
+</li>
+</ol>
+<h2 id="数据可见性">数据可见性</h2>
+<p>活跃事务列表：
+RC隔离级别下，在语句开始时从全局事务表中获取活跃（未提交）事务构造Read View，
+RR隔离级别下，在事务开始时从全局事务表中获取活跃事务构造Read View</p>
+<p>1.取当前行的修改事务ID，和Read View中的事务ID做比较，若小于最小的ID或小于最大ID但不在列表中，转2步骤，若大于最大ID，转3步骤
+2.满足进入此步骤的条件，即可说明，最后更新当前行的事务，在构造Read View时已经提交，则返回当前行的数据
+3.满足进入此步骤的条件，即可说明，最后更新当前行的事务，在构造Read View时还未创建或者还未提交，则取undo log中的记录的事务ID，重新进入步骤1，重复此操作</p>
+<p>表级意向锁，作用：如果没有表级意向锁，如果想获取表锁，就得查每一条的record上的锁。</p>
+<h2 id="主从同步模式">主从同步模式</h2>
+<p>异步复制（Asynchronous replication）</p>
+<p>MySQL默认的复制即是异步的，主库在执行完客户端提交的事务后会立即将结果返给给客户端，并不关心从库是否已经接收并处理，这样就会有一个问题，主如果crash掉了，此时主上已经提交的事务可能并没有传到从上，如果此时，强行将从提升为主，可能导致新主上的数据不完整。</p>
+<p>全同步复制（Fully synchronous replication）</p>
+<p>指当主库执行完一个事务，所有的从库都执行了该事务才返回给客户端。因为需要等待所有从库执行完该事务才能返回，所以全同步复制的性能必然会收到严重的影响。</p>
+<p>半同步复制（Semisynchronous replication）</p>
+<p>介于异步复制和全同步复制之间，主库在执行完客户端提交的事务后不是立刻返回给客户端，而是等待至少一个从库接收到并写到relay log中才返回给客户端。相对于异步复制，半同步复制提高了数据的安全性，同时它也造成了一定程度的延迟，这个延迟最少是一个TCP/IP往返的时间。所以，半同步复制最好在低延时的网络中使用。</p>
+<h2 id="锁类型">锁类型</h2>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html">https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html</a></p>
+<h4 id="shared-and-exclusive-locks">Shared and Exclusive Locks</h4>
+<p>就是行锁</p>
+<h4 id="intention-locks">Intention Locks</h4>
+<p>意向锁</p>
+<p>表级锁</p>
+<p>IX 表级排他锁</p>
+<p>IS 表级共享锁</p>
+<p>An intention shared lock (IS) indicates that a transaction intends to set a shared lock on individual rows in a table.</p>
+<p>An intention exclusive lock (IX) indicates that a transaction intends to set an exclusive lock on individual rows in a table.</p>
+<h4 id="record-locks">Record Locks</h4>
+<h4 id="gap-locks">Gap Locks</h4>
+<h4 id="next-key-locks">Next-Key Locks</h4>
+<p>record lock加上，其前面的GAP锁</p>
+<p>A next-key lock is a combination of a record lock on the index record and a gap lock on the gap before the index record.</p>
+<h4 id="insert-intention-locks">Insert Intention Locks</h4>
+<p>插入意向锁，一种特殊的GAP锁，与GAP锁互斥</p>
+<p>插入意向锁，只要不是同一行，就相容</p>
+<h2 id="表连接">表连接</h2>
+<p><img src="/mysql/join.png" alt="join"></p>
+<p>inner join 公共部分</p>
+<p>left join 左边一定有，右边如果没有就是null
+right join 右边一定有，左边如果没有就是null</p>
+<h2 id="主从同步">主从同步</h2>
+<ol>
+<li>
+<p>异步复制
+master不需要关注slave，直接继续执行</p>
+</li>
+<li>
+<p>半同步复制
+master只需要等一个slave commit就可以继续执行</p>
+</li>
+<li>
+<p>全同步复制
+master需要等所有的slave都commit才能继续执行</p>
+</li>
+</ol>
+
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>

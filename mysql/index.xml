@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mysqls on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/mysql/</link>
+    <description>Recent content in Mysqls on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Oct 2021 19:06:56 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mvcc</title>
+      <link>https://wncbb.github.io/mysql/mvcc/</link>
+      <pubDate>Fri, 01 Oct 2021 19:06:56 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/mysql/mvcc/</guid>
+      <description>背景 想要彻底搞清楚mysql的mvcc等机制，博客鱼龙混杂，因此决定以源码为依据，提高自身的认识水平。 代码版本为mysql8.0。
+MVCC 基本概念 多版本控制（Multiversion Concurrency Control）
+MVCC在 Read Committed 和 Repeatable Read两个隔离级别下工作。
+依赖：隐藏字段、Read View、Undo log。
+隐藏字段  Internally, InnoDB adds three fields to each row stored in the database:
+  DB_TRX_ID   A 6-byte DB_TRX_ID field indicates the transaction identifier for the last transaction that inserted or updated the row. Also, a deletion is treated internally as an update where a special bit in the row is set to mark it as deleted.</description>
+    </item>
+    
+    <item>
+      <title>Drop_truncate_delete</title>
+      <link>https://wncbb.github.io/mysql/drop_truncate_delete/</link>
+      <pubDate>Tue, 14 Sep 2021 14:59:49 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/mysql/drop_truncate_delete/</guid>
+      <description>drop DDL 删除数据与表
+truncate DDL 删除数据
+delete DML 删除数据，有日志，能回滚，不会缩小表、索引所占的空间(可以使用optimize 命令)
+alter table t engine = InnoDB（也就是recreate），而 optimize table t 等于 recreate+analyze delete，drop，truncate 都有删除表的作用，区别在于：
+1、delete 和 truncate 仅仅删除表数据，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。 2、delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。 3、执行的速度上，drop&amp;gt;truncate&amp;gt;delete，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。
+drop直接删掉表； truncate删除表中数据，再插入时自增长id又从1开始 ；delete删除表中数据，可以加where字句。
+TRUNCATE不记录日志，DELETE记录日志，所以TRUNCATE要快于DELETE；
+但是一旦用TRUNCATE进行删除就不能进行恢复,TRUNCATE是删除整张表的数据，不能加where条件。
+（1） DELETE语句执行删除的过程是每次从表中删除一行，并且同时将该行的删除操作作为事务记录在日志中保存以便进行进行回滚操作。TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。
+（2）表和索引所占空间。当表被TRUNCATE 后，这个表和索引所占用的空间会恢复到初始大小，而DELETE操作不会减少表或索引所占用的空间。drop语句将表所占用的空间全释放掉。
+（3）一般而言，drop &amp;gt; truncate &amp;gt; delete
+（4）应用范围。TRUNCATE 只能对TABLE；DELETE可以是table和view
+（5） TRUNCATE 和DELETE只删除数据，而DROP则删除整个表（结构和数据）。
+（6） truncate与不带where的delete ：只删除数据，而不删除表的结构（定义）drop语句将删除表的结构被依赖的约束（constrain),触发器（trigger)索引（index);依赖于该表的存储过程/函数将被保留，但其状态会变为：invalid。</description>
+    </item>
+    
+    <item>
+      <title>Lock</title>
+      <link>https://wncbb.github.io/mysql/lock/</link>
+      <pubDate>Wed, 08 Sep 2021 19:24:01 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/mysql/lock/</guid>
+      <description>死锁条件  互斥条件(Mutual exclusion) 一个资源每次只能被一个进程使用。 请求与保持条件(Hold and wait or resource holding) 一个进程因请求资源而阻塞时，对已获得的资源保持不放。 不剥夺条件(No preemption) 进程已获得的资源，在末使用完之前，不能强行剥夺。 循环等待条件(Circular wait) 若干进程之间形成一种头尾相接的循环等待资源关系。  MySQL/InnoDB定义的4种隔离级别：   Read Uncommited 可以读取未提交记录
+  Read Committed (RC) 当前读操作RC隔离级别保证对读取到的记录加锁 (记录锁)，存在幻读现象。使用MVCC，但读取数据时读取自身版本和最新版本，以最新为主，可以读已提交记录，存在不可重复读现象。
+  Repeatable Read (RR) 当前读操作RR隔离级别保证对读取到的记录加锁 (记录锁)，同时保证对读取的范围加锁，新的满足查询条件的记录不能够插入 (间隙锁)，不存在幻读现象。使用MVCC保存两个事物操作的数据互相隔离，不存在不可重复读现象。
+  Serializable 从MVCC并发控制退化为基于锁的并发控制。不区别快照读与当前读，所有的读操作均为当前读，读加读锁 (S锁)，写加写锁 (X锁)。 Serializable隔离级别下，读写冲突，因此并发度急剧下降，在MySQL/InnoDB下不建议使用。
+  数据可见性 活跃事务列表： RC隔离级别下，在语句开始时从全局事务表中获取活跃（未提交）事务构造Read View， RR隔离级别下，在事务开始时从全局事务表中获取活跃事务构造Read View
+1.取当前行的修改事务ID，和Read View中的事务ID做比较，若小于最小的ID或小于最大ID但不在列表中，转2步骤，若大于最大ID，转3步骤 2.满足进入此步骤的条件，即可说明，最后更新当前行的事务，在构造Read View时已经提交，则返回当前行的数据 3.满足进入此步骤的条件，即可说明，最后更新当前行的事务，在构造Read View时还未创建或者还未提交，则取undo log中的记录的事务ID，重新进入步骤1，重复此操作
+表级意向锁，作用：如果没有表级意向锁，如果想获取表锁，就得查每一条的record上的锁。
+主从同步模式 异步复制（Asynchronous replication）
+MySQL默认的复制即是异步的，主库在执行完客户端提交的事务后会立即将结果返给给客户端，并不关心从库是否已经接收并处理，这样就会有一个问题，主如果crash掉了，此时主上已经提交的事务可能并没有传到从上，如果此时，强行将从提升为主，可能导致新主上的数据不完整。
+全同步复制（Fully synchronous replication）</description>
+    </item>
+    
+  </channel>
+</rss>

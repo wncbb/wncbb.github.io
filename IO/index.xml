@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ios on WNCBB&#39;s blog</title>
+    <link>https://wncbb.github.io/io/</link>
+    <description>Recent content in ios on WNCBB&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 08 Oct 2021 10:51:28 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Select_poll_epoll</title>
+      <link>https://wncbb.github.io/io/select_poll_epoll/</link>
+      <pubDate>Fri, 08 Oct 2021 10:51:28 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/io/select_poll_epoll/</guid>
+      <description>select 监听的file discriptor长度有限制，需要遍历fd查看哪个fd有事件 每次select需要重复拷贝fd到内核 每次select需要在内核遍历传递进来的所有fd
+poll 使用链表存储file discriptor，长度没有限制，其他跟poll基本一致
+epoll(event poll) 使用红黑树存储，长度无限制 每个fd在整个过程中只会拷贝一次 设备就绪时调用回调函数（select/poll是主动轮询），放入就绪队列，wait就是查看就绪队列是否为空</description>
+    </item>
+    
+    <item>
+      <title>Io</title>
+      <link>https://wncbb.github.io/io/io/</link>
+      <pubDate>Wed, 08 Sep 2021 20:20:54 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/io/io/</guid>
+      <description>References 对比 阻塞 I/O (Blocking I/O) 非阻塞 I/O (Nonblocking I/O) I/O 多路复用 (I/O multiplexing) 信号驱动 I/O (Signal driven I/O) 异步 I/O (Asynchronous I/O)
+操作系统上的I/O是用户空间与内核空间的数据交互，I/O主要包含以下两个步骤：
+ 等待网络数据到达网卡(读就绪)/等待网卡可写(写就绪) –&amp;gt; 读取/写入到内核缓冲区 从内核缓冲区复制数据 –&amp;gt; 用户空间(读)/从用户空间复制数据 -&amp;gt; 内核缓冲区(写)  判断I/O模型是同步还是异步，主要是看步骤2执行时，是否会阻塞当前进程。
+阻塞IO 非阻塞IO IO多路复用 信号驱动IO 异步IO </description>
+    </item>
+    
+  </channel>
+</rss>
