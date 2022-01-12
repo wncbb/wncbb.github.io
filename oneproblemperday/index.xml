@@ -6,7 +6,18 @@
     <description>Recent content in OneProblemPerDays on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Jan 2022 09:33:13 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/oneproblemperday/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Jan 2022 09:25:15 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/oneproblemperday/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_12</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_12/</link>
+      <pubDate>Wed, 12 Jan 2022 09:25:15 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_12/</guid>
+      <description>github-cn.com 334. 递增的三元子序列
+func increasingTriplet(nums []int) bool { if len(nums)&amp;lt;3{ return false } first:=nums[0] second:=int(math.MaxInt64) for i:=1; i&amp;lt;len(nums); i++{ cur:=nums[i] if cur&amp;gt;second{ return true }else if cur&amp;gt;first{ second=cur }else{ // 这里只改first是可以的，下一次遍历过程中，如果cur进入&amp;#34;大于first&amp;#34;分支，那么second就会被修改掉  first=cur } } return false } leetcode.com 701. 二叉搜索树中的插入操作
+/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func insertIntoBST(root *TreeNode, val int) *TreeNode { if root == nil { return &amp;amp;TreeNode{Val: val} } // 新的数据，不是插入左子树，就是插入右子树  p := root for p !</description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_11</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_11/</link>
