@@ -13,8 +13,8 @@
       <pubDate>Thu, 13 Jan 2022 09:00:10 +0800</pubDate>
       
       <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</guid>
-      <description>github-cn.com 747. 至少是其他数字两倍的最大数
-func dominantIndex(nums []int) int { m1, m2, idx := -1, -1, 0 for i, num := range nums { if num &amp;gt; m1 { m1, m2, idx = num, m1, i } else if num &amp;gt; m2 { m2 = num } } if m1 &amp;gt;= m2*2 { return idx } return -1 } github.com 452. 用最少数量的箭引爆气球
+      <description>leetcode-cn.com 747. 至少是其他数字两倍的最大数
+func dominantIndex(nums []int) int { m1, m2, idx := -1, -1, 0 for i, num := range nums { if num &amp;gt; m1 { m1, m2, idx = num, m1, i } else if num &amp;gt; m2 { m2 = num } } if m1 &amp;gt;= m2*2 { return idx } return -1 } leetcode.com 452. 用最少数量的箭引爆气球
 func findMinArrowShots(points [][]int) int { if len(points) == 0 { return 0 } sort.</description>
     </item>
     
@@ -24,7 +24,7 @@ func findMinArrowShots(points [][]int) int { if len(points) == 0 { return 0 } so
       <pubDate>Wed, 12 Jan 2022 09:25:15 +0800</pubDate>
       
       <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_12/</guid>
-      <description>github-cn.com 334. 递增的三元子序列
+      <description>leetcode-cn.com 334. 递增的三元子序列
 func increasingTriplet(nums []int) bool { if len(nums)&amp;lt;3{ return false } first:=nums[0] second:=int(math.MaxInt64) for i:=1; i&amp;lt;len(nums); i++{ cur:=nums[i] if cur&amp;gt;second{ return true }else if cur&amp;gt;first{ second=cur }else{ // 这里只改first是可以的，下一次遍历过程中，如果cur进入&amp;#34;大于first&amp;#34;分支，那么second就会被修改掉  first=cur } } return false } leetcode.com 701. 二叉搜索树中的插入操作
 /** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func insertIntoBST(root *TreeNode, val int) *TreeNode { if root == nil { return &amp;amp;TreeNode{Val: val} } // 新的数据，不是插入左子树，就是插入右子树  p := root for p !</description>
     </item>
@@ -46,8 +46,8 @@ type pair struct{ x, y int } var dirs = []pair{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
       <pubDate>Mon, 10 Jan 2022 09:09:50 +0800</pubDate>
       
       <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</guid>
-      <description>github-cn.com 306. 累加数
-func addBinary(a string, b string) string { ans := &amp;#34;&amp;#34; carry := 0 lenA, lenB := len(a), len(b) n := max(lenA, lenB) for i := 0; i &amp;lt; n; i++ { if i &amp;lt; lenA { carry += int(a[lenA-i-1] - &amp;#39;0&amp;#39;) } if i &amp;lt; lenB { carry += int(b[lenB-i-1] - &amp;#39;0&amp;#39;) } // 这里ans放在后面，正好就是结果  ans = strconv.Itoa(carry%2) + ans carry /= 2 } // 最后需要查看下，是否有进位  if carry &amp;gt; 0 { ans = &amp;#34;1&amp;#34; + ans } return ans } func max(x, y int) int { if x &amp;gt; y { return x } return y } github.</description>
+      <description>leetcode-cn.com 306. 累加数
+func addBinary(a string, b string) string { ans := &amp;#34;&amp;#34; carry := 0 lenA, lenB := len(a), len(b) n := max(lenA, lenB) for i := 0; i &amp;lt; n; i++ { if i &amp;lt; lenA { carry += int(a[lenA-i-1] - &amp;#39;0&amp;#39;) } if i &amp;lt; lenB { carry += int(b[lenB-i-1] - &amp;#39;0&amp;#39;) } // 这里ans放在后面，正好就是结果  ans = strconv.Itoa(carry%2) + ans carry /= 2 } // 最后需要查看下，是否有进位  if carry &amp;gt; 0 { ans = &amp;#34;1&amp;#34; + ans } return ans } func max(x, y int) int { if x &amp;gt; y { return x } return y } leetcode.</description>
     </item>
     
     <item>
