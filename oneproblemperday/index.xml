@@ -6,7 +6,18 @@
     <description>Recent content in OneProblemPerDays on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jan 2022 09:25:15 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/oneproblemperday/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Jan 2022 10:00:10 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/oneproblemperday/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_13</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</link>
+      <pubDate>Thu, 13 Jan 2022 10:00:10 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</guid>
+      <description>github-cn.com 747. 至少是其他数字两倍的最大数
+func dominantIndex(nums []int) int { m1, m2, idx := -1, -1, 0 for i, num := range nums { if num &amp;gt; m1 { m1, m2, idx = num, m1, i } else if num &amp;gt; m2 { m2 = num } } if m1 &amp;gt;= m2*2 { return idx } return -1 } github.com 452. 用最少数量的箭引爆气球
+func findMinArrowShots(points [][]int) int { if len(points) == 0 { return 0 } sort.</description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_12</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_12/</link>
