@@ -2,17 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://wncbb.github.io/leetcode/881.boats-to-save-people/</loc>
+    <lastmod>2022-01-13T20:43:43+08:00</lastmod>
+  </url><url>
     <loc>https://wncbb.github.io/series/leetcode/</loc>
-    <lastmod>2022-01-13T19:49:36+08:00</lastmod>
+    <lastmod>2022-01-13T20:43:43+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/leetcode/</loc>
-    <lastmod>2022-01-13T19:49:36+08:00</lastmod>
+    <lastmod>2022-01-13T20:43:43+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2022-01-13T19:49:36+08:00</lastmod>
+    <lastmod>2022-01-13T20:43:43+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/</loc>
-    <lastmod>2022-01-13T19:49:36+08:00</lastmod>
+    <lastmod>2022-01-13T20:43:43+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/leetcode/shu-zu-zhong-de-ni-xu-dui-lcof/</loc>
     <lastmod>2022-01-13T19:49:36+08:00</lastmod>
