@@ -6,7 +6,26 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Jan 2022 09:00:10 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Jan 2022 19:49:36 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>剑指 Offer 51. 数组中的逆序对</title>
+      <link>https://wncbb.github.io/leetcode/shu-zu-zhong-de-ni-xu-dui-lcof/</link>
+      <pubDate>Thu, 13 Jan 2022 19:49:36 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/leetcode/shu-zu-zhong-de-ni-xu-dui-lcof/</guid>
+      <description>剑指 Offer 51. 数组中的逆序对
+func reversePairs(nums []int) int { _, rstCnt:=mergeSort(nums) return rstCnt } func mergeSort(nums []int)([]int, int){ if len(nums)&amp;lt;=1{ return nums, 0 } left:=0 right:=len(nums)-1 mid:=left+(right-left)/2 leftRst, leftCnt:=mergeSort(nums[left:mid+1]) rightRst, rightCnt:=mergeSort(nums[mid+1:right+1]) rst:=make([]int, 0, right-left+1) i:=0 j:=0 rstCnt:=0 for i&amp;lt;len(leftRst) &amp;amp;&amp;amp; j&amp;lt;len(rightRst){ // 如果leftRst[i]大于rightRst[j], 那么i, i+1, i+2, ..., mid都大于  if leftRst[i]&amp;gt;rightRst[j]{ rst=append(rst, rightRst[j]) j++ rstCnt+=mid-i+1 }else{ rst=append(rst, leftRst[i]) i++ } } for i&amp;lt;len(leftRst){ rst=append(rst, leftRst[i]) i++ } for j&amp;lt;len(rightRst){ rst=append(rst, rightRst[j]) j++ } // fmt.</description>
+    </item>
+    
+    <item>
+      <title>XA</title>
+      <link>https://wncbb.github.io/distributed_system/xa/</link>
+      <pubDate>Thu, 13 Jan 2022 18:03:23 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/distributed_system/xa/</guid>
+      <description>xa_start xa_start sql xa_end xa_preparre xa_commit/xa_rollback xa_end </description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_13</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</link>
