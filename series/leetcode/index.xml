@@ -6,7 +6,17 @@
     <description>Recent content in leetcode on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Jan 2022 20:43:43 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Jan 2022 22:02:20 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>52.n Queens Ii</title>
+      <link>https://wncbb.github.io/leetcode/52.n-queens-ii/</link>
+      <pubDate>Thu, 13 Jan 2022 22:02:20 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/leetcode/52.n-queens-ii/</guid>
+      <description>52. N皇后 II
+.x.... ..x... ...x.. ....x. 对于左上-&amp;gt;右下的线上的数据的坐标，满足`(横坐标-纵坐标)`为固定值 ....x. ...x.. ..x... .x.... 对于右上-&amp;gt;左下的线上的数据的坐标，满足`(横坐标+纵坐标)`为固定值 func totalNQueens(n int) (ans int) { columns := make([]bool, n) // 列上是否有皇后  diagonals1 := make([]bool, 2*n-1) // 左上到右下是否有皇后  diagonals2 := make([]bool, 2*n-1) // 右上到左下是否有皇后  var backtrack func(int) backtrack = func(row int) { if row == n { ans++ return } for col, hasQueen := range columns { // 加上n-1是为了防止负数  d1, d2 := row-col+(n-1), row+col // 如果这一列已经存在，或者两种对角线上已经有了，  // 那么不符合条件，直接跳过去  if hasQueen || diagonals1[d1] || diagonals2[d2] { continue } columns[col] = true diagonals1[d1] = true diagonals2[d2] = true backtrack(row + 1) columns[col] = false diagonals1[d1] = false diagonals2[d2] = false } } backtrack(0) return } </description>
+    </item>
+    
     <item>
       <title>881.boats to Save People</title>
       <link>https://wncbb.github.io/leetcode/881.boats-to-save-people/</link>
