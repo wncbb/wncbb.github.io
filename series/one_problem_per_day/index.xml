@@ -6,7 +6,17 @@
     <description>Recent content in one_problem_per_day on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Jan 2022 09:00:10 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/one_problem_per_day/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Jan 2022 09:40:42 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/series/one_problem_per_day/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_14</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_14/</link>
+      <pubDate>Fri, 14 Jan 2022 09:40:42 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_14/</guid>
+      <description>leetcode-cn.command 373. 查找和最小的K对数字
+对于 nums1: 1, 7, 11 nums2: 2, 4, 6 k: 4 创建一个堆，把nums1的索引[0, 1, 2]与nums2的索引0(min(len(nums1), k))，组成对放到最小堆里 然后弹出最小值，把nums2的索引加一再放回去，如果nums2的索引已经到头了，就不用放 func kSmallestPairs(nums1, nums2 []int, k int) (ans [][]int) { nums1Len := len(nums1) nums2Len := len(nums2) h := &amp;amp;hp{ data: nil, nums1: nums1, nums2: nums2, } for i := 0; i &amp;lt; k &amp;amp;&amp;amp; i &amp;lt; nums1Len; i++ { // 放进去的一定是从小到大排序的 	// pair.j都是0, pair.i是从0到大，已经排好序了 	heap.Push(h, pair{i, 0}) } fmt.Printf(&amp;#34;line21 h:%+v\n&amp;#34;, h) for h.</description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_13</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</link>

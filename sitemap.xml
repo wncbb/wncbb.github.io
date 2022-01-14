@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://wncbb.github.io/series/one_problem_per_day/</loc>
+    <lastmod>2022-01-14T09:40:42+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/oneproblemperday/</loc>
+    <lastmod>2022-01-14T09:40:42+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/series/</loc>
+    <lastmod>2022-01-14T09:40:42+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/</loc>
+    <lastmod>2022-01-14T09:40:42+08:00</lastmod>
+  </url><url>
+    <loc>https://wncbb.github.io/oneproblemperday/oppd_2022_01_14/</loc>
+    <lastmod>2022-01-14T09:40:42+08:00</lastmod>
+  </url><url>
     <loc>https://wncbb.github.io/leetcode/52.n-queens-ii/</loc>
     <lastmod>2022-01-13T22:02:20+08:00</lastmod>
   </url><url>
@@ -9,12 +24,6 @@
     <lastmod>2022-01-13T22:02:20+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/leetcode/</loc>
-    <lastmod>2022-01-13T22:02:20+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/series/</loc>
-    <lastmod>2022-01-13T22:02:20+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/</loc>
     <lastmod>2022-01-13T22:02:20+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/leetcode/881.boats-to-save-people/</loc>
@@ -31,12 +40,6 @@
   </url><url>
     <loc>https://wncbb.github.io/distributed_system/xa/</loc>
     <lastmod>2022-01-13T18:03:23+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/series/one_problem_per_day/</loc>
-    <lastmod>2022-01-13T09:00:10+08:00</lastmod>
-  </url><url>
-    <loc>https://wncbb.github.io/oneproblemperday/</loc>
-    <lastmod>2022-01-13T09:00:10+08:00</lastmod>
   </url><url>
     <loc>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</loc>
     <lastmod>2022-01-13T09:00:10+08:00</lastmod>

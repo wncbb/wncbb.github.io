@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>每日一题 2022_01_14 &middot; WNCBB&#39;s blog</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wncbb.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0c layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wncbb.github.io/"><h1>WNCBB&#39;s blog</h1></a>
+      <p class="lead">
+       A man is only as good as what he loves 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wncbb.github.io/">Home</a> </li>
+        <li><a href="/categories/"> Categories </a></li><li><a href="/series/"> Series </a></li><li><a href="/tags/"> Tags </a></li><li><a href="/about/"> About me </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>每日一题 2022_01_14</h1>
+  <time datetime=2022-01-14T09:40:42&#43;0800 class="post-date">2022-01-14 09:40:42</time>
+  <a href="/series/one_problem_per_day">#one_problem_per_day</a>
+  <h2 id="leetcode-cncommand">leetcode-cn.command</h2>
+<p><a href="https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/">373. 查找和最小的K对数字</a></p>
+<pre tabindex="0"><code>对于
+nums1: 1, 7, 11
+nums2: 2, 4, 6
+k: 4
+创建一个堆，把nums1的索引[0, 1, 2]与nums2的索引0(min(len(nums1), k))，组成对放到最小堆里
+然后弹出最小值，把nums2的索引加一再放回去，如果nums2的索引已经到头了，就不用放
+
+
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">kSmallestPairs</span>(<span style="color:#a6e22e">nums1</span>, <span style="color:#a6e22e">nums2</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">ans</span> [][]<span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">nums1Len</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">nums1</span>)
+	<span style="color:#a6e22e">nums2Len</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">nums2</span>)
+	<span style="color:#a6e22e">h</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">hp</span>{
+		<span style="color:#a6e22e">data</span>:  <span style="color:#66d9ef">nil</span>,
+		<span style="color:#a6e22e">nums1</span>: <span style="color:#a6e22e">nums1</span>,
+		<span style="color:#a6e22e">nums2</span>: <span style="color:#a6e22e">nums2</span>,
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">k</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">nums1Len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#75715e">// 放进去的一定是从小到大排序的
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// pair.j都是0, pair.i是从0到大，已经排好序了
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">h</span>, <span style="color:#a6e22e">pair</span>{<span style="color:#a6e22e">i</span>, <span style="color:#ae81ff">0</span>})
+	}
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;line21 h:%+v\n&#34;</span>, <span style="color:#a6e22e">h</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Len</span>() &gt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> len(<span style="color:#a6e22e">ans</span>) &lt; <span style="color:#a6e22e">k</span> {
+		<span style="color:#75715e">// 此时栈顶元素一定是最小的
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Pop</span>(<span style="color:#a6e22e">h</span>).(<span style="color:#a6e22e">pair</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;line25 %+v\n&#34;</span>, <span style="color:#a6e22e">p</span>)
+		<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">j</span>
+		<span style="color:#a6e22e">ans</span> = append(<span style="color:#a6e22e">ans</span>, []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">nums1</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">nums2</span>[<span style="color:#a6e22e">j</span>]})
+		<span style="color:#75715e">// 下一个最小的，就是遍历j右边的数据，
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 如果j=n-1, 那么下次应该从下一行开始遍历
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 下一波弹出的数据的j的右边开始遍历
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> &lt; <span style="color:#a6e22e">nums2Len</span> {
+			<span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">h</span>, <span style="color:#a6e22e">pair</span>{<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>})
+		}
+	}
+	<span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">pair</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hp</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">data</span>         []<span style="color:#a6e22e">pair</span>
+	<span style="color:#a6e22e">nums1</span>, <span style="color:#a6e22e">nums2</span> []<span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>)
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">nums1</span>[<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">i</span>]<span style="color:#f92672">+</span><span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">nums2</span>[<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">j</span>] &lt;
+		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">nums1</span>[<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">i</span>]<span style="color:#f92672">+</span><span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">nums2</span>[<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">j</span>]
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">interface</span>{}) {
+	<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span> = append(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">v</span>.(<span style="color:#a6e22e">pair</span>))
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Pop</span>() <span style="color:#66d9ef">interface</span>{} {
+	<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span>
+	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[len(<span style="color:#a6e22e">a</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+	<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">data</span> = <span style="color:#a6e22e">a</span>[:len(<span style="color:#a6e22e">a</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">nums1</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">11</span>}
+	<span style="color:#a6e22e">nums2</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>}
+	<span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">4</span>
+	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">kSmallestPairs</span>(<span style="color:#a6e22e">nums1</span>, <span style="color:#a6e22e">nums2</span>, <span style="color:#a6e22e">k</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ans:%+v\n&#34;</span>, <span style="color:#a6e22e">ans</span>)
+}
+
+</code></pre></div><h2 id="leetcodecom">leetcode.com</h2>
+<p><a href="https://leetcode-cn.com/problems/string-to-integer-atoi/">8. 字符串转换整数 (atoi)</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myAtoi</span>(<span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">convert</span>(<span style="color:#a6e22e">clean</span>(<span style="color:#a6e22e">str</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">clean</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">sign</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">abs</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#75715e">// 先去除首尾空格
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSpace</span>(<span style="color:#a6e22e">s</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#75715e">// 判断第一个字符
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] {
+	<span style="color:#75715e">// 有效的
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;0&#39;</span>, <span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;4&#39;</span>, <span style="color:#e6db74">&#39;5&#39;</span>, <span style="color:#e6db74">&#39;6&#39;</span>, <span style="color:#e6db74">&#39;7&#39;</span>, <span style="color:#e6db74">&#39;8&#39;</span>, <span style="color:#e6db74">&#39;9&#39;</span>:
+		<span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>
+	<span style="color:#75715e">// 有效的，正号
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;+&#39;</span>:
+		<span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>:]
+	<span style="color:#75715e">// 有效的，负号
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;-&#39;</span>:
+		<span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>:]
+	<span style="color:#75715e">// 无效的，当空字符处理，并且直接返回
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">default</span>:
+		<span style="color:#a6e22e">abs</span> = <span style="color:#e6db74">&#34;&#34;</span>
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">abs</span> {
+		<span style="color:#75715e">// 遍历第一波处理过的字符，如果直到第i个位置有效，那就取s[:i]，从头到这个有效的字符，剩下的就不管了，也就是break掉
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 比如 s=123abc，那么就取123，也就是s[:3]
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span> &lt; <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;9&#39;</span> &lt; <span style="color:#a6e22e">b</span> {
+			<span style="color:#a6e22e">abs</span> = <span style="color:#a6e22e">abs</span>[:<span style="color:#a6e22e">i</span>]
+			<span style="color:#75715e">// 一定要break，因为后面的就没用了
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">break</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#75715e">// 接收的输入是已经处理过的纯数字
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">convert</span>(<span style="color:#a6e22e">sign</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">absStr</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#a6e22e">absNum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">absStr</span> {
+		<span style="color:#75715e">// b - &#39;0&#39; ==&gt; 得到这个字符类型的数字的真实数值的绝对值
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">absNum</span> = <span style="color:#a6e22e">absNum</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> int(<span style="color:#a6e22e">b</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>)
+		<span style="color:#75715e">// 检查溢出
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">switch</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">absNum</span> &gt; <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>:
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>
+		<span style="color:#75715e">// 这里和正数不一样的是，必须和负号相乘，也就是变成负数，否则永远走不到里面
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">absNum</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sign</span> &lt; <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>:
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">absNum</span>
+}
+</code></pre></div>
+</div>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wncbb" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </main>
+
+    
+  </body>
+</html>
