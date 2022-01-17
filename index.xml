@@ -6,7 +6,27 @@
     <description>Recent content on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 Jan 2022 21:07:28 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Jan 2022 19:11:03 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>每日一题 2022_01_17</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_17/</link>
+      <pubDate>Mon, 17 Jan 2022 19:11:03 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_17/</guid>
+      <description>leetcode-cn.com 1220. 统计元音字母序列的数目
+func countVowelPermutation(n int) (ans int) { const mod int = 1e9 + 7 dp := [5]int{1, 1, 1, 1, 1} for i := 1; i &amp;lt; n; i++ { dp = [5]int{ (dp[1] + dp[2] + dp[4]) % mod, // a 前面可以为 e,u,i  (dp[0] + dp[2]) % mod, // e 前面可以为 a,i  (dp[1] + dp[3]) % mod, // i 前面可以为 e,o  dp[2], // o 前面可以为 i  (dp[2] + dp[3]) % mod, // u 前面可以为 i,o  } } for _, v := range dp { ans = (ans + v) % mod } return } leetcode.</description>
+    </item>
+    
+    <item>
+      <title>每日一题 2022_01_16</title>
+      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_16/</link>
+      <pubDate>Mon, 17 Jan 2022 19:10:39 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_16/</guid>
+      <description>leetcode-cn.com 382. 链表随机节点
+蓄水池算法 /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ type Solution struct { head *ListNode } func Constructor(head *ListNode) Solution { return Solution{head} } func (s *Solution) GetRandom() (ans int) { for node, i := s.head, 1; node != nil; node = node.Next { // 循环第一次，i=1，此时rand.Intn(1)一定是0，因此ans一定有值  if rand.Intn(i) == 0 { // 1/i 的概率选中（替换为答案）  ans = node.</description>
+    </item>
+    
     <item>
       <title>每日一题 2022_01_15</title>
       <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_15/</link>
