@@ -6,7 +6,24 @@
     <description>Recent content in K8s on WNCBB&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Jan 2022 18:12:48 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Jul 2022 18:51:58 +0800</lastBuildDate><atom:link href="https://wncbb.github.io/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install</title>
+      <link>https://wncbb.github.io/k8s/install/</link>
+      <pubDate>Sat, 23 Jul 2022 18:51:58 +0800</pubDate>
+      
+      <guid>https://wncbb.github.io/k8s/install/</guid>
+      <description>准备虚拟机环境 虚拟机CPU最少2个核， 内存最少8G， 磁盘最少30G
+安装好后，安装ssh
+sudo apt install openssh-server sudo service ssh restart sudo service ssh start 关闭防火墙
+sudo ufw status sudo ufw disable 关闭内存swap 修改文件/etc/fstab， 注释掉swapfile这一行
+安装docker
+apt install docker.io 更新 cgroupdriver 为 systemd
+sudo tee /etc/docker/daemon.json &amp;lt;&amp;lt;-&#39;EOF&#39; { &amp;quot;registry-mirrors&amp;quot;: [&amp;quot;https://uy35zvn6.mirror.aliyuncs.com&amp;quot;], &amp;quot;exec-opts&amp;quot;: [&amp;quot;native.cgroupdriver=systemd&amp;quot;] } EOF ​ systemctl daemon-reload systemctl restart docker 验证docker
+docker version 将桥接的 IPv4/IPv6 流量传递到 iptables 的链
+cat &amp;lt;&amp;lt;EOF | sudo tee /etc/modules-load.d/k8s.conf br_netfilter EOF ​ cat &amp;lt;&amp;lt;EOF | sudo tee /etc/sysctl.</description>
+    </item>
+    
     <item>
       <title>Kubernetes学习笔记(一) 网络基础part1</title>
       <link>https://wncbb.github.io/k8s/network_1/</link>
