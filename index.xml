@@ -13,65 +13,12 @@
       <pubDate>Sat, 23 Jul 2022 18:51:58 +0800</pubDate>
       
       <guid>https://wncbb.github.io/k8s/install/</guid>
-      <description>准备虚拟机环境 虚拟机CPU最少2个核， 内存最少8G， 磁盘最少30G
-安装好后，安装ssh
-sudo apt install openssh-server sudo service ssh restart sudo service ssh start 关闭防火墙
-sudo ufw status sudo ufw disable 关闭内存swap 修改文件/etc/fstab， 注释掉swapfile这一行
-安装docker
-apt install docker.io 更新 cgroupdriver 为 systemd
-sudo tee /etc/docker/daemon.json &amp;lt;&amp;lt;-&#39;EOF&#39; { &amp;quot;registry-mirrors&amp;quot;: [&amp;quot;https://uy35zvn6.mirror.aliyuncs.com&amp;quot;], &amp;quot;exec-opts&amp;quot;: [&amp;quot;native.cgroupdriver=systemd&amp;quot;] } EOF ​ systemctl daemon-reload systemctl restart docker 验证docker
-docker version 将桥接的 IPv4/IPv6 流量传递到 iptables 的链
-cat &amp;lt;&amp;lt;EOF | sudo tee /etc/modules-load.d/k8s.conf br_netfilter EOF ​ cat &amp;lt;&amp;lt;EOF | sudo tee /etc/sysctl.</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_18</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_18/</link>
-      <pubDate>Tue, 18 Jan 2022 22:10:20 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_18/</guid>
-      <description>leetcode-cn.com 539. 最小时间差
-func getMinutes(t string) int { return (int(t[0]-&amp;#39;0&amp;#39;)*10+int(t[1]-&amp;#39;0&amp;#39;))*60 + int(t[3]-&amp;#39;0&amp;#39;)*10 + int(t[4]-&amp;#39;0&amp;#39;) } func findMinDifference(timePoints []string) int { if len(timePoints) &amp;gt; 1440 { return 0 } sort.Strings(timePoints) ans := math.MaxInt32 t0Minutes := getMinutes(timePoints[0]) preMinutes := t0Minutes for _, t := range timePoints[1:] { minutes := getMinutes(t) ans = min(ans, minutes-preMinutes) // 相邻时间的时间差  preMinutes = minutes } ans = min(ans, t0Minutes+1440-preMinutes) // 首尾时间的时间差  return ans } func min(a, b int) int { if a &amp;gt; b { return b } return a } leetcode.</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_17</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_17/</link>
-      <pubDate>Mon, 17 Jan 2022 19:11:03 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_17/</guid>
-      <description>leetcode-cn.com 1220. 统计元音字母序列的数目
-func countVowelPermutation(n int) (ans int) { const mod int = 1e9 + 7 dp := [5]int{1, 1, 1, 1, 1} for i := 1; i &amp;lt; n; i++ { dp = [5]int{ (dp[1] + dp[2] + dp[4]) % mod, // a 前面可以为 e,u,i  (dp[0] + dp[2]) % mod, // e 前面可以为 a,i  (dp[1] + dp[3]) % mod, // i 前面可以为 e,o  dp[2], // o 前面可以为 i  (dp[2] + dp[3]) % mod, // u 前面可以为 i,o  } } for _, v := range dp { ans = (ans + v) % mod } return } leetcode.</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_16</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_16/</link>
-      <pubDate>Mon, 17 Jan 2022 19:10:39 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_16/</guid>
-      <description>leetcode-cn.com 382. 链表随机节点
-蓄水池算法 /** * Definition for singly-linked list. * type ListNode struct { * Val int * Next *ListNode * } */ type Solution struct { head *ListNode } func Constructor(head *ListNode) Solution { return Solution{head} } func (s *Solution) GetRandom() (ans int) { for node, i := s.head, 1; node != nil; node = node.Next { // 循环第一次，i=1，此时rand.Intn(1)一定是0，因此ans一定有值  if rand.Intn(i) == 0 { // 1/i 的概率选中（替换为答案）  ans = node.</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_15</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_15/</link>
-      <pubDate>Sat, 15 Jan 2022 21:07:28 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_15/</guid>
-      <description>leetcode-cn.com 1716. 计算力扣银行的钱
-func totalMoney(n int) (ans int) { // 所有完整的周存的钱  weekNum := n / 7 firstWeekMoney := (1 + 7) * 7 / 2 lastWeekMoney := firstWeekMoney + 7*(weekNum-1) weekMoney := (firstWeekMoney + lastWeekMoney) * weekNum / 2 // 剩下的不能构成一个完整的周的天数里存的钱  dayNum := n % 7 firstDayMoney := 1 + weekNum lastDayMoney := firstDayMoney + dayNum - 1 dayMoney := (firstDayMoney + lastDayMoney) * dayNum / 2 return weekMoney + dayMoney } leetcode.</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_14</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_14/</link>
-      <pubDate>Fri, 14 Jan 2022 09:40:42 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_14/</guid>
-      <description>leetcode-cn.command 373. 查找和最小的K对数字
-对于 nums1: 1, 7, 11 nums2: 2, 4, 6 k: 4 创建一个堆，把nums1的索引[0, 1, 2]与nums2的索引0(min(len(nums1), k))，组成对放到最小堆里 然后弹出最小值，把nums2的索引加一再放回去，如果nums2的索引已经到头了，就不用放 func kSmallestPairs(nums1, nums2 []int, k int) (ans [][]int) { nums1Len := len(nums1) nums2Len := len(nums2) h := &amp;amp;hp{ data: nil, nums1: nums1, nums2: nums2, } for i := 0; i &amp;lt; k &amp;amp;&amp;amp; i &amp;lt; nums1Len; i++ { // 放进去的一定是从小到大排序的 	// pair.j都是0, pair.i是从0到大，已经排好序了 	heap.Push(h, pair{i, 0}) } fmt.Printf(&amp;#34;line21 h:%+v\n&amp;#34;, h) for h.</description>
+      <description>本地k8s环境搭建
+1.1 准备虚拟机环境 虚拟机CPU最少2个核， 内存最少8G， 磁盘最少30G。
+1.2 设置静态IP 编辑文件/etc/netplan/01-network-manager-all.yaml, 内容修改为如下所示：
+# Let NetworkManager manage all devices on this system network: version: 2 renderer: NetworkManager ethernets: enp0s3: # Get from ifconfig dhcp4: yes addresses: [192.168.1.190/24] # change according to local network gateway4: 192.168.1.1 # change according to local network # nameservers: # addresses: [114.114.114.114] # hange according to local network 执行命令netplay apply应用修改
+1.3 安装ssh 安装命令
+sudo apt install openssh-server sudo service ssh restart sudo service ssh start 1.</description>
     </item>
     
     <item>
@@ -114,17 +61,6 @@ func reversePairs(nums []int) int { _, rstCnt:=mergeSort(nums) return rstCnt } f
     </item>
     
     <item>
-      <title>每日一题 2022_01_13</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</link>
-      <pubDate>Thu, 13 Jan 2022 09:00:10 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_13/</guid>
-      <description>leetcode-cn.com 747. 至少是其他数字两倍的最大数
-func dominantIndex(nums []int) int { m1, m2, idx := -1, -1, 0 for i, num := range nums { if num &amp;gt; m1 { m1, m2, idx = num, m1, i } else if num &amp;gt; m2 { m2 = num } } if m1 &amp;gt;= m2*2 { return idx } return -1 } leetcode.com 452. 用最少数量的箭引爆气球
-func findMinArrowShots(points [][]int) int { if len(points) == 0 { return 0 } sort.</description>
-    </item>
-    
-    <item>
       <title>300. Longest Increasing Subsequence</title>
       <link>https://wncbb.github.io/leetcode/300_longest_increasing_subsequence/</link>
       <pubDate>Wed, 12 Jan 2022 20:20:33 +0800</pubDate>
@@ -132,28 +68,6 @@ func findMinArrowShots(points [][]int) int { if len(points) == 0 { return 0 } so
       <guid>https://wncbb.github.io/leetcode/300_longest_increasing_subsequence/</guid>
       <description>300. 最长递增子序列
 解法一 动态规划 dp[i]标识，以s[i]结尾的，最长的递增子序列长度 dp[i]=Max(dp[j])+1 // 0&amp;lt;=j&amp;lt;i &amp;amp;&amp;amp; s[j]&amp;lt;s[i] func lengthOfLIS(nums []int) int { dp := make([]int, len(nums)) // 必须初始化为1，以nums[i]结尾的LIS最小长度也是1 	for i := range dp { dp[i] = 1 } for i := 1; i &amp;lt; len(nums); i++ { for j := 0; j &amp;lt; i; j++ { if nums[j] &amp;lt; nums[i] { dp[i] = getMax(dp[i], dp[j]+1) } } } ret := dp[0] for i := 1; i &amp;lt; len(dp); i++ { ret = getMax(ret, dp[i]) } return ret } func getMax(a, b int) int { if a &amp;gt; b { return a } return b } 解法二 二分查找 func lengthOfLIS(nums []int) int { // d[i]标识，长度为len(d[:i+1])的最长递增子序列的最后一个元素 	d := make([]int, 0) for _, v := range nums { // 如果len(d)==0, 那么直接把当前值放入数组  // 如果d[len(d)-1]&amp;lt;v, 比如说d[3]=10, v是11，  // 长度为3的最长递增子序列的最后一个元素是10，那么11正好可以拼接在这个长度为3的LIS后面，构成一个长度为4的LIS 	if len(d) == 0 || d[len(d)-1] &amp;lt; v { d = append(d, v) continue } // 在有序数组d中，找到第一个&amp;gt;=d的索引，因为题目要求LIS严格递增  // 如果d=[4, 10]，而没有等于条件，会返回idx=1，那么d=[4, 4]，那么长度为2的LIS的俩元素都是4，与题目不符合 	idx := firstGreaterOrEqualIndex(v, d) // 下面的逻辑不可能执行到，因为d[len(d)-1]一定大于等于v，否则会走到上面的逻辑  // 因此在d里面找大于等于v的数据，一定是能找到 	// if idx == -1 {  // // 如果找不到，举个例子,d=[4, 10], v=10,  // fmt.</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_12</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_12/</link>
-      <pubDate>Wed, 12 Jan 2022 09:25:15 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_12/</guid>
-      <description>leetcode-cn.com 334. 递增的三元子序列
-func increasingTriplet(nums []int) bool { if len(nums)&amp;lt;3{ return false } first:=nums[0] second:=int(math.MaxInt64) for i:=1; i&amp;lt;len(nums); i++{ cur:=nums[i] if cur&amp;gt;second{ return true }else if cur&amp;gt;first{ second=cur }else{ // 这里只改first是可以的，下一次遍历过程中，如果cur进入&amp;#34;大于first&amp;#34;分支，那么second就会被修改掉  first=cur } } return false } leetcode.com 701. 二叉搜索树中的插入操作
-/** * Definition for a binary tree node. * type TreeNode struct { * Val int * Left *TreeNode * Right *TreeNode * } */ func insertIntoBST(root *TreeNode, val int) *TreeNode { if root == nil { return &amp;amp;TreeNode{Val: val} } // 新的数据，不是插入左子树，就是插入右子树  p := root for p !</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_11</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_11/</link>
-      <pubDate>Tue, 11 Jan 2022 09:33:13 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_11/</guid>
-      <description>leetcode-cn.com 1036.逃离大迷宫
-最佳题解
-type pair struct{ x, y int } var dirs = []pair{{-1, 0}, {1, 0}, {0, -1}, {0, 1}} // 因为表格很大，但是block不大，可以判断source/destination是否被block围起来，如果没有围起来，一定可以联通。 // 当然source destination被围在一起也可以  func isEscapePossible(block [][]int, source, target []int) bool { const ( blocked = -1 // 在包围圈中  valid = 0 // 不在包围圈中  found = 1 // 无论在不在包围圈中，但在 n(n-1)/2 步搜索的过程中经过了 target  boundary int = 1e6 ) n := len(block) if n &amp;lt; 2 { return true } blockSet := map[pair]bool{} for _, b := range block { blockSet[pair{b[0], b[1]}] = true } check := func(start, finish []int) int { sx, sy := start[0], start[1] fx, fy := finish[0], finish[1] // 对于n个block格子，能够围起来的空间最多是n*(n-1)/2  // 比如n=3  // .</description>
     </item>
     
     <item>
@@ -187,26 +101,6 @@ L1是从右向左展示，比如!左侧的第一个数据，是LRU的最新的�
     </item>
     
     <item>
-      <title>每日一题 2022_01_10</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</link>
-      <pubDate>Mon, 10 Jan 2022 09:09:50 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_10/</guid>
-      <description>leetcode-cn.com 306. 累加数
-func addBinary(a string, b string) string { ans := &amp;#34;&amp;#34; carry := 0 lenA, lenB := len(a), len(b) n := max(lenA, lenB) for i := 0; i &amp;lt; n; i++ { if i &amp;lt; lenA { carry += int(a[lenA-i-1] - &amp;#39;0&amp;#39;) } if i &amp;lt; lenB { carry += int(b[lenB-i-1] - &amp;#39;0&amp;#39;) } // 这里ans放在后面，正好就是结果  ans = strconv.Itoa(carry%2) + ans carry /= 2 } // 最后需要查看下，是否有进位  if carry &amp;gt; 0 { ans = &amp;#34;1&amp;#34; + ans } return ans } func max(x, y int) int { if x &amp;gt; y { return x } return y } leetcode.</description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_09</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</link>
-      <pubDate>Sun, 09 Jan 2022 15:35:14 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_09/</guid>
-      <description>leetcode-cn.com 1629. 按键持续时间最长的键
-keys_pressed: A B C D release_times: a b c d 求a, b-a, c-b, d-c的最大值对应的key(如果相同，采用字典序最大值) impl Solution { pub fn slowest_key(release_times: Vec&amp;lt;i32&amp;gt;, keys_pressed: String) -&amp;gt; char { let keys : Vec&amp;lt;char&amp;gt; = keys_pressed.chars().collect(); let mut max = release_times[0]; let mut key = keys[0]; let l = keys_pressed.len(); for i in 1..l { let t = release_times[i] - release_times[i - 1]; if t &amp;gt; max || (max == t &amp;amp;&amp;amp; key &amp;lt; keys[i]) { max = t; key = keys[i]; } } key } } leetcode.</description>
-    </item>
-    
-    <item>
       <title>400.nth_digit</title>
       <link>https://wncbb.github.io/leetcode/400_nth_digit/</link>
       <pubDate>Sun, 09 Jan 2022 10:32:07 +0800</pubDate>
@@ -214,19 +108,6 @@ keys_pressed: A B C D release_times: a b c d 求a, b-a, c-b, d-c的最大值对�
       <guid>https://wncbb.github.io/leetcode/400_nth_digit/</guid>
       <description>400.第 N 位数字
 func findNthDigit(n int) int { // 题目计数是从1开始，代码里是从0开始  n=n-1 // 个位数 每个数值转化为字符串长度为1  // 两位数 每个数值转化为字符串长度为2  // len保存当前n位数的长度  curLen:=1 // first表示，从n里不停的减掉 一位数 两位数 。。。 个数，不够减得时候，  // 假设目前是n位数，标识n位数的第一个数  first:=1 count:=9 for n&amp;gt;curLen*count{ n=n-curLen*count curLen++ first*=10 count*=10 } // n-1是因为，计数都是从0开始计数  // 比如说，对于 1 2 3 4 5 6 7 8 9 10 查找第11个数字，是10的个位数0  // n先减去个位数的个数9, 11-9=2  // 然后确定第二个数在第几个二位数里  first+=n/curLen s:=fmt.Sprintf(&amp;#34;%d&amp;#34;, first) return int(s[n%curLen]-&amp;#39;0&amp;#39;) } </description>
-    </item>
-    
-    <item>
-      <title>每日一题 2022_01_08</title>
-      <link>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</link>
-      <pubDate>Sat, 08 Jan 2022 22:14:50 +0800</pubDate>
-      
-      <guid>https://wncbb.github.io/oneproblemperday/oppd_2022_01_08/</guid>
-      <description>leetcode-cn.com 89.格雷编码
-最棒题解
-1func grayCode(n int) []int { 2 // n=0时，就是一个数0 3 ans:=make([]int, 1, 1&amp;lt;&amp;lt;n) 4 // a=上一行的数据 5 // b=上一行的数据翻转，然后每个元素前面加1(比如10， 变成110) 6 // 这一行的数据=a+b(数组连接) 7 // curRow=prevRow+Reverse(prevRow).map(v=&amp;gt;v+head) 8 head:=1 9 for i:=0; i&amp;lt;n; i++{ 10 for j:=len(ans)-1; j&amp;gt;=0; j--{ 11 ans=append(ans, head+ans[j]) 12 } 13 head=head&amp;lt;&amp;lt;1 14 } 15 return ans 16} leetcode.com 1463.Cherry Pickup II
-最棒题解
-1func cherryPickup(grid [][]int) int { 2	n:=len(grid) 3	m:=len(grid[0]) 4 // dp[i][j][k]表示，机器人1在位置(i, j),机器人2在位置(i, k)时，最大值。 5	dp:=make([][][]int,n) 6	for k,_:=range dp{ 7	dp[k]=make([][]int,m) 8	for i,_:=range dp[k]{ 9	dp[k][i]=make([]int,m) 10	for j,_:=range dp[k][i]{ 11 // -1 表示这个位置还没有计算 12	dp[k][i][j]=-1 13	} 14	} 15	} 16 // 当i=0时，刚开始机器人1在(0, 0)， 机器人2在(0， n-1)，不需要计算。 17	dp[0][0][len(grid[0])-1]=grid[0][0]+grid[0][len(grid[0])-1] 18	for i:=0;i&amp;lt;n-1;i++{ 19	for j:=0;j&amp;lt;m;j++{ 20	for k:=0;k&amp;lt;m;k++{ 21	if dp[i][j][k]!</description>
     </item>
     
     <item>

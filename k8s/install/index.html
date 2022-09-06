@@ -52,35 +52,56 @@
     <div class="post">
   <h1>Install k8s</h1>
   <time datetime=2022-07-23T18:51:58&#43;0800 class="post-date">2022-07-23 18:51:58</time>
-  
-  <h1 id="准备虚拟机环境">准备虚拟机环境</h1>
+  <a href="/series/k8s">#k8s</a>
+  <p>本地k8s环境搭建</p>
+<h4 id="11-准备虚拟机环境">1.1 准备虚拟机环境</h4>
 <p>虚拟机CPU最少2个核，
 内存最少8G，
-磁盘最少30G</p>
-<p>安装好后，安装ssh</p>
+磁盘最少30G。</p>
+<h4 id="12-设置静态ip">1.2 设置静态IP</h4>
+<p>编辑文件<code>/etc/netplan/01-network-manager-all.yaml</code>, 内容修改为如下所示：</p>
+<pre tabindex="0"><code># Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s3:  # Get from ifconfig
+      dhcp4: yes
+      addresses: [192.168.1.190/24]     # change according to local network
+      gateway4: 192.168.1.1             # change according to local network
+        # nameservers:
+        # addresses: [114.114.114.114]  # hange according to local network
+</code></pre><p>执行命令<code>netplay apply</code>应用修改</p>
+<h4 id="13-安装ssh">1.3 安装ssh</h4>
+<p>安装命令</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt install openssh-server
 sudo service ssh restart
 sudo service ssh start
-</code></pre></div><p>关闭防火墙</p>
+</code></pre></div><h4 id="14-关闭防火墙">1.4 关闭防火墙</h4>
+<p>执行命令</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo ufw status
 sudo ufw disable
-</code></pre></div><p>关闭内存swap
-修改文件<code>/etc/fstab</code>， 注释掉<code>swapfile</code>这一行</p>
-<p>安装docker</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">apt install docker.io
+</code></pre></div><h4 id="15-关闭swap">1.5 关闭swap</h4>
+<p>关闭内存swap
+修改文件<code>/etc/fstab</code>， 注释掉<code>swapfile</code>这一行.
+重启机器，<code>free</code>命令查看swap空间应该为空。</p>
+<h4 id="16-安装docker">1.6 安装docker</h4>
+<p>docker或者containerd都可以，这里选择docker</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 使用的是ubuntu环境的docker</span>
+apt install docker.io
 </code></pre></div><p>更新 cgroupdriver 为 systemd</p>
-<pre tabindex="0"><code>sudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'
-{
-  &quot;registry-mirrors&quot;: [&quot;https://uy35zvn6.mirror.aliyuncs.com&quot;],
-  &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;]
-}
-EOF
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo tee /etc/docker/daemon.json <span style="color:#e6db74">&lt;&lt;-&#39;EOF&#39;
+</span><span style="color:#e6db74">{
+</span><span style="color:#e6db74">  &#34;registry-mirrors&#34;: [&#34;https://uy35zvn6.mirror.aliyuncs.com&#34;],
+</span><span style="color:#e6db74">  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;]
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
 ​
 systemctl daemon-reload
 systemctl restart docker
-</code></pre><p>验证docker</p>
+</code></pre></div><p>验证docker安装完毕</p>
 <pre tabindex="0"><code>docker version
-</code></pre><p>将桥接的 IPv4/IPv6 流量传递到 iptables 的链</p>
+</code></pre><h4 id="17-设置iptables">1.7 设置iptables</h4>
 <pre tabindex="0"><code>cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
 EOF
@@ -92,201 +113,89 @@ EOF
 ​
 sudo sysctl --system
 
-</code></pre><p>apt 包更新, 安装 <code>apt-transport-https ca-certificates curl</code></p>
+</code></pre><h4 id="18-设置apt安装kubeadm-kubectl-kubelet">1.8 设置apt,安装kubeadm, kubectl, kubelet</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 
-</code></pre></div><p>添加GPG密钥</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
-</code></pre></div><p>添加 Kubernetes apt 存储库</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo tee /etc/apt/sources.list.d/kubernetes.list <span style="color:#e6db74">&lt;&lt;-&#39;EOF&#39;
+<span style="color:#75715e"># Add GPG</span>
+sudo curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
+
+<span style="color:#75715e"># Add k8s apt source</span>
+sudo tee /etc/apt/sources.list.d/kubernetes.list <span style="color:#e6db74">&lt;&lt;-&#39;EOF&#39;
 </span><span style="color:#e6db74">deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main
 </span><span style="color:#e6db74">EOF</span>
-</code></pre></div><p>更新 apt 包, 安装 kubelet, kubeadm and kubectl</p>
+</code></pre></div><p>安装kubeadm, kubectl, kubelet</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get update
 sudo apt-get install -y kubelet<span style="color:#f92672">=</span>1.22.2-00 kubeadm<span style="color:#f92672">=</span>1.22.2-00 kubectl<span style="color:#f92672">=</span>1.22.2-00 
 sudo apt-mark hold kubelet kubeadm kubectl
-</code></pre></div><p>初始化 kubadm</p>
+</code></pre></div><h4 id="19-使用kubeadm">1.9 使用kubeadm</h4>
+<p>启动k8s</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span> --image-repository registry.aliyuncs.com/google_containers <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span> --kubernetes-version v1.22.2 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span> --pod-network-cidr<span style="color:#f92672">=</span>192.168.0.0/16 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> --apiserver-advertise-address<span style="color:#f92672">=</span>&lt;master node ip&gt;
-</code></pre></div><p>输出成功信息，内部有提示下一步如何做，如何设置命令，如何join</p>
-<pre tabindex="0"><code>root@fly-virtual-machine:/etc/netplan# kubeadm init \
-&gt;  --image-repository registry.aliyuncs.com/google_containers \
-&gt;  --kubernetes-version v1.22.2 \
-&gt;  --pod-network-cidr=192.168.0.0/16 \
-&gt;  --apiserver-advertise-address=192.168.172.129
-[init] Using Kubernetes version: v1.22.2
-[preflight] Running pre-flight checks
-[preflight] Pulling images required for setting up a Kubernetes cluster
-[preflight] This might take a minute or two, depending on the speed of your internet connection
-[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
-[certs] Using certificateDir folder &quot;/etc/kubernetes/pki&quot;
-[certs] Generating &quot;ca&quot; certificate and key
-[certs] Generating &quot;apiserver&quot; certificate and key
-[certs] apiserver serving cert is signed for DNS names [fly-virtual-machine kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.172.129]
-[certs] Generating &quot;apiserver-kubelet-client&quot; certificate and key
-[certs] Generating &quot;front-proxy-ca&quot; certificate and key
-[certs] Generating &quot;front-proxy-client&quot; certificate and key
-[certs] Generating &quot;etcd/ca&quot; certificate and key
-[certs] Generating &quot;etcd/server&quot; certificate and key
-[certs] etcd/server serving cert is signed for DNS names [fly-virtual-machine localhost] and IPs [192.168.172.129 127.0.0.1 ::1]
-[certs] Generating &quot;etcd/peer&quot; certificate and key
-[certs] etcd/peer serving cert is signed for DNS names [fly-virtual-machine localhost] and IPs [192.168.172.129 127.0.0.1 ::1]
-[certs] Generating &quot;etcd/healthcheck-client&quot; certificate and key
-[certs] Generating &quot;apiserver-etcd-client&quot; certificate and key
-[certs] Generating &quot;sa&quot; key and public key
-[kubeconfig] Using kubeconfig folder &quot;/etc/kubernetes&quot;
-[kubeconfig] Writing &quot;admin.conf&quot; kubeconfig file
-[kubeconfig] Writing &quot;kubelet.conf&quot; kubeconfig file
-[kubeconfig] Writing &quot;controller-manager.conf&quot; kubeconfig file
-[kubeconfig] Writing &quot;scheduler.conf&quot; kubeconfig file
-[kubelet-start] Writing kubelet environment file with flags to file &quot;/var/lib/kubelet/kubeadm-flags.env&quot;
-[kubelet-start] Writing kubelet configuration to file &quot;/var/lib/kubelet/config.yaml&quot;
-[kubelet-start] Starting the kubelet
-[control-plane] Using manifest folder &quot;/etc/kubernetes/manifests&quot;
-[control-plane] Creating static Pod manifest for &quot;kube-apiserver&quot;
-[control-plane] Creating static Pod manifest for &quot;kube-controller-manager&quot;
-[control-plane] Creating static Pod manifest for &quot;kube-scheduler&quot;
-[etcd] Creating static Pod manifest for local etcd in &quot;/etc/kubernetes/manifests&quot;
-[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &quot;/etc/kubernetes/manifests&quot;. This can take up to 4m0s
-[apiclient] All control plane components are healthy after 11.020909 seconds
-[upload-config] Storing the configuration used in ConfigMap &quot;kubeadm-config&quot; in the &quot;kube-system&quot; Namespace
-[kubelet] Creating a ConfigMap &quot;kubelet-config-1.22&quot; in namespace kube-system with the configuration for the kubelets in the cluster
-[upload-certs] Skipping phase. Please see --upload-certs
-[mark-control-plane] Marking the node fly-virtual-machine as control-plane by adding the labels: [node-role.kubernetes.io/master(deprecated) node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
-[mark-control-plane] Marking the node fly-virtual-machine as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
-[bootstrap-token] Using token: 6igmn8.d4zk3hmr0rr0j7k2
-[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
-[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
-[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
-[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
-[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
-[bootstrap-token] Creating the &quot;cluster-info&quot; ConfigMap in the &quot;kube-public&quot; namespace
-[kubelet-finalize] Updating &quot;/etc/kubernetes/kubelet.conf&quot; to point to a rotatable kubelet client certificate and key
-[addons] Applied essential addon: CoreDNS
-[addons] Applied essential addon: kube-proxy
-​
-Your Kubernetes control-plane has initialized successfully!
-​
+</span><span style="color:#ae81ff"></span> --apiserver-advertise-address<span style="color:#f92672">=</span>&lt;修改为当前node的IP&gt;
+</code></pre></div><p>输出成功信息，内部有提示下一步如何做设置终端命令，如何添加node节点等，需要保存后面会用到。</p>
+<pre tabindex="0"><code>Your Kubernetes control-plane has initialized successfully!
+
 To start using your cluster, you need to run the following as a regular user:
-​
+
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-​
+
 Alternatively, if you are the root user, you can run:
-​
+
   export KUBECONFIG=/etc/kubernetes/admin.conf
-​
+
 You should now deploy a pod network to the cluster.
 Run &quot;kubectl apply -f [podnetwork].yaml&quot; with one of the options listed at:
   https://kubernetes.io/docs/concepts/cluster-administration/addons/
-​
-Then you can join any number of worker nodes by running the following on each as root:
-​
-kubeadm join 192.168.172.129:6443 --token 6igmn8.d4zk3hmr0rr0j7k2 \
-    --discovery-token-ca-cert-hash sha256:78f0796dee6bedf5f7250843be190cc3b63b97c5bccb91839f74a1e8b07efac6 
 
-</code></pre><p>查看日志</p>
-<pre tabindex="0"><code>journalctl -n 20 | grep kubelet
-</code></pre><p>获取node，可能node状态为notReady，因此没有安装网络插件。<code>/etc/cni/net.d</code>里为空</p>
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.1.190:6443 --token &lt;token&gt; \
+    --discovery-token-ca-cert-hash &lt;hash&gt;
+</code></pre><p>获取node状态，可能node状态为notReady.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get node
-</code></pre></div><p>使用 <code>kubeadm config print init-defaults</code> 可以打印集群初始化默认的使用的配置 从默认的配置中可以看到，可以使用 <code>imageRepository</code> 定制在集群初始化时拉取 k8s 所需镜像的地址.</p>
-<p>使用 kubeadm 默认配置初始化的集群，会在 master 节点打上 node-role.kubernetes.io/master:NoSchedule 的污点，阻止 master 节点接受调度运行工作负载。</p>
-<p>去除 master 节点的污点</p>
+NAME   STATUS     ROLES                  AGE     VERSION
+k8s1   NotReady   control-plane,master   6m32s   v1.22.2
+</code></pre></div><p>执行查看日志命令 <code>journalctl -xeu kubelet</code> ,可以看到如下错误：</p>
+<pre tabindex="0"><code>&quot;Unable to update cni config&quot; err=&quot;no networks found in /etc/cni/net.d&quot;
+</code></pre><p>该错误是因为没有安装网络插件。</p>
+<h4 id="110-安装calico网络插件">1.10 安装calico网络插件</h4>
+<p>去除 master 节点的taint标记(本地环境自己测试，允许pod调度到master node)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl taint nodes --all node-role.kubernetes.io/master-
-</code></pre></div><p>安装 calico cni 插件
+</code></pre></div><p>安装 calico cni 插件, 官网有详细的命令
 <a href="https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart">https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
 
 kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml
-</code></pre></div><p>验证集群状态。
-执行命令kubectl get cs查看一下集群状态，确认个组件都处于 healthy 状态 如下所示表示正常</p>
-<pre tabindex="0"><code>kubectl get cs
-NAME                         STATUS      MESSAGE             ERROR
-controller-manager           Healthy     ok                  
-scheduler                    Healthy     ok                  
-etcd-0                       Healthy     {&quot;health&quot;:&quot;true&quot;} 
-</code></pre><p>有可能展示错误：<code>scheduler/controller-manager： dial tcp 127.0.0.1:10251: connect: connection refused</code></p>
-<p>出现这种情况，是 /etc/kubernetes/manifests/ 下的 kube-controller-manager.yaml 和 kube-scheduler.yaml 设置的默认端口是 0 导致的，解决方式是注释掉对应的 port 即可</p>
-<p>然后在 master 节点上重启 kubelet，<code>systemctl restart kubelet.service</code>，然后重新查看就正常了</p>
-<p>Kubernetes 还原</p>
-<pre tabindex="0"><code># 1. 卸载服务
- 
-kubeadm reset
- 
-# 2. 删除相关容器  #删除镜像
- 
-docker rm $(docker  ps -aq) -f
-docker rmi $(docker images -aq) -f
- 
-# 3. 删除上一个集群相关的文件
- 
-rm -rf  /var/lib/etcd
-rm -rf  /etc/kubernetes
-rm -rf $HOME/.kube
-rm -rf /var/etcd
-rm -rf /var/lib/kubelet/
-rm -rf /run/kubernetes/
-rm -rf ~/.kube/
- 
-# 4. 清除网络
- 
-systemctl stop kubelet
-systemctl stop docker
-rm -rf /var/lib/cni/*
-rm -rf /var/lib/kubelet/*
-rm -rf /etc/cni/*
-ifconfig cni0 down
-ifconfig flannel.1 down
-ifconfig docker0 down
-ip link delete cni0
-ip link delete flannel.1
-systemctl start docker
- 
-# 5. 卸载工具
- 
-apt autoremove -y kubelet kubectl kubeadm kubernetes-cni
-删除 /var/lib/kubelet/ 目录，删除前先卸载
- 
-for m in $(sudo tac /proc/mounts | sudo awk '{print $2}'|sudo grep /var/lib/kubelet);do
- 
-sudo umount $m||true
- 
-done
- 
-# 6. 删除所有的数据卷
- 
-sudo docker volume rm $(sudo docker volume ls -q)
- 
-# 7. 再次显示所有的容器和数据卷，确保没有残留
- 
-sudo docker ps -a
- 
-sudo docker volume ls
-</code></pre><p>Kubernetes 测试
-部署个例子。</p>
-<pre tabindex="0"><code>kubectl apply -f https://k8s.io/examples/application/deployment.yaml
-
-</code></pre><p>apply nodePort service</p>
-<pre tabindex="0"><code>apiVersion: v1
-kind: Service
-metadata:
-  name: my-nginx
-spec:
-  selector:
-    app: nginx
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 80
-</code></pre><p>通过 kubectl get services 查看 nginx 服务对外暴露的端口</p>
-<p>加入节点</p>
-<p>在另一个node上，重复上述步骤，除了kubeadm init命令，如果执行了可以kubeadm reset.
-然后join master.</p>
+</code></pre></div><p>安装因为涉及拉取镜像，可能需要几分钟。
+calico相关pod，运行在<code>calico-system</code> namespace,可以查看相关pod状态。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get pod -n calico-system
+</code></pre></div><p>安装完毕的输出如下：</p>
+<pre tabindex="0"><code>NAME                                       READY   STATUS    RESTARTS   AGE
+calico-kube-controllers-78687bb75f-5gmjw   1/1     Running   0          8m29s
+calico-node-kqwns                          1/1     Running   0          8m29s
+calico-typha-859b477db7-vtzbs              1/1     Running   0          8m29s
+csi-node-driver-k5qdf                      2/2     Running   0          5m20s
+</code></pre><p>此时查看node状态，所有node都是ready。</p>
+<pre tabindex="0"><code>NAME   STATUS   ROLES                  AGE   VERSION
+k8s1   Ready    control-plane,master   30m   v1.22.2
+</code></pre><p>检查cs（componentstatuses）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get cs
+</code></pre></div><p>输出</p>
+<pre tabindex="0"><code>NAME                 STATUS      MESSAGE                                                                                       ERROR
+scheduler            Unhealthy   Get &quot;http://127.0.0.1:10251/healthz&quot;: dial tcp 127.0.0.1:10251: connect: connection refused   
+controller-manager   Healthy     ok                                                                                            
+etcd-0               Healthy     {&quot;health&quot;:&quot;true&quot;,&quot;reason&quot;:&quot;&quot;} 
+</code></pre><p>unhealthy是因为部分pod的端口默认为0，需要去掉。
+修改目录 <code>/etc/kubernetes/manifests/</code> 下的文件 <code>kube-controller-manager.yam</code> 与 <code>kube-scheduler.yaml</code> , 删除 <code>--port=0</code> 。之后查看cs，全部为healthy。</p>
+<p>重启kubelet命令：<code>systemctl restart kubelet.service</code></p>
+<h4 id="111-添加node">1.11 添加node</h4>
+<p>按照之前步骤安装kubeadm/kubelet等。并执行master node的命令提示即可。</p>
+<p>如果没有存储之前的master node输出，可以按照如下命令获取。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># master node get token</span>
 kubeadm token list
 
@@ -295,7 +204,11 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 
 <span style="color:#75715e"># worker node</span>
 kubeadm join --token &lt;token&gt; &lt;master node IP&gt;:6443 --discovery-token-ca-cert-hash sha256:&lt;sha256&gt;
-</code></pre></div>
+</code></pre></div><p>查看当前node，所有node都已经ready.</p>
+<pre tabindex="0"><code>NAME   STATUS   ROLES                  AGE     VERSION
+k8s1   Ready    control-plane,master   100m    v1.22.2
+k8s2   Ready    &lt;none&gt;                 8m33s   v1.22.2
+</code></pre>
 </div>
 
 <h2>Comments</h2>

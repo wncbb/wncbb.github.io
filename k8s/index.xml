@@ -13,15 +13,12 @@
       <pubDate>Sat, 23 Jul 2022 18:51:58 +0800</pubDate>
       
       <guid>https://wncbb.github.io/k8s/install/</guid>
-      <description>准备虚拟机环境 虚拟机CPU最少2个核， 内存最少8G， 磁盘最少30G
-安装好后，安装ssh
-sudo apt install openssh-server sudo service ssh restart sudo service ssh start 关闭防火墙
-sudo ufw status sudo ufw disable 关闭内存swap 修改文件/etc/fstab， 注释掉swapfile这一行
-安装docker
-apt install docker.io 更新 cgroupdriver 为 systemd
-sudo tee /etc/docker/daemon.json &amp;lt;&amp;lt;-&#39;EOF&#39; { &amp;quot;registry-mirrors&amp;quot;: [&amp;quot;https://uy35zvn6.mirror.aliyuncs.com&amp;quot;], &amp;quot;exec-opts&amp;quot;: [&amp;quot;native.cgroupdriver=systemd&amp;quot;] } EOF ​ systemctl daemon-reload systemctl restart docker 验证docker
-docker version 将桥接的 IPv4/IPv6 流量传递到 iptables 的链
-cat &amp;lt;&amp;lt;EOF | sudo tee /etc/modules-load.d/k8s.conf br_netfilter EOF ​ cat &amp;lt;&amp;lt;EOF | sudo tee /etc/sysctl.</description>
+      <description>本地k8s环境搭建
+1.1 准备虚拟机环境 虚拟机CPU最少2个核， 内存最少8G， 磁盘最少30G。
+1.2 设置静态IP 编辑文件/etc/netplan/01-network-manager-all.yaml, 内容修改为如下所示：
+# Let NetworkManager manage all devices on this system network: version: 2 renderer: NetworkManager ethernets: enp0s3: # Get from ifconfig dhcp4: yes addresses: [192.168.1.190/24] # change according to local network gateway4: 192.168.1.1 # change according to local network # nameservers: # addresses: [114.114.114.114] # hange according to local network 执行命令netplay apply应用修改
+1.3 安装ssh 安装命令
+sudo apt install openssh-server sudo service ssh restart sudo service ssh start 1.</description>
     </item>
     
     <item>
