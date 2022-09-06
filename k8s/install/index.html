@@ -72,20 +72,20 @@ network:
         # nameservers:
         # addresses: [114.114.114.114]  # hange according to local network
 </code></pre><p>执行命令<code>netplay apply</code>应用修改</p>
-<h4 id="13-安装ssh">1.3 安装ssh</h4>
+<h3 id="13-安装ssh">1.3 安装ssh</h3>
 <p>安装命令</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt install openssh-server
 sudo service ssh restart
 sudo service ssh start
-</code></pre></div><h4 id="14-关闭防火墙">1.4 关闭防火墙</h4>
+</code></pre></div><h3 id="14-关闭防火墙">1.4 关闭防火墙</h3>
 <p>执行命令</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo ufw status
 sudo ufw disable
-</code></pre></div><h4 id="15-关闭swap">1.5 关闭swap</h4>
+</code></pre></div><h3 id="15-关闭swap">1.5 关闭swap</h3>
 <p>关闭内存swap
 修改文件<code>/etc/fstab</code>， 注释掉<code>swapfile</code>这一行.
 重启机器，<code>free</code>命令查看swap空间应该为空。</p>
-<h4 id="16-安装docker">1.6 安装docker</h4>
+<h3 id="16-安装docker">1.6 安装docker</h3>
 <p>docker或者containerd都可以，这里选择docker</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 使用的是ubuntu环境的docker</span>
 apt install docker.io
@@ -101,7 +101,7 @@ systemctl daemon-reload
 systemctl restart docker
 </code></pre></div><p>验证docker安装完毕</p>
 <pre tabindex="0"><code>docker version
-</code></pre><h4 id="17-设置iptables">1.7 设置iptables</h4>
+</code></pre><h3 id="17-设置iptables">1.7 设置iptables</h3>
 <pre tabindex="0"><code>cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
 EOF
@@ -113,7 +113,7 @@ EOF
 ​
 sudo sysctl --system
 
-</code></pre><h4 id="18-设置apt安装kubeadm-kubectl-kubelet">1.8 设置apt,安装kubeadm, kubectl, kubelet</h4>
+</code></pre><h3 id="18-设置apt安装kubeadm-kubectl-kubelet">1.8 设置apt,安装kubeadm, kubectl, kubelet</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 
@@ -128,7 +128,7 @@ sudo tee /etc/apt/sources.list.d/kubernetes.list <span style="color:#e6db74">&lt
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get update
 sudo apt-get install -y kubelet<span style="color:#f92672">=</span>1.22.2-00 kubeadm<span style="color:#f92672">=</span>1.22.2-00 kubectl<span style="color:#f92672">=</span>1.22.2-00 
 sudo apt-mark hold kubelet kubeadm kubectl
-</code></pre></div><h4 id="19-使用kubeadm">1.9 使用kubeadm</h4>
+</code></pre></div><h3 id="19-使用kubeadm">1.9 使用kubeadm</h3>
 <p>启动k8s</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span> --image-repository registry.aliyuncs.com/google_containers <span style="color:#ae81ff">\
@@ -163,7 +163,7 @@ k8s1   NotReady   control-plane,master   6m32s   v1.22.2
 </code></pre></div><p>执行查看日志命令 <code>journalctl -xeu kubelet</code> ,可以看到如下错误：</p>
 <pre tabindex="0"><code>&quot;Unable to update cni config&quot; err=&quot;no networks found in /etc/cni/net.d&quot;
 </code></pre><p>该错误是因为没有安装网络插件。</p>
-<h4 id="110-安装calico网络插件">1.10 安装calico网络插件</h4>
+<h3 id="110-安装calico网络插件">1.10 安装calico网络插件</h3>
 <p>去除 master 节点的taint标记(本地环境自己测试，允许pod调度到master node)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl taint nodes --all node-role.kubernetes.io/master-
 </code></pre></div><p>安装 calico cni 插件, 官网有详细的命令
@@ -193,7 +193,7 @@ etcd-0               Healthy     {&quot;health&quot;:&quot;true&quot;,&quot;reas
 </code></pre><p>unhealthy是因为部分pod的端口默认为0，需要去掉。
 修改目录 <code>/etc/kubernetes/manifests/</code> 下的文件 <code>kube-controller-manager.yam</code> 与 <code>kube-scheduler.yaml</code> , 删除 <code>--port=0</code> 。之后查看cs，全部为healthy。</p>
 <p>重启kubelet命令：<code>systemctl restart kubelet.service</code></p>
-<h4 id="111-添加node">1.11 添加node</h4>
+<h3 id="111-添加node">1.11 添加node</h3>
 <p>按照之前步骤安装kubeadm/kubelet等。并执行master node的命令提示即可。</p>
 <p>如果没有存储之前的master node输出，可以按照如下命令获取。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># master node get token</span>
